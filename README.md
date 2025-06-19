@@ -106,14 +106,15 @@ We appreciate everyone contributing to this project:
 
 - [Abdulazeez Badmus (Abu Abdirrahman)](https://github.com/abuAbdur-rahman)
 - [Daarut Tahseen Team](https://github.com/DaarutTahseen25)
-- You — *after your first contribution, In shaa Allah!*
+- [Gifton Otieno](https://github.com/OtienoGifton)
+- You — _after your first contribution, In shaa Allah!_
 
 ---
 
 ## 🕋 Purpose
 
 > _"And whoever makes a way to seek knowledge, Allah makes a way for him to Jannah."_  
-> — *Sahih Muslim 2699*
+> — _Sahih Muslim 2699_
 
 DaarutTahseen LMS exists to make Islamic knowledge more accessible, organized, and engaging — especially for Madrasah students and teachers.
 

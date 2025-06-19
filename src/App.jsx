@@ -2,7 +2,7 @@
 import { Routes, Route, Link } from "react-router";
 import Home from "./pages/Home";
 import About from "./pages/About";
-import ".App.css"
+import "./App.css";
 
 const App = () => {
   return (
@@ -17,8 +17,6 @@ const App = () => {
       </Routes>
     </>
   );
-}
+};
 
-export default App
-
-
+export default App;

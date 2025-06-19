@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+@theme {
+  --color-bglight: rgba(255, 255, 255); /*cards and forms*/
+  --color-bgdark: rgba(0, 0, 0); /*footer*/
+  --color-textmain: rgba(0, 0, 0); /*body text*/
+  --color-textmuted: rgba(204, 204, 204); /*light text,comments*/
+  --color-primary: rgba(0, 150, 136, 0.8); /*button background*/
+  --color-buttonhover: rgba(0, 150, 136); /*button hover*/
+  --color-secondary: rgba(255, 249, 196); /* Soft blue */
+  --color-white: rgba(255, 255, 255); /* base bg */
+  --color-black: rgba(0, 0, 0); /*text button */
+  --color-error: rgba(213, 47, 47); /* error */
+  --color-success: rgba(0, 150, 136); /* success */
+}
