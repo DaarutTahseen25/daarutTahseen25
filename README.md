@@ -21,11 +21,11 @@ This project is a **Qur'an and Madrasah Learning Management System (LMS)** built
 
 ## 📁 Folder Structure (subject to updates)
 
-src/ 
+src/  
   ├── components/      # Reusable UI components (e.g., Navbar, Form) 
   ├── pages/           # Route-based page views
   ├──layouts/         # Shared page layouts (e.g., dashboard shell) 
-  ├── routes/          # Routing logic 
+  ├── routes/          # Routing logic
   ├── utils/           # Helper functions 
   ├── assets/          # Images, fonts, etc. 
   └── App.jsx          # Main App component
