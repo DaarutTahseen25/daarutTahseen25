@@ -20,9 +20,8 @@ It aims to simplify the organization of online classes, student and teacher mana
 src/
 ├── assets/         # Fonts, images, static files
 ├── components/     # Reusable UI components (e.g., Button, Navbar)
-├── layouts/        # Layout wrappers (e.g., DashboardShell)
+├── constants/      # Website constants (e.g., NavLinks)
 ├── pages/          # Route-based views
-├── routes/         # App routing definitions
 ├── utils/          # Utility functions/helpers
 └── App.jsx         # App entry point
 ```

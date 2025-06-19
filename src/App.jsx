@@ -1,24 +1,24 @@
-import React from 'react'
-import './App.css'
+// App.jsx
+import { Routes, Route, Link } from "react-router";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import ".App.css"
 
-function App() {
-
-
+const App = () => {
   return (
     <>
-      <div>
-        <h1 className="text-3xl font-bold underline">
-          Hello world!
-        </h1>
-        <p className="text-lg text-gray-700">
-          This is a simple React app with Tailwind CSS.
-        </p>
-        <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition duration-300">
-          Click Me
-        </button>
-      </div>
+      <nav>
+        <Link to="/">Home</Link> | <Link to="/about">About</Link>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
     </>
-  )
+  );
 }
 
 export default App
+
+
