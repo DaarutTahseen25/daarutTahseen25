@@ -1,6 +1,9 @@
 @import "tailwindcss";
 
 @theme {
+   --font-montserrat: 'Montserrat', sans-serif;
+   --font-bricolage: 'Bricolage Grotesque', sans-serif;
+   --font-clash: 'Clash Display', sans-serif;
   --color-bglight: rgba(255, 255, 255); /*cards and forms*/
   --color-bgdark: rgba(0, 0, 0); /*footer*/
   --color-textmain: rgba(0, 0, 0); /*body text*/
@@ -12,4 +15,5 @@
   --color-black: rgba(0, 0, 0); /*text button */
   --color-error: rgba(213, 47, 47); /* error */
   --color-success: rgba(0, 150, 136); /* success */
+--color-accent: #360400;
 }
