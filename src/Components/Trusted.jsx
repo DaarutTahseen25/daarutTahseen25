@@ -24,8 +24,8 @@ export default function Trusted() {
     <section className="bg-white">
       <div className="flex justify-center items-center py-12">
         <div className="w-[90%] md:w-[85%] flex flex-col items-center gap-10 mx-auto">
-            <p className="font-medium text-3xl text-accent font-clash">Trusted by Thousands of Learners</p>
-            <ul className="flex gap-14">
+            <p className="font-medium text-3xl text-accent text-center font-clash">Trusted by Thousands of Learners</p>
+            <ul className="flex gap-14 flex-wrap justify-center">
                 {
                 trustedItems.map((item, index) => (
                    <li key={index} className="shadow-[0px_0px_5px_0.2px_rgba(0,0,0,0.25)] flex flex-col gap-2 p-4 rounded-md items-center w-[10rem]">
