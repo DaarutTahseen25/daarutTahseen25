@@ -24,7 +24,7 @@
 
 .calli1{
    position: relative;
-   background-image: url(/public/arabic-calligraphy.jpg);
+   background-image: url(/arabic-calligraphy.jpg);
    background-repeat: no-repeat;
    background-size: cover;
    background-position: right;
@@ -46,7 +46,7 @@ opacity: 0.6;
 }
 .calli2{
    position: relative;
-   background-image: url(/public/arabic-calligraphy.jpg);
+   background-image: url(/arabic-calligraphy.jpg);
    background-repeat: no-repeat;
    background-size: cover;
    background-position: right;
