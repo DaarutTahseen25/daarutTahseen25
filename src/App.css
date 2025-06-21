@@ -1,9 +1,13 @@
 @import "tailwindcss";
 
+
+
+
 @theme {
    --font-montserrat: 'Montserrat', sans-serif;
    --font-bricolage: 'Bricolage Grotesque', sans-serif;
    --font-clash: 'Clash Display', sans-serif;
+   --font-abril: 'Abril Fatface', cursive;
   --color-bglight: rgba(255, 255, 255); /*cards and forms*/
   --color-bgdark: rgba(0, 0, 0); /*footer*/
   --color-textmain: rgba(0, 0, 0); /*body text*/
@@ -17,12 +21,6 @@
   --color-success: rgba(0, 150, 136); /* success */
 --color-accent: #360400;
 }
-
-/* .color {
-   color: rgba(0, 150, 136, 0.8);
-   /* background: #009688; 
-   /* background: #009485cc; 
-} */
 
 .calli1{
    position: relative;
@@ -68,3 +66,13 @@ background: #360400;
 z-index: 2;
 opacity: 0.7;
 }
+
+
+.no-scrollbar::-webkit-scrollbar {
+   display: none;
+ }
+ .no-scrollbar {
+   -ms-overflow-style: none;
+   scrollbar-width: none;
+ }
+ 
