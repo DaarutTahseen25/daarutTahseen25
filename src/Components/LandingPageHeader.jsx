@@ -1,3 +1,4 @@
+import React from "react";
 import useUIStore from "../store/useUIStore";
 
 import { MenuIcon } from "lucide-react";

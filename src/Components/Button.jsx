@@ -1,5 +1,7 @@
 //I created this button component that  Supports different variants, sizes, and disabled states
 
+import React from "react";
+
 function Button({
   children, // Text or elements inside the button (e.g., "Join DaarutTahseen")
   variant = "primary", // Determines the button style: primary, secondary, danger, outline
