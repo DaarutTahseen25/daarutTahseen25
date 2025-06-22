@@ -1,7 +1,7 @@
-import { ChevronDown, ChevronUp } from "lucide-react";
 import React, { useState } from "react";
 import { Link } from "react-router";
 import { useClickOutside } from "../hooks/useClickOutside";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 import useUIStore from "../store/useUIStore";
 

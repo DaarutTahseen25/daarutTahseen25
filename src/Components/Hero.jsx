@@ -1,3 +1,4 @@
+import React from "react";
 import Button from "./Button";
 import HeroGallery from "./HeroGallery";
 import HeroInfo from "./HeroInfo";

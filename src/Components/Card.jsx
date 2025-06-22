@@ -1,5 +1,5 @@
 // components/ui/Card.jsx
-
+import React from "react";
 function Card({ title, description, children, footer, className = "" }) {
   return (
     <div className={`rounded-lg  bg-white shadow p-5 ${className}`}>

@@ -1,3 +1,4 @@
+import React from "react";
 import FeaturedCourses from "../Components/FeaturedCourses";
 import Hero from "../Components/Hero";
 import LandingPageHeader from "../Components/LandingPageHeader";

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React from "react";
 import useUIStore from "../store/useUIStore";
 
 import {
@@ -8,7 +8,6 @@ import {
   GraduationCap,
   FileText,
   Phone,
-  HelpCircle,
   LogOut,
   X,
   LayoutGrid,
