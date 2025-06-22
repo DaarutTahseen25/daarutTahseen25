@@ -1,84 +1,93 @@
 @import "tailwindcss";
 
-
-
-
 @theme {
-   --font-montserrat: 'Montserrat', sans-serif;
-   --font-bricolage: 'Bricolage Grotesque', sans-serif;
-   --font-clash: 'Clash Display', sans-serif;
-   --font-abril: 'Abril Fatface', cursive;
-  --color-bglight: rgba(255, 255, 255); /*cards and forms*/
-  --color-bgdark: rgba(0, 0, 0); /*footer*/
-  --color-textmain: rgba(0, 0, 0); /*body text*/
-  --color-textmuted: rgba(204, 204, 204); /*light text,comments*/
-  --color-primary: rgba(0, 150, 136, 0.8); /*button background*/
-  --color-buttonhover: rgba(0, 150, 136); /*button hover*/
-  --color-secondary: rgba(255, 249, 196); /* Soft blue */
-  --color-white: rgba(255, 255, 255); /* base bg */
-  --color-black: rgba(0, 0, 0); /*text button */
-  --color-error: rgba(213, 47, 47); /* error */
-  --color-success: rgba(0, 150, 136); /* success */
---color-accent: #360400;
---color-cream:#FFF9C4;
+  --font-poppins: "Poppins", sans-serif;
+  --font-montserrat: "Montserrat", sans-serif;
+  --font-bricolage: "Bricolage Grotesque", sans-serif;
+  --font-clash: "Clash Display", sans-serif;
+  --font-abril: "Abril Fatface", cursive;
+  --color-bglight: rgba(255, 255, 255);
+  --color-bgdark: rgba(0, 0, 0);
+  /*footer*/
+  --color-textmain: rgba(0, 0, 0);
+  /*body text*/
+  --color-textmuted: rgba(204, 204, 204);
+  /*light text,comments*/
+  --color-primary: rgba(0, 150, 136, 0.8);
+  /*button background*/
+  --color-buttonhover: rgba(0, 150, 136);
+  /*button hover*/
+  --color-secondary: rgba(255, 249, 196);
+  /* Soft blue */
+  --color-white: rgba(255, 255, 255);
+  /* base bg */
+  --color-black: rgba(0, 0, 0);
+  /*text button */
+  --color-error: rgba(213, 47, 47);
+  /* error */
+  --color-success: rgba(0, 150, 136);
+  /* success */
+  --color-accent: #360400;
+  --color-cream: #fff9c4;
 
-/* custom screens */
+  /* custom screens */
 
---breakpoint-xb: 768px;
-
+  --breakpoint-xb: 768px;
 }
 
-.calli1{
-   position: relative;
-   background-image: url(/public/arabic-calligraphy.jpg);
-   background-repeat: no-repeat;
-   background-size: cover;
-   background-position: right;
-   z-index: 1;
-   opacity: 0.8;
-   overflow: hidden;
-}
-.calli1::before{
-   position: absolute;
-content: "";
-width: 100%;
-height: 100%;
-top: 0;
-left: 0;
-/* border-radius: inherit; */
-background: #009485;
-z-index: 2;
-opacity: 0.6;
-}
-.calli2{
-   position: relative;
-   background-image: url(/public/arabic-calligraphy.jpg);
-   background-repeat: no-repeat;
-   background-size: cover;
-   background-position: right;
-   z-index: 1;
-   opacity: 0.8;
-   overflow: hidden;
-}
-.calli2::before{
-   position: absolute;
-content: "";
-width: 100%;
-height: 100%;
-top: 0;
-left: 0;
-/* border-radius: inherit; */
-background: #360400;
-z-index: 2;
-opacity: 0.7;
+.calli1 {
+  position: relative;
+  background-image: url(/public/arabic-calligraphy.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: right;
+  z-index: 1;
+  opacity: 0.8;
+  overflow: hidden;
 }
 
+.calli1::before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  /* border-radius: inherit; */
+  background: #009485;
+  z-index: 2;
+  opacity: 0.6;
+}
+
+.calli2 {
+  position: relative;
+  background-image: url(/public/arabic-calligraphy.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: right;
+  z-index: 1;
+  opacity: 0.8;
+  overflow: hidden;
+}
+
+.calli2::before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  /* border-radius: inherit; */
+  background: #360400;
+  z-index: 2;
+  opacity: 0.7;
+}
 
 .no-scrollbar::-webkit-scrollbar {
-   display: none;
- }
- .no-scrollbar {
-   -ms-overflow-style: none;
-   scrollbar-width: none;
- }
- 
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
