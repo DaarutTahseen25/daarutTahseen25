@@ -13,7 +13,7 @@ const HeroInfo = () => {
         Islamic Education
         <span className="text-accent"> to Every Home, Digitally</span>
       </h1>
-      <p className="text-accent font-bricolage text-[16px] sm:text-[18px] md:text-[20px] leading-relaxed max-w-full sm:max-w-[534px] text-center lg:text-left w-full ">
+      <p className="text-accent font-bricolage text-[16px] sm:text-[18px] md:text-[20px] leading-relaxed max-w-full sm:max-w-[534px] text-center lg:text-left w-full sm:mx-auto ">
         DaarutTahseen Institution is a trusted online madrassah where students
         across Nigeria and beyond receive structured Islamic education,
         anywhere, anytime.

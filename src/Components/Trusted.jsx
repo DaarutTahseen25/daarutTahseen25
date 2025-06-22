@@ -35,7 +35,7 @@ export default function Trusted() {
           {trustedItems.map((item, index) => (
             <li
               key={index}
-              className="shadow-[0px_0px_5px_0.2px_rgba(0,0,0,0.25)] flex flex-col gap-2 p-4 rounded-md items-center w-[10rem]"
+              className="shadow-[0px_0px_5px_0.2px_rgba(0,0,0,0.25)] flex flex-col gap-2 p-4 rounded-md items-center w-[15rem] sm:w-[10rem]"
             >
               <div className="h-[2.5rem] w-[2.5rem]">
                 <img
