@@ -20,6 +20,12 @@
   --color-error: rgba(213, 47, 47); /* error */
   --color-success: rgba(0, 150, 136); /* success */
 --color-accent: #360400;
+--color-cream:#FFF9C4;
+
+/* custom screens */
+
+--breakpoint-xb: 768px;
+
 }
 
 .calli1{

@@ -107,6 +107,8 @@ We appreciate everyone contributing to this project:
 - [Abdulazeez Badmus (Abu Abdirrahman)](https://github.com/abuAbdur-rahman)
 - [Daarut Tahseen Team](https://github.com/DaarutTahseen25)
 - [Gifton Otieno](https://github.com/OtienoGifton)
+- [Bello Qudus Folohunsho](https://github.com/dev-Vortex51)
+- [Ochuba Judith](https://github.com/Judith-20)
 - You — _after your first contribution, In shaa Allah!_
 
 ---
