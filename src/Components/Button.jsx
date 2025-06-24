@@ -31,7 +31,7 @@ function Button({
   };
 
   // this will apply opacity and disable pointer if the button is disabled
-  const disabled = isDisabled ? "opacity-50 cursor-not-allowed" : "";
+  const disabled = isDisabled ? "bg-gray-200 cursor-disabled" : "";
 
   // Render the <button> element with dynamic styles based on props
   return (
