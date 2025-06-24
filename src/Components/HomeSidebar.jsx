@@ -13,17 +13,18 @@ import {
   LayoutGrid,
 } from "lucide-react";
 import Button from "./Button";
+import { Link } from "react-router";
 
 // Nav items for the sidebar
 // Each item consists of an icon and a label
 const navItems = [
-  { icon: <Home size={20} />, label: "Home" },
+  { icon: <Home size={20} />, label: "Home", to: "/" },
   { icon: <Info size={20} />, label: "About Us" },
   { icon: <BookOpen size={20} />, label: "Courses" },
   { icon: <GraduationCap size={20} />, label: "Admission" },
   { icon: <FileText size={20} />, label: "Resources" },
   { icon: <Phone size={20} />, label: "Contact" },
-  { icon: <LayoutGrid size={20} />, label: "Dashboard" },
+  { icon: <LayoutGrid size={20} />, label: "Dashboard", to: "/dashboard" },
 ];
 
 const bottomItems = [{ icon: <LogOut size={20} />, label: "Log out" }];
@@ -73,14 +74,15 @@ export default function HomeSidebar() {
           {/* Each item consists of an icon and a label */}
           <ul className="flex flex-col gap-3">
             {navItems.map((item, idx) => (
-              <li
+              <Link
+                to={item.to}
                 key={idx}
                 className={`flex items-center gap-3 px-3 py-2 rounded-md hover:bg-accent/20 cursor-pointer   transition `}
                 onClick={closeSidebar}
               >
                 {item.icon}
                 <span>{item.label}</span>
-              </li>
+              </Link>
             ))}
           </ul>
         </div>
@@ -90,7 +92,7 @@ export default function HomeSidebar() {
           {/* If a user is logged in, it displays the user's profile picture and name */}
           {/* Otherwise, it shows a login/register button */}
           <ul className="flex flex-col gap-2">
-            {user ? (
+            {!user ? (
               <li>
                 <div className="flex items-center gap-4">
                   <div className="flex h-10 w-10 rounded-full overflow-hidden">

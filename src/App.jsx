@@ -1,18 +1,22 @@
 // App.jsx
 import React from "react";
-import { Routes, Route, Link } from "react-router";
+import { Routes, Route } from "react-router";
 import Home from "./pages/home";
 import About from "./pages/About";
 import "./App.css";
+import DashboardLayout from "./Components/dashboard/DashboardLayout";
+import Dashboard from "./Components/dashboard/Dashboard";
 
 const App = () => {
   return (
-    <>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-      </Routes>
-    </>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/about" element={<About />} />
+
+      <Route path="/dashboard" element={<DashboardLayout />}>
+        <Route index element={<Dashboard />} />
+      </Route>
+    </Routes>
   );
 };
 
