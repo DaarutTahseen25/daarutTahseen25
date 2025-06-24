@@ -13,6 +13,7 @@ import {
   LayoutGrid,
 } from "lucide-react";
 import Button from "./Button";
+import { Link } from "react-router";
 
 // Nav items for the sidebar
 // Each item consists of an icon and a label
@@ -112,9 +113,9 @@ export default function HomeSidebar() {
                 </div>
               </li>
             ) : (
-              <Button className=" focus:outline-none transition-all rounded-lg px-4 py-2 text-sm lg:text-base md:inline-flex items-center justify-center shadow font-medium font-clash hover:bg-[#009688] hidden cursor-pointer bg-primary text-white hover:bg-primarydark ">
-                Login/Register
-              </Button>
+              <Link to="/accountcreationpage">
+                <Button className="w-full">Login/Register</Button>
+              </Link>
             )}
             {bottomItems.map((item, idx) => (
               <li
