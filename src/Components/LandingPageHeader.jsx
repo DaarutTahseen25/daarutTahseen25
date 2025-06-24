@@ -36,7 +36,7 @@ export default function LandingPageHeader() {
 
         {/* Checks if there's a logged in user */}
 
-        {!user ? (
+        {user ? (
           <div className="hidden lg:block">
             <HeaderProfile />
           </div>
