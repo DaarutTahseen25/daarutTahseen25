@@ -1,5 +1,7 @@
 //I created this button component that  Supports different variants, sizes, and disabled states
 
+import React from "react";
+
 function Button({
   children, // Text or elements inside the button (e.g., "Join DaarutTahseen")
   variant = "primary", // Determines the button style: primary, secondary, danger, outline
@@ -11,7 +13,7 @@ function Button({
 }) {
   // this styles styles shared across all buttons
   const base =
-    "inline-flex items-center justify-center shadow font-medium rounded focus:outline-none transition-all mx-3 cursor-pointer";
+    "inline-flex items-center justify-center shadow font-medium rounded focus:outline-none transition-all  cursor-pointer";
 
   // this are styles for different button sizes
   const sizes = {

@@ -1,4 +1,5 @@
 // App.jsx
+import React from "react";
 import { Routes, Route, Link } from "react-router";
 import Home from "./pages/home";
 import About from "./pages/About";

@@ -1,3 +1,4 @@
+import React from "react";
 import CourseCard from "./CourseCard";
 
 const courses = [
@@ -35,6 +36,7 @@ function FeaturedCourses() {
           Discover our most impactful Islamic courses carefully selected to help
           you build a strong foundation in Qur’an, Arabic and essential Deen.
         </p>
+        {/*  */}
 
         <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 place-items-center">
           {courses.map(({ id, title, description, thumbnail }) => (
