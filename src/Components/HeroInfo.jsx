@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "./Button";
+import { Link } from "react-router";
 
 const HeroInfo = () => {
   // user variable to check if a user is logged in
@@ -26,9 +27,11 @@ const HeroInfo = () => {
             Go to Dashboard
           </Button>
         ) : (
-          <Button className="bg-primary hover:bg-buttonhover transition-colors duration-300 py-4 px-6 w-[169px] h-[71px] text-white text-[18px] font-medium rounded-[10px] border-2 border-cream shadow-[0_0_10px_5px_rgba(0,0,0,0.25)] font-clash">
-            Get Started
-          </Button>
+          <Link to="/accountcreationpage">
+            <Button className="bg-primary hover:bg-buttonhover transition-colors duration-300 py-4 px-6 w-[169px] h-[71px] text-white text-[18px] font-medium rounded-[10px] border-2 border-cream shadow-[0_0_10px_5px_rgba(0,0,0,0.25)] font-clash">
+              Get Started
+            </Button>
+          </Link>
         )}
       </div>
     </div>
