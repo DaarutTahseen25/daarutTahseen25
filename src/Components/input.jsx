@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 /**
  * Reusable Input Component
@@ -57,19 +56,6 @@ const Input = ({
       {error && <p className="mt-1 text-xs text-red-500">{error}</p>}
     </div>
   );
-};
-
-// Define prop types to catch bugs and clarify usage
-Input.propTypes = {
-  label: PropTypes.string,
-  type: PropTypes.string,
-  name: PropTypes.string.isRequired,
-  value: PropTypes.any.isRequired,
-  onChange: PropTypes.func.isRequired,
-  placeholder: PropTypes.string,
-  required: PropTypes.bool,
-  error: PropTypes.string,
-  className: PropTypes.string,
 };
 
 export default Input;
