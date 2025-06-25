@@ -28,14 +28,14 @@ const levels = [
 const Admission = () => {
   return (
     <section>
-      <h1 className="font-clash font-[500] text-[40px]   text-accent ">
+      <h1 className="font-clash font-[500] text-[40px]  text-center lg:text-left text-accent ">
         Admission
       </h1>
       <div className="flex flex-col gap-4 mt-4">
-        <h2 className="font-clash font-[500] text-[25px]   text-accent">
+        <h2 className="font-clash font-[500] text-[25px] text-center lg:text-left  text-accent">
           Register for your class level to begin admission process
         </h2>
-        <p className="font-montserrat font-[400] text-[14px]  text-accent">
+        <p className="font-montserrat font-[400] text-[14px] text-center lg:text-left  text-accent">
           Find the class that matches your current knowledge and skills. Each
           level includes a placement test that will be scheduled later. After
           registration, check back on your dashboard to see if your test has

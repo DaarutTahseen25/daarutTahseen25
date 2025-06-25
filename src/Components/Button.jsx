@@ -28,6 +28,7 @@ function Button({
     secondary: "bg-gray-100 text-gray-900 hover:bg-gray-200", // Neutral gray style
     danger: "bg-red-500 text-white hover:bg-red-600", // Alert/destructive actions
     outline: "border border-gray-400 text-gray-900 hover:bg-gray-50", // Border-only style
+    cancel: "bg-transparent border-2 border-primary text-primary ",
   };
 
   // this will apply opacity and disable pointer if the button is disabled
