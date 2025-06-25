@@ -165,10 +165,10 @@ export default function HomeSidebar() {
                   </div>
 
                   <div className="flex flex-col gap-0 items-start text-left md:hidden xl:block">
-                    <h1 className="font-clash font-[500] text-[20px] leading-[100%] tracking-[0%] text-black">
+                    <h1 className="font-clash font-[500] text-[20px] text-black">
                       Abdulazeez
                     </h1>
-                    <p className="font-montserrat font-[400] text-[14px] leading-[100%] tracking-[0%] text-black">
+                    <p className="font-montserrat font-[400] text-[14px] text-black">
                       azeez@gmail.com
                     </p>
                   </div>
