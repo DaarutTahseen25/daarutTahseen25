@@ -1,4 +1,5 @@
 import { X } from "lucide-react";
+import { useClickOutside } from "../hooks/useClickOutside";
 
 const ModalContext = createContext();
 
@@ -23,17 +24,13 @@ function Open({ children, opens: opensWindowName }) {
 
 function Window({ children, name }) {
   const { openName, close } = useContext(ModalContext);
-  const ref = useOutsideClick(close);
+  const ref = useClickOutside(close);
 
   if (name !== openName) return null;
 
   return createPortal(
     <div className="fixed inset-0 w-full h-screen bg-black/70 backdrop-blur-sm z-[1000] transition-all duration-500">
       <Modal ref={ref}>
-        <Button onClick={close}>
-          <X />
-        </Button>
-
         <div>{cloneElement(children, { onCloseModal: close })}</div>
       </Modal>
     </div>,
