@@ -23,8 +23,8 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="about" element={<About />} />
-      <Route path="otp" element={<OtpREgistration />} />
-      
+      <Route path="otp-page" element={<OtpREgistration />} />
+
       {/* CREATE ACCOUNT FLOW */}
       <Route path="create" element={<CreateAccount />}>
         <Route index element={<Navigate to="select" replace />} />

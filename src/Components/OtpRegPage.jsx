@@ -19,6 +19,7 @@ function OtpRegistration() {
                     <div className="flex justify-start gap-2 mt-2">
                         {Array(6).fill(null).map((_, idx) => (
                             <input
+                                name="sms-otp"
                                 key={idx}
                                 type="password"
                                 maxLength={1}
@@ -32,6 +33,7 @@ function OtpRegistration() {
                     <div className="flex justify-start gap-2 mt-2">
                         {Array(6).fill(null).map((_, idx) => (
                             <input
+                                name="email-otp"
                                 key={idx}
                                 type="password"
                                 maxLength={1}
