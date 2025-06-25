@@ -1,11 +1,10 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router";
 import "./App.css";
-
+import OtpREgistration from "./Components/OtpRegPage";
 import Home from "./pages/home";
 import DashboardLayout from "./Components/dashboard/DashboardLayout";
 import Dashboard from "./Components/dashboard/Dashboard";
-
 import TutorRegistrationForm from "./Components/TutorRegistrationForm";
 import StudentRegistrationForm from "./Components/StudentRegistrationForm";
 import CreateAccount from "./pages/CreateAccount";
@@ -20,9 +19,11 @@ import Resources from "./Components/dashboard/Resources";
 import Profile from "./Components/dashboard/Profile";
 const App = () => {
   return (
+    
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="about" element={<About />} />
+      <Route path="otp-page" element={<OtpREgistration />} />
 
       {/* CREATE ACCOUNT FLOW */}
       <Route path="create" element={<CreateAccount />}>
@@ -43,7 +44,6 @@ const App = () => {
         <Route path="payfees" element={<PayFees />} />
         <Route path="resources" element={<Resources />} />
         <Route path="profile" element={<Profile />} />
-
         <Route path="*" element={<Navigate to="home" replace />} />
       </Route>
     </Routes>
