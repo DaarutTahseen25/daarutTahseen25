@@ -8,13 +8,13 @@ const HeroInfo = () => {
   const user = "";
   return (
     <div className="flex-1 flex flex-col gap-6 w-full lg:w-auto max-w-full ">
-      <h1 className="text-primary font-poppins text-[28px] sm:text-[36px] md:text-[41px] font-normal leading-snug tracking-wide  text-center lg:text-left w-full">
+      <h1 className="text-primary font-poppins text-[28px] sm:text-[36px] md:text-[41px] font-normal   text-center lg:text-left w-full">
         DaarutTahseen Institution{" "}
         <span className="text-accent">brings Authentic </span>
         Islamic Education
         <span className="text-accent"> to Every Home, Digitally</span>
       </h1>
-      <p className="text-accent font-bricolage text-[16px] sm:text-[18px] md:text-[20px] leading-relaxed max-w-full sm:max-w-[534px] text-center w-full sm:mx-auto lg:mx-0 lg:text-left  ">
+      <p className="text-accent font-bricolage text-[16px] sm:text-[18px] md:text-[20px] max-w-full sm:max-w-[534px] text-center w-full sm:mx-auto lg:mx-0 lg:text-left  ">
         DaarutTahseen Institution is a trusted online madrassah where students
         across Nigeria and beyond receive structured Islamic education,
         anywhere, anytime.

@@ -12,7 +12,7 @@ const SelectAccount = () => {
         Select your account type to continue
       </p>
 
-      <div className="flex flex-col md:flex-row justify-center items-center gap-5 md:gap-15">
+      <div className="flex flex-col sm:flex-row justify-center items-center gap-5 md:gap-15">
         <div className="flex flex-col justify-center items-center mt-5 gap-1 hover:scale-102">
           <div className="flex flex-col items-center gap-3 border border-textmuted rounded-lg p-8 shadow-md hover:shadow-lg">
             <img src="/student.png" alt="student" />

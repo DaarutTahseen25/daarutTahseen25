@@ -69,8 +69,8 @@ const DashboardSidebarLinks = [
 const DashboardSidebar = () => {
   return (
     <aside className="bg-white hidden lg:block md:row-span-full   border-r border-gray-300 h-full">
-      <div className="p-4 flex items-center justify-center border-b border-gray-300 h-[129px]">
-        <img src="/logo.png" alt="" className="w-[147.54px] h-[85px]" />
+      <div className="p-4 flex items-center justify-center h-[120px]">
+        <img src="/logo.png" alt="" className="" />
       </div>
       <nav className="w-full  py-4">
         <ul className="flex flex-col gap-3 w-[90%] mx-auto">

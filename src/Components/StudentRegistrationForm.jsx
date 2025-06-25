@@ -135,7 +135,7 @@ const StudentRegistrationForm = () => {
 
         {/* Passport */}
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-900 mb-2">
+          <label className="block mb-1 font-medium  text-textmain font-clash md:text-lg mt-4">
             Passport
           </label>
           <div
@@ -174,7 +174,7 @@ const StudentRegistrationForm = () => {
 
         {/* Password */}
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block mb-1 font-medium  text-textmain font-clash md:text-lg mt-4">
             Password
           </label>
           <div className="relative">
@@ -203,7 +203,7 @@ const StudentRegistrationForm = () => {
 
         {/* Confirm Password */}
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block mb-1 font-medium  text-textmain font-clash md:text-lg mt-4">
             Confirm Password
           </label>
           <div className="relative">
