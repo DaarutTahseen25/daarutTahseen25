@@ -11,25 +11,86 @@ import {
   LogOut,
   X,
   LayoutGrid,
+  LayoutDashboard,
+  School,
+  ListTree,
+  Bell,
+  CreditCard,
 } from "lucide-react";
 import Button from "./Button";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
+
+export const DashboardSidebarLinks = [
+  { key: "home", icon: <Home />, label: "Home", to: "/" },
+  {
+    key: "dashboard",
+    icon: <LayoutDashboard />,
+    label: "Dashboard",
+    to: "/dashboard/home",
+  },
+  {
+    key: "admission",
+    icon: <School />,
+    label: "Admission",
+    to: "/dashboard/admission",
+  },
+  {
+    key: "mycourses",
+    icon: <BookOpen />,
+    label: "My Courses",
+    to: "/dashboard/mycourses",
+  },
+  {
+    key: "curriculum",
+    icon: <ListTree />,
+    label: "Curriculum",
+    to: "/dashboard/curriculum",
+  },
+  {
+    key: "notifications",
+    icon: <Bell />,
+    label: "Notifications",
+    to: "/dashboard/notifications",
+  },
+  {
+    key: "payfees",
+    icon: <CreditCard />,
+    label: "Pay Fees",
+    to: "/dashboard/payfees",
+  },
+  {
+    key: "resources",
+    icon: <FileText />,
+    label: "Resources",
+    to: "/dashboard/resources",
+  },
+];
+export const navItems = [
+  { key: "home", icon: <Home size={20} />, label: "Home", to: "/" },
+  { key: "about", icon: <Info size={20} />, label: "About Us" },
+  { key: "courses", icon: <BookOpen size={20} />, label: "Courses" },
+  { key: "admission", icon: <GraduationCap size={20} />, label: "Admission" },
+  { key: "resources", icon: <FileText size={20} />, label: "Resources" },
+  { key: "contact", icon: <Phone size={20} />, label: "Contact" },
+  {
+    key: "dashboard",
+    icon: <LayoutGrid size={20} />,
+    label: "Dashboard",
+    to: "/dashboard",
+  },
+];
 
 // Nav items for the sidebar
 // Each item consists of an icon and a label
-const navItems = [
-  { icon: <Home size={20} />, label: "Home", to: "/" },
-  { icon: <Info size={20} />, label: "About Us" },
-  { icon: <BookOpen size={20} />, label: "Courses" },
-  { icon: <GraduationCap size={20} />, label: "Admission" },
-  { icon: <FileText size={20} />, label: "Resources" },
-  { icon: <Phone size={20} />, label: "Contact" },
-  { icon: <LayoutGrid size={20} />, label: "Dashboard", to: "/dashboard" },
-];
 
 const bottomItems = [{ icon: <LogOut size={20} />, label: "Log out" }];
 
 export default function HomeSidebar() {
+  const location = useLocation();
+  const isDashboardPage = location.pathname.startsWith("/dashboard");
+
+  const nav = isDashboardPage ? DashboardSidebarLinks : navItems;
+
   // Using the custom UI store to manage sidebar state
   // isSidebarOpen indicates whether the sidebar is currently open
   const { isSidebarOpen, closeSidebar } = useUIStore();
@@ -73,10 +134,10 @@ export default function HomeSidebar() {
           {/* This section maps through the navItems array to display each item */}
           {/* Each item consists of an icon and a label */}
           <ul className="flex flex-col gap-3">
-            {navItems.map((item, idx) => (
+            {nav.map((item, idx) => (
               <Link
                 to={item.to}
-                key={idx}
+                key={item.key}
                 className={`flex items-center gap-3 px-3 py-2 rounded-md hover:bg-accent/20 cursor-pointer   transition `}
                 onClick={closeSidebar}
               >

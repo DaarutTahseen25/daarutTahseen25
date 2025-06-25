@@ -27,7 +27,7 @@ const HeroInfo = () => {
             Go to Dashboard
           </Button>
         ) : (
-          <Link to="/accountcreationpage">
+          <Link to="/create">
             <Button className="bg-primary hover:bg-buttonhover transition-colors duration-300 py-4 px-6 w-[169px] h-[71px] text-white text-[18px] font-medium rounded-[10px] border-2 border-cream shadow-[0_0_10px_5px_rgba(0,0,0,0.25)] font-clash">
               Get Started
             </Button>

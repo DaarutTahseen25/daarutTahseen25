@@ -2,13 +2,15 @@ import React from "react";
 import DashboardHeader from "./DashboardHeader";
 import DashboardSidebar from "./DashboardSidebar";
 import DashboardMain from "./DashboardMain";
+import HomeSidebar from "../HomeSidebar";
 
 const DashboardLayout = () => {
   return (
-    <div className="grid min-h-screen grid-cols-1 md:grid-cols-[250px_1fr] md:grid-rows-none">
+    <div className="grid min-h-screen grid-cols-1 lg:grid-cols-[250px_1fr] md:grid-rows-none">
       <DashboardSidebar />
+      <HomeSidebar />
 
-      <div className="flex flex-col overflow-auto">
+      <div className="flex h-full flex-col overflow-auto">
         <DashboardHeader />
         <DashboardMain />
       </div>

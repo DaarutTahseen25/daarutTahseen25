@@ -1,8 +1,8 @@
 import React from "react";
-import Button from "../Components/Button";
-import { Link } from "react-router-dom";
-import Input from "../Components/input";
-import { FiEye, FiEyeOff, FiX } from "react-icons/fi";
+import Button from "./Button";
+import { Link } from "react-router";
+import Input from "./input";
+import { Eye as FiEye, EyeOff as FiEyeOff, X as FiX } from "lucide-react";
 
 import useUIStore from "../store/useUIStore";
 
