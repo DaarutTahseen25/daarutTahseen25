@@ -27,7 +27,7 @@ export default function Trusted() {
   return (
     <section className="flex justify-center items-center py-12 bg-white">
       <div className="w-[90%] md:w-[85%] flex flex-col items-center gap-10 mx-auto">
-        <p className="font-clash text-accent font-[500] text-[32px] md:text-[40px] leading-[100%] tracking-[0%] text-center">
+        <p className="font-clash text-accent font-[500] text-[32px] md:text-[40px] text-center">
           Trusted by Thousands of Learners
         </p>
 
@@ -45,7 +45,7 @@ export default function Trusted() {
                 />
               </div>
               <p className="font-medium text-2xl font-clash">{item.figure}</p>
-              <p className=" capitalize text-center leading-4 font-bricolage">
+              <p className=" capitalize text-center font-bricolage">
                 {item.name}
               </p>
             </li>
