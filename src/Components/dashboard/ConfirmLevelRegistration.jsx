@@ -13,12 +13,12 @@ const ConfirmLevelRegistration = ({ onCloseModal, openModal, title }) => {
   };
 
   return (
-    <div className="mx-auto flex flex-col items-center justify-between gap-6 h-full">
+    <div className="min-w-[300px] sm:w-[500px]  flex flex-col items-center justify-center gap-3 bg-white rounded-[20px] py-4 px-10">
       {/* Caution Image */}
       <img src="/caution.png" alt="Caution" />
 
       {/* Text Content */}
-      <div className="flex flex-1 flex-col items-center justify-center gap-2 text-center">
+      <div className="flex  flex-col items-center justify-center gap-2 text-center">
         <h1 className="font-[500] text-[25px] font-clash">
           Confirm Registration
         </h1>
@@ -29,7 +29,7 @@ const ConfirmLevelRegistration = ({ onCloseModal, openModal, title }) => {
       </div>
 
       {/* Buttons */}
-      <div className="flex items-center justify-between gap-4 w-[80%]">
+      <div className="flex items-center justify-between mt-3 sm:mt-5 gap-4 w-full sm:w-[70%]">
         <Button variant="cancel" onClick={onCloseModal}>
           Cancel
         </Button>

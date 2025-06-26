@@ -42,10 +42,10 @@ function Window({ children, name }) {
     <div className="fixed inset-0 w-full h-screen bg-black/70 z-[1000] transition-all duration-500">
       <div
         id="modal-window"
-        className="fixed w-[500px] h-[328px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg p-6 transition-all duration-500"
+        className="fixed  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 "
         ref={ref}
       >
-        <div>
+        <div className="max-w-full">
           {cloneElement(children, {
             onCloseModal: close,
             openModal: open,
