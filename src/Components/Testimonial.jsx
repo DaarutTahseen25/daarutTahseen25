@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useRef } from "react";
 import TestimonialCard from "./TestimonialCard";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const testimonials = [
   {
@@ -45,27 +46,57 @@ const testimonials = [
 ];
 
 const Testimonial = () => {
+  const scrollRef = useRef(null);
+
+  const scrollLeft = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: -400, behavior: "smooth" });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: 400, behavior: "smooth" });
+    }
+  };
   return (
     <section className=" bg-white h-[479px] flex justify-center items-center py-12 overflow-hidden">
       <div className="w-[90%] md:w-[85%] mx-auto text-center">
-        <h1 className="font-clash text-accent font-[500] text-[32px] md:text-[40px] leading-[100%] tracking-[0%]">
+        <h1 className="font-clash text-accent font-[500] text-[32px] md:text-[40px] ">
           Testimonials
         </h1>
-        <p className="text-[18px] md:text-[20px] font-bricolage text-black font-[400] leading-[140%] tracking-tight mt-6 max-w-[800px] mx-auto">
+        <p className="text-[18px] md:text-[20px] font-bricolage text-black font-[400]  mt-6 max-w-[800px] mx-auto">
           Hear directly from our students and teachers about how DaarutTasheen
           has transformed their learning, faith and daily lives
         </p>
 
-        <div className="flex  gap-4 w-full overflow-x-auto mt-10 no-scrollbar py-6 ">
-          {testimonials.map(({ description, name, thumbnail, role, id }) => (
-            <TestimonialCard
-              key={id}
-              description={description}
-              name={name}
-              thumbnail={thumbnail}
-              role={role}
-            />
-          ))}
+        <div className="relative w-full mt-10">
+          <button
+            onClick={scrollLeft}
+            className="hidden lg:flex absolute left-[-25px] top-1/2 -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow hover:bg-accent/20 cursor-pointer"
+          >
+            <ChevronLeft size={24} />
+          </button>
+          <div
+            className="flex  gap-4 w-full overflow-x-auto  no-scrollbar py-6 "
+            ref={scrollRef}
+          >
+            {testimonials.map(({ description, name, thumbnail, role, id }) => (
+              <TestimonialCard
+                key={id}
+                description={description}
+                name={name}
+                thumbnail={thumbnail}
+                role={role}
+              />
+            ))}
+          </div>
+          <button
+            onClick={scrollRight}
+            className="hidden lg:flex absolute right-[-25px] top-1/2 -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow hover:bg-accent/20 cursor-pointer"
+          >
+            <ChevronRight size={24} />
+          </button>
         </div>
       </div>
     </section>

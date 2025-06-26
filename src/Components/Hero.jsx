@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // import { useState } from "react";
 import { useAuth } from "../context/AuthProvider";
 // import Button from "./Button";
@@ -32,6 +33,28 @@ export default function Hero() {
                 <img src="/her3.jpg" alt="" className="object-cover w-full h-[80%] rounded-md block sm:hidden" />
             </div>
         </div>
+=======
+import React from "react";
+import Button from "./Button";
+import HeroGallery from "./HeroGallery";
+import HeroInfo from "./HeroInfo";
+
+export default function Hero() {
+  const user = "";
+  return (
+    <section className="bg-secondary py-16 sm:py-20 md:py-24">
+      <div className="w-[90%] md:w-[85%] mx-auto flex flex-col-reverse lg:flex-row items-center md:items-start justify-between gap-10  ">
+        {/* Left Content */}
+        <HeroInfo />
+        {/* Right Content */}
+        <HeroGallery />
+        {/* fallback mobile devices image */}
+        <img
+          src="/her3.jpg"
+          alt=""
+          className="w-full lg:hidden block rounded-lg"
+        />
+>>>>>>> 9cf7aef5e4d9ffa5a97ee42ad7803ea84a2b1a61
       </div>
     </section>
   );
