@@ -37,19 +37,19 @@ export default function LandingPageHeader() {
             <ChevronDown size={22} className={`cursor-pointer transition-all duration-300 ${showUserMenu ? "rotate-180" : "rotate-360"} `} onClick={()=> setShowUserMenu(show =>!show)} />
               {showUserMenu && (
                 <ul className=" absolute left-0 -bottom-[9.8rem] border border-gray-300 z-[2] shadow-md bg-white w-full font-medium font-clash">
-                  <li className="border-b border-gray-300 flex gap-3 w-full items-center py-1.5 pl-3 hover:bg-gray-50 cursor-pointer">
+                  <li className="border-b border-gray-300 flex gap-3 w-full items-center py-1.5 pl-3 hover:bg-gray-50 cursor-pointer .">
                     <img src="/dashboard.png" alt="dashboard icon" className="w-4 h-4" />
                     <span className="text-left">Dashboard</span>
                   </li>
-                  <li className="border-b border-gray-300 flex gap-3 w-full items-center py-1.5 pl-3 hover:bg-gray-50 cursor-pointer">
+                  <li className="border-b border-gray-300 flex gap-3 w-full items-center py-1.5 pl-3 hover:bg-gray-50 cursor-pointer .">
                     <img src="/home.png" alt="home icon" className="w-4 h-4" />
                     <span>Home</span>
                   </li>
-                  <li className="border-b border-gray-300 flex gap-3 w-full items-center py-1.5 pl-3 hover:bg-gray-50 cursor-pointer">
+                  <li className="border-b border-gray-300 flex gap-3 w-full items-center py-1.5 pl-3 hover:bg-gray-50 cursor-pointer .">
                     <img src="/profile.png" alt="profile icon" className="w-4 h-4" />
                     <span>Profile</span>
                   </li>
-                  <li className=" border-gray-300 flex gap-3 w-full items-center py-1.5 pl-3 hover:bg-gray-50 cursor-pointer">
+                  <li className=" border-gray-300 flex gap-3 w-full items-center py-1.5 pl-3 hover:bg-gray-50 cursor-pointer .">
                     <img src="/logout.png" alt="logout icon" className="w-4 h-4" />
                     <span>Logout</span>
                   </li>
