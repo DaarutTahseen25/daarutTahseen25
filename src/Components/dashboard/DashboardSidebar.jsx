@@ -7,6 +7,7 @@ import DashboardSidebarLink from "./DashboardSidebarLink";
 import {
   Bell,
   BookOpen,
+  ClipboardList,
   CreditCard,
   FileText,
   Home,
@@ -15,53 +16,107 @@ import {
   ListTree,
   LogOut,
   School,
+  Users,
 } from "lucide-react";
 
-const DashboardSidebarLinks = [
-  { key: "home", icon: <Home />, label: "Home", to: "/" },
-  {
-    key: "dashboard",
-    icon: <LayoutDashboard />,
-    label: "Dashboard",
-    to: "/dashboard/home",
-  },
-  {
-    key: "admission",
-    icon: <School />,
-    label: "Admission",
-    to: "/dashboard/admission",
-  },
-  {
-    key: "mycourses",
-    icon: <BookOpen />,
-    label: "My Courses",
-    to: "/dashboard/mycourses",
-  },
-  {
-    key: "curriculum",
-    icon: <ListTree />,
-    label: "Curriculum",
-    to: "/dashboard/curriculum",
-  },
-  {
-    key: "notifications",
-    icon: <Bell />,
-    label: "Notifications",
-    to: "/dashboard/notifications",
-  },
-  {
-    key: "payfees",
-    icon: <CreditCard />,
-    label: "Pay Fees",
-    to: "/dashboard/payfees",
-  },
-  {
-    key: "resources",
-    icon: <FileText />,
-    label: "Resources",
-    to: "/dashboard/resources",
-  },
-];
+export const getDashboardSidebarLinks = (
+  role = "teacher",
+  isAdmissionProcess = true
+) => {
+  if (role === "student") {
+    return [
+      { key: "home", icon: <Home />, label: "Home", to: "/" },
+      {
+        key: "dashboard",
+        icon: <LayoutDashboard />,
+        label: "Dashboard",
+        to: "/dashboard/student",
+      },
+      {
+        key: "admission-or-registration",
+        icon: <School />,
+        label: isAdmissionProcess ? "Admission" : "Level Registration",
+        to: isAdmissionProcess
+          ? "/dashboard/admission"
+          : "/dashboard/level-registration",
+      },
+      {
+        key: "mycourses",
+        icon: <BookOpen />,
+        label: "My Courses",
+        to: "/dashboard/mycourses",
+      },
+      {
+        key: "curriculum",
+        icon: <ListTree />,
+        label: "Curriculum",
+        to: "/dashboard/curriculum",
+      },
+      {
+        key: "notifications",
+        icon: <Bell />,
+        label: "Notifications",
+        to: "/dashboard/notifications",
+      },
+      {
+        key: "payfees",
+        icon: <CreditCard />,
+        label: "Pay Fees",
+        to: "/dashboard/payfees",
+      },
+      {
+        key: "resources",
+        icon: <FileText />,
+        label: "Resources",
+        to: "/dashboard/resources",
+      },
+    ];
+  }
+
+  if (role === "teacher") {
+    return [
+      { key: "home", icon: <Home />, label: "Home", to: "/" },
+      {
+        key: "dashboard",
+        icon: <LayoutDashboard />,
+        label: "Dashboard",
+        to: "/dashboard/teacher",
+      },
+      {
+        key: "classes",
+        icon: <Users />,
+        label: "My Classes",
+        to: "/dashboard/classes",
+      },
+      {
+        key: "gradebook",
+        icon: <ClipboardList />,
+        label: "Gradebook",
+        to: "/dashboard/gradebook",
+      },
+      {
+        key: "curriculum",
+        icon: <ListTree />,
+        label: "Curriculum",
+        to: "/dashboard/curriculum",
+      },
+      {
+        key: "notifications",
+        icon: <Bell />,
+        label: "Notifications",
+        to: "/dashboard/notifications",
+      },
+      {
+        key: "resources",
+        icon: <FileText />,
+        label: "Resources",
+        to: "/dashboard/resources",
+      },
+    ];
+  }
+
+  return [];
+};
 
 // DashboardSidebarLink component for individual links
 // This component can be reused for each link in the sidebar
@@ -74,7 +129,7 @@ const DashboardSidebar = () => {
       </div>
       <nav className="w-full  py-4">
         <ul className="flex flex-col gap-3 w-[90%] mx-auto">
-          {DashboardSidebarLinks.map((item) => (
+          {getDashboardSidebarLinks().map((item) => (
             <li key={item.key}>
               <DashboardSidebarLink
                 icon={item.icon}

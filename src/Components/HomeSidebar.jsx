@@ -1,6 +1,6 @@
 import React from "react";
 import useUIStore from "../store/useUIStore";
-
+import { getDashboardSidebarLinks } from "./dashboard/DashboardSidebar";
 import {
   Home,
   Info,
@@ -20,51 +20,6 @@ import {
 import Button from "./Button";
 import { Link, useLocation } from "react-router";
 
-export const DashboardSidebarLinks = [
-  { key: "home", icon: <Home />, label: "Home", to: "/" },
-  {
-    key: "dashboard",
-    icon: <LayoutDashboard />,
-    label: "Dashboard",
-    to: "/dashboard/home",
-  },
-  {
-    key: "admission",
-    icon: <School />,
-    label: "Admission",
-    to: "/dashboard/admission",
-  },
-  {
-    key: "mycourses",
-    icon: <BookOpen />,
-    label: "My Courses",
-    to: "/dashboard/mycourses",
-  },
-  {
-    key: "curriculum",
-    icon: <ListTree />,
-    label: "Curriculum",
-    to: "/dashboard/curriculum",
-  },
-  {
-    key: "notifications",
-    icon: <Bell />,
-    label: "Notifications",
-    to: "/dashboard/notifications",
-  },
-  {
-    key: "payfees",
-    icon: <CreditCard />,
-    label: "Pay Fees",
-    to: "/dashboard/payfees",
-  },
-  {
-    key: "resources",
-    icon: <FileText />,
-    label: "Resources",
-    to: "/dashboard/resources",
-  },
-];
 export const navItems = [
   { key: "home", icon: <Home size={20} />, label: "Home", to: "/" },
   { key: "about", icon: <Info size={20} />, label: "About Us" },
@@ -89,7 +44,7 @@ export default function HomeSidebar() {
   const location = useLocation();
   const isDashboardPage = location.pathname.startsWith("/dashboard");
 
-  const nav = isDashboardPage ? DashboardSidebarLinks : navItems;
+  const nav = isDashboardPage ? getDashboardSidebarLinks() : navItems;
 
   // Using the custom UI store to manage sidebar state
   // isSidebarOpen indicates whether the sidebar is currently open
