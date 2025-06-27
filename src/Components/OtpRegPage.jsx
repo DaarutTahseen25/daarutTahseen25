@@ -108,7 +108,6 @@ function OtpRegistration() {
             <Modal.Window name="verify">
               <Verifying />
             </Modal.Window>
-
             <Modal.Window name="verified">
               <div className="min-w-[300px] sm:w-[500px] h-[328px] flex flex-col items-center justify-center gap-10 bg-white rounded-[20px] py-3 px-10">
                 <img src="/success.png" alt="Verifying animation" />
@@ -117,6 +116,7 @@ function OtpRegistration() {
                 </h1>
               </div>
             </Modal.Window>
+            d
           </Modal>
         </div>
 
