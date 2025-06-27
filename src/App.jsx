@@ -17,6 +17,7 @@ import MyCourses from "./Components/dashboard/MyCourses";
 import PayFees from "./Components/dashboard/PayFees";
 import Resources from "./Components/dashboard/Resources";
 import Profile from "./Components/dashboard/Profile";
+import LevelRegistration from "./Components/dashboard/LevelRegistration";
 const App = () => {
   return (
     
@@ -39,6 +40,7 @@ const App = () => {
         <Route path="home" element={<Dashboard />} />
         <Route path="notifications" element={<Notifications />} />
         <Route path="admission" element={<Admission />} />
+        <Route path="level-registration" element={<LevelRegistration />} />
         <Route path="curriculum" element={<Curriculum />} />
         <Route path="mycourses" element={<MyCourses />} />
         <Route path="payfees" element={<PayFees />} />
