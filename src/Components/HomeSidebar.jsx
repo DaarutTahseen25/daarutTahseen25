@@ -1,16 +1,6 @@
 import React from "react";
-<<<<<<< HEAD
-import React from "react";
 import useUIStore from "../store/useUIStore";
 import { getDashboardSidebarLinks } from "./dashboard/DashboardSidebar";
-import { getDashboardSidebarLinks } from "./dashboard/DashboardSidebar";
-import { Link, useLocation } from "react-router";
-import { user } from "../App";
-
-=======
-import useUIStore from "../store/useUIStore";
-import { getDashboardSidebarLinks } from "./dashboard/DashboardSidebar";
->>>>>>> 09eb6f5e8997fff351b576dfce8aad7f8edab89d
 import {
   Home,
   Info,
@@ -26,14 +16,6 @@ import {
   ListTree,
   Bell,
   CreditCard,
-<<<<<<< HEAD
-  LayoutDashboard,
-  School,
-  ListTree,
-  Bell,
-  CreditCard,
-=======
->>>>>>> 09eb6f5e8997fff351b576dfce8aad7f8edab89d
 } from "lucide-react";
 import Button from "./Button";
 import { Link, useLocation } from "react-router";

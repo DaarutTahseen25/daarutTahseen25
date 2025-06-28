@@ -1,18 +1,11 @@
 import React from "react";
-<<<<<<< HEAD
-import React from "react";
-=======
->>>>>>> 09eb6f5e8997fff351b576dfce8aad7f8edab89d
 import useUIStore from "../store/useUIStore";
 
 import { MenuIcon } from "lucide-react";
 import HeaderProfile from "./HeaderProfile";
 import Button from "./Button";
 import { Link } from "react-router";
-<<<<<<< HEAD
 import { user } from "../App";
-=======
->>>>>>> 09eb6f5e8997fff351b576dfce8aad7f8edab89d
 
 export default function LandingPageHeader() {
   // Using the custom UI store to manage sidebar state
@@ -30,16 +23,6 @@ export default function LandingPageHeader() {
             className="w-[5rem] lg:w-[7rem] lg:h-[3rem] cursor-pointer"
           />
         </Link>
-<<<<<<< HEAD
-        <Link to="/">
-          <img
-            src="logo.png"
-            alt="logo"
-            className="w-[5rem] lg:w-[7rem] lg:h-[3rem] cursor-pointer"
-          />
-        </Link>
-=======
->>>>>>> 09eb6f5e8997fff351b576dfce8aad7f8edab89d
         {/* Navigation items for larger screens */}
         {/* This section contains the main navigation items that are visible on larger screens */}
         <ul className="hidden lg:flex justify-between items-center cursor-pointer font-clash gap-4 lg:gap-6 font-medium text-sm lg:text-lg">
