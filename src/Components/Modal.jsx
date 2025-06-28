@@ -1,4 +1,15 @@
+<<<<<<< HEAD
 import { cloneElement, createContext, useContext, useState } from "react";
+=======
+import {
+  cloneElement,
+  createContext,
+  useContext,
+  useState,
+  // useRef,
+  // useEffect,
+} from "react";
+>>>>>>> a62555db9d0e9ff96f6e7147b71940a7d5d8acf3
 import { createPortal } from "react-dom";
 import { useClickOutside } from "../hooks/useClickOutside";
 
