@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import Button from "./Button";
 import { Link, useLocation } from "react-router";
+import { user } from "../App";
 
 export const navItems = [
   { key: "home", icon: <Home size={20} />, label: "Home", to: "/" },
@@ -52,7 +53,6 @@ export default function HomeSidebar() {
 
   // user variable to check if a user is logged in
   // This can be replaced with actual user state management logic
-  const user = "";
 
   return (
     <>
@@ -108,7 +108,7 @@ export default function HomeSidebar() {
           {/* If a user is logged in, it displays the user's profile picture and name */}
           {/* Otherwise, it shows a login/register button */}
           <ul className="flex flex-col gap-2">
-            {!user ? (
+            {user.isAuthenticated ? (
               <li>
                 <div className="flex items-center gap-4">
                   <div className="flex h-10 w-10 rounded-full overflow-hidden">

@@ -7,21 +7,21 @@ import DashboardSidebarLink from "./DashboardSidebarLink";
 import {
   Bell,
   BookOpen,
-  ClipboardList,
   CreditCard,
   FileText,
   Home,
   LayoutDashboard,
-  LayoutGrid,
   ListTree,
   LogOut,
+  MessageSquare,
   School,
   Users,
 } from "lucide-react";
+import { user } from "../../App";
 
 export const getDashboardSidebarLinks = (
-  role = "teacher",
-  isAdmissionProcess = true
+  role = user.role,
+  isAdmissionProcess = user.isAdmissionProcess
 ) => {
   if (role === "student") {
     return [
@@ -44,7 +44,7 @@ export const getDashboardSidebarLinks = (
         key: "mycourses",
         icon: <BookOpen />,
         label: "My Courses",
-        to: "/dashboard/mycourses",
+        to: "/dashboard/my-courses",
       },
       {
         key: "curriculum",
@@ -83,34 +83,34 @@ export const getDashboardSidebarLinks = (
         to: "/dashboard/teacher",
       },
       {
-        key: "classes",
+        key: "courses",
         icon: <Users />,
+        label: "My Courses",
+        to: "/dashboard/my-courses",
+      },
+      {
+        key: "myclasses",
+        icon: <BookOpen />,
         label: "My Classes",
-        to: "/dashboard/classes",
+        to: "/dashboard/my-classes",
       },
       {
-        key: "gradebook",
-        icon: <ClipboardList />,
-        label: "Gradebook",
-        to: "/dashboard/gradebook",
+        key: "messages",
+        icon: <MessageSquare />,
+        label: "Messages",
+        to: "/dashboard/messages",
       },
       {
-        key: "curriculum",
-        icon: <ListTree />,
-        label: "Curriculum",
-        to: "/dashboard/curriculum",
+        key: "payments",
+        icon: <CreditCard />,
+        label: "Payments",
+        to: "/dashboard/payments",
       },
       {
-        key: "notifications",
-        icon: <Bell />,
-        label: "Notifications",
-        to: "/dashboard/notifications",
-      },
-      {
-        key: "resources",
+        key: "library",
         icon: <FileText />,
-        label: "Resources",
-        to: "/dashboard/resources",
+        label: "Library",
+        to: "/dashboard/library",
       },
     ];
   }

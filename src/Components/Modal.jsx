@@ -1,11 +1,4 @@
-import {
-  cloneElement,
-  createContext,
-  useContext,
-  useState,
-  useRef,
-  useEffect,
-} from "react";
+import { cloneElement, createContext, useContext, useState } from "react";
 import { createPortal } from "react-dom";
 import { useClickOutside } from "../hooks/useClickOutside";
 
@@ -32,9 +25,9 @@ function Open({ children, opens: opensWindowName }) {
   });
 }
 
-function Window({ children, name }) {
+function Window({ children, name, shouldCloseOnOutsideClick = true }) {
   const { openName, close, open } = useContext(ModalContext);
-  const ref = useClickOutside(close);
+  const ref = useClickOutside(close, shouldCloseOnOutsideClick);
 
   if (name !== openName) return null;
 
@@ -42,7 +35,7 @@ function Window({ children, name }) {
     <div className="fixed inset-0 w-full h-screen bg-black/70 z-[1000] transition-all duration-500">
       <div
         id="modal-window"
-        className="fixed  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 "
+        className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
         ref={ref}
       >
         <div className="max-w-full">
