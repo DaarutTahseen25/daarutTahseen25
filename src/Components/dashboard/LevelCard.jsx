@@ -1,10 +1,22 @@
-import React from "react";
+import { useState } from "react";
 import Button from "./../../Components/Button";
 import Modal from "../Modal";
 import ConfirmLevelRegistration from "./ConfirmLevelRegistration";
 import Success from "./Success";
 
 const LevelCard = ({ title, color, description }) => {
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const handleRegistrationSuccessful = () => {
+    setShowConfirmModal(false);
+    setIsLoading(true);
+
+    setTimeout(() => {
+      setIsLoading(false);
+      setShowSuccessModal(true);
+    }, 3000);
+  };
   return (
     <div className="bg-white mt-4 px-6 py-3 rounded-lg shadow-md">
       <div className="flex items-center gap-[10px] mb-4">
@@ -40,5 +52,7 @@ const LevelCard = ({ title, color, description }) => {
     </div>
   );
 };
+
+
 
 export default LevelCard;

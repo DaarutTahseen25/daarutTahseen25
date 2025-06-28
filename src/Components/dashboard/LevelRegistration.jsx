@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import LevelCard from "./LevelCard";
 
@@ -58,3 +59,10 @@ const LevelRegistration = () => {
 };
 
 export default LevelRegistration;
+=======
+export default function LevelRegistration(){
+    return(
+        <div className="">Level Registration</div>
+    )
+}
+>>>>>>> a62555db9d0e9ff96f6e7147b71940a7d5d8acf3
