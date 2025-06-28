@@ -1,4 +1,5 @@
 import React from "react";
+import React from "react";
 import useUIStore from "../store/useUIStore";
 
 import { MenuIcon } from "lucide-react";
@@ -16,6 +17,13 @@ export default function LandingPageHeader() {
   return (
     <header className="bg-white flex justify-center items-center py-6 shadow-[0px_0px_5px_0.2px_rgba(0,0,0,0.25)] h-20 ">
       <div className="w-[90%] md:w-[85%] flex justify-between gap-2 items-center mx-auto text-center">
+        <Link to="/">
+          <img
+            src="logo.png"
+            alt="logo"
+            className="w-[5rem] lg:w-[7rem] lg:h-[3rem] cursor-pointer"
+          />
+        </Link>
         <Link to="/">
           <img
             src="logo.png"

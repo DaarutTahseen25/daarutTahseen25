@@ -1,6 +1,11 @@
 import React from "react";
+import React from "react";
 import useUIStore from "../store/useUIStore";
 import { getDashboardSidebarLinks } from "./dashboard/DashboardSidebar";
+import { getDashboardSidebarLinks } from "./dashboard/DashboardSidebar";
+import { Link, useLocation } from "react-router";
+import { user } from "../App";
+
 import {
   Home,
   Info,
@@ -11,6 +16,11 @@ import {
   LogOut,
   X,
   LayoutGrid,
+  LayoutDashboard,
+  School,
+  ListTree,
+  Bell,
+  CreditCard,
   LayoutDashboard,
   School,
   ListTree,
@@ -130,9 +140,9 @@ export default function HomeSidebar() {
                 </div>
               </li>
             ) : (
-              <Link to="/create/select" onClick={closeSidebar}>
-                <Button className="w-full">Login/Register</Button>
-              </Link>
+              <Button className=" focus:outline-none transition-all rounded-lg px-4 py-2 text-sm lg:text-base md:inline-flex items-center justify-center shadow font-medium font-clash hover:bg-[#009688] hidden cursor-pointer bg-primary text-white hover:bg-primarydark ">
+                Login/Register
+              </Button>
             )}
             {bottomItems.map((item, idx) => (
               <li
