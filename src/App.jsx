@@ -1,6 +1,7 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router";
 import "./App.css";
+import LogIn from "./pages/LogIn";
 
 // Pages & Components
 import OtpRegistration from "./Components/OtpRegPage";
@@ -36,15 +37,13 @@ export const user = {
 };
 
 const App = () => {
-  // Simulating role; ideally comes from user auth/context
-  // or "student"
-
   return (
     <Routes>
       {/* Public Pages */}
       <Route path="/" element={<Home />} />
       <Route path="about" element={<About />} />
       <Route path="otp-page" element={<OtpRegistration />} />
+      <Route path="/login" element={<LogIn />} />
 
       {/* Create Account Flow */}
       <Route path="create" element={<CreateAccount />}>
@@ -84,6 +83,7 @@ const App = () => {
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Route>
     </Routes>
+
   );
 };
 
