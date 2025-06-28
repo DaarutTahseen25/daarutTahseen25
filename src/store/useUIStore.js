@@ -15,6 +15,7 @@ const useUIStore = create((set) => ({
   toggleDropdown: () =>
     set((state) => ({ isDropdownOpen: !state.isDropdownOpen })),
   openDropdown: () => set({ isDropdownOpen: true }),
+
   closeDropdown: () => set({ isDropdownOpen: false }),
 
   setShowPassword: () =>
@@ -52,6 +53,21 @@ const useUIStore = create((set) => ({
     confirmPassword: "",
     agreed: false,
   },
+
+  // ===== STUDENT REGISTRATION FORM STATES =====
+  showPassword: false,
+  file: null,
+
+  formData: {
+    nin: "",
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+    confirmPassword: "",
+    agreed: false,
+  },
+
   signupErrors: {},
   setSignupForm: (key, value) =>
     set((state) => ({
@@ -74,6 +90,24 @@ const useUIStore = create((set) => ({
       },
       signupErrors: {},
     }),
+
+  formErrors: {},
+
+  setShowPassword: () =>
+    set((state) => ({ showPassword: !state.showPassword })),
+
+  setFile: (file) => set({ file }),
+  clearFile: () => set({ file: null }),
+
+  setFormData: (key, value) =>
+    set((state) => ({
+      formData: {
+        ...state.formData,
+        [key]: value,
+      },
+    })),
+
+  setFormErrors: (errors) => set({ formErrors: errors }),
 }));
 
 export default useUIStore;
