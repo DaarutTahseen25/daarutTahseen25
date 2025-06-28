@@ -3,7 +3,7 @@ import { NavLink } from "react-router";
 
 const DashboardSidebarLink = ({ icon, label, to }) => {
   const baseClasses =
-    "flex items-center gap-3 w-full h-10  rounded-md text-dark-grey hover:bg-primary hover:text-white transition-colors duration-200 cursor-pointer px-12";
+    "flex items-center px-7 gap-3 w-full h-10  rounded-md text-dark-grey hover:bg-primary hover:text-white transition-colors duration-200 cursor-pointer ";
 
   if (!to) {
     return (

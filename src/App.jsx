@@ -21,10 +21,23 @@ import PayFees from "./Components/dashboard/PayFees";
 import Resources from "./Components/dashboard/Resources";
 import Profile from "./Components/dashboard/Profile";
 import LevelRegistration from "./Components/dashboard/LevelRegistration";
+import TeacherCourses from "./Components/dashboard/TeacherCourses";
+import Library from "./Components/dashboard/Library";
+import Payments from "./Components/dashboard/Payments";
+import Messages from "./Components/dashboard/Messages";
+import Classes from "./Components/dashboard/Classes";
+
+export const user = {
+  username: "aisha_yusuf",
+  email: "aisha.yusuf@daaruttasheen.sch.ng",
+  isAuthenticated: true,
+  isAdmissionProcess: true,
+  role: "student",
+};
 
 const App = () => {
   // Simulating role; ideally comes from user auth/context
-  const role = "teacher"; // or "student"
+  // or "student"
 
   return (
     <Routes>
@@ -44,7 +57,7 @@ const App = () => {
       {/* Dashboard Layout */}
       <Route path="dashboard" element={<DashboardLayout />}>
         {/* Redirect to appropriate dashboard home */}
-        <Route index element={<Navigate to={role} replace />} />
+        <Route index element={<Navigate to={user.role} replace />} />
 
         {/* Dashboard Home Pages */}
         <Route path="student" element={<Dashboard />} />
@@ -55,8 +68,15 @@ const App = () => {
         <Route path="level-registration" element={<LevelRegistration />} />
         <Route path="admission" element={<Admission />} />
         <Route path="curriculum" element={<Curriculum />} />
-        <Route path="mycourses" element={<MyCourses />} />
+        <Route
+          path="my-courses"
+          element={user.role === "student" ? <MyCourses /> : <TeacherCourses />}
+        />
         <Route path="payfees" element={<PayFees />} />
+        <Route path="payments" element={<Payments />} />
+        <Route path="messages" element={<Messages />} />
+        <Route path="my-classes" element={<Classes />} />
+        <Route path="library" element={<Library />} />
         <Route path="resources" element={<Resources />} />
         <Route path="profile" element={<Profile />} />
 

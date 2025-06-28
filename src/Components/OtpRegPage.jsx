@@ -1,11 +1,12 @@
 import { useRef, useState } from "react";
 import Button from "./Button";
 import Modal from "./Modal";
-import Verifying from "./dashboard/Verifying";
+import Verifying from "./Verifying";
 
 function OtpRegistration() {
   const smsOtpRefs = useRef([]);
   const emailOtpRefs = useRef([]);
+  const [lockOutsideClick, setLockOutsideClick] = useState(true);
 
   const [smsOtp, setSmsOtp] = useState(Array(4).fill(""));
   const [emailOtp, setEmailOtp] = useState(Array(4).fill(""));
@@ -101,22 +102,32 @@ function OtpRegistration() {
         <div className="w-full max-w-md">
           <Modal>
             <Modal.Open opens="verify">
-              <Button className="w-full mt-2" isDisabled={!isMatch}>
-                Verify
-              </Button>
+              {!isMatch ? (
+                <Button
+                  className="w-full mt-2"
+                  variant={"notActive"}
+                  isDisabled
+                >
+                  Verify
+                </Button>
+              ) : (
+                <Button className="w-full mt-2">Verify</Button>
+              )}
             </Modal.Open>
-            <Modal.Window name="verify">
+            <Modal.Window
+              name="verify"
+              shouldCloseOnOutsideClick={!lockOutsideClick}
+            >
               <Verifying />
             </Modal.Window>
             <Modal.Window name="verified">
               <div className="min-w-[300px] sm:w-[500px] h-[328px] flex flex-col items-center justify-center gap-10 bg-white rounded-[20px] py-3 px-10">
                 <img src="/success.png" alt="Verifying animation" />
                 <h1 className="font-[500] text-[25px] font-clash ">
-                  Successful
+                  Successful!
                 </h1>
               </div>
             </Modal.Window>
-            d
           </Modal>
         </div>
 
