@@ -12,6 +12,7 @@ const Home = () => {
     <main className="grid grid-rows-[auto_1fr_1fr_1fr_1fr_auto] h-screen">
       <HomeSidebar />
       <LandingPageHeader />
+
       <Hero />
       <Trusted />
       <FeaturedCourses />
