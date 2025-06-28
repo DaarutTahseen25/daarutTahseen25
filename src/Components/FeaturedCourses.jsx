@@ -1,3 +1,4 @@
+import React from "react";
 import CourseCard from "./CourseCard";
 
 const courses = [
@@ -28,10 +29,10 @@ function FeaturedCourses() {
   return (
     <section className=" bg-secondary flex justify-center items-center py-12">
       <div className="w-[90%] md:w-[85%] mx-auto text-center">
-        <h1 className="font-clash text-accent font-[500] text-[32px] md:text-[40px] leading-[100%] tracking-[0%]">
+        <h1 className="font-clash text-accent font-[500] text-[32px] md:text-[40px] ">
           Featured Courses
         </h1>
-        <p className="text-[18px] md:text-[20px] font-bricolage text-black font-[400] leading-[140%] tracking-tight mt-6 max-w-[900px] mx-auto">
+        <p className="text-[18px] md:text-[20px] font-bricolage text-black font-[400]  mt-6 max-w-[900px] mx-auto">
           Discover our most impactful Islamic courses carefully selected to help
           you build a strong foundation in Qur’an, Arabic and essential Deen.
         </p>

@@ -1,3 +1,5 @@
+import React from "react";
+
 import Button from "./Button";
 
 function CourseCard({ title, description, thumbnail }) {
@@ -8,11 +10,12 @@ function CourseCard({ title, description, thumbnail }) {
           src={thumbnail}
           alt={title}
           className="w-full h-[200px] object-cover rounded-lg mb-4"
+          loading="lazy"
         />
-        <h2 className="text-[20px] text-black text-left font-[400] font-bricolage leading-[100%] tracking-[0%] mb-2">
+        <h2 className="text-[20px] text-black text-left font-[400] font-bricolage  mb-2">
           {title}
         </h2>
-        <p className="text-black font-[400] font-montserrat text-left text-[14px] leading-[130%] line-clamp-3">
+        <p className="text-black font-[400] font-montserrat text-left text-[14px]  line-clamp-3">
           {description}
         </p>
       </div>

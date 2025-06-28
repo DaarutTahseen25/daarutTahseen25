@@ -1,11 +1,13 @@
-import { ChevronDown, ChevronUp } from "lucide-react";
 import React, { useState } from "react";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import { useClickOutside } from "../hooks/useClickOutside";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 import useUIStore from "../store/useUIStore";
 
 const HeaderProfile = () => {
+  const location = useLocation();
+  const isDashboardPage = location.pathname.startsWith("/dashboard");
   const { isDropdownOpen, toggleDropdown, closeDropdown } = useUIStore();
 
   const ref = useClickOutside(closeDropdown);
@@ -22,11 +24,15 @@ const HeaderProfile = () => {
           />
         </div>
 
-        <div className="flex flex-col gap-0 items-start text-left md:hidden xl:block">
-          <h1 className="font-clash font-[500] text-[20px] leading-[100%] tracking-[0%] text-black">
+        <div
+          className={`flex flex-col gap-0 items-start text-left md:hidden xl:block   ${
+            isDashboardPage ? "hidden" : ""
+          } `}
+        >
+          <h1 className="font-clash font-[500] text-[20px]  text-black">
             Abdulazeez
           </h1>
-          <p className="font-montserrat font-[400] text-[14px] leading-[100%] tracking-[0%] text-black">
+          <p className="font-montserrat font-[400] text-[14px]  text-black">
             azeez@gmail.com
           </p>
         </div>
@@ -34,14 +40,19 @@ const HeaderProfile = () => {
         <ChevronDown
           className={`md:hidden xl:block transition-transform duration-300 ease-in-out ${
             isDropdownOpen ? "rotate-180" : "rotate-0"
-          }`}
+          } ${isDashboardPage ? "hidden" : ""}  `}
         />
       </div>
 
       {/* Dropdown Menu */}
       {isDropdownOpen && (
-        <div className="absolute w-full md:w-[15rem] xl:w-full top-12 right-0 bg-white shadow-[0_0_0_1px_rgba(0,0,0,0.1)] flex flex-col z-10">
+        <div
+          className={`absolute  md:w-[15rem] xl:w-full top-12 right-0 bg-white shadow-[0_0_0_1px_rgba(0,0,0,0.1)] flex flex-col z-10 ${
+            isDashboardPage ? "w-[15rem] md:w-[15rem] xl:w-full" : "w-full"
+          }  `}
+        >
           <Link
+            to={"/dashboard"}
             className="flex items-center gap-2 py-[0.76rem] px-4 hover:bg-accent/20 transition-colors duration-200"
             onClick={closeDropdown}
           >
@@ -51,6 +62,7 @@ const HeaderProfile = () => {
             </span>
           </Link>
           <Link
+            to="/"
             className="flex items-center gap-2 py-[0.76rem] px-4 hover:bg-accent/20 transition-colors duration-200"
             onClick={closeDropdown}
           >
@@ -60,6 +72,7 @@ const HeaderProfile = () => {
             </span>
           </Link>
           <Link
+            to="/dashboard/profile"
             className="flex items-center gap-2 py-[0.76rem] px-4 hover:bg-accent/20 transition-colors duration-200"
             onClick={closeDropdown}
           >

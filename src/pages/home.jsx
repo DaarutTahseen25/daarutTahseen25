@@ -1,3 +1,4 @@
+import React from "react";
 import FeaturedCourses from "../Components/FeaturedCourses";
 import Hero from "../Components/Hero";
 import LandingPageHeader from "../Components/LandingPageHeader";
@@ -11,6 +12,7 @@ const Home = () => {
     <main className="grid grid-rows-[auto_1fr_1fr_1fr_1fr_auto] h-screen">
       <HomeSidebar />
       <LandingPageHeader />
+
       <Hero />
       <Trusted />
       <FeaturedCourses />
