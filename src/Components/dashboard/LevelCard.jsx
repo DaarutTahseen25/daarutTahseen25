@@ -8,7 +8,6 @@ const LevelCard = ({ title, color, description }) => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate()
   const handleRegistrationSuccessful = () => {
     setShowConfirmModal(false);
     setIsLoading(true);
@@ -54,14 +53,6 @@ const LevelCard = ({ title, color, description }) => {
   );
 };
 
-function Modal({ children }) {
-  return (
-    <div className="absolute top-0 left-0 h-full w-full bg-black/70  flex justify-center items-center">
-      <div className="w-[31.25rem] h-[20.5rem] bg-white rounded-[20px] py-[1.875rem] px-[3rem] flex flex-col gap-5 items-center ">
-        {children}
-      </div>
-    </div>
-  );
-}
+
 
 export default LevelCard;

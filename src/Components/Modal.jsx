@@ -3,8 +3,8 @@ import {
   createContext,
   useContext,
   useState,
-  useRef,
-  useEffect,
+  // useRef,
+  // useEffect,
 } from "react";
 import { createPortal } from "react-dom";
 import { useClickOutside } from "../hooks/useClickOutside";
