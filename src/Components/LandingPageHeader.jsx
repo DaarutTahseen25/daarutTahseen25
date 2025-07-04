@@ -25,14 +25,38 @@ export default function LandingPageHeader() {
         </Link>
         {/* Navigation items for larger screens */}
         {/* This section contains the main navigation items that are visible on larger screens */}
-        <ul className="hidden lg:flex justify-between items-center cursor-pointer font-clash gap-4 lg:gap-6 font-medium text-sm lg:text-lg">
-          <li className="transition-colors hover:text-accent">Home</li>
-          <li className="transition-colors hover:text-accent">About Us</li>
-          <li className="transition-colors hover:text-accent">Courses</li>
-          <li className="transition-colors hover:text-accent">Admission</li>
-          <li className="transition-colors hover:text-accent">Resources</li>
-          <li className="transition-colors hover:text-accent">Contact</li>
-        </ul>
+        <nav className="hidden lg:flex justify-between items-center cursor-pointer font-clash gap-4 lg:gap-6 font-medium text-sm lg:text-lg">
+          <Link to="/" className="transition-colors hover:text-accent">
+            Home
+          </Link>
+          <Link to="/about-us" className="transition-colors hover:text-accent">
+            About Us
+          </Link>
+          <Link
+            to="/our-courses"
+            className="transition-colors hover:text-accent"
+          >
+            Courses
+          </Link>
+          <Link
+            to="/about-admissions"
+            className="transition-colors hover:text-accent"
+          >
+            Admission
+          </Link>
+          <Link
+            to="/portal-resources"
+            className="transition-colors hover:text-accent"
+          >
+            Resources
+          </Link>
+          <Link
+            to="/contact-us"
+            className="transition-colors hover:text-accent"
+          >
+            Contact
+          </Link>
+        </nav>
 
         {/* Checks if there's a logged in user */}
 

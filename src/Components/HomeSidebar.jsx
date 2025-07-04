@@ -23,11 +23,36 @@ import { user } from "../App";
 
 export const navItems = [
   { key: "home", icon: <Home size={20} />, label: "Home", to: "/" },
-  { key: "about", icon: <Info size={20} />, label: "About Us" },
-  { key: "courses", icon: <BookOpen size={20} />, label: "Courses" },
-  { key: "admission", icon: <GraduationCap size={20} />, label: "Admission" },
-  { key: "resources", icon: <FileText size={20} />, label: "Resources" },
-  { key: "contact", icon: <Phone size={20} />, label: "Contact" },
+  {
+    key: "about",
+    icon: <Info size={20} />,
+    label: "About Us",
+    to: "/about-us",
+  },
+  {
+    key: "courses",
+    icon: <BookOpen size={20} />,
+    label: "Courses",
+    to: "/our-courses",
+  },
+  {
+    key: "admission",
+    icon: <GraduationCap size={20} />,
+    label: "Admission",
+    to: "/about-admissions",
+  },
+  {
+    key: "resources",
+    icon: <FileText size={20} />,
+    label: "Resources",
+    to: "/portal-resources",
+  },
+  {
+    key: "contact",
+    icon: <Phone size={20} />,
+    label: "Contact",
+    to: "/contact-us",
+  },
   {
     key: "dashboard",
     icon: <LayoutGrid size={20} />,
@@ -137,7 +162,7 @@ export default function HomeSidebar() {
                 </div>
               </li>
             ) : (
-              <Link to="/accountcreationpage">
+              <Link to="/login">
                 <Button className="w-full">Login/Register</Button>
               </Link>
             )}

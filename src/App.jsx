@@ -4,6 +4,10 @@ import "./App.css";
 
 import QuranLoader from "./Components/QuranLoader";
 import DashboardLayoutGuard from "./Components/dashboard/DashboardLayoutGuard";
+import Courses from "./pages/Courses";
+import AdmissionsPage from "./pages/AdmissionsPage";
+import ContactUsPage from "./pages/ContactUsPage";
+import ResourcesPage from "./pages/ResourcesPage";
 // import DashboardLayoutGuard from "./Components/dashboard/DashboardLayoutGuard";
 
 // Lazy-loaded pages & components
@@ -75,9 +79,13 @@ const App = () => {
       <Routes>
         {/* Public Pages */}
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/about-us" element={<About />} />
         <Route path="/otp-page" element={<OtpRegistration />} />
         <Route path="/login" element={<LogIn />} />
+        <Route path="/our-courses" element={<Courses />} />
+        <Route path="/about-admissions" element={<AdmissionsPage />} />
+        <Route path="/contact-us" element={<ContactUsPage />} />
+        <Route path="/portal-resources" element={<ResourcesPage />} />
 
         {/* Create Account Flow */}
         <Route path="/create" element={<CreateAccount />}>
