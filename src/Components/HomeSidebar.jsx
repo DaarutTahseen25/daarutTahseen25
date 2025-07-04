@@ -18,7 +18,7 @@ import {
   CreditCard,
 } from "lucide-react";
 import Button from "./Button";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { user } from "../App";
 
 export const navItems = [
@@ -42,6 +42,7 @@ export const navItems = [
 const bottomItems = [{ icon: <LogOut size={20} />, label: "Log out" }];
 
 export default function HomeSidebar() {
+  const navigate = useNavigate();
   const location = useLocation();
   const isDashboardPage = location.pathname.startsWith("/dashboard");
 
@@ -53,6 +54,12 @@ export default function HomeSidebar() {
 
   // user variable to check if a user is logged in
   // This can be replaced with actual user state management logic
+
+  function handleLogout() {
+    closeSidebar();
+    user.isAuthenticated = !user.isAuthenticated;
+    navigate("/", { replace: true });
+  }
 
   return (
     <>
@@ -138,7 +145,7 @@ export default function HomeSidebar() {
               <li
                 key={idx}
                 className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-accent/20 cursor-pointer transition text-gray-700"
-                onClick={closeSidebar}
+                onClick={handleLogout}
               >
                 {item.icon}
                 <span>{item.label}</span>

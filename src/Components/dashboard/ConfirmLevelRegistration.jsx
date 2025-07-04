@@ -1,25 +1,45 @@
 import React from "react";
+import { useNavigate } from "react-router";
 import Button from "./../../Components/Button";
+import useUIStore from "../../store/useUIStore";
 
 const ConfirmLevelRegistration = ({ onCloseModal, openModal, title }) => {
+  const navigate = useNavigate();
+  const { setLevel, setAdmissionProcess } = useUIStore();
+
   const handleConfirm = () => {
-    // Step 1: Close the confirmation modal
+    console.log("✅ Proceed clicked");
+
+    // 1. Close modal
     onCloseModal();
 
-    // Step 2: After a small delay, open the success modal
     setTimeout(() => {
+      console.log("✅ Updating level and admission process");
+      setLevel(title); // Save selected level
+      setAdmissionProcess(true); // Mark registration complete
+
+      // 2. Open success modal
       openModal("success");
-    }, 1000); // Delay helps prevent modal overlap
+
+      // 3. Navigate to admission page after brief delay
+      setTimeout(() => {
+        console.log("✅ Navigating to /dashboard/admission");
+        navigate("/dashboard/admission", { replace: true });
+      }, 500);
+    }, 1000);
+  };
+
+  const handleCancel = () => {
+    console.log("❌ Cancel clicked");
+    onCloseModal();
   };
 
   return (
-    <div className="w-[98%] mx-auto sm:w-[500px]  sm:h-[328px] max-h-[450px] flex  items-center justify-center  bg-white rounded-[20px] py-[48px] px-[30px]">
+    <div className="w-[98%] mx-auto sm:w-[500px] sm:h-[328px] max-h-[450px] flex items-center justify-center bg-white rounded-[20px] py-[48px] px-[30px]">
       <div className="w-[95%] mx-auto flex flex-col gap-[32px] items-center">
-        {/* Caution Image */}
         <img src="/caution.png" alt="Caution" />
 
-        {/* Text Content */}
-        <div className="flex  flex-col items-center justify-center gap-2 text-center">
+        <div className="flex flex-col items-center justify-center gap-2 text-center">
           <h1 className="font-[500] text-[25px] font-clash">
             Confirm Registration
           </h1>
@@ -29,11 +49,10 @@ const ConfirmLevelRegistration = ({ onCloseModal, openModal, title }) => {
           </p>
         </div>
 
-        {/* Buttons */}
-        <div className="flex items-center justify-between gap-5 sm:gap-[136px]  ">
+        <div className="flex items-center justify-between gap-5 sm:gap-[136px]">
           <Button
             variant="cancel"
-            onClick={onCloseModal}
+            onClick={handleCancel}
             className="rounded-[10px] w-[112px] h-[40px]"
           >
             Cancel

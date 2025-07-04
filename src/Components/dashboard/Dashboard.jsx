@@ -2,54 +2,13 @@ import Button from "../Button";
 import CalendarComponent from "./CalendarComponent";
 import TotalCourses from "./TotalCourses";
 
-// const summary = [
-//   {
-//     image: "/total-course.png",
-//     title: "Total enroll courses",
-//     figure: "5",
-//     color:"#009688"
-//   },
-//   {
-//     image: "/course-completed.png",
-//     title: "Course completed",
-//     figure: "5",
-//     color:"#360400"
-//   },
-//   {
-//     image: "/hours-spent.png",
-//     title: "Hours spent",
-//     figure: "120h",
-//     color:"#D32F2F"
-//   },
-// ];
-// const performanceStats = [
-//   {
-//     image: "/attendance.png",
-//     title: "Attendance",
-//     figure: "70%",
-//     color:"#3D149D"
-//   },
-//   {
-//     image: "/quiz-completed.png",
-//     title: "Quiz practiced",
-//     figure: "20/30",
-//     color:"#9F5B0C"
-//   },
-//   {
-//     image: "/assignments-done.png",
-//     title: "Assignment done",
-//     figure: "10/20",
-//     color:"#B71CB9"
-//   },
-// ];
-
 const classes = [
   {
     thumbnail: "/quran-recitation.png",
     title: "Qur’an Recitation & Tajwid",
     tutor: "By Abdulmalik Ahmad",
     date: "15th July, 2025 ;",
-    time:"2:00PM",
+    time: "2:00PM",
     timeLeft: "2 min",
     color: "#D32F2F",
   },
@@ -58,7 +17,7 @@ const classes = [
     title: "Arabic Alphabet & Phonetics ",
     tutor: "By Ibrahim Lawal",
     date: "15th July, 2025 ;",
-    time:"4:00PM",
+    time: "4:00PM",
     timeLeft: "2 hrs",
     color: "#009688",
   },
@@ -279,7 +238,9 @@ function Classes({ thumbnail, title, tutor, date, time, timeLeft, color }) {
         className="w-[3.5rem] h-[2.5rem] sm:w-[4.95625rem] sm:h-[3.7225rem]"
       />
       <p className="flex flex-col">
-        <span className="font-montserrat text-[8px] sm:text-[10px] sm:text-sm font-semibold">{title}</span>
+        <span className="font-montserrat text-[8px] sm:text-[10px] sm:text-sm font-semibold">
+          {title}
+        </span>
         <span className="font-montserrat text-[8px] sm:text-[10px] text-darkest-grey font-semibold">
           {tutor}
         </span>

@@ -6,6 +6,8 @@ const useUIStore = create((set) => ({
   isDropdownOpen: false,
   showPassword: false,
   file: null,
+  level: "",
+  isAdmissionProcess: false,
 
   toggleSidebar: () =>
     set((state) => ({ isSidebarOpen: !state.isSidebarOpen })),
@@ -17,6 +19,8 @@ const useUIStore = create((set) => ({
   openDropdown: () => set({ isDropdownOpen: true }),
 
   closeDropdown: () => set({ isDropdownOpen: false }),
+  setLevel: (level) => set({ level }),
+  setAdmissionProcess: (value) => set({ isAdmissionProcess: value }),
 
   setShowPassword: () =>
     set((state) => ({ showPassword: !state.showPassword })),

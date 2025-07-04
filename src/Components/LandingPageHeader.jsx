@@ -42,7 +42,7 @@ export default function LandingPageHeader() {
           </div>
         ) : (
           <div className="hidden lg:block">
-            <Link to="/create">
+            <Link to="/login">
               <Button className=" focus:outline-none transition-all rounded-lg px-4 py-2 text-sm lg:text-base md:inline-flex items-center justify-center shadow font-medium font-clash hover:bg-[#009688]  cursor-pointer bg-primary text-white hover:bg-primarydark  ">
                 Login/Register
               </Button>

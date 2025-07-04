@@ -1,9 +1,9 @@
 // DashboardSidebar.jsx
 
 import React from "react";
+import { useNavigate } from "react-router";
 
 import DashboardSidebarLink from "./DashboardSidebarLink";
-
 import {
   Bell,
   BookOpen,
@@ -17,62 +17,85 @@ import {
   School,
   Users,
 } from "lucide-react";
-import { user } from "../../App";
 
-export const getDashboardSidebarLinks = (
-  role = user.role,
-  isAdmissionProcess = user.isAdmissionProcess
-) => {
+import { user } from "../../App";
+import useUIStore from "../../store/useUIStore";
+
+// Sidebar Link Generator
+export const getDashboardSidebarLinks = () => {
+  const { role, isAdmitted } = user;
+  const { isAdmissionProcess } = useUIStore();
+
   if (role === "student") {
-    return [
-      { key: "home", icon: <Home />, label: "Home", to: "/" },
-      {
-        key: "dashboard",
-        icon: <LayoutDashboard />,
-        label: "Dashboard",
-        to: "/dashboard/student",
-      },
-      {
-        key: "admission-or-registration",
+    const links = [];
+
+    // 👇 Show only "Level Registration" when not done
+    if (!isAdmissionProcess) {
+      links.push({
+        key: "level-registration",
         icon: <School />,
-        label: isAdmissionProcess ? "Admission" : "Level Registration",
-        to: isAdmissionProcess
-          ? "/dashboard/admission"
-          : "/dashboard/level-registration",
-      },
-      {
-        key: "mycourses",
-        icon: <BookOpen />,
-        label: "My Courses",
-        to: "/dashboard/my-courses",
-      },
-      {
-        key: "curriculum",
-        icon: <ListTree />,
-        label: "Curriculum",
-        to: "/dashboard/curriculum",
-      },
-      {
-        key: "notifications",
-        icon: <Bell />,
-        label: "Notifications",
-        to: "/dashboard/notifications",
-      },
-      {
-        key: "payfees",
-        icon: <CreditCard />,
-        label: "Pay Fees",
-        to: "/dashboard/payfees",
-      },
-      {
-        key: "resources",
-        icon: <FileText />,
-        label: "Resources",
-        to: "/dashboard/resources",
-      },
-    ];
+        label: "Level Registration",
+        to: "/dashboard/level-registration",
+      });
+
+      return links; // ⛔️ Return early: show ONLY this
+    }
+
+    // 👇 Show admission link if level registration is done
+    links.push({
+      key: "admission",
+      icon: <School />,
+      label: "Admission",
+      to: "/dashboard/admission",
+    });
+
+    // 👇 Show other dashboard items only after admission is granted
+    if (isAdmitted) {
+      links.unshift(
+        { key: "home", icon: <Home />, label: "Home", to: "/" },
+        {
+          key: "dashboard",
+          icon: <LayoutDashboard />,
+          label: "Dashboard",
+          to: "/dashboard/student",
+        },
+        {
+          key: "mycourses",
+          icon: <BookOpen />,
+          label: "My Courses",
+          to: "/dashboard/my-courses",
+        },
+        {
+          key: "curriculum",
+          icon: <ListTree />,
+          label: "Curriculum",
+          to: "/dashboard/curriculum",
+        },
+        {
+          key: "notifications",
+          icon: <Bell />,
+          label: "Notifications",
+          to: "/dashboard/notifications",
+        },
+        {
+          key: "payfees",
+          icon: <CreditCard />,
+          label: "Pay Fees",
+          to: "/dashboard/payfees",
+        },
+        {
+          key: "resources",
+          icon: <FileText />,
+          label: "Resources",
+          to: "/dashboard/resources",
+        }
+      );
+    }
+
+    return links;
   }
 
+  // Teacher sidebar stays as it is
   if (role === "teacher") {
     return [
       { key: "home", icon: <Home />, label: "Home", to: "/" },
@@ -118,37 +141,52 @@ export const getDashboardSidebarLinks = (
   return [];
 };
 
-// DashboardSidebarLink component for individual links
-// This component can be reused for each link in the sidebar
-
+// Sidebar Component
 const DashboardSidebar = () => {
+  const navigate = useNavigate();
+
   return (
-    <aside className="bg-white hidden lg:block md:row-span-full   border-r border-gray-300 h-full">
-      <div className="p-4 flex items-center justify-center h-[120px]">
-        <img src="/logo.png" alt="" className="" />
-      </div>
-      <nav className="w-full  py-4">
-        <ul className="flex flex-col gap-3 w-[90%] mx-auto">
-          {getDashboardSidebarLinks().map((item) => (
-            <li key={item.key}>
+    <aside className="bg-white hidden lg:block md:row-span-full border-r border-gray-300 h-full">
+      <div className="flex flex-col justify-between h-full">
+        {/* Top Section: Logo and Navigation */}
+        <div>
+          <div className="p-4 flex items-center justify-center h-[120px]">
+            <img src="/logo.png" alt="DaarutTahseen Logo" />
+          </div>
+
+          <nav className="w-full py-4">
+            <ul className="flex flex-col gap-3 w-[90%] mx-auto">
+              {getDashboardSidebarLinks().map((item) => (
+                <li key={item.key}>
+                  <DashboardSidebarLink
+                    icon={item.icon}
+                    label={item.label}
+                    to={item.to}
+                  />
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+
+        {/* Bottom Section: Logout */}
+        <div className="py-4 border-t border-dark-grey">
+          <ul className="flex flex-col gap-3 w-[90%] mx-auto">
+            <li
+              onClick={() => {
+                user.isAuthenticated = false;
+                navigate("/login", { replace: true });
+              }}
+              className="cursor-pointer"
+            >
               <DashboardSidebarLink
-                icon={item.icon}
-                label={item.label}
-                to={item.to}
+                icon={<LogOut size={20} />}
+                label="Log out"
               />
             </li>
-          ))}
-        </ul>
-
-        {/* Divider */}
-        <div className="border-t border-dark-grey my-4 w-full mx-auto" />
-
-        <ul className="flex flex-col gap-3 w-[90%] mx-auto">
-          <li>
-            <DashboardSidebarLink icon={<LogOut size={20} />} label="Log out" />
-          </li>
-        </ul>
-      </nav>
+          </ul>
+        </div>
+      </div>
     </aside>
   );
 };

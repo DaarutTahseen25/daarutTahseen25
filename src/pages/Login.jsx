@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink, useNavigate } from "react-router"; // ✅ Corrected import
+import { Link, useNavigate } from "react-router"; // ✅ Use react-router-dom
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import Button from "../Components/Button";
 import Input from "../Components/input";
@@ -8,7 +8,7 @@ import { user } from "../App";
 
 const Login = () => {
   const navigate = useNavigate();
-  // Zustand state for login
+
   const {
     showPassword,
     setShowPassword,
@@ -18,20 +18,24 @@ const Login = () => {
     setLoginErrors,
   } = useUIStore();
 
-  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLoginForm(name, value);
   };
 
-  // Validate form before submit
   const validate = () => {
     const errors = {};
-    if (!loginForm.email.trim()) {
-      errors.email = "Email is required.";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(loginForm.email)) {
-      errors.email = "Invalid email format.";
+    const identifier = loginForm.identifier.trim();
+
+    if (!identifier) {
+      errors.identifier = "Email or NIN is required.";
+    } else if (
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(identifier) && // Not email
+      !/^\d{11}$/.test(identifier) // Not 11-digit NIN
+    ) {
+      errors.identifier = "Enter a valid email or 11-digit NIN.";
     }
+
     if (!loginForm.password.trim()) {
       errors.password = "Password is required.";
     }
@@ -40,21 +44,22 @@ const Login = () => {
     return Object.keys(errors).length === 0;
   };
 
-  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      console.log("Form submitted:", loginForm);
-      // Optional: clear/reset login form here
+      console.log("Logging in with:", loginForm);
 
+      // Simulate authentication
       user.isAuthenticated = !user.isAuthenticated;
+
+      // Navigate to dashboard or home
       navigate("/", { replace: true });
     }
   };
 
   return (
     <div className="flex flex-col lg:grid lg:grid-cols-2">
-      {/* ---------- LEFT SECTION (Welcome Message) ---------- */}
+      {/* LEFT SECTION */}
       <div className="bg-secondary lg:h-screen flex items-center justify-center">
         <div className="text-center w-[89%] mx-auto flex flex-col justify-center items-center gap-4 px-8 py-10 lg:p-12">
           <img
@@ -72,8 +77,8 @@ const Login = () => {
         </div>
       </div>
 
-      {/* ---------- RIGHT SECTION (Login Form) ---------- */}
-      <div className="w-full md:w-[90%] xl:w-[80%] mx-auto lg:mt-[-52px] p-6 sm:p-10 md:p-12 lg:p-20 min-h-[50vh] lg:min-h-screen flex flex-col justify-center">
+      {/* RIGHT SECTION */}
+      <div className="w-full md:w-[90%] xl:w-[80%] mx-auto p-6 sm:p-10 md:p-12 lg:p-20 min-h-[50vh] lg:min-h-screen flex flex-col justify-center">
         <h2 className="text-2xl font-medium md:text-3xl text-center text-accent mb-4 font-clash">
           Login to your Student Account
         </h2>
@@ -82,25 +87,25 @@ const Login = () => {
           className="space-y-4 max-w-md mx-auto w-full"
           onSubmit={handleSubmit}
         >
-          {/* -------- Email Field -------- */}
+          {/* Identifier Field (Email or NIN) */}
           <div>
             <Input
-              label="Email"
-              name="email"
-              type="email"
-              value={loginForm.email}
+              label="Email or NIN"
+              name="identifier"
+              type="text"
+              value={loginForm.identifier}
               onChange={handleChange}
-              placeholder="Enter your Email"
+              placeholder="Enter your Email or NIN"
               className={`${
-                loginErrors.email ? "border-red-500" : "border-gray-300"
+                loginErrors.identifier ? "border-red-500" : "border-gray-300"
               }`}
             />
-            {loginErrors.email && (
-              <p className="text-red-500 text-sm">{loginErrors.email}</p>
+            {loginErrors.identifier && (
+              <p className="text-red-500 text-sm">{loginErrors.identifier}</p>
             )}
           </div>
 
-          {/* -------- Password Field -------- */}
+          {/* Password */}
           <div className="mb-4">
             <label className="block mb-1 font-medium text-textmain font-clash md:text-lg mt-4">
               Password
@@ -119,8 +124,7 @@ const Login = () => {
               <button
                 type="button"
                 onClick={setShowPassword}
-                aria-label="Toggle password visibility"
-                className="absolute top-1/2 right-4 transform -translate-y-1/2 text-2xl text-textmain/70 font-semibold"
+                className="absolute top-1/2 right-4 transform -translate-y-1/2 text-2xl text-textmain/70"
               >
                 {showPassword ? <FiEyeOff /> : <FiEye />}
               </button>
@@ -132,7 +136,7 @@ const Login = () => {
             )}
           </div>
 
-          {/* -------- Forgot Password -------- */}
+          {/* Forgot Password */}
           <div className="text-sm text-right">
             <Link
               to="/forgot-password"
@@ -142,13 +146,13 @@ const Login = () => {
             </Link>
           </div>
 
-          {/* -------- Submit Button -------- */}
+          {/* Submit Button */}
           <Button type="submit" className="w-full mt-3 hover:bg-buttonhover">
             Login
           </Button>
         </form>
 
-        {/* -------- Sign Up Link -------- */}
+        {/* Signup Link */}
         <div className="mt-6 text-center text-sm">
           <span className="text-gray-600">Don't have an account? </span>
           <Link

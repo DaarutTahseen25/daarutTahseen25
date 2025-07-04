@@ -1,11 +1,7 @@
 import { useRef, useState } from "react";
 import Button from "./Button";
 import Modal from "./Modal";
-<<<<<<< HEAD
-import Verifying from "./../Components/dashboard/Verifying";
-=======
 import Verifying from "./Verifying";
->>>>>>> 09eb6f5e8997fff351b576dfce8aad7f8edab89d
 
 function OtpRegistration() {
   const smsOtpRefs = useRef([]);

@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import Button from "../Button";
+import useUIStore from "../../store/useUIStore";
 const Admission = () => {
   const [test, setTest] = useState("Pending");
   const isCompleted = false;
+
+  const { level } = useUIStore();
   return (
     <section>
       {" "}
@@ -12,7 +15,7 @@ const Admission = () => {
       <div className="flex flex-col gap-4 mt-4">
         <h2 className="font-clash font-[500] text-[25px] text-center lg:text-left  text-accent">
           You have Registered for the{" "}
-          <span className="text-primary">Beginner Level</span>
+          <span className="text-primary capitalize">{level}</span>
         </h2>
         <p className="font-montserrat font-[400] text-[14px] text-center lg:text-left  text-accent">
           You have completed your level registration. A placement test will be
@@ -33,7 +36,7 @@ const Admission = () => {
             </small>
             <small className="font-montserrat font-[400] text-[14px] text-black ">
               <span className="text-dark-grey">Selected Level:</span>
-              {""} Beginner
+              {""} {level}
             </small>
             <small className="font-montserrat font-[400] text-[14px] text-black ">
               <span className="text-dark-grey">Test:</span>

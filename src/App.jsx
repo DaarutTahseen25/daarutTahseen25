@@ -3,6 +3,8 @@ import { Routes, Route, Navigate } from "react-router";
 import "./App.css";
 
 import QuranLoader from "./Components/QuranLoader";
+import DashboardLayoutGuard from "./Components/dashboard/DashboardLayoutGuard";
+// import DashboardLayoutGuard from "./Components/dashboard/DashboardLayoutGuard";
 
 // Lazy-loaded pages & components
 const Home = lazy(() => import("./pages/home"));
@@ -50,8 +52,10 @@ export const user = {
   username: "aisha_yusuf",
   email: "aisha.yusuf@daaruttasheen.sch.ng",
   isAuthenticated: false,
-  isAdmissionProcess: true,
-  role: "student", // or "teacher"
+  isAdmissionProcess: false,
+  isAdmitted: true,
+  isApproved: true,
+  role: "student",
 };
 
 // Protected Route Wrapper
@@ -85,10 +89,12 @@ const App = () => {
 
         {/* Dashboard - Protected */}
         <Route
-          path="/dashboard"
+          path="/dashboard/*"
           element={
             <ProtectedRoute>
-              <DashboardLayout />
+              <DashboardLayoutGuard>
+                <DashboardLayout />
+              </DashboardLayoutGuard>
             </ProtectedRoute>
           }
         >

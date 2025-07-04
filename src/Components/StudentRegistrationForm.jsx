@@ -41,7 +41,11 @@ const StudentRegistrationForm = () => {
     if (!signupForm.password.trim()) errors.password = "Password is required.";
     if (signupForm.password !== signupForm.confirmPassword)
       errors.confirmPassword = "Passwords do not match.";
-    if (!file) errors.file = "Passport upload is required.";
+
+    // OPTIONAL: check size if uploaded
+    if (file && file.size > 2 * 1024 * 1024) {
+      errors.file = "File must be less than 2MB.";
+    }
 
     setSignupErrors(errors);
     return Object.keys(errors).length === 0;
@@ -61,78 +65,54 @@ const StudentRegistrationForm = () => {
           Create Student Account
         </h2>
 
-        {/* NIN */}
         <Input
           label="NIN"
           name="nin"
-          type="text"
           value={signupForm.nin}
           onChange={handleChange}
           placeholder="Enter your NIN"
-          className={`${
-            signupErrors.nin ? "border-red-500" : "border-gray-300"
-          }`}
         />
         {signupErrors.nin && (
           <p className="text-red-500 text-sm">{signupErrors.nin}</p>
         )}
 
-        <p className="text-xs italic text-textmain/60 mb-4 mt-2">
-          Your NIN is an 11-digit number issued by NIMC.
-        </p>
-
-        {/* Name */}
         <Input
           label="Name"
           name="name"
-          type="text"
           value={signupForm.name}
           onChange={handleChange}
-          placeholder="Eg. Abdulazeez Mohammad"
-          className={`${
-            signupErrors.name ? "border-red-500" : "border-gray-300"
-          }`}
+          placeholder="Full name"
         />
         {signupErrors.name && (
           <p className="text-red-500 text-sm">{signupErrors.name}</p>
         )}
 
-        {/* Email */}
         <Input
           label="Email"
           name="email"
-          type="email"
           value={signupForm.email}
           onChange={handleChange}
-          placeholder="example@gmail.com"
-          className={`${
-            signupErrors.email ? "border-red-500" : "border-gray-300"
-          }`}
+          placeholder="Email address"
         />
         {signupErrors.email && (
           <p className="text-red-500 text-sm">{signupErrors.email}</p>
         )}
 
-        {/* Phone */}
         <Input
           label="Phone"
           name="phone"
-          type="text"
           value={signupForm.phone}
           onChange={handleChange}
-          placeholder="0812345678"
-          className={`${
-            signupErrors.phone ? "border-red-500" : "border-gray-300"
-          }`}
+          placeholder="Phone number"
         />
         {signupErrors.phone && (
           <p className="text-red-500 text-sm">{signupErrors.phone}</p>
         )}
 
-        {/* File Upload */}
+        {/* File Upload (Optional) */}
         <div className="mb-4">
           <label className="block mb-1 font-medium text-textmain mt-4">
-            Passport
+            Passport <span className="text-xs text-gray-500">(Optional)</span>
           </label>
           <div
             className={`border rounded p-3 ${
@@ -157,7 +137,7 @@ const StudentRegistrationForm = () => {
               <input
                 type="file"
                 onChange={handleFileChange}
-                className="block w-full text-sm text-gray-500 file:mr-4 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-accent/10 file:text-accent hover:file:bg-accent/20"
+                className="block w-full text-sm text-gray-500 file:py-1 file:px-3 file:rounded-md file:bg-accent/10 hover:file:bg-accent/20"
               />
             )}
           </div>
@@ -166,67 +146,38 @@ const StudentRegistrationForm = () => {
           )}
         </div>
 
-        {/* Password */}
-        <div className="mb-4">
-          <label className="block mb-1 font-medium text-textmain mt-4">
-            Password
-          </label>
-          <div className="relative">
-            <Input
-              type={showPassword ? "text" : "password"}
-              name="password"
-              value={signupForm.password}
-              onChange={handleChange}
-              placeholder="Enter your password"
-              className={`w-full border rounded px-4 py-2 pr-14 focus:ring-2 focus:ring-accent ${
-                signupErrors.password ? "border-red-500" : "border-gray-300"
-              }`}
-            />
-            <button
-              type="button"
-              onClick={setShowPassword}
-              className="absolute top-1/2 right-4 transform -translate-y-1/2 text-2xl"
-            >
-              {showPassword ? <FiEyeOff /> : <FiEye />}
-            </button>
+        {/* Passwords */}
+        {["password", "confirmPassword"].map((field) => (
+          <div className="mb-4" key={field}>
+            <label className="block mb-1 font-medium text-textmain mt-4">
+              {field === "password" ? "Password" : "Confirm Password"}
+            </label>
+            <div className="relative">
+              <Input
+                type={showPassword ? "text" : "password"}
+                name={field}
+                value={signupForm[field]}
+                onChange={handleChange}
+                placeholder={
+                  field === "password" ? "Enter password" : "Confirm password"
+                }
+                className={`w-full border rounded px-4 py-2 pr-14 focus:ring-2 focus:ring-accent ${
+                  signupErrors[field] ? "border-red-500" : "border-gray-300"
+                }`}
+              />
+              <button
+                type="button"
+                onClick={setShowPassword}
+                className="absolute top-1/2 right-4 transform -translate-y-1/2 text-2xl"
+              >
+                {showPassword ? <FiEyeOff /> : <FiEye />}
+              </button>
+            </div>
+            {signupErrors[field] && (
+              <p className="text-red-500 text-sm mt-1">{signupErrors[field]}</p>
+            )}
           </div>
-          {signupErrors.password && (
-            <p className="text-red-500 text-sm mt-1">{signupErrors.password}</p>
-          )}
-        </div>
-
-        {/* Confirm Password */}
-        <div className="mb-4">
-          <label className="block mb-1 font-medium text-textmain mt-4">
-            Confirm Password
-          </label>
-          <div className="relative">
-            <Input
-              type={showPassword ? "text" : "password"}
-              name="confirmPassword"
-              value={signupForm.confirmPassword}
-              onChange={handleChange}
-              placeholder="Confrim your password"
-              className={`w-full border rounded px-4 py-2 pr-14 focus:ring-2 focus:ring-accent ${
-                signupErrors.confirmPassword
-                  ? "border-red-500"
-                  : "border-gray-300"
-              }`}
-            />
-            <button
-              type="button"
-              onClick={setShowPassword}
-              className="absolute top-1/2 right-4 transform -translate-y-1/2 text-2xl"
-            >
-              {showPassword ? <FiEyeOff /> : <FiEye />}
-            </button>
-          </div>
-          {signupErrors.confirmPassword && (
-            <p className="text-red-500 text-sm mt-1">
-              {signupErrors.confirmPassword}
-            </p>
-          )}
-        </div>
+        ))}
 
         {/* Agreement */}
         <div className="mb-4 mt-5">
@@ -241,9 +192,9 @@ const StudentRegistrationForm = () => {
               }`}
             />
             <label htmlFor="agreement" className="ml-2 cursor-pointer">
-              I agree with the{" "}
-              <span className="text-primary underline">Terms of Service</span>{" "}
-              and <span className="text-primary underline">Privacy Policy</span>
+              I agree to the{" "}
+              <span className="text-primary underline">Terms</span> &{" "}
+              <span className="text-primary underline">Privacy</span>
             </label>
           </div>
           {signupErrors.agreement && (
@@ -253,7 +204,6 @@ const StudentRegistrationForm = () => {
           )}
         </div>
 
-        {/* Submit */}
         <Button type="submit" className="w-full mt-3">
           Create Account
         </Button>
