@@ -1,17 +1,25 @@
+import React from "react";
+import FeaturedCourses from "../Components/FeaturedCourses";
+import Hero from "../Components/Hero";
+import LandingPageHeader from "../Components/LandingPageHeader";
+import Trusted from "../Components/Trusted";
+import Footer from "../Components/Footer";
+import Testimonial from "../Components/Testimonial";
+import HomeSidebar from "../Components/HomeSidebar";
+
 const Home = () => {
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
-      <p className="text-lg text-gray-700">
-        This is a simple React app with Tailwind CSS.
-      </p>
-      <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition duration-300">
-        Click Me
-      </button>
-    </div>
-  )
-}
+    <main className="grid grid-rows-[auto_1fr_1fr_1fr_1fr_auto] h-screen">
+      <HomeSidebar />
+      <LandingPageHeader />
 
-export default Home
+      <Hero />
+      <Trusted />
+      <FeaturedCourses />
+      <Testimonial />
+      <Footer />
+    </main>
+  );
+};
+
+export default Home;
