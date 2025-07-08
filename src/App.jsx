@@ -99,11 +99,10 @@ const App = () => {
         <Route
           path="/dashboard/*"
           element={
-            <ProtectedRoute>
-              <DashboardLayoutGuard>
-                <DashboardLayout />
-              </DashboardLayoutGuard>
-            </ProtectedRoute>
+            //later wrap with protected route component here
+            <DashboardLayoutGuard>
+              <DashboardLayout />
+            </DashboardLayoutGuard>
           }
         >
           {/* Redirect to appropriate role */}
