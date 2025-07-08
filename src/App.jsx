@@ -8,7 +8,10 @@ import Courses from "./pages/Courses";
 import AdmissionsPage from "./pages/AdmissionsPage";
 import ContactUsPage from "./pages/ContactUsPage";
 import ResourcesPage from "./pages/ResourcesPage";
+feat/privacy-policy
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import { usePageTitle } from "./hooks/usePageTitle";
+dev
 // import DashboardLayoutGuard from "./Components/dashboard/DashboardLayoutGuard";
 
 // Lazy-loaded pages & components
@@ -70,6 +73,7 @@ const ProtectedRoute = ({ children }) => {
 };
 
 const App = () => {
+  usePageTitle();
   return (
     <Suspense
       fallback={
@@ -102,11 +106,10 @@ const App = () => {
         <Route
           path="/dashboard/*"
           element={
-            <ProtectedRoute>
-              <DashboardLayoutGuard>
-                <DashboardLayout />
-              </DashboardLayoutGuard>
-            </ProtectedRoute>
+            //later wrap with protected route component here
+            <DashboardLayoutGuard>
+              <DashboardLayout />
+            </DashboardLayoutGuard>
           }
         >
           {/* Redirect to appropriate role */}
