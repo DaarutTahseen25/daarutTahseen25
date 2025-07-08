@@ -8,10 +8,14 @@ import Courses from "./pages/Courses";
 import AdmissionsPage from "./pages/AdmissionsPage";
 import ContactUsPage from "./pages/ContactUsPage";
 import ResourcesPage from "./pages/ResourcesPage";
+feat/privacy-policy
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import { usePageTitle } from "./hooks/usePageTitle";
+dev
 // import DashboardLayoutGuard from "./Components/dashboard/DashboardLayoutGuard";
 
 // Lazy-loaded pages & components
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const Home = lazy(() => import("./pages/home"));
 const About = lazy(() => import("./pages/about"));
 const LogIn = lazy(() => import("./pages/Login"));
@@ -82,6 +86,7 @@ const App = () => {
         {/* Public Pages */}
         <Route path="/" element={<Home />} />
         <Route path="/about-us" element={<About />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/otp-page" element={<OtpRegistration />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/our-courses" element={<Courses />} />
