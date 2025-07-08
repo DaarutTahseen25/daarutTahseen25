@@ -61,7 +61,7 @@ export const user = {
   isAdmissionProcess: false,
   isAdmitted: true,
   isApproved: true,
-  role: "student",
+  role: "teacher",
 };
 
 // Protected Route Wrapper
@@ -116,10 +116,12 @@ const App = () => {
           <Route path="teacher" element={<DashboardTeacher />} />
 
           {/* profile by role */}
-          <Route path="teacher-profile" element={<TutorProfile />} />
+          <Route
+            path="my-profile"
+            element={user.role === "teacher" ? <TutorProfile /> : <Profile />}
+          />
 
           {/* Shared Pages */}
-          <Route path="notifications" element={<Notifications />} />
           <Route path="level-registration" element={<LevelRegistration />} />
           <Route path="admission" element={<Admission />} />
           <Route path="curriculum" element={<Curriculum />} />
@@ -131,7 +133,10 @@ const App = () => {
           />
           <Route path="payfees" element={<PayFees />} />
           <Route path="payments" element={<Payments />} />
-          <Route path="messages" element={<Messages />} />
+          <Route
+            path="messages"
+            element={user.role === "teacher" ? <Messages /> : <Notifications />}
+          />
           <Route path="my-classes" element={<Classes />} />
           <Route path="library" element={<Library />} />
           <Route path="resources" element={<Resources />} />

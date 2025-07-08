@@ -79,7 +79,7 @@ const HeaderProfile = () => {
           </Link>
 
           <Link
-            to="/dashboard/profile"
+            to="/dashboard/my-profile"
             className="flex items-center gap-2 py-[0.76rem] px-4 hover:bg-accent/20 transition-colors duration-200"
             onClick={closeDropdown}
           >
