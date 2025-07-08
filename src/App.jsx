@@ -8,6 +8,7 @@ import Courses from "./pages/Courses";
 import AdmissionsPage from "./pages/AdmissionsPage";
 import ContactUsPage from "./pages/ContactUsPage";
 import ResourcesPage from "./pages/ResourcesPage";
+import { usePageTitle } from "./hooks/usePageTitle";
 // import DashboardLayoutGuard from "./Components/dashboard/DashboardLayoutGuard";
 
 // Lazy-loaded pages & components
@@ -68,6 +69,7 @@ const ProtectedRoute = ({ children }) => {
 };
 
 const App = () => {
+  usePageTitle();
   return (
     <Suspense
       fallback={
