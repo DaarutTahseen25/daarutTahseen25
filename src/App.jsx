@@ -8,10 +8,9 @@ import Courses from "./pages/Courses";
 import AdmissionsPage from "./pages/AdmissionsPage";
 import ContactUsPage from "./pages/ContactUsPage";
 import ResourcesPage from "./pages/ResourcesPage";
-feat/privacy-policy
-import PrivacyPolicy from "./pages/PrivacyPolicy";
+
 import { usePageTitle } from "./hooks/usePageTitle";
-dev
+
 // import DashboardLayoutGuard from "./Components/dashboard/DashboardLayoutGuard";
 
 // Lazy-loaded pages & components
