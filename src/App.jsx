@@ -38,6 +38,7 @@ const DashboardTeacher = lazy(() =>
 const Notifications = lazy(() =>
   import("./Components/dashboard/Notifications")
 );
+const TutorProfile = lazy(() => import("./Components/dashboard/TutorProfile"));
 const Curriculum = lazy(() => import("./Components/dashboard/Curriculum"));
 const Admission = lazy(() => import("./Components/dashboard/Admission"));
 const MyCourses = lazy(() => import("./Components/dashboard/MyCourses"));
@@ -118,6 +119,9 @@ const App = () => {
           <Route path="student" element={<Dashboard />} />
           <Route path="teacher" element={<DashboardTeacher />} />
 
+          {/* profile by role */}
+          <Route path="teacher-profile" element={<TutorProfile />} />
+
           {/* Shared Pages */}
           <Route path="notifications" element={<Notifications />} />
           <Route path="level-registration" element={<LevelRegistration />} />
@@ -136,6 +140,9 @@ const App = () => {
           <Route path="library" element={<Library />} />
           <Route path="resources" element={<Resources />} />
           <Route path="profile" element={<Profile />} />
+
+          {/* profile by role */}
+          <Route path="teacher-profile" element={<TutorProfile />} />
 
           {/* Catch all */}
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
