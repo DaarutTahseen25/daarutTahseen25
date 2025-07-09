@@ -32,7 +32,6 @@ const students = [
     progress: 100,
     score: 80,
   },
-  // Add more if needed...
 ];
 
 const ITEMS_PER_PAGE = 5;
@@ -47,8 +46,8 @@ export default function StudentTable() {
   );
 
   return (
-    <div className="w-full rounded-2xl border border-[#eee] bg-[#fefefc] p-4 shadow">
-      <div className="overflow-x-auto rounded-xl bg-white p-4 ">
+    <div className="w-full rounded  bg-[#fefefc] p-4 shadow overflow-auto text-xs">
+      <div className="overflow-x-auto rounded bg-white p-4  min-w-[700px]">
         <div className="grid grid-cols-5 gap-4 font-montserrat font-bold text-sm border-b py-3 px-2 bg-[#f8f8f8] rounded-t-xl">
           <span>S/N</span>
           <span>Student Name</span>
@@ -73,7 +72,7 @@ export default function StudentTable() {
             <button
               key={i}
               onClick={() => setCurrentPage(i + 1)}
-              className={`w-8 h-8 rounded-md text-sm font-semibold border ${
+              className={`w-8 h-8 rounded-md text-sm font-semibold ${
                 currentPage === i + 1
                   ? "bg-primary text-white"
                   : "text-black bg-white"
@@ -92,11 +91,11 @@ function StudentRow({ index, name, avatar, progress, score }) {
   const isCompleted = progress === 100;
   const statusText = isCompleted ? "Completed" : "In progress";
   const statusColor = isCompleted ? "text-[#2e7d32]" : "text-[#d32f2f]";
-  const badgeIcon = isCompleted ? "✓" : "⟳"; // Replace with icons if needed
+  const badgeIcon = isCompleted ? "✓" : "⟳";
   const progressColor = isCompleted ? "bg-[#00BFA6]" : "bg-[#5e3c3c]";
 
   return (
-    <li className="grid grid-cols-5 gap-4 items-center text-sm py-4 px-2 font-montserrat border-b">
+    <li className="grid grid-cols-5 gap-4 items-center text-xs py-4 px-2 font-montserrat border-b border-textmuted ">
       <span>{index}</span>
       <div className="flex items-center gap-2">
         <img
@@ -117,7 +116,7 @@ function StudentRow({ index, name, avatar, progress, score }) {
       </div>
       <span className="font-semibold text-sm text-gray-700">{score}%</span>
       <span
-        className={`border rounded-full px-3 py-1 flex items-center gap-1 justify-center text-xs font-semibold ${statusColor} border-current w-fit`}
+        className={`border  rounded-full px-3 py-1 flex items-center gap-1 justify-center text-xs font-semibold ${statusColor} border-current w-fit`}
       >
         <span>{badgeIcon}</span> {statusText}
       </span>
