@@ -75,7 +75,7 @@ export const getDashboardSidebarLinks = () => {
           key: "notifications",
           icon: <Bell />,
           label: "Notifications",
-          to: "/dashboard/notifications",
+          to: "/dashboard/messages",
         },
         {
           key: "payfees",

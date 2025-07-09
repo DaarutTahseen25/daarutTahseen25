@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router";
 
 const Footer = () => {
   return (
@@ -53,12 +54,15 @@ const Footer = () => {
           <div>
             <h1 className="font-clash font-[500] text-[20px] mb-3">Legal</h1>
             <ul className="flex flex-col gap-2">
-              {["Privacy Policy", "Terms of Service"].map((item) => (
+              {[
+                { label: "Privacy Policy", to: "/privacy-policy" },
+                { label: "Terms of Service" },
+              ].map((item) => (
                 <li
                   key={item}
                   className="font-clash font-[400] text-[16px] hover:text-primary transition-colors duration-300"
                 >
-                  <a href="#">{item}</a>
+                  <Link to={item.to}>{item.label}</Link>
                 </li>
               ))}
             </ul>

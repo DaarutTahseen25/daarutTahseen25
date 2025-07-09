@@ -59,7 +59,7 @@ const Dashboard = () => {
           participation and assignments.
         </span>
         <hr className="mt-1.5 border border-dark-grey" />
-        <div className="grid grid-cols-1 gap-y-5 lg:gap-0 lg:grid-cols-[370px_290px_290px] justify-between w-full mt-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-5 gap-x-3  w-full mt-4">
           {/* 1ST CARD */}
           <div className="rounded-[15px] p-2.5 shadow-[0px_0px_5px_0.2px_rgba(0,0,0,0.25)] h-[15.625rem] bg-white ">
             <h5 className="font-semibold font-montserrat text-sm">
@@ -179,8 +179,8 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-y-5 lg:gap-0 lg:grid-cols-[684px_290px] justify-between w-full">
-        <div className="">
+      <div className="grid grid-cols-1 xl:grid-cols-3  gap-y-5  gap-x-3 w-full">
+        <div className="xl:col-span-2">
           <h2 className="font-clash font-medium text-2xl text-center lg:text-left">
             Upcoming Classes
           </h2>
@@ -210,13 +210,13 @@ const Dashboard = () => {
 
         {/* CALENDAR */}
 
-        <div className="">
+        <div className="xl:col-span-1">
           <h2 className="font-clash font-medium text-2xl text-center lg:text-left">
             Calendar
           </h2>
           <hr className="mt-1.5 border border-dark-grey" />
           <div className="w-full">
-            <div className="max-w-fit mx-auto lg:mx-0">
+            <div className="w-full mx-auto lg:mx-0 ">
               <CalendarComponent />
             </div>
           </div>

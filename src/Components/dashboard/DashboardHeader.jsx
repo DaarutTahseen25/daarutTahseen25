@@ -15,7 +15,7 @@ const DashboardHeader = () => {
         </div>
         <div className="w-[90%] mx-auto flex items-center justify-end gap-4">
           <div className="h-10 w-10 p-2 cursor-pointer rounded-full hover:bg-accent/20 transition-colors duration-200 flex items-center justify-center">
-            <Link to="/dashboard/notifications">
+            <Link to="/dashboard/messages">
               <img src="/notification bell.png" alt="" width={20} height={20} />
             </Link>
           </div>

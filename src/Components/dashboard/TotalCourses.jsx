@@ -46,9 +46,9 @@ const courses = [
 
 export default function TotalCourses() {
   return (
-    <div className="grid grid-cols-1 gap-y-5 lg:gap-0 lg:grid-cols-[684px_290px] justify-between w-full">
+    <div className="grid grid-cols-1 xl:grid-cols-3 gap-y-5 gap-x-5 w-full">
       {/* TOTAL COURSES */}
-      <div className="">
+      <div className="xl:col-span-2">
         <h2 className="font-clash font-medium text-2xl text-center lg:text-left">
           Total Courses ({courses?.length})
         </h2>
@@ -168,12 +168,12 @@ export default function TotalCourses() {
             </div>
 
             <Button
-                variant="primary"
-                size="lg"
-                className="rounded-[10px] font-montserrat font-bold text-sm w-[5.5rem] h-[2.5rem] mt-4 "
-              >
-                Start
-              </Button>
+              variant="primary"
+              size="lg"
+              className="rounded-[10px] font-montserrat font-bold text-sm w-[5.5rem] h-[2.5rem] mt-4 "
+            >
+              Start
+            </Button>
           </div>
         </div>
       </div>
@@ -222,9 +222,10 @@ function Course({ thumbnail, title, chapters, lectures, progress, score }) {
 
       {/* PROGRESS */}
       <div className="basis-[4rem] sm:basis-[8.4375rem] flex items-center gap-1.5">
-        <div className=" bg-light-grey h-[5px] rounded overflow-hidden"
-        // w-[3.5rem] sm:w-[6.625rem]
-        style={{ width: `${progressWidth}rem` }}
+        <div
+          className=" bg-light-grey h-[5px] rounded overflow-hidden"
+          // w-[3.5rem] sm:w-[6.625rem]
+          style={{ width: `${progressWidth}rem` }}
         >
           <div
             className={`h-full rounded ${
@@ -263,7 +264,11 @@ function Course({ thumbnail, title, chapters, lectures, progress, score }) {
             <span className="font-montserrat text-[9px]">Completed</span>
           </p>
         )}
-        <img src="/right-arr.png" alt="right arrow" className="sm:h-3 sm:w-2 h-2 w-1.5 hidden sm:block" />
+        <img
+          src="/right-arr.png"
+          alt="right arrow"
+          className="sm:h-3 sm:w-2 h-2 w-1.5 hidden sm:block"
+        />
       </div>
     </li>
   );

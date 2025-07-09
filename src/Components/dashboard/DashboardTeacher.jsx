@@ -143,7 +143,7 @@ const DashboardTeacher = () => {
                   className="h-[2.375rem] w-[2.375rem]"
                 />
                 <p className="font-montserrat text-sm font-semibold">
-                  Studentttendance
+                  Student Attendance
                 </p>
               </div>
               <span className="h-[2.5rem] w-[2.5rem] border-4 rounded-[50%] flex justify-center items-center border-[#3D149D] border-l-dark-grey font-montserrat text-[10px] font-semibold">
@@ -158,7 +158,7 @@ const DashboardTeacher = () => {
                   className="h-[2.375rem] w-[2.375rem]"
                 />
                 <p className="font-montserrat text-sm font-semibold">
-                  Quiz created
+                  Quiz Created
                 </p>
               </div>
               <span className="h-[2.5rem] w-[2.5rem] border-4 rounded-[50%] flex justify-center items-center border-[#9F5B0C] border-l-dark-grey font-montserrat text-[10px] font-semibold ">
