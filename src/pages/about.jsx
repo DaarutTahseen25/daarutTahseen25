@@ -1,12 +1,17 @@
 import React from "react";
 import Button from "../Components/Button";
+import LandingPageHeader from "../Components/LandingPageHeader";
+import Footer from "../Components/Footer";
+import HomeSidebar from "../Components/HomeSidebar";
 
 const About = () => {
   return (
-    <div>
-      <h1 className="text-primary text-4xl">About page</h1>
-      <Button variant="primary">This is from the components</Button>
-    </div>
+    <main className="grid grid-rows-[auto_1fr_1fr_1fr_1fr_auto] h-screen">
+      <HomeSidebar />
+      <LandingPageHeader />
+      <h1>About us</h1>
+      <Footer />
+    </main>
   );
 };
 
