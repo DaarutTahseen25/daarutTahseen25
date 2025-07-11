@@ -31,23 +31,13 @@ export const getDashboardSidebarLinks = () => {
 
     // 👇 Show only "Level Registration" when not done
     if (!isAdmissionProcess) {
-      links.push({
-        key: "level-registration",
-        icon: <School />,
-        label: "Level Registration",
-        to: "/dashboard/level-registration",
-      });
+      links.push();
 
       return links; // ⛔️ Return early: show ONLY this
     }
 
-    // 👇 Show admission link if level registration is done
-    links.push({
-      key: "admission",
-      icon: <School />,
-      label: "Admission",
-      to: "/dashboard/admission",
-    });
+    // // 👇 Show admission link if level registration is done
+    // links.push();
 
     // 👇 Show other dashboard items only after admission is granted
     if (isAdmitted) {
@@ -64,6 +54,18 @@ export const getDashboardSidebarLinks = () => {
           icon: <BookOpen />,
           label: "My Courses",
           to: "/dashboard/my-courses",
+        },
+        {
+          key: "level-registration",
+          icon: <School />,
+          label: "Level Registration",
+          to: "/dashboard/level-registration",
+        },
+        {
+          key: "admission",
+          icon: <School />,
+          label: "Admission",
+          to: "/dashboard/admission",
         },
         {
           key: "curriculum",
