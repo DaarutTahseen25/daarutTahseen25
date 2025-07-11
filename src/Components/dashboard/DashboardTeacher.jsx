@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-import React from "react";
-
-const DashboardTeacher = () => {
-  return <div>DashboardTeacher</div>;
-};
-
-=======
 import Button from "../Button";
 import AssignmentCard from "./Assignment";
 import CalendarComponent from "./CalendarComponent";
@@ -303,5 +295,4 @@ function Classes({ thumbnail, title, tutor, date, time, timeLeft, color }) {
   );
 }
 
->>>>>>> 128ad0f83f69a1f0d511f82004dfc2b831de6a2c
 export default DashboardTeacher;
