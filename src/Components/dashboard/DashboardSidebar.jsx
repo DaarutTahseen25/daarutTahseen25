@@ -29,70 +29,68 @@ export const getDashboardSidebarLinks = () => {
   if (role === "student") {
     const links = [];
 
-    // 👇 Show only "Level Registration" when not done
-    if (!isAdmissionProcess) {
-      links.push();
+    // // 👇 Show only "Level Registration" when not done
+    // if (!isAdmissionProcess) {
+    //   links.push();
 
-      return links; // ⛔️ Return early: show ONLY this
-    }
+    //   return links; // ⛔️ Return early: show ONLY this
+    // }
 
     // // 👇 Show admission link if level registration is done
     // links.push();
 
     // 👇 Show other dashboard items only after admission is granted
-    if (isAdmitted) {
-      links.unshift(
-        { key: "home", icon: <Home />, label: "Home", to: "/" },
-        {
-          key: "dashboard",
-          icon: <LayoutDashboard />,
-          label: "Dashboard",
-          to: "/dashboard/student",
-        },
-        {
-          key: "mycourses",
-          icon: <BookOpen />,
-          label: "My Courses",
-          to: "/dashboard/my-courses",
-        },
-        {
-          key: "level-registration",
-          icon: <School />,
-          label: "Level Registration",
-          to: "/dashboard/level-registration",
-        },
-        {
-          key: "admission",
-          icon: <School />,
-          label: "Admission",
-          to: "/dashboard/admission",
-        },
-        {
-          key: "curriculum",
-          icon: <ListTree />,
-          label: "Curriculum",
-          to: "/dashboard/curriculum",
-        },
-        {
-          key: "notifications",
-          icon: <Bell />,
-          label: "Notifications",
-          to: "/dashboard/messages",
-        },
-        {
-          key: "payfees",
-          icon: <CreditCard />,
-          label: "Pay Fees",
-          to: "/dashboard/payfees",
-        },
-        {
-          key: "resources",
-          icon: <FileText />,
-          label: "Resources",
-          to: "/dashboard/resources",
-        }
-      );
-    }
+    links.unshift(
+      { key: "home", icon: <Home />, label: "Home", to: "/" },
+      {
+        key: "dashboard",
+        icon: <LayoutDashboard />,
+        label: "Dashboard",
+        to: "/dashboard/student",
+      },
+      {
+        key: "mycourses",
+        icon: <BookOpen />,
+        label: "My Courses",
+        to: "/dashboard/my-courses",
+      },
+      {
+        key: "level-registration",
+        icon: <School />,
+        label: "Level Registration",
+        to: "/dashboard/level-registration",
+      },
+      {
+        key: "admission",
+        icon: <School />,
+        label: "Admission",
+        to: "/dashboard/admission",
+      },
+      {
+        key: "curriculum",
+        icon: <ListTree />,
+        label: "Curriculum",
+        to: "/dashboard/curriculum",
+      },
+      {
+        key: "notifications",
+        icon: <Bell />,
+        label: "Notifications",
+        to: "/dashboard/messages",
+      },
+      {
+        key: "payfees",
+        icon: <CreditCard />,
+        label: "Pay Fees",
+        to: "/dashboard/payfees",
+      },
+      {
+        key: "resources",
+        icon: <FileText />,
+        label: "Resources",
+        to: "/dashboard/resources",
+      }
+    );
 
     return links;
   }
