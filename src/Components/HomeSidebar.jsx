@@ -163,7 +163,9 @@ export default function HomeSidebar() {
               </li>
             ) : (
               <Link to="/login">
-                <Button className="w-full">Login/Register</Button>
+                <Button className="w-full" onClick={closeSidebar}>
+                  Login/Register
+                </Button>
               </Link>
             )}
             {bottomItems.map((item, idx) => (
