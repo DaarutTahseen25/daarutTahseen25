@@ -19,7 +19,7 @@ const Footer = () => {
                 { label: "Admissions", to: "/about-admissions" },
               ].map((item) => (
                 <li
-                  key={item}
+                  key={item.label}
                   className="font-clash font-[400] text-[16px] hover:text-primary transition-colors duration-300"
                 >
                   <Link to={item.to}>{item.label}</Link>
@@ -64,7 +64,7 @@ const Footer = () => {
                 { label: "Terms of Service", to: "/our-terms" },
               ].map((item) => (
                 <li
-                  key={item}
+                  key={item.label}
                   className="font-clash font-[400] text-[16px] hover:text-primary transition-colors duration-300"
                 >
                   <Link to={item.to}>{item.label}</Link>
