@@ -44,7 +44,7 @@ const Home = () => {
       {showScrollButton && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-6 right-6 z-50 cursor-pointer bg-buttonhover text-white p-3 rounded-full shadow-lg hover:bg-primary transition-colors duration-300"
+          className="fixed bottom-6 right-6 z-[2] cursor-pointer bg-buttonhover text-white p-3 rounded-full shadow-lg hover:bg-primary transition-colors duration-300"
           aria-label="Scroll to top"
         >
           <ArrowUp className="w-5 h-5" />
