@@ -4,9 +4,8 @@ import useUIStore from "../store/useUIStore";
 import { MenuIcon } from "lucide-react";
 import HeaderProfile from "./HeaderProfile";
 import Button from "./Button";
-import { Link } from "react-router"; // ✅ updated from "react-router"
+import { Link, NavLink } from "react-router"; // ✅ updated from "react-router"
 import { user } from "../App";
-import HomeSidebar from "./HomeSidebar"; // ✅ Import sidebar
 
 export default function LandingPageHeader() {
   const { openSidebar } = useUIStore();
@@ -26,39 +25,66 @@ export default function LandingPageHeader() {
           {/* Navigation items for larger screens */}
           {/* This section contains the main navigation items that are visible on larger screens */}
           <nav className="hidden lg:flex justify-between items-center cursor-pointer font-clash gap-4 lg:gap-6 font-medium text-sm lg:text-lg">
-            <Link to="/" className="transition-colors hover:text-accent">
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                `transition-colors hover:text-accent ${
+                  !isActive ? "text-accent" : "text-primary"
+                }`
+              }
+            >
               Home
-            </Link>
-            <Link
+            </NavLink>
+            <NavLink
               to="/about-us"
-              className="transition-colors hover:text-accent"
+              className={({ isActive }) =>
+                `transition-colors hover:text-accent ${
+                  !isActive ? "text-accent" : "text-primary"
+                }`
+              }
             >
               About Us
-            </Link>
-            <Link
+            </NavLink>
+            <NavLink
               to="/our-courses"
-              className="transition-colors hover:text-accent"
+              className={({ isActive }) =>
+                `transition-colors hover:text-accent ${
+                  !isActive ? "text-accent" : "text-primary"
+                }`
+              }
             >
               Courses
-            </Link>
-            <Link
+            </NavLink>
+            <NavLink
               to="/about-admissions"
-              className="transition-colors hover:text-accent"
+              className={({ isActive }) =>
+                `transition-colors hover:text-accent ${
+                  !isActive ? "text-accent" : "text-primary"
+                }`
+              }
             >
               Admission
-            </Link>
-            <Link
+            </NavLink>
+            <NavLink
               to="/portal-resources"
-              className="transition-colors hover:text-accent"
+              className={({ isActive }) =>
+                `transition-colors hover:text-accent ${
+                  !isActive ? "text-accent" : "text-primary"
+                }`
+              }
             >
               Resources
-            </Link>
-            <Link
+            </NavLink>
+            <NavLink
               to="/contact-us"
-              className="transition-colors hover:text-accent"
+              className={({ isActive }) =>
+                `transition-colors hover:text-accent ${
+                  !isActive ? "text-accent" : "text-primary"
+                }`
+              }
             >
               Contact
-            </Link>
+            </NavLink>
           </nav>
 
           {/* Auth: Desktop */}

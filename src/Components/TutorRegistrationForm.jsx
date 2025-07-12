@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "./Button";
 import { Link } from "react-router";
 import Input from "./input";
@@ -18,13 +18,26 @@ const TutorRegistrationForm = () => {
     setSignupErrors,
   } = useUIStore();
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState("");
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setSignupForm(name, value);
+
+    if (signupErrors[name]) {
+      setSignupErrors({
+        ...signupErrors,
+        [name]: "",
+      });
+    }
   };
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
+    if (signupErrors.file) {
+      setSignupErrors({ ...signupErrors, file: "" });
+    }
   };
 
   const validate = () => {
@@ -44,7 +57,6 @@ const TutorRegistrationForm = () => {
     if (signupForm.password !== signupForm.confirmPassword)
       errors.confirmPassword = "Passwords do not match.";
 
-    // Optional file validation
     if (file && file.size > 2 * 1024 * 1024) {
       errors.file = "File must be less than 2MB.";
     }
@@ -53,10 +65,29 @@ const TutorRegistrationForm = () => {
     return Object.keys(errors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validate()) {
+    if (!validate()) return;
+
+    setIsSubmitting(true);
+    setSubmitMessage("");
+
+    try {
+      // Simulate API delay
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
       console.log("Teacher form submitted:", signupForm, file);
+      setSubmitMessage("Account created successfully!");
+
+      // Reset form (optional)
+      // resetSignupForm(); clearFile();
+
+      setTimeout(() => setSubmitMessage(""), 5000);
+    } catch (error) {
+      console.error("Error:", error);
+      setSubmitMessage("Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -66,6 +97,18 @@ const TutorRegistrationForm = () => {
         <h2 className="text-2xl font-medium md:text-3xl text-center text-accent mb-4 font-clash">
           Create Teacher Account
         </h2>
+
+        {submitMessage && (
+          <div
+            className={`p-3 mb-4 rounded-lg text-center font-medium ${
+              submitMessage.includes("success")
+                ? "bg-green-100 text-green-700 border border-green-300"
+                : "bg-red-100 text-red-700 border border-red-300"
+            }`}
+          >
+            {submitMessage}
+          </div>
+        )}
 
         {/* Invite Code */}
         <Input
@@ -77,6 +120,7 @@ const TutorRegistrationForm = () => {
           className={`${
             signupErrors.inviteCode ? "border-red-500" : "border-gray-300"
           }`}
+          disabled={isSubmitting}
         />
         {signupErrors.inviteCode && (
           <p className="text-red-500 text-sm">{signupErrors.inviteCode}</p>
@@ -89,6 +133,7 @@ const TutorRegistrationForm = () => {
           value={signupForm.nin}
           onChange={handleChange}
           placeholder="Enter your NIN"
+          disabled={isSubmitting}
         />
         {signupErrors.nin && (
           <p className="text-red-500 text-sm">{signupErrors.nin}</p>
@@ -101,6 +146,7 @@ const TutorRegistrationForm = () => {
           value={signupForm.name}
           onChange={handleChange}
           placeholder="e.g., Ustadh Bello"
+          disabled={isSubmitting}
         />
         {signupErrors.name && (
           <p className="text-red-500 text-sm">{signupErrors.name}</p>
@@ -113,6 +159,7 @@ const TutorRegistrationForm = () => {
           value={signupForm.email}
           onChange={handleChange}
           placeholder="example@gmail.com"
+          disabled={isSubmitting}
         />
         {signupErrors.email && (
           <p className="text-red-500 text-sm">{signupErrors.email}</p>
@@ -125,12 +172,13 @@ const TutorRegistrationForm = () => {
           value={signupForm.phone}
           onChange={handleChange}
           placeholder="08123456789"
+          disabled={isSubmitting}
         />
         {signupErrors.phone && (
           <p className="text-red-500 text-sm">{signupErrors.phone}</p>
         )}
 
-        {/* Passport (optional) */}
+        {/* Passport */}
         <div className="mb-4">
           <label className="block mb-1 font-medium text-textmain mt-4">
             Passport <span className="text-xs text-gray-500">(Optional)</span>
@@ -158,6 +206,7 @@ const TutorRegistrationForm = () => {
               <input
                 type="file"
                 onChange={handleFileChange}
+                disabled={isSubmitting}
                 className="block w-full text-sm text-gray-500 file:py-1 file:px-3 file:rounded-md file:bg-accent/10 hover:file:bg-accent/20"
               />
             )}
@@ -167,7 +216,7 @@ const TutorRegistrationForm = () => {
           )}
         </div>
 
-        {/* Password */}
+        {/* Password & Confirm Password */}
         {["password", "confirmPassword"].map((field) => (
           <div className="mb-4" key={field}>
             <label className="block mb-1 font-medium text-textmain mt-4">
@@ -182,6 +231,7 @@ const TutorRegistrationForm = () => {
                 placeholder={
                   field === "password" ? "Enter password" : "Confirm password"
                 }
+                disabled={isSubmitting}
                 className={`w-full border rounded px-4 py-2 pr-14 focus:ring-2 focus:ring-accent ${
                   signupErrors[field] ? "border-red-500" : "border-gray-300"
                 }`}
@@ -211,6 +261,7 @@ const TutorRegistrationForm = () => {
               className={`w-4 h-4 accent-primary ${
                 signupErrors.agreement ? "border-red-500" : "border-primary"
               }`}
+              disabled={isSubmitting}
             />
             <label htmlFor="agreement" className="ml-2 cursor-pointer">
               I agree to the{" "}
@@ -225,8 +276,39 @@ const TutorRegistrationForm = () => {
           )}
         </div>
 
-        <Button type="submit" className="w-full mt-3">
-          Create Account
+        {/* Submit */}
+        <Button
+          type="submit"
+          className={`w-full mt-3 ${
+            isSubmitting
+              ? "opacity-50 cursor-not-allowed"
+              : "hover:bg-buttonhover"
+          }`}
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? (
+            <span className="flex items-center justify-center gap-2">
+              <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                  fill="none"
+                />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                />
+              </svg>
+              Creating...
+            </span>
+          ) : (
+            "Create Account"
+          )}
         </Button>
 
         <p className="text-center text-sm text-textmain/80 mt-2">

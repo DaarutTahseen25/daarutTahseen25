@@ -62,15 +62,15 @@ const useUIStore = create((set) => ({
   showPassword: false,
   file: null,
 
-  formData: {
-    nin: "",
-    name: "",
-    email: "",
-    phone: "",
-    password: "",
-    confirmPassword: "",
-    agreed: false,
-  },
+  // formData: {
+  //   nin: "",
+  //   name: "",
+  //   email: "",
+  //   phone: "",
+  //   password: "",
+  //   confirmPassword: "",
+  //   agreed: false,
+  // },
 
   signupErrors: {},
   setSignupForm: (key, value) =>
@@ -95,7 +95,7 @@ const useUIStore = create((set) => ({
       signupErrors: {},
     }),
 
-  formErrors: {},
+  // formErrors: {},
 
   setShowPassword: () =>
     set((state) => ({ showPassword: !state.showPassword })),
@@ -103,15 +103,15 @@ const useUIStore = create((set) => ({
   setFile: (file) => set({ file }),
   clearFile: () => set({ file: null }),
 
-  setFormData: (key, value) =>
-    set((state) => ({
-      formData: {
-        ...state.formData,
-        [key]: value,
-      },
-    })),
+  // setFormData: (key, value) =>
+  //   set((state) => ({
+  //     formData: {
+  //       ...state.formData,
+  //       [key]: value,
+  //     },
+  //   })),
 
-  setFormErrors: (errors) => set({ formErrors: errors }),
+  // setFormErrors: (errors) => set({ formErrors: errors }),
 }));
 
 export default useUIStore;
