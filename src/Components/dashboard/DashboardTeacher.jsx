@@ -1,3 +1,4 @@
+import { formatDate } from "../../utils/helper";
 import Button from "../Button";
 import AssignmentCard from "./Assignment";
 import CalendarComponent from "./CalendarComponent";
@@ -33,9 +34,11 @@ const DashboardTeacher = () => {
         <h1 className="font-clash font-medium text-3xl sm:text-[40px]  text-center lg:text-left text-accent ">
           Dashboard
         </h1>
-        <div className="bg-[url(/dashboard-cal.png)] bg-cover rounded-4xl mt-4 pr-4 pl-4 sm:pl-10 flex w-full justify-between ">
+        <div className="bg-[url(/dashboard-cal.png)] bg-cover rounded-4xl mt-4 py-10 md:py-8 pr-4 pl-4 sm:pl-10 flex w-full justify-between ">
           <p className="flex flex-col gap-y-2 sm:gap-y-4 font-montserrat place-self-center text-white ">
-            <span className="text-sm font-semibold">July 4, 2025</span>
+            <span className="text-sm font-semibold">
+              {formatDate(new Date())}
+            </span>
             <span className="font-clash font-medium text-xl md:text-2xl">
               Welcome back, Abdulazeez!
             </span>

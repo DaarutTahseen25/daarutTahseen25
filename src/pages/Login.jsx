@@ -1,84 +1,25 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router";
+import React from "react";
+import { Link } from "react-router";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import Button from "../Components/Button";
 import Input from "../Components/input";
-import useUIStore from "../store/useUIStore";
-import { user } from "../App";
+import useLogin from "../hooks/useLogin";
 
 const Login = () => {
-  const navigate = useNavigate();
-
   const {
-    showPassword,
-    setShowPassword,
     loginForm,
     loginErrors,
     setLoginForm,
-    setLoginErrors,
-  } = useUIStore();
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitMessage, setSubmitMessage] = useState("");
+    showPassword,
+    setShowPassword,
+    isSubmitting,
+    submitMessage,
+    handleSubmit,
+  } = useLogin();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLoginForm(name, value);
-
-    // Clear error for this field as user types
-    if (loginErrors[name]) {
-      setLoginErrors({
-        ...loginErrors,
-        [name]: "",
-      });
-    }
-  };
-
-  const validate = () => {
-    const errors = {};
-    const identifier = loginForm.identifier.trim();
-
-    if (!identifier) {
-      errors.identifier = "Email or NIN is required.";
-    } else if (
-      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(identifier) &&
-      !/^\d{11}$/.test(identifier)
-    ) {
-      errors.identifier = "Enter a valid email or 11-digit NIN.";
-    }
-
-    if (!loginForm.password.trim()) {
-      errors.password = "Password is required.";
-    }
-
-    setLoginErrors(errors);
-    return Object.keys(errors).length === 0;
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!validate()) return;
-
-    setIsSubmitting(true);
-    setSubmitMessage("");
-
-    try {
-      // Simulate login delay
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      console.log("Logging in with:", loginForm);
-      user.isAuthenticated = true;
-
-      setSubmitMessage("Login successful!");
-      setTimeout(() => navigate("/", { replace: true }), 1000);
-    } catch (error) {
-      setSubmitMessage("Login failed. Please try again.");
-    } finally {
-      setIsSubmitting(false);
-
-      // Clear message after 5s
-      setTimeout(() => setSubmitMessage(""), 5000);
-    }
   };
 
   return (
@@ -111,7 +52,6 @@ const Login = () => {
           onSubmit={handleSubmit}
           className="space-y-4 max-w-md mx-auto w-full"
         >
-          {/* Success/Error Message */}
           {submitMessage && (
             <div
               className={`p-3 rounded-lg text-center font-medium ${
@@ -124,7 +64,6 @@ const Login = () => {
             </div>
           )}
 
-          {/* Email or NIN */}
           <div>
             <Input
               label="Email or NIN"
@@ -143,7 +82,6 @@ const Login = () => {
             )}
           </div>
 
-          {/* Password Field */}
           <div>
             <label className="block mb-1 font-medium text-textmain font-clash md:text-lg mt-4">
               Password
@@ -176,7 +114,6 @@ const Login = () => {
             )}
           </div>
 
-          {/* Forgot Password */}
           <div className="text-sm text-right">
             <Link
               to="/forgot-password"
@@ -186,7 +123,6 @@ const Login = () => {
             </Link>
           </div>
 
-          {/* Submit Button */}
           <Button
             type="submit"
             className={`w-full ${
@@ -222,7 +158,6 @@ const Login = () => {
           </Button>
         </form>
 
-        {/* Signup Link */}
         <div className="mt-6 text-center text-sm">
           <span className="text-gray-600">Don't have an account? </span>
           <Link

@@ -3,92 +3,26 @@ import Button from "./Button";
 import { Link } from "react-router";
 import Input from "./input";
 import { Eye as FiEye, EyeOff as FiEyeOff, X as FiX } from "lucide-react";
-import useUIStore from "../store/useUIStore";
+import useTutorSignUp from "../hooks/useTutorSignUp";
 
 const TutorRegistrationForm = () => {
   const {
-    showPassword,
-    setShowPassword,
-    file,
-    setFile,
-    clearFile,
     signupForm,
     signupErrors,
     setSignupForm,
-    setSignupErrors,
-  } = useUIStore();
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitMessage, setSubmitMessage] = useState("");
+    file,
+    clearFile,
+    showPassword,
+    setShowPassword,
+    isSubmitting,
+    submitMessage,
+    handleSubmit,
+    handleFileChange,
+  } = useTutorSignUp();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setSignupForm(name, value);
-
-    if (signupErrors[name]) {
-      setSignupErrors({
-        ...signupErrors,
-        [name]: "",
-      });
-    }
-  };
-
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
-    if (signupErrors.file) {
-      setSignupErrors({ ...signupErrors, file: "" });
-    }
-  };
-
-  const validate = () => {
-    const errors = {};
-    if (!signupForm.inviteCode?.trim())
-      errors.inviteCode = "Invite code is required.";
-    if (!signupForm.nin.trim()) errors.nin = "NIN is required.";
-    if (!signupForm.agreed) errors.agreement = "You must agree to the terms.";
-    if (!signupForm.name.trim()) errors.name = "Name is required.";
-    if (!signupForm.email.trim()) {
-      errors.email = "Email is required.";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(signupForm.email)) {
-      errors.email = "Invalid email format.";
-    }
-    if (!signupForm.phone.trim()) errors.phone = "Phone number is required.";
-    if (!signupForm.password.trim()) errors.password = "Password is required.";
-    if (signupForm.password !== signupForm.confirmPassword)
-      errors.confirmPassword = "Passwords do not match.";
-
-    if (file && file.size > 2 * 1024 * 1024) {
-      errors.file = "File must be less than 2MB.";
-    }
-
-    setSignupErrors(errors);
-    return Object.keys(errors).length === 0;
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!validate()) return;
-
-    setIsSubmitting(true);
-    setSubmitMessage("");
-
-    try {
-      // Simulate API delay
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      console.log("Teacher form submitted:", signupForm, file);
-      setSubmitMessage("Account created successfully!");
-
-      // Reset form (optional)
-      // resetSignupForm(); clearFile();
-
-      setTimeout(() => setSubmitMessage(""), 5000);
-    } catch (error) {
-      console.error("Error:", error);
-      setSubmitMessage("Something went wrong. Please try again.");
-    } finally {
-      setIsSubmitting(false);
-    }
   };
 
   return (

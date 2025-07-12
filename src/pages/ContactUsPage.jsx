@@ -5,6 +5,7 @@ import HomeSidebar from "../Components/HomeSidebar";
 import { Mail, MapPin, Phone } from "lucide-react";
 import Input from "../Components/input";
 import Button from "../Components/Button";
+import useContactForm from "../hooks/useContactForm";
 
 const info = [
   {
@@ -25,89 +26,15 @@ const info = [
 ];
 
 const ContactUsPage = () => {
-  const [formData, setFormData] = useState({
-    email: "",
-    name: "",
-    message: "",
-  });
+ const {
+   formData,
+   formErrors,
+   isSubmitting,
+   submitMessage,
+   handleChange,
+   handleSubmit,
+ } = useContactForm();
 
-  const [formErrors, setFormErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitMessage, setSubmitMessage] = useState("");
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-
-    // Clear error for this field when user starts typing
-    if (formErrors[name]) {
-      setFormErrors((prev) => ({
-        ...prev,
-        [name]: "",
-      }));
-    }
-  };
-
-  const validate = () => {
-    const errors = {};
-    const name = formData.name.trim();
-    const email = formData.email.trim();
-    const message = formData.message.trim();
-
-    if (!name) {
-      errors.name = "This field cannot be empty";
-    }
-
-    if (!email) {
-      errors.email = "This field cannot be empty";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      errors.email = "Enter a valid email address";
-    }
-
-    if (!message) {
-      errors.message = "This field cannot be empty";
-    }
-
-    setFormErrors(errors);
-    return Object.keys(errors).length === 0;
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!validate()) {
-      return;
-    }
-
-    setIsSubmitting(true);
-    setSubmitMessage("");
-
-    try {
-      // Replace this with your actual API call
-      // Example: await fetch('/api/contact', { method: 'POST', body: JSON.stringify(formData) });
-
-      console.log("Message sent with:", formData);
-
-      // Simulate API delay
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      // Reset form on success
-      setFormData({ email: "", name: "", message: "" });
-      setFormErrors({});
-      setSubmitMessage("Message sent successfully!");
-
-      // Clear success message after 5 seconds
-      setTimeout(() => setSubmitMessage(""), 5000);
-    } catch (error) {
-      console.error("Error sending message:", error);
-      setSubmitMessage("Failed to send message. Please try again.");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   return (
     <main className="grid grid-rows-[auto_1fr_auto] min-h-screen">
