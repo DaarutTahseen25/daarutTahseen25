@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router";
-import HomeSidebar from "../Components/HomeSidebar";
 import LandingPageHeader from "../Components/LandingPageHeader";
 import Footer from "../Components/Footer";
 
