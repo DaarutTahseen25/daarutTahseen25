@@ -21,6 +21,8 @@ const Input = ({
   required = false, // HTML5 required validation
   error, // If present, shows error text and red border
   className = "", // Optional Tailwind classes passed from parent
+  textArea = false,
+
   ...props // Additional input attributes like disabled, maxLength, etc.
 }) => {
   return (
@@ -35,22 +37,41 @@ const Input = ({
         </label>
       )}
 
-      {/* Input field */}
-      <input
-        id={name}
-        name={name}
-        type={type}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-        required={required}
-        aria-invalid={!!error} // accessibility support
-        className={`w-full px-4 py-3  border rounded outline-none transition 
+      {textArea ? (
+        <textarea
+          id={name}
+          name={name}
+          type={type}
+          value={value}
+          onChange={onChange}
+          placeholder={placeholder}
+          required={required}
+          aria-invalid={!!error} // accessibility support
+          className={`w-full px-4 py-3  border rounded outline-none transition 
           focus:ring-none focus:ring-transparent focus:border-primary 
           
           ${error ? "border-red-500" : "border-gray-300"} ${className}`}
-        {...props}
-      />
+          {...props}
+        ></textarea>
+      ) : (
+        <input
+          id={name}
+          name={name}
+          type={type}
+          value={value}
+          onChange={onChange}
+          placeholder={placeholder}
+          required={required}
+          aria-invalid={!!error} // accessibility support
+          className={`w-full px-4 py-3  border rounded outline-none transition 
+          focus:ring-none focus:ring-transparent focus:border-primary 
+          
+          ${error ? "border-red-500" : "border-gray-300"} ${className}`}
+          {...props}
+        />
+      )}
+
+      {/* Input field */}
 
       {/* Show error message below input */}
       {error && <p className="mt-1 text-xs text-red-500">{error}</p>}
