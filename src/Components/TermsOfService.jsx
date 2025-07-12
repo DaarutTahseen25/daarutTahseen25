@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router";
-import LandingPageHeader from "./LandingPageHeader";
-import Footer from "./Footer";
+import HomeSidebar from "../Components/HomeSidebar";
+import LandingPageHeader from "../Components/LandingPageHeader";
+import Footer from "../Components/Footer";
 
 const TermsOfService = () => {
   return (

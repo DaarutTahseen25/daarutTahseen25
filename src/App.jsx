@@ -15,7 +15,7 @@ import { usePageTitle } from "./hooks/usePageTitle";
 
 // Lazy-loaded pages & components
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
-const TermsOfService = lazy(() => import("./Components/TermsOfService"));
+const TermsOfService = lazy(() => import("./pages/TermsOfService"));
 const Home = lazy(() => import("./pages/home"));
 const About = lazy(() => import("./pages/about"));
 const LogIn = lazy(() => import("./pages/Login"));
