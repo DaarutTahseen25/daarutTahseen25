@@ -1,18 +1,47 @@
-// src/Components/LandingPageHeader.jsx
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useUIStore from "../store/useUIStore";
 import { MenuIcon } from "lucide-react";
 import HeaderProfile from "./HeaderProfile";
 import Button from "./Button";
-import { Link, NavLink } from "react-router"; // ✅ updated from "react-router"
+import { Link, NavLink } from "react-router";
 import { user } from "../App";
 
 export default function LandingPageHeader() {
   const { openSidebar } = useUIStore();
+  const headerRef = useRef(null);
+  const sentinelRef = useRef(null);
+  const [isSticky, setIsSticky] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsSticky(!entry.isIntersecting),
+      {
+        root: null,
+        threshold: 0,
+      }
+    );
+
+    const sentinel = sentinelRef.current;
+    if (sentinel) observer.observe(sentinel);
+
+    return () => {
+      if (sentinel) observer.unobserve(sentinel);
+    };
+  }, []);
 
   return (
     <>
-      <header className="bg-white flex justify-center items-center py-6 shadow h-20 z-40 relative">
+      {/* Sentinel div */}
+      <div ref={sentinelRef} className="h-0 w-full"></div>
+
+      <header
+        ref={headerRef}
+        className={`bg-white flex justify-center items-center py-6 h-20 z-40 w-full transition-shadow duration-300 ${
+          isSticky
+            ? "fixed bg-white/70 backdrop-blur-lg top-0 left-0 shadow-lg"
+            : "relative shadow"
+        }`}
+      >
         <div className="w-[90%] md:w-[85%] flex justify-between items-center mx-auto">
           <Link to="/">
             <img
@@ -22,72 +51,15 @@ export default function LandingPageHeader() {
             />
           </Link>
 
-          {/* Navigation items for larger screens */}
-          {/* This section contains the main navigation items that are visible on larger screens */}
           <nav className="hidden lg:flex justify-between items-center cursor-pointer font-clash gap-4 lg:gap-6 font-medium text-sm lg:text-lg">
-            <NavLink
-              to="/"
-              className={({ isActive }) =>
-                `transition-colors hover:text-accent ${
-                  !isActive ? "text-accent" : "text-primary"
-                }`
-              }
-            >
-              Home
-            </NavLink>
-            <NavLink
-              to="/about-us"
-              className={({ isActive }) =>
-                `transition-colors hover:text-accent ${
-                  !isActive ? "text-accent" : "text-primary"
-                }`
-              }
-            >
-              About Us
-            </NavLink>
-            <NavLink
-              to="/our-courses"
-              className={({ isActive }) =>
-                `transition-colors hover:text-accent ${
-                  !isActive ? "text-accent" : "text-primary"
-                }`
-              }
-            >
-              Courses
-            </NavLink>
-            <NavLink
-              to="/about-admissions"
-              className={({ isActive }) =>
-                `transition-colors hover:text-accent ${
-                  !isActive ? "text-accent" : "text-primary"
-                }`
-              }
-            >
-              Admission
-            </NavLink>
-            <NavLink
-              to="/portal-resources"
-              className={({ isActive }) =>
-                `transition-colors hover:text-accent ${
-                  !isActive ? "text-accent" : "text-primary"
-                }`
-              }
-            >
-              Resources
-            </NavLink>
-            <NavLink
-              to="/contact-us"
-              className={({ isActive }) =>
-                `transition-colors hover:text-accent ${
-                  !isActive ? "text-accent" : "text-primary"
-                }`
-              }
-            >
-              Contact
-            </NavLink>
+            <NavItem to="/" text="Home" />
+            <NavItem to="/about-us" text="About Us" />
+            <NavItem to="/our-courses" text="Courses" />
+            <NavItem to="/about-admissions" text="Admission" />
+            <NavItem to="/portal-resources" text="Resources" />
+            <NavItem to="/contact-us" text="Contact" />
           </nav>
 
-          {/* Auth: Desktop */}
           {user?.isAuthenticated ? (
             <div className="hidden lg:block">
               <HeaderProfile />
@@ -102,7 +74,6 @@ export default function LandingPageHeader() {
             </div>
           )}
 
-          {/* Mobile Menu Icon */}
           <div className="block lg:hidden">
             <MenuIcon
               className="cursor-pointer text-black"
@@ -111,9 +82,19 @@ export default function LandingPageHeader() {
           </div>
         </div>
       </header>
-
-      {/* Sidebar
-      <HomeSidebar /> */}
     </>
   );
 }
+
+const NavItem = ({ to, text }) => (
+  <NavLink
+    to={to}
+    className={({ isActive }) =>
+      `transition-colors hover:text-accent ${
+        !isActive ? "text-accent" : "text-primary"
+      }`
+    }
+  >
+    {text}
+  </NavLink>
+);
