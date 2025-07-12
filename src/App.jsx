@@ -15,6 +15,7 @@ import { usePageTitle } from "./hooks/usePageTitle";
 
 // Lazy-loaded pages & components
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
+const TermsOfService = lazy(() => import("./pages/TermsOfService"));
 const Home = lazy(() => import("./pages/home"));
 const About = lazy(() => import("./pages/about"));
 const LogIn = lazy(() => import("./pages/Login"));
@@ -87,6 +88,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/about-us" element={<About />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/our-terms" element={<TermsOfService />} />
         <Route path="/otp-page" element={<OtpRegistration />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/our-courses" element={<Courses />} />

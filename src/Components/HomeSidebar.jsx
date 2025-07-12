@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useUIStore from "../store/useUIStore";
 import { getDashboardSidebarLinks } from "./dashboard/DashboardSidebar";
 import {
@@ -77,6 +77,19 @@ export default function HomeSidebar() {
   // isSidebarOpen indicates whether the sidebar is currently open
   const { isSidebarOpen, closeSidebar } = useUIStore();
 
+  useEffect(() => {
+    if (isSidebarOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    // Clean up on component unmount
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isSidebarOpen]);
+
   // user variable to check if a user is logged in
   // This can be replaced with actual user state management logic
 
@@ -92,7 +105,7 @@ export default function HomeSidebar() {
       {/* This overlay appears when the sidebar is open on smaller screens */}
       {isSidebarOpen && (
         <div
-          className="fixed lg:hidden inset-0 bg-black/40 z-40 transition-opacity duration-300"
+          className="fixed lg:hidden overflow-hidden inset-0 bg-black/40 z-40 transition-opacity duration-300"
           onClick={closeSidebar}
         />
       )}
@@ -100,7 +113,7 @@ export default function HomeSidebar() {
       {/* Sidebar component */}
       {/* This sidebar is fixed to the right side of the screen on smaller screens */}
       <aside
-        className={`fixed lg:hidden top-0 right-0 h-dvh w-64 bg-white shadow-[0_0_0_1px_rgba(0,0,0,0.1)] z-50 p-4 flex flex-col justify-between transform transition-transform duration-300 overflow-y-hidden ${
+        className={`fixed lg:hidden top-0 right-0 h-dvh w-64 bg-white shadow-[0_0_0_1px_rgba(0,0,0,0.1)] z-50 p-4 flex flex-col justify-between transform transition-transform duration-300 overflow-hidden ${
           isSidebarOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -151,7 +164,11 @@ export default function HomeSidebar() {
                     />
                   </div>
 
-                  <div className="flex flex-col gap-0 items-start text-left md:hidden xl:block">
+                  <div
+                    className={`flex flex-col gap-0 items-start text-left ${
+                      isSidebarOpen ? "" : "md:hidden"
+                    } xl:block`}
+                  >
                     <h1 className="font-clash font-[500] text-[20px] text-black">
                       Abdulazeez
                     </h1>

@@ -12,12 +12,17 @@ const Footer = () => {
               Quick Links
             </h1>
             <ul className="flex flex-col gap-2">
-              {["Home", "About Us", "Courses", "Admissions"].map((item) => (
+              {[
+                { label: "Home", to: "/" },
+                { label: "About Us", to: "/about-us" },
+                { label: "Courses", to: "/our-courses" },
+                { label: "Admissions", to: "/about-admissions" },
+              ].map((item) => (
                 <li
                   key={item}
                   className="font-clash font-[400] text-[16px] hover:text-primary transition-colors duration-300"
                 >
-                  <a href="#">{item}</a>
+                  <Link to={item.to}>{item.label}</Link>
                 </li>
               ))}
             </ul>
@@ -56,7 +61,7 @@ const Footer = () => {
             <ul className="flex flex-col gap-2">
               {[
                 { label: "Privacy Policy", to: "/privacy-policy" },
-                { label: "Terms of Service" },
+                { label: "Terms of Service", to: "/our-terms" },
               ].map((item) => (
                 <li
                   key={item}

@@ -15,12 +15,12 @@ const info = [
   {
     id: 2,
     icon: <Mail />,
-    info: "support@daaruttahseen.org",
+    info: "daaruttahseen@gmail.com",
   },
   {
     id: 3,
     icon: <MapPin />,
-    info: "DaarutTahseen Institution, Taqwa Street, Phase II, Ilorin, Kwara State, Nigeria.",
+    info: "18, Cucumber Drive, Arowona Adegbeye Estate, New Felele, Ibadan.",
   },
 ];
 
