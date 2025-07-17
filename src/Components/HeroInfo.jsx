@@ -24,7 +24,7 @@ const HeroInfo = () => {
       <div className="self-center lg:self-start">
         {user.isAuthenticated ? (
           <Link to="/dashboard">
-            <Button className="bg-primary hover:bg-buttonhover transition-colors duration-300 py-4 px-6 w-[219px] h-[71px] text-white text-[18px] font-medium rounded-[10px] border-2 border-cream shadow-[0_0_10px_5px_rgba(0,0,0,0.25)] font-clash">
+            <Button className="bg-primary hover:bg-buttonhover transition-colors duration-300 py-4 px-6 w-[200px] md:w-[219px] h-[60px] md:h-[71px] text-white text-[18px] font-medium rounded-[10px] border-2 border-cream shadow-[0_0_10px_5px_rgba(0,0,0,0.25)] font-clash">
               Go to Dashboard
             </Button>
           </Link>
