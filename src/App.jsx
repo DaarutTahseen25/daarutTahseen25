@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router";
 import "./App.css";
 
@@ -74,6 +74,13 @@ const ProtectedRoute = ({ children }) => {
 };
 
 const App = () => {
+  useEffect(() => {
+    const loader = document.getElementById("initial-loader");
+    setTimeout(() => {
+      if (loader) loader.remove();
+    }, 3000); // this can be adjusted
+  }, []);
+
   usePageTitle();
   return (
     <Suspense
