@@ -24,10 +24,56 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <style>
+      #initial-loader {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(255, 249, 196);
+        z-index: 9999;
+      }
 
+      .loader-border {
+        padding: 1.5rem;
+        border: 4px dashed #360400;
+        border-radius: 9999px;
+        animation: pulse 1.5s infinite;
+      }
+
+      .loader-icon {
+        width: 40px;
+        height: 40px;
+        fill: #360400;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+    </style>
     <title>Home | Daaruttahseen</title>
   </head>
   <body>
+    <div id="initial-loader">
+      <div class="loader-border">
+        <svg
+          class="loader-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+        >
+          <path d="M12 2L15 8H9L12 2Z" />
+          <circle cx="12" cy="16" r="4" />
+        </svg>
+      </div>
+    </div>
+
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
