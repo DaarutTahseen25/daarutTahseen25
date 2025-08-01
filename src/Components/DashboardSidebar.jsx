@@ -9,7 +9,6 @@ import {
   BookOpen,
   CreditCard,
   FileText,
-  Home,
   LayoutDashboard,
   ListTree,
   LogOut,
@@ -17,123 +16,95 @@ import {
   School,
   Users,
 } from "lucide-react";
-
-import { user } from "../../App";
-import useUIStore from "../../store/useUIStore";
+import { useAuth } from "../contexts/AuthContext";
 
 // Sidebar Link Generator
 export const getDashboardSidebarLinks = () => {
-  const { role, isAdmitted } = user;
-  const { isAdmissionProcess } = useUIStore();
+  const { user, logout } = useAuth();
+  const role = user?.role;
 
   if (role === "student") {
     const links = [];
 
-    // // 👇 Show only "Level Registration" when not done
-    // if (!isAdmissionProcess) {
-    //   links.push();
-
-    //   return links; // ⛔️ Return early: show ONLY this
-    // }
-
-    // // 👇 Show admission link if level registration is done
-    // links.push();
-
-    // 👇 Show other dashboard items only after admission is granted
     links.unshift(
-      { key: "home", icon: <Home />, label: "Home", to: "/" },
-      {
-        key: "dashboard",
-        icon: <LayoutDashboard />,
-        label: "Dashboard",
-        to: "/dashboard/student",
-      },
       {
         key: "mycourses",
         icon: <BookOpen />,
         label: "My Courses",
-        to: "/dashboard/my-courses",
+        to: "/dashboard/student/my-courses",
       },
       {
         key: "level-registration",
         icon: <School />,
         label: "Level Registration",
-        to: "/dashboard/level-registration",
+        to: "/dashboard/student/level-registration",
       },
       {
         key: "admission",
         icon: <School />,
         label: "Admission",
-        to: "/dashboard/admission",
+        to: "/dashboard/student/admission",
       },
       {
         key: "curriculum",
         icon: <ListTree />,
         label: "Curriculum",
-        to: "/dashboard/curriculum",
+        to: "/dashboard/student/curriculum",
       },
       {
         key: "notifications",
         icon: <Bell />,
         label: "Notifications",
-        to: "/dashboard/messages",
+        to: "/dashboard/student/messages",
       },
       {
         key: "payfees",
         icon: <CreditCard />,
         label: "Pay Fees",
-        to: "/dashboard/payfees",
+        to: "/dashboard/student/my-fees",
       },
       {
         key: "resources",
         icon: <FileText />,
         label: "Resources",
-        to: "/dashboard/resources",
+        to: "/dashboard/student/resources",
       }
     );
 
     return links;
   }
 
-  // Teacher sidebar stays as it is
   if (role === "teacher") {
     return [
-      { key: "home", icon: <Home />, label: "Home", to: "/" },
-      {
-        key: "dashboard",
-        icon: <LayoutDashboard />,
-        label: "Dashboard",
-        to: "/dashboard/teacher",
-      },
       {
         key: "courses",
         icon: <Users />,
         label: "My Courses",
-        to: "/dashboard/my-courses",
+        to: "/dashboard/teacher/my-courses",
       },
       {
         key: "myclasses",
         icon: <BookOpen />,
         label: "My Classes",
-        to: "/dashboard/my-classes",
+        to: "/dashboard/teacher/my-classes",
       },
       {
         key: "messages",
         icon: <MessageSquare />,
         label: "Messages",
-        to: "/dashboard/messages",
+        to: "/dashboard/teacher/messages",
       },
       {
         key: "payments",
         icon: <CreditCard />,
         label: "Payments",
-        to: "/dashboard/payments",
+        to: "/dashboard/teacher/payments",
       },
       {
         key: "library",
         icon: <FileText />,
         label: "Library",
-        to: "/dashboard/library",
+        to: "/dashboard/teacher/library",
       },
     ];
   }
@@ -143,19 +114,19 @@ export const getDashboardSidebarLinks = () => {
 
 // Sidebar Component
 const DashboardSidebar = () => {
-  const navigate = useNavigate();
+  const { logout } = useAuth();
 
   return (
-    <aside className="bg-white hidden lg:block md:row-span-full border-r border-gray-300 h-full">
-      <div className="flex flex-col justify-between h-full">
+    <aside className='bg-white hidden lg:block md:row-span-full border-r border-gray-300 h-full'>
+      <div className='flex flex-col justify-between h-full'>
         {/* Top Section: Logo and Navigation */}
         <div>
-          <div className="p-4 flex items-center justify-center h-[120px]">
-            <img src="/logo.png" alt="DaarutTahseen Logo" />
+          <div className='p-4 flex items-center justify-center h-[120px]'>
+            <img src='/logo.png' alt='DaarutTahseen Logo' />
           </div>
 
-          <nav className="w-full py-4">
-            <ul className="flex flex-col gap-3 w-[90%] mx-auto">
+          <nav className='w-full py-4 mt-4'>
+            <ul className='flex flex-col gap-3 w-[90%] mx-auto'>
               {getDashboardSidebarLinks().map((item) => (
                 <li key={item.key}>
                   <DashboardSidebarLink
@@ -170,18 +141,16 @@ const DashboardSidebar = () => {
         </div>
 
         {/* Bottom Section: Logout */}
-        <div className="py-4 border-t border-dark-grey">
-          <ul className="flex flex-col gap-3 w-[90%] mx-auto">
+        <div className='py-4 border-t border-dark-grey'>
+          <ul className='flex flex-col gap-3 w-[90%] mx-auto'>
             <li
               onClick={() => {
-                user.isAuthenticated = false;
-                navigate("/login", { replace: true });
+                logout();
               }}
-              className="cursor-pointer"
-            >
+              className='cursor-pointer'>
               <DashboardSidebarLink
                 icon={<LogOut size={20} />}
-                label="Log out"
+                label='Log out'
               />
             </li>
           </ul>

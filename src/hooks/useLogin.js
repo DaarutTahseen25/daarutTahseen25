@@ -1,63 +1,37 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { user } from "../App"; // Or however you manage auth
+import Cookies from "js-cookie";
 
-const useLogin = () => {
+import { useAuth } from "./../contexts/AuthContext";
+
+import api from "../utils/api";
+
+export const useLogin = () => {
   const navigate = useNavigate();
 
-  const [loginForm, setLoginFormState] = useState({
-    identifier: "",
-    password: "",
-  });
-  const [loginErrors, setLoginErrors] = useState({});
-  const [showPassword, setShowPassword] = useState(false);
+  const { fetchProfile } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState("");
 
-  const setLoginForm = (name, value) => {
-    setLoginFormState((prev) => ({ ...prev, [name]: value }));
-    if (loginErrors[name]) {
-      setLoginErrors((prev) => ({ ...prev, [name]: "" }));
-    }
-  };
-
-  const validate = () => {
-    const errors = {};
-    const identifier = loginForm.identifier.trim();
-
-    if (!identifier) {
-      errors.identifier = "Email or NIN is required.";
-    } else if (
-      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(identifier) &&
-      !/^\d{11}$/.test(identifier)
-    ) {
-      errors.identifier = "Enter a valid email or 11-digit NIN.";
-    }
-
-    if (!loginForm.password.trim()) {
-      errors.password = "Password is required.";
-    }
-
-    setLoginErrors(errors);
-    return Object.keys(errors).length === 0;
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!validate()) return;
-
-    setIsSubmitting(true);
-    setSubmitMessage("");
-
+  const login = async (email, password) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      console.log("Logging in with:", loginForm);
-      user.isAuthenticated = true;
+      setIsSubmitting(true);
+      const res = await api.post("/auth/login", { email, password });
+      setSubmitMessage(res?.data?.message || "User Login Successfully");
+      Cookies.set("token", res.data.data.token);
+      await fetchProfile();
 
-      setSubmitMessage("Login successful!");
-      setTimeout(() => navigate("/", { replace: true }), 1000);
-    } catch (error) {
-      setSubmitMessage("Login failed. Please try again.");
+      navigate("/dashboard", { replace: true });
+    } catch (err) {
+      console.log(err?.response);
+      setSubmitMessage(
+        err?.response?.data?.message ||
+          "Invalid Login Credentials , Login Failed"
+      );
+      throw new Error(
+        err?.response?.data?.message ||
+          "Invalid Login Credentials , Login Failed"
+      );
     } finally {
       setIsSubmitting(false);
       setTimeout(() => setSubmitMessage(""), 5000);
@@ -65,15 +39,8 @@ const useLogin = () => {
   };
 
   return {
-    loginForm,
-    loginErrors,
-    setLoginForm,
-    showPassword,
-    setShowPassword: () => setShowPassword((prev) => !prev),
+    login,
     isSubmitting,
     submitMessage,
-    handleSubmit,
   };
 };
-
-export default useLogin;

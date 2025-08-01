@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Button from "../Button";
+import Button from "./Button";
 
 const students = [
   {
@@ -46,9 +46,9 @@ export default function StudentTable() {
   );
 
   return (
-    <div className="w-full rounded  bg-[#fefefc] p-4 shadow overflow-auto text-xs">
-      <div className="overflow-x-auto rounded bg-white p-4  min-w-[700px]">
-        <div className="grid grid-cols-5 gap-4 font-montserrat font-bold text-sm border-b py-3 px-2 bg-[#f8f8f8] rounded-t-xl">
+    <div className='w-full rounded  bg-[#fefefc] p-4 shadow overflow-auto text-xs'>
+      <div className='overflow-x-auto rounded bg-white p-4  min-w-[700px]'>
+        <div className='grid grid-cols-5 gap-4 font-montserrat font-bold text-sm border-b py-3 px-2 bg-[#f8f8f8] rounded-t-xl'>
           <span>S/N</span>
           <span>Student Name</span>
           <span>Progress</span>
@@ -67,7 +67,7 @@ export default function StudentTable() {
         </ul>
 
         {/* Pagination */}
-        <div className="flex justify-center items-center mt-6 gap-2">
+        <div className='flex justify-center items-center mt-6 gap-2'>
           {Array.from({ length: totalPages }).map((_, i) => (
             <button
               key={i}
@@ -76,8 +76,7 @@ export default function StudentTable() {
                 currentPage === i + 1
                   ? "bg-primary text-white"
                   : "text-black bg-white"
-              }`}
-            >
+              }`}>
               {i + 1}
             </button>
           ))}
@@ -95,29 +94,27 @@ function StudentRow({ index, name, avatar, progress, score }) {
   const progressColor = isCompleted ? "bg-[#00BFA6]" : "bg-[#5e3c3c]";
 
   return (
-    <li className="grid grid-cols-5 gap-4 items-center text-xs py-4 px-2 font-montserrat border-b border-textmuted ">
+    <li className='grid grid-cols-5 gap-4 items-center text-xs py-4 px-2 font-montserrat border-b border-textmuted '>
       <span>{index}</span>
-      <div className="flex items-center gap-2">
+      <div className='flex items-center gap-2'>
         <img
           src={avatar}
           alt={name}
-          className="w-10 h-10 rounded-full object-cover"
+          className='w-10 h-10 rounded-full object-cover'
         />
-        <span className="font-semibold">{name}</span>
+        <span className='font-semibold'>{name}</span>
       </div>
-      <div className="flex items-center gap-2">
-        <div className="w-28 bg-[#f0f0f0] h-2 rounded-full overflow-hidden">
+      <div className='flex items-center gap-2'>
+        <div className='w-28 bg-[#f0f0f0] h-2 rounded-full overflow-hidden'>
           <div
             className={`h-2 ${progressColor}`}
-            style={{ width: `${progress}%` }}
-          ></div>
+            style={{ width: `${progress}%` }}></div>
         </div>
-        <span className="text-xs text-gray-600 font-semibold">{progress}%</span>
+        <span className='text-xs text-gray-600 font-semibold'>{progress}%</span>
       </div>
-      <span className="font-semibold text-sm text-gray-700">{score}%</span>
+      <span className='font-semibold text-sm text-gray-700'>{score}%</span>
       <span
-        className={`border  rounded-full px-3 py-1 flex items-center gap-1 justify-center text-xs font-semibold ${statusColor} border-current w-fit`}
-      >
+        className={`border  rounded-full px-3 py-1 flex items-center gap-1 justify-center text-xs font-semibold ${statusColor} border-current w-fit`}>
         <span>{badgeIcon}</span> {statusText}
       </span>
     </li>
