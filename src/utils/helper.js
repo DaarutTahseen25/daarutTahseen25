@@ -63,3 +63,12 @@ export const validate = (signupForm, file, setSignupErrors) => {
   setSignupErrors(errors);
   return Object.keys(errors).length === 0;
 };
+
+export const truncateEmail = (email, maxUsernameLength = 6) => {
+  const [username, domain] = email.split("@");
+  if (!username || !domain) return email;
+
+  if (username.length <= maxUsernameLength) return email;
+
+  return `${username.slice(0, maxUsernameLength)}...@${domain}`;
+};

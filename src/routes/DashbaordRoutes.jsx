@@ -38,7 +38,13 @@ const DashboardRoutes = () => {
 
   return (
     <Routes>
-      <Route path='dashboard' element={<DashboardLayout />}>
+      <Route
+        path='dashboard'
+        element={
+          <ProtectedRoute allowedRoles={["student", "teacher"]}>
+            <DashboardLayout />
+          </ProtectedRoute>
+        }>
         <Route index element={<DefaultDashboardRedirect />} />
 
         {/* Student Routes */}

@@ -5,7 +5,7 @@ import { Routes, Route, Navigate } from "react-router";
 
 import QuranLoader from "./Components/QuranLoader";
 import { usePageTitle } from "./hooks/usePageTitle";
-import { useAuth } from "./contexts/AuthContext";
+
 import DashboardRoutes from "./routes/DashbaordRoutes";
 
 // Pages
@@ -34,9 +34,7 @@ const OtpRegistration = lazy(() => import("./Components/OtpRegPage"));
 const UnAuthorized = lazy(() => import("./pages/UnAuthorized"));
 
 const App = () => {
-  const { user } = useAuth();
   usePageTitle();
-  const userRole = user?.role;
   return (
     <Suspense
       fallback={

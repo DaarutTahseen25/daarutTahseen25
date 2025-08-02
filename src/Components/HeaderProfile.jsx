@@ -1,10 +1,11 @@
 import React from "react";
-import { Link, useLocation, useNavigate } from "react-router";
+import { Link, useLocation } from "react-router";
 import { ChevronDown, LayoutDashboard, Home, User, LogOut } from "lucide-react";
 
 import useUIStore from "../store/useUIStore";
 import { useClickOutside } from "../hooks/useClickOutside";
 import { useAuth } from "../contexts/AuthContext";
+import { truncateEmail } from "../utils/helper";
 
 const HeaderProfile = () => {
   const { user, logout } = useAuth();
@@ -14,9 +15,8 @@ const HeaderProfile = () => {
   const isLoading = !user;
 
   const firstName = profile?.full_name?.split(" ")[0] || "Guest";
-  const email = profile?.email || "guest@example.com";
+  const email = truncateEmail(profile?.email || "guest@example.com");
 
-  const navigate = useNavigate();
   const location = useLocation();
   const isDashboardPage = location.pathname.startsWith("/dashboard");
   const { isDropdownOpen, toggleDropdown, closeDropdown } = useUIStore();
@@ -104,7 +104,7 @@ const HeaderProfile = () => {
             className='flex items-center gap-2 py-[0.76rem] px-4 hover:bg-accent/20 transition-colors duration-200 cursor-pointer'
             onClick={() => {
               closeDropdown();
-              logout?.();
+              logout();
             }}>
             <LogOut size={18} />
             <span className='font-clash font-[500] text-black'>Logout</span>

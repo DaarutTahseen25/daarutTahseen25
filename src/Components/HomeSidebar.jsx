@@ -22,6 +22,7 @@ import { Link, useLocation, useNavigate } from "react-router";
 import { isAuthenticated } from "../services/authService";
 import { logout } from "../services/authService";
 import { useAuth } from "../contexts/AuthContext";
+import { truncateEmail } from "../utils/helper";
 
 export const navItems = [
   { key: "home", icon: <Home size={20} />, label: "Home", to: "/" },
@@ -71,7 +72,7 @@ export default function HomeSidebar() {
   const profile = user?.user || user || null;
 
   const firstName = profile?.full_name?.split(" ")[0] || "Guest";
-  const email = profile?.email || "guest@example.com";
+  const email = truncateEmail(profile?.email || "guest@example.com");
 
   const navigate = useNavigate();
   const location = useLocation();

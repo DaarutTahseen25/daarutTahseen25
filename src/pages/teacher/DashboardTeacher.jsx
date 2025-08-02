@@ -31,7 +31,6 @@ const classes = [
 const DashboardTeacher = () => {
   const { user } = useAuth();
   const profile = user?.user || user;
-  console.log(profile);
   const firstName = profile?.full_name?.split(" ")[0] || "";
   return (
     <section className='flex flex-col gap-10 '>
