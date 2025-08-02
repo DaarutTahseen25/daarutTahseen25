@@ -45,7 +45,7 @@ const App = () => {
       <Routes>
         {/* Public Pages */}
         <Route path='/' element={<Home />} />
-        <Route path='/about-us' element={<AbouUs />} />
+        <Route path='/about-us' element={<AboutUs />} />
         <Route path='/privacy-policy' element={<PrivacyPolicy />} />
         <Route path='/our-terms' element={<TermsOfService />} />
         <Route path='/otp-page' element={<OtpRegistration />} />
