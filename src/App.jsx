@@ -10,7 +10,7 @@ import DashboardRoutes from "./routes/DashbaordRoutes";
 
 // Pages
 const Home = lazy(() => import("./pages/home"));
-const About = lazy(() => import("./pages/About"));
+const AboutUs = lazy(() => import("./pages/AboutUs"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const TermsOfService = lazy(() => import("./pages/TermsOfService"));
 const LogIn = lazy(() => import("./pages/Login"));
@@ -45,7 +45,7 @@ const App = () => {
       <Routes>
         {/* Public Pages */}
         <Route path='/' element={<Home />} />
-        <Route path='/about-us' element={<About />} />
+        <Route path='/about-us' element={<AbouUs />} />
         <Route path='/privacy-policy' element={<PrivacyPolicy />} />
         <Route path='/our-terms' element={<TermsOfService />} />
         <Route path='/otp-page' element={<OtpRegistration />} />

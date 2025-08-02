@@ -1,12 +1,11 @@
 import React from "react";
-import Button from "../Components/Button";
 import LandingPageHeader from "../Components/LandingPageHeader";
 import Footer from "../Components/Footer";
 import HomeSidebar from "../Components/HomeSidebar";
 
-const About = () => {
+const AboutUs = () => {
   return (
-    <main className="grid grid-rows-[auto_1fr_1fr_1fr_1fr_auto] h-screen">
+    <main className='grid grid-rows-[auto_1fr_1fr_1fr_1fr_auto] h-screen'>
       <HomeSidebar />
       <LandingPageHeader />
       <h1>About us</h1>
@@ -15,4 +14,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default AboutUs;
