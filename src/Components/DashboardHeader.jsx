@@ -13,19 +13,21 @@ const DashboardHeader = () => {
   const [shouldObserve, setShouldObserve] = useState(false);
 
   useEffect(() => {
-    // Only activate sticky on screens <= 768px (md)
     const handleResize = () => {
       setShouldObserve(window.innerWidth <= 768);
     };
 
-    handleResize(); // initial check
+    handleResize();
     window.addEventListener("resize", handleResize);
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
-    if (!shouldObserve) return;
+    if (!shouldObserve) {
+      setIsSticky(false); // <-- Reset sticky when no longer observing
+      return;
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -67,7 +69,7 @@ const DashboardHeader = () => {
 
           <div className='w-[90%] mx-auto flex items-center justify-end gap-4'>
             <div className='h-10 w-10 p-2 cursor-pointer rounded-full hover:bg-accent/20 transition-colors duration-200 flex items-center justify-center'>
-              <Link to={`/dashboard/${user?.role}/messages`}>
+              <Link to={`/${user?.role}/messages`}>
                 <img
                   src='/notification bell.png'
                   alt='notification'

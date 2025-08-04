@@ -12,6 +12,10 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
     return <Navigate to='/unauthorized' replace />;
   }
 
+  if (user?.role === "student" && user?.level === null) {
+    return <Navigate to={`/${user.role}/level-registration`} replace />;
+  }
+
   return children;
 };
 

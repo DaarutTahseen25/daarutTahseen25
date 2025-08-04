@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import useUIStore from "../store/useUIStore";
-import { getDashboardSidebarLinks } from "./DashboardSidebar";
 import {
   Home,
   Info,
@@ -11,18 +10,13 @@ import {
   LogOut,
   X,
   LayoutGrid,
-  LayoutDashboard,
-  School,
-  ListTree,
-  Bell,
-  CreditCard,
 } from "lucide-react";
 import Button from "./Button";
 import { Link, useLocation, useNavigate } from "react-router";
 import { isAuthenticated } from "../services/authService";
-import { logout } from "../services/authService";
 import { useAuth } from "../contexts/AuthContext";
 import { truncateEmail } from "../utils/helper";
+import { getDashboardSidebarLinks } from "../utils/GetLinks";
 
 export const navItems = [
   { key: "home", icon: <Home size={20} />, label: "Home", to: "/" },
@@ -56,12 +50,6 @@ export const navItems = [
     label: "Contact",
     to: "/contact-us",
   },
-  {
-    key: "dashboard",
-    icon: <LayoutGrid size={20} />,
-    label: "Dashboard",
-    to: "/dashboard",
-  },
 ];
 
 const bottomItems = [{ icon: <LogOut size={20} />, label: "Log out" }];
@@ -74,11 +62,13 @@ export default function HomeSidebar() {
   const firstName = profile?.full_name?.split(" ")[0] || "Guest";
   const email = truncateEmail(profile?.email || "guest@example.com");
 
+  const userPath = profile?.role;
+
   const navigate = useNavigate();
   const location = useLocation();
-  const isDashboardPage = location.pathname.startsWith("/dashboard");
+  const isDashboardPage = location.pathname.startsWith(`/${userPath}`);
 
-  const nav = isDashboardPage ? getDashboardSidebarLinks() : navItems;
+  const nav = isDashboardPage ? getDashboardSidebarLinks(userPath) : navItems;
 
   // Using the custom UI store to manage sidebar state
   // isSidebarOpen indicates whether the sidebar is currently open
@@ -102,8 +92,7 @@ export default function HomeSidebar() {
 
   function handleLogout() {
     closeSidebar();
-    logout(); // Use the proper logout service
-    navigate("/", { replace: true });
+    logout();
   }
 
   return (
@@ -149,6 +138,15 @@ export default function HomeSidebar() {
                 <span>{item.label}</span>
               </Link>
             ))}
+            {!isDashboardPage && (
+              <Link
+                to={`/${userPath}`}
+                className={`flex items-center gap-3 px-3 py-2 rounded-md hover:bg-accent/20 cursor-pointer   transition `}
+                onClick={closeSidebar}>
+                <LayoutGrid size={20} />
+                <span>Dashboard</span>
+              </Link>
+            )}
           </ul>
         </div>
         <div>

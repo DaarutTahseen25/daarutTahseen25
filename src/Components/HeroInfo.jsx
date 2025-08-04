@@ -2,8 +2,11 @@ import React from "react";
 import Button from "./Button";
 import { Link } from "react-router";
 import { isAuthenticated } from "../services/authService";
+import { useAuth } from "../contexts/AuthContext";
 
 const HeroInfo = () => {
+  const { user } = useAuth();
+  const role = user?.role;
   return (
     <div className='flex-1 flex flex-col gap-6 w-full lg:w-auto max-w-full '>
       <h1 className='text-primary font-poppins text-[28px] sm:text-[36px] md:text-[41px] font-normal   text-center lg:text-left w-full'>
@@ -21,7 +24,7 @@ const HeroInfo = () => {
       {/* Shows get started when there's no logged in user and go to dashboard if a user is logged in */}
       <div className='self-center lg:self-start'>
         {isAuthenticated() ? (
-          <Link to='/dashboard'>
+          <Link to={`/${role}`}>
             <Button className='bg-primary hover:bg-buttonhover transition-colors duration-300 py-4 px-6 w-[200px] md:w-[219px] h-[60px] md:h-[71px] text-white text-[18px] font-medium rounded-[10px] border-2 border-cream shadow-[0_0_10px_5px_rgba(0,0,0,0.25)] font-clash'>
               Go to Dashboard
             </Button>

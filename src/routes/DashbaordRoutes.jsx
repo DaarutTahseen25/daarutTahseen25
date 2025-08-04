@@ -3,7 +3,6 @@ import { Routes, Route } from "react-router";
 import DashboardTeacher from "../pages/teacher/DashboardTeacher";
 import Library from "../pages/teacher/Library";
 import Messages from "../pages/teacher/Messages";
-import TutorProfile from "../pages/teacher/TutorProfile";
 import Payments from "../pages/teacher/Payments";
 import Classes from "../pages/teacher/Classes";
 import TeacherCourses from "../pages/teacher/TeacherCourses";
@@ -18,15 +17,16 @@ import Profile from "../pages/student/Profile";
 import Dashboard from "../pages/student/Dashboard";
 import MyCourses from "../pages/student/MyCourses";
 
-import DashboardLayout from "../layouts/DashboardLayout";
 import ProtectedRoute from "../auth/ProtectedRoute";
-import DefaultDashboardRedirect from "../Components/DefaultDashboardRedirect";
 import { useAuth } from "../contexts/AuthContext";
 
-import QuranLoader from "./../Components/QuranLoader";
+import QuranLoader from "../Components/QuranLoader";
+import LayoutStudents from "../layouts/LayoutStudents";
+import LayoutTeachers from "../layouts/LayoutTeachers";
+import RequireLevel from "../auth/RequireLevel";
 
 const DashboardRoutes = () => {
-  const { user, loading } = useAuth();
+  const { loading } = useAuth();
 
   if (loading) {
     return (
@@ -38,138 +38,42 @@ const DashboardRoutes = () => {
 
   return (
     <Routes>
+      {/* Student Routes */}
       <Route
-        path='dashboard'
+        path='/student/*'
         element={
-          <ProtectedRoute allowedRoles={["student", "teacher"]}>
-            <DashboardLayout />
+          <ProtectedRoute allowedRoles={["student"]}>
+            <LayoutStudents />
           </ProtectedRoute>
         }>
-        <Route index element={<DefaultDashboardRedirect />} />
+        <Route path='level-registration' element={<LevelRegistration />} />
+        <Route path='profile' element={<Profile />} />
+        <Route element={<RequireLevel />}>
+          <Route index element={<Dashboard />} />
+          <Route path='my-courses' element={<MyCourses />} />
+          <Route path='admission' element={<Admission />} />
+          <Route path='curriculum' element={<Curriculum />} />
+          <Route path='messages' element={<Notifications />} />
+          <Route path='my-fees' element={<PayFees />} />
+          <Route path='resources' element={<Resources />} />
+        </Route>
+      </Route>
 
-        {/* Student Routes */}
-        <Route
-          path='student'
-          element={
-            <ProtectedRoute allowedRoles={["student"]}>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path='student/my-courses'
-          element={
-            <ProtectedRoute allowedRoles={["student"]}>
-              <MyCourses />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path='student/admission'
-          element={
-            <ProtectedRoute allowedRoles={["student"]}>
-              <Admission />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path='student/level-registration'
-          element={
-            <ProtectedRoute allowedRoles={["student"]}>
-              <LevelRegistration />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path='student/curriculum'
-          element={
-            <ProtectedRoute allowedRoles={["student"]}>
-              <Curriculum />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path='student/messages'
-          element={
-            <ProtectedRoute allowedRoles={["student"]}>
-              <Notifications />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path='student/my-fees'
-          element={
-            <ProtectedRoute allowedRoles={["student"]}>
-              <PayFees />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path='student/resources'
-          element={
-            <ProtectedRoute allowedRoles={["student"]}>
-              <Resources />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path='profile'
-          element={
-            <ProtectedRoute allowedRoles={["student", "teacher"]}>
-              <Profile />
-            </ProtectedRoute>
-          }
-        />
-
-        {/* Teacher Routes */}
-        <Route
-          path='teacher'
-          element={
-            <ProtectedRoute allowedRoles={["teacher"]}>
-              <DashboardTeacher />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path='teacher/library'
-          element={
-            <ProtectedRoute allowedRoles={["teacher"]}>
-              <Library />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path='teacher/payments'
-          element={
-            <ProtectedRoute allowedRoles={["teacher"]}>
-              <Payments />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path='teacher/messages'
-          element={
-            <ProtectedRoute allowedRoles={["teacher"]}>
-              <Messages />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path='teacher/my-courses'
-          element={
-            <ProtectedRoute allowedRoles={["teacher"]}>
-              <TeacherCourses />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path='teacher/my-classes'
-          element={
-            <ProtectedRoute allowedRoles={["teacher"]}>
-              <Classes />
-            </ProtectedRoute>
-          }
-        />
+      {/* Teacher Routes */}
+      <Route
+        path='/teacher'
+        element={
+          <ProtectedRoute allowedRoles={["teacher"]}>
+            <LayoutTeachers />
+          </ProtectedRoute>
+        }>
+        <Route index element={<DashboardTeacher />} />
+        <Route path='library' element={<Library />} />
+        <Route path='payments' element={<Payments />} />
+        <Route path='messages' element={<Messages />} />
+        <Route path='my-courses' element={<TeacherCourses />} />
+        <Route path='my-classes' element={<Classes />} />
+        <Route path='profile' element={<Profile />} />
       </Route>
     </Routes>
   );

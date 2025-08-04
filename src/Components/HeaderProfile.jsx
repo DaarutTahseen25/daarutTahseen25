@@ -11,20 +11,23 @@ const HeaderProfile = () => {
   const { user, logout } = useAuth();
 
   const profile = user?.user || user || null;
-  const role = profile?.role;
   const isLoading = !user;
 
   const firstName = profile?.full_name?.split(" ")[0] || "Guest";
   const email = truncateEmail(profile?.email || "guest@example.com");
 
   const location = useLocation();
-  const isDashboardPage = location.pathname.startsWith("/dashboard");
-  const { isDropdownOpen, toggleDropdown, closeDropdown } = useUIStore();
 
+  const userPath = user?.role;
+
+  const isDashboardPage = location.pathname.startsWith(`/${userPath}`);
+
+  const { isDropdownOpen, toggleDropdown, closeDropdown } = useUIStore();
   const ref = useClickOutside(closeDropdown);
 
-  const defaultAvatar =
-    "https://ui-avatars.com/api/?name=G+U&background=ccc&color=444";
+  const defaultAvatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(
+    firstName
+  )}&background=ccc&color=444`;
 
   return (
     <div ref={ref} className='relative flex items-center gap-4 cursor-pointer'>
@@ -77,7 +80,7 @@ const HeaderProfile = () => {
             isDashboardPage ? "w-[15rem] md:w-[15rem] xl:w-full" : "w-full"
           }`}>
           <Link
-            to={`/dashboard/${role}`}
+            to={`/${userPath}`}
             className='flex items-center gap-2 py-[0.76rem] px-4 hover:bg-accent/20 transition-colors duration-200'
             onClick={closeDropdown}>
             <LayoutDashboard size={18} />
@@ -93,7 +96,7 @@ const HeaderProfile = () => {
           </Link>
 
           <Link
-            to='/dashboard/profile'
+            to={`/${userPath}/profile`}
             className='flex items-center gap-2 py-[0.76rem] px-4 hover:bg-accent/20 transition-colors duration-200'
             onClick={closeDropdown}>
             <User size={18} />

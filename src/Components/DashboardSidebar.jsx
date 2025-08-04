@@ -17,104 +17,11 @@ import {
   Users,
 } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
+import { getDashboardSidebarLinks } from "../utils/GetLinks";
 
-// Sidebar Link Generator
-export const getDashboardSidebarLinks = () => {
-  const { user, logout } = useAuth();
-  const role = user?.role;
-
-  if (role === "student") {
-    const links = [];
-
-    links.unshift(
-      {
-        key: "mycourses",
-        icon: <BookOpen />,
-        label: "My Courses",
-        to: "/dashboard/student/my-courses",
-      },
-      {
-        key: "level-registration",
-        icon: <School />,
-        label: "Level Registration",
-        to: "/dashboard/student/level-registration",
-      },
-      {
-        key: "admission",
-        icon: <School />,
-        label: "Admission",
-        to: "/dashboard/student/admission",
-      },
-      {
-        key: "curriculum",
-        icon: <ListTree />,
-        label: "Curriculum",
-        to: "/dashboard/student/curriculum",
-      },
-      {
-        key: "notifications",
-        icon: <Bell />,
-        label: "Notifications",
-        to: "/dashboard/student/messages",
-      },
-      {
-        key: "payfees",
-        icon: <CreditCard />,
-        label: "Pay Fees",
-        to: "/dashboard/student/my-fees",
-      },
-      {
-        key: "resources",
-        icon: <FileText />,
-        label: "Resources",
-        to: "/dashboard/student/resources",
-      }
-    );
-
-    return links;
-  }
-
-  if (role === "teacher") {
-    return [
-      {
-        key: "courses",
-        icon: <Users />,
-        label: "My Courses",
-        to: "/dashboard/teacher/my-courses",
-      },
-      {
-        key: "myclasses",
-        icon: <BookOpen />,
-        label: "My Classes",
-        to: "/dashboard/teacher/my-classes",
-      },
-      {
-        key: "messages",
-        icon: <MessageSquare />,
-        label: "Messages",
-        to: "/dashboard/teacher/messages",
-      },
-      {
-        key: "payments",
-        icon: <CreditCard />,
-        label: "Payments",
-        to: "/dashboard/teacher/payments",
-      },
-      {
-        key: "library",
-        icon: <FileText />,
-        label: "Library",
-        to: "/dashboard/teacher/library",
-      },
-    ];
-  }
-
-  return [];
-};
-
-// Sidebar Component
 const DashboardSidebar = () => {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
+  const role = user?.role;
 
   return (
     <aside className='bg-white hidden lg:block md:row-span-full border-r border-gray-300 h-full'>
@@ -127,12 +34,13 @@ const DashboardSidebar = () => {
 
           <nav className='w-full py-4 mt-4'>
             <ul className='flex flex-col gap-3 w-[90%] mx-auto'>
-              {getDashboardSidebarLinks().map((item) => (
+              {getDashboardSidebarLinks(role).map((item) => (
                 <li key={item.key}>
                   <DashboardSidebarLink
                     icon={item.icon}
                     label={item.label}
                     to={item.to}
+                    disabled={item.requiresLevel && !user?.level}
                   />
                 </li>
               ))}
