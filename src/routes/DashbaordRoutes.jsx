@@ -49,15 +49,15 @@ const DashboardRoutes = () => {
         }>
         <Route path='level-registration' element={<LevelRegistration />} />
         <Route path='profile' element={<Profile />} />
-        <Route element={<RequireLevel />}>
-          <Route index element={<Dashboard />} />
-          <Route path='my-courses' element={<MyCourses />} />
-          <Route path='admission' element={<Admission />} />
-          <Route path='curriculum' element={<Curriculum />} />
-          <Route path='messages' element={<Notifications />} />
-          <Route path='my-fees' element={<PayFees />} />
-          <Route path='resources' element={<Resources />} />
-        </Route>
+        {/* <Route element={<RequireLevel />}> */}
+        <Route index element={<Dashboard />} />
+        <Route path='my-courses' element={<MyCourses />} />
+        <Route path='admission' element={<Admission />} />
+        <Route path='curriculum' element={<Curriculum />} />
+        <Route path='messages' element={<Notifications />} />
+        <Route path='my-fees' element={<PayFees />} />
+        <Route path='resources' element={<Resources />} />
+        {/* </Route> */}
       </Route>
 
       {/* Teacher Routes */}
@@ -77,7 +77,9 @@ const DashboardRoutes = () => {
         <Route path='profile' element={<Profile />} />
       </Route>
 
-      <Route
+      <Route path='/assessment-test' element={<TestPage />} />
+
+      {/* <Route
         path='/assessment-test'
         element={
           <ProtectedRoute allowedRoles={["student"]}>
@@ -85,7 +87,7 @@ const DashboardRoutes = () => {
           </ProtectedRoute>
         }>
         <Route index element={<TestPage />} />
-      </Route>
+      </Route> */}
     </Routes>
   );
 };
