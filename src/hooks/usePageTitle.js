@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router";
+import { useAuth } from "../contexts/AuthContext";
 
 export const usePageTitle = () => {
+  const { user } = useAuth();
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -10,8 +12,7 @@ export const usePageTitle = () => {
 
       let parts = path.slice(1).split("/");
 
-      // Remove "dashboard" if it's the first part
-      if (parts[0].toLowerCase() === "dashboard") {
+      if (parts[0].toLowerCase() === `${user?.role}`) {
         parts.shift();
       }
 

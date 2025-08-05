@@ -69,7 +69,7 @@ const TutorRegistrationForm = ({ role }) => {
   };
 
   return (
-    <div className='w-full max-w-xl p-6 mx-auto'>
+    <div className='w-full max-w-2xl p-6 mx-auto'>
       <form onSubmit={handleSubmit}>
         <h2 className='text-2xl font-medium md:text-3xl text-center text-accent mb-4 font-clash'>
           Create {role} Account

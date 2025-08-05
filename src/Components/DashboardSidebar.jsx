@@ -1,28 +1,22 @@
-// DashboardSidebar.jsx
-
 import React from "react";
 import { useNavigate } from "react-router";
 
 import DashboardSidebarLink from "./DashboardSidebarLink";
-import {
-  Bell,
-  BookOpen,
-  CreditCard,
-  FileText,
-  LayoutDashboard,
-  ListTree,
-  LogOut,
-  MessageSquare,
-  School,
-  Users,
-} from "lucide-react";
+import { LogOut } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import { getDashboardSidebarLinks } from "../utils/GetLinks";
 
 const DashboardSidebar = () => {
+  const navigate = useNavigate();
   const { logout, user } = useAuth();
   const role = user?.role;
 
+  const handleLogout = () => {
+    navigate("/login", { replace: true });
+    setTimeout(() => {
+      logout();
+    }, 100);
+  };
   return (
     <aside className='bg-white hidden lg:block md:row-span-full border-r border-gray-300 h-full'>
       <div className='flex flex-col justify-between h-full'>
@@ -51,11 +45,7 @@ const DashboardSidebar = () => {
         {/* Bottom Section: Logout */}
         <div className='py-4 border-t border-dark-grey'>
           <ul className='flex flex-col gap-3 w-[90%] mx-auto'>
-            <li
-              onClick={() => {
-                logout();
-              }}
-              className='cursor-pointer'>
+            <li onClick={handleLogout} className='cursor-pointer'>
               <DashboardSidebarLink
                 icon={<LogOut size={20} />}
                 label='Log out'

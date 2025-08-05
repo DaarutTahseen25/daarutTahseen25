@@ -101,7 +101,7 @@ const Login = () => {
               type='text'
               value={loginForm.email}
               onChange={handleChange}
-              placeholder='Enter your Email or NIN'
+              placeholder='Enter your Email'
               className={`${
                 loginErrors.email ? "border-red-500" : "border-gray-300"
               }`}

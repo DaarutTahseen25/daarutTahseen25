@@ -1,21 +1,30 @@
+import React from "react";
 import { Navigate } from "react-router";
 import { useAuth } from "../contexts/AuthContext";
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
   const { user, loading } = useAuth();
 
-  if (loading) return <p>Loading...</p>;
+  // 🌀 Fullscreen loading screen to prevent white flashes
+  if (loading) {
+    return (
+      <div className='min-h-screen flex items-center justify-center bg-slate-100 text-gray-600'>
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
-  if (!user) return <Navigate to='/login' replace />;
+  // 🚫 Redirect to login if user is not authenticated
+  if (!user) {
+    return <Navigate to='/login' replace />;
+  }
 
+  // 🚫 Role-based access control
   if (allowedRoles && !allowedRoles.includes(user.role)) {
     return <Navigate to='/unauthorized' replace />;
   }
 
-  if (user?.role === "student" && user?.level === null) {
-    return <Navigate to={`/${user.role}/level-registration`} replace />;
-  }
-
+  // ✅ If all checks pass, render the protected children
   return children;
 };
 

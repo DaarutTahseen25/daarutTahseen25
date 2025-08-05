@@ -24,6 +24,7 @@ import QuranLoader from "../Components/QuranLoader";
 import LayoutStudents from "../layouts/LayoutStudents";
 import LayoutTeachers from "../layouts/LayoutTeachers";
 import RequireLevel from "../auth/RequireLevel";
+import TestPage from "../pages/AspirantTest/TestPage";
 
 const DashboardRoutes = () => {
   const { loading } = useAuth();
@@ -74,6 +75,16 @@ const DashboardRoutes = () => {
         <Route path='my-courses' element={<TeacherCourses />} />
         <Route path='my-classes' element={<Classes />} />
         <Route path='profile' element={<Profile />} />
+      </Route>
+
+      <Route
+        path='/assessment-test'
+        element={
+          <ProtectedRoute allowedRoles={["student"]}>
+            <RequireLevel />
+          </ProtectedRoute>
+        }>
+        <Route index element={<TestPage />} />
       </Route>
     </Routes>
   );

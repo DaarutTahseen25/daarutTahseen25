@@ -27,18 +27,17 @@ const courses = [
 
 function FeaturedCourses() {
   return (
-    <section className=" bg-secondary flex justify-center items-center py-12">
-      <div className="w-[90%] md:w-[85%] mx-auto text-center">
-        <h1 className="font-clash text-accent font-[500] text-[32px] md:text-[40px] ">
+    <section className='bg-secondary flex justify-center items-center py-10 px-4 sm:px-8'>
+      <div className='w-full max-w-7xl text-center'>
+        <h1 className='font-clash text-accent font-medium text-2xl sm:text-3xl md:text-4xl'>
           Featured Courses
         </h1>
-        <p className="text-[18px] md:text-[20px] font-bricolage text-black font-[400]  mt-6 max-w-[900px] mx-auto">
+        <p className='text-base sm:text-lg md:text-xl font-bricolage text-black font-normal mt-4 sm:mt-6 max-w-4xl mx-auto'>
           Discover our most impactful Islamic courses carefully selected to help
           you build a strong foundation in Qur’an, Arabic and essential Deen.
         </p>
-        {/*  */}
 
-        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 place-items-center">
+        <div className='mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 place-items-center'>
           {courses.map(({ id, title, description, thumbnail }) => (
             <CourseCard
               key={id}

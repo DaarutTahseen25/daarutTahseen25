@@ -14,7 +14,6 @@ const ConfirmLevelRegistration = ({ onCloseModal, openModal, title }) => {
     onCloseModal();
 
     setTimeout(() => {
-      console.log("✅ Updating level and admission process");
       setLevel(title); // Save selected level
       setAdmissionProcess(true); // Mark registration complete
 
@@ -23,14 +22,12 @@ const ConfirmLevelRegistration = ({ onCloseModal, openModal, title }) => {
 
       // 3. Navigate to admission page after brief delay
       setTimeout(() => {
-        console.log("✅ Navigating to /dashboard/admission");
         navigate("/dashboard/admission", { replace: true });
       }, 500);
     }, 1000);
   };
 
   const handleCancel = () => {
-    console.log("❌ Cancel clicked");
     onCloseModal();
   };
 

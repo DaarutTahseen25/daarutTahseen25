@@ -38,7 +38,7 @@ const DashboardSidebarLink = ({ icon, label, to, disabled = false }) => {
       to={to}
       {...(isExact ? { end: true } : {})}
       className={({ isActive }) =>
-        `${baseClasses} text-dark-grey ${hoverClasses} ${
+        `${baseClasses} text-[#A9A9A9] ${hoverClasses} ${
           isActive ? activeClasses : ""
         }`
       }>
