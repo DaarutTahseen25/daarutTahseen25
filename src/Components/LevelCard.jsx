@@ -4,7 +4,6 @@ import Modal from "./Modal";
 import ConfirmLevelRegistration from "./ConfirmLevelRegistration";
 import Success from "./Success";
 
-
 const LevelCard = ({ title, color, description }) => {
   return (
     <div className='bg-white mt-4 px-6 py-3 rounded-lg shadow-md'>
@@ -23,10 +22,7 @@ const LevelCard = ({ title, color, description }) => {
       <Modal>
         {/* Open CONFIRMATION modal first */}
         <Modal.Open opens='confirm'>
-          <Button
-            className='bg-accent text-white px-[25.5px] py-[11.5px] rounded-[10px] hover:bg-accent-dark hover:bg-buttonhover'
-            // onClick={handleRegisterLevel}
-          >
+          <Button className='bg-accent text-white px-[25.5px] py-[11.5px] rounded-[10px] hover:bg-accent-dark hover:bg-buttonhover'>
             Register Now
           </Button>
         </Modal.Open>

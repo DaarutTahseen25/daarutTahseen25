@@ -102,10 +102,6 @@ function OtpRegistration() {
           </div>
         </div>
 
-        {error && openStep === "error" && (
-          <p className='text-red-500 text-sm mb-4 text-center'>{error}</p>
-        )}
-
         <div className='w-full max-w-md'>
           <Button
             className='w-full mt-2'

@@ -3,33 +3,10 @@ import { useNavigate } from "react-router";
 import Button from "./Button";
 import useUIStore from "../store/useUIStore";
 
+import { useAuth } from "./../contexts/AuthContext";
+
 const ConfirmLevelRegistration = ({ onCloseModal, openModal, title }) => {
-  const navigate = useNavigate();
-  const { setLevel, setAdmissionProcess } = useUIStore();
-
-  const handleConfirm = () => {
-    console.log("✅ Proceed clicked");
-
-    // 1. Close modal
-    onCloseModal();
-
-    setTimeout(() => {
-      setLevel(title); // Save selected level
-      setAdmissionProcess(true); // Mark registration complete
-
-      // 2. Open success modal
-      openModal("success");
-
-      // 3. Navigate to admission page after brief delay
-      setTimeout(() => {
-        navigate("/dashboard/admission", { replace: true });
-      }, 500);
-    }, 1000);
-  };
-
-  const handleCancel = () => {
-    onCloseModal();
-  };
+  const { user } = useAuth();
 
   return (
     <div className='w-[98%] mx-auto sm:w-[500px] sm:h-[328px] max-h-[450px] flex items-center justify-center bg-white rounded-[20px] py-[48px] px-[30px]'>
