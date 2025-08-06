@@ -17,10 +17,32 @@ const useUIStore = create((set) => ({
   toggleDropdown: () =>
     set((state) => ({ isDropdownOpen: !state.isDropdownOpen })),
   openDropdown: () => set({ isDropdownOpen: true }),
-
   closeDropdown: () => set({ isDropdownOpen: false }),
+
   setLevel: (level) => set({ level }),
   setAdmissionProcess: (value) => set({ isAdmissionProcess: value }),
+
+  // ====== COURSE FILTER STATES ======
+  expandedCourse: null,
+  searchTerm: "",
+  filterProgress: "",
+  filterStatus: "",
+  activeTab: "Total Courses",
+
+  setExpandedCourse: (id) =>
+    set((state) => ({
+      expandedCourse: state.expandedCourse === id ? null : id,
+    })),
+  setSearchTerm: (term) => set({ searchTerm: term }),
+  setFilterProgress: (progress) => set({ filterProgress: progress }),
+  setFilterStatus: (status) => set({ filterStatus: status }),
+  setActiveTab: (tab) => set({ activeTab: tab }),
+  resetCourseFilters: () =>
+    set({
+      searchTerm: "",
+      filterProgress: "",
+      filterStatus: "",
+    }),
 }));
 
 export default useUIStore;
