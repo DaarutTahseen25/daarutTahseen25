@@ -25,7 +25,7 @@ const QuizCardComponent = ({
   };
 
   return (
-    <div className="bg-white rounded-xl shadow p-4 w-full max-w-sm border border-gray-200 relative overflow-hidden">
+    <div className="bg-white rounded-xl shadow p-4 w-full border border-gray-200 relative overflow-hidden">
       <div className="flex items-start gap-4">
         <img
           src={image}
