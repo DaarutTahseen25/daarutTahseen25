@@ -198,6 +198,21 @@ export default function MyCourses() {
                 <div className="font-semibold">Overall Score</div>
                 <div className="font-semibold">Status</div>
               </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* {Quiz Tab} */}
+      {activeTab === "Quiz" && quizList.length > 0 && (
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 w-full">
+            {quizList.map((quiz, idx) => (
+              <QuizCardComponent key={idx} {...quiz} />
+            ))}
+          </div>
+        </>
+      )}
               <TotalCourses
                 courses={filteredCourses}
                 expandedCourse={expandedCourse}
