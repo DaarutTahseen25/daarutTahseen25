@@ -1,5 +1,6 @@
 import { Filter, RefreshCcw } from "lucide-react";
 import useUIStore from "../../store/useUIStore";
+import QuizCardComponent from "../../Components/QuizCardComponent";
 
 // Tab Components
 import TotalCourses from "../../Components/TotalCourses";
@@ -108,6 +109,70 @@ export default function MyCourses() {
     },
   ];
 
+  const quizList = [
+    {
+      id: 1,
+      title: "Basic Islamic Manners",
+      quizes: 10,
+      duration: "15mins",
+      date: "15th July, 2025",
+      time: "4:00PM",
+      status: "start",
+      dueDate: "20th June 2025, 12:00PM",
+      image: "/islamic1.png",
+    },
+    {
+      id: 2,
+      title: "Arabic Alphabet Phonetic",
+      quizes: 10,
+      duration: "15mins",
+      date: "15th July, 2025",
+      time: "4:00PM",
+      status: "submitted",
+      image: "/arabic.png",
+    },
+    {
+      id: 3,
+      title: "Short Surah Memorization",
+      quizes: 10,
+      duration: "15mins",
+      date: "15th July, 2025",
+      time: "4:00PM",
+      status: "submitted",
+      image: "/surah.png",
+    },
+    {
+      id: 4,
+      title: "Stories of the Prophet",
+      quizes: 10,
+      duration: "15mins",
+      date: "15th July, 2025",
+      time: "4:00PM",
+      status: "submitted",
+      image: "/prophet.png",
+    },
+    {
+      id: 5,
+      title: "Short Surah Memorization",
+      quizes: 10,
+      duration: "15mins",
+      date: "15th July, 2025",
+      time: "4:00PM",
+      status: "submitted",
+      image: "/surah.png",
+    },
+    {
+      id: 6,
+      title: "Basic Islamic Manners",
+      quizes: 10,
+      duration: "15mins",
+      date: "15th July, 2025",
+      time: "4:00PM",
+      status: "missed",
+      image: "/islamic1.png",
+    },
+  ];
+
   const filteredCourses = courses
     .filter((course) =>
       course.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -186,28 +251,147 @@ export default function MyCourses() {
         </div>
       </div>
 
-      {/* Tab Content */}
+      {/* Course List */}
       <div className="bg-white p-4 rounded-lg shadow overflow-auto">
         <div className="p-2 min-w-3xl mx-auto space-y-4">
-          {activeTab === "Total Courses" && (
-            <>
-              <div className="grid grid-cols-4 gap-4 text-md md:text-xl py-2 px-3 md:py-3 mb-4 bg-light-grey mb-2">
-                <div className="font-semibold">Course Name</div>
-                <div className="font-semibold">Progress</div>
-                <div className="font-semibold">Overall Score</div>
-                <div className="font-semibold">Status</div>
-              </div>
-              <TotalCourses
-                courses={filteredCourses}
-                expandedCourse={expandedCourse}
-                setExpandedCourse={setExpandedCourse}
-              />
-            </>
-          )}
+          {/* Table Header */}
+          <div className="grid grid-cols-4 gap-4 text-md md:text-xl py-2 px-3 md:py-3 mb-4 bg-light-grey mb-2">
+            <div className="font-semibold">Course Name</div>
+            <div className="font-semibold">Progress</div>
+            <div className="font-semibold">Overall Score</div>
+            <div className="font-semibold">Status</div>
+          </div>
 
-          {/* {activeTab === "Classes" && <Classes />} */}
-          {/* {activeTab === "Assignment" && <Assignment />}
-          {activeTab === "Quiz" && <Quiz />} */}
+          {/* Courses */}
+          {activeTab === "Total Courses" &&
+            filteredCourses.length > 0 &&
+            filteredCourses.map((course) => (
+              <div key={course.id} className="mb-4">
+                {/* Course row */}
+                <div className="flex items-start justify-between">
+                  {/* Left side: Image and name */}
+                  <div className="flex gap-4 w-1/4">
+                    <img
+                      src={course.image}
+                      alt={course.name}
+                      className="w-16 h-16 rounded object-cover"
+                    />
+                    <div>
+                      <h3 className="font-semibold text-xl text-textmain">
+                        {course.name}
+                      </h3>
+                      <p className="text-sm font-semibold text-textmuted">
+                        {course.numberofchapters} chapters • {course.lectures}{" "}
+                        lectures
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Progress bar */}
+                  <div className="w-30">
+                    <div className="w-full bg-gray-200 h-2 rounded">
+                      <div
+                        className={`h-2 rounded ${
+                          course.progress === 100
+                            ? "bg-primary/40"
+                            : "bg-accent/40"
+                        }`}
+                        style={{ width: `${course.progress}%` }}
+                      ></div>
+                    </div>
+                  </div>
+
+                  {/* Score */}
+                  <div className="text-sm text-gray-700 ml-2">
+                    {course.score}%
+                  </div>
+
+                  {/* Status */}
+                  <div className="w-1/6 text-sm text-gray-700">
+                    {course.score}%
+                  </div>
+
+                  {/* Status + Toggle */}
+                  <div className="w-1/4 flex items-center gap-2">
+                    <span
+                      className={`px-3 py-1 text-sm rounded border border-textmuted ${
+                        course.status === "Completed"
+                          ? "text-green-600"
+                          : "text-orange-600"
+                      }`}
+                    >
+                      {course.status}
+                    </span>
+                    <button
+                      onClick={() => setExpandedCourse(course.id)}
+                      className="text-gray-500 hover:text-gray-700"
+                    >
+                      {expandedCourse === course.id ? (
+                        <svg
+                          className="w-4 h-4"
+                          fill="none"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M5 15l7-7 7 7"
+                          />
+                        </svg>
+                      ) : (
+                        <svg
+                          className="w-4 h-4"
+                          fill="none"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M9 5l7 7-7 7"
+                          />
+                        </svg>
+                      )}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Chapter details */}
+                {expandedCourse === course.id && course.chapters && (
+                  <div className="mt-4 space-y-2">
+                    {course.chapters.map((title, i) => (
+                      <div
+                        key={i}
+                        className="flex items-center justify-between p-2"
+                      >
+                        <div className="text-sm">
+                          <span className="px-2 py-0.5 bg-yellow-100 text-yellow-800 text-md rounded mr-2">
+                            Chapter {i + 1}
+                          </span>
+                          {title}
+                        </div>
+                        <div className="flex gap-2">
+                          <button className="flex items-center gap-1 text-sm text-teal-600 border border-teal-600 px-2 py-1 rounded hover:bg-teal-50">
+                            Download Pdf
+                          </button>
+                          <button className="flex items-center gap-1 text-sm text-white bg-teal-600 px-2 py-1 rounded hover:bg-teal-700">
+                            Play Video
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+
+          {/* Fallback message */}
+          {(activeTab !== "Total Courses" || filteredCourses.length === 0) && (
+            <div className="text-center text-gray-500 p-4">
+              No data for this tab.
+            </div>
+          )}
         </div>
       </div>
     </div>
