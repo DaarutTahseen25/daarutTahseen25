@@ -1,5 +1,6 @@
 import { Filter, RefreshCcw } from "lucide-react";
 import useUIStore from "../../store/useUIStore";
+import QuizCardComponent from "../../Components/QuizCardComponent";
 
 // Tab Components
 import TotalCourses from "../../Components/TotalCourses";
@@ -206,8 +207,8 @@ export default function MyCourses() {
           )}
 
           {/* {activeTab === "Classes" && <Classes />} */}
-          {/* {activeTab === "Assignment" && <Assignment />}
-          {activeTab === "Quiz" && <Quiz />} */}
+          {/* {activeTab === "Assignment" && <Assignment />} */}
+          {/* {activeTab === "Quiz" && <Quiz />} */}
         </div>
       </div>
     </div>

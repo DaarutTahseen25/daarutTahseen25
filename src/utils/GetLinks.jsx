@@ -34,13 +34,7 @@ export const getDashboardSidebarLinks = (role) => {
         to: "/student/level-registration",
         requiresLevel: false,
       },
-      {
-        key: "admission",
-        icon: <School />,
-        label: "Admission",
-        to: "/student/admission",
-        requiresLevel: false,
-      },
+
       {
         key: "curriculum",
         icon: <ListTree />,
