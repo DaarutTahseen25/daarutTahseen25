@@ -2,13 +2,9 @@ import { Filter, RefreshCcw } from "lucide-react";
 import useUIStore from "../../store/useUIStore";
 import QuizCardComponent from "../../Components/QuizCardComponent";
 
-// Tab Components
-import TotalCourses from "../../Components/TotalCourses";
-// import Classes from "../../Components/Classes";
-// import Assignment from "../../Components/Assignment";
-// import Quiz from "../../Components/Quiz";
-
+// UI
 export default function MyCourses() {
+  // Zustand state
   const {
     expandedCourse,
     searchTerm,
@@ -23,6 +19,7 @@ export default function MyCourses() {
     resetFilters,
   } = useUIStore();
 
+  // Static courses data
   const courses = [
     {
       id: 1,
@@ -173,6 +170,7 @@ export default function MyCourses() {
     },
   ];
 
+  // Filter logic
   const filteredCourses = courses
     .filter((course) =>
       course.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -190,12 +188,13 @@ export default function MyCourses() {
 
   return (
     <div className="p-4 min-h-screen font-clash">
+      {/* Header */}
       <div className="mb-4">
         <h1 className="text-3xl md:text-4xl font-semibold text-accent">
           My Courses
         </h1>
 
-        {/* Filters */}
+        {/* Filter Controls */}
         <div className="flex flex-wrap items-center gap-3 mt-4 bg-white max-w-3xl px-3 py-2 rounded-lg border border-textmuted">
           <button className="flex items-center px-3 py-1 text-textmain">
             <Filter size={16} className="mr-2" /> Filter by
@@ -222,7 +221,7 @@ export default function MyCourses() {
             placeholder="Search..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="border px-2 py-1 rounded text-sm shadow-sm border-textmuted focus:outline-none focus:ring-1 focus:ring-primary"
+            className="border px-2 py-1 rounded text-sm shadow-sm border-textmuted focus:border-none focus:outline-none focus:ring-1 focus:ring-primary"
           />
           <button
             onClick={resetFilters}
@@ -252,20 +251,18 @@ export default function MyCourses() {
       </div>
 
       {/* Course List */}
-      <div className="bg-white p-4 rounded-lg shadow overflow-auto">
-        <div className="p-2 min-w-3xl mx-auto space-y-4">
-          {/* Table Header */}
-          <div className="grid grid-cols-4 gap-4 text-md md:text-xl py-2 px-3 md:py-3 mb-4 bg-light-grey mb-2">
-            <div className="font-semibold">Course Name</div>
-            <div className="font-semibold">Progress</div>
-            <div className="font-semibold">Overall Score</div>
-            <div className="font-semibold">Status</div>
-          </div>
-
-          {/* Courses */}
-          {activeTab === "Total Courses" &&
-            filteredCourses.length > 0 &&
-            filteredCourses.map((course) => (
+      {activeTab === "Total Courses" && filteredCourses.length > 0 && (
+        <div className="bg-white p-4 rounded-lg shadow overflow-auto">
+          <div className="p-2 min-w-3xl mx-auto space-y-4">
+            {/* Table Header */}
+            <div className="grid grid-cols-4 gap-4 text-md md:text-xl py-2 px-3 md:py-3 mb-4 bg-light-grey mb-2">
+              <div className="font-semibold">Course Name</div>
+              <div className="font-semibold">Progress</div>
+              <div className="font-semibold">Overall Score</div>
+              <div className="font-semibold">Status</div>
+            </div>
+            {/* Courses */}
+            {filteredCourses.map((course) => (
               <div key={course.id} className="mb-4">
                 {/* Course row */}
                 <div className="flex items-start justify-between">
@@ -385,15 +382,33 @@ export default function MyCourses() {
                 )}
               </div>
             ))}
-
-          {/* Fallback message */}
-          {(activeTab !== "Total Courses" || filteredCourses.length === 0) && (
-            <div className="text-center text-gray-500 p-4">
-              No data for this tab.
-            </div>
-          )}
+            {/* Fallback message */}
+            {filteredCourses.length === 0 && (
+              <div className="text-center text-gray-500 p-4">
+                No data for this tab.
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      )}
+
+      {/* {Quiz Tab} */}
+      {activeTab === "Quiz" && quizList.length > 0 && (
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {quizList.map((quiz, idx) => (
+              <QuizCardComponent key={idx} {...quiz} />
+            ))}
+          </div>
+        </>
+      )}
+
+      {/* Fallback for other Tab */}
+      {activeTab !== "Total Courses" && activeTab !== "Quiz" && (
+        <div className="text-center text-gray-500 p-4">
+          No data for this tab.
+        </div>
+      )}
     </div>
   );
 }
