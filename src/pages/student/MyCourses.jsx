@@ -1,5 +1,6 @@
 import { Filter, RefreshCcw } from "lucide-react";
 import useUIStore from "../../store/useUIStore";
+import QuizCardComponent from "../../Components/QuizCardComponent";
 
 // UI
 export default function MyCourses() {
@@ -105,6 +106,70 @@ export default function MyCourses() {
     },
   ];
 
+  const quizList = [
+    {
+      id: 1,
+      title: "Basic Islamic Manners",
+      quizes: 10,
+      duration: "15mins",
+      date: "15th July, 2025",
+      time: "4:00PM",
+      status: "start",
+      dueDate: "20th June 2025, 12:00PM",
+      image: "/islamic1.png",
+    },
+    {
+      id: 2,
+      title: "Arabic Alphabet Phonetic",
+      quizes: 10,
+      duration: "15mins",
+      date: "15th July, 2025",
+      time: "4:00PM",
+      status: "submitted",
+      image: "/arabic.png",
+    },
+    {
+      id: 3,
+      title: "Short Surah Memorization",
+      quizes: 10,
+      duration: "15mins",
+      date: "15th July, 2025",
+      time: "4:00PM",
+      status: "submitted",
+      image: "/surah.png",
+    },
+    {
+      id: 4,
+      title: "Stories of the Prophet",
+      quizes: 10,
+      duration: "15mins",
+      date: "15th July, 2025",
+      time: "4:00PM",
+      status: "submitted",
+      image: "/prophet.png",
+    },
+    {
+      id: 5,
+      title: "Short Surah Memorization",
+      quizes: 10,
+      duration: "15mins",
+      date: "15th July, 2025",
+      time: "4:00PM",
+      status: "submitted",
+      image: "/surah.png",
+    },
+    {
+      id: 6,
+      title: "Basic Islamic Manners",
+      quizes: 10,
+      duration: "15mins",
+      date: "15th July, 2025",
+      time: "4:00PM",
+      status: "missed",
+      image: "/islamic1.png",
+    },
+  ];
+
   // Filter logic
   const filteredCourses = courses
     .filter((course) =>
@@ -186,20 +251,18 @@ export default function MyCourses() {
       </div>
 
       {/* Course List */}
-      <div className="bg-white p-4 rounded-lg shadow overflow-auto">
-        <div className="p-2 min-w-3xl mx-auto space-y-4">
-          {/* Table Header */}
-          <div className="grid grid-cols-4 gap-4 text-md md:text-xl py-2 px-3 md:py-3 mb-4 bg-light-grey mb-2">
-            <div className="font-semibold">Course Name</div>
-            <div className="font-semibold">Progress</div>
-            <div className="font-semibold">Overall Score</div>
-            <div className="font-semibold">Status</div>
-          </div>
-
-          {/* Courses */}
-          {activeTab === "Total Courses" &&
-            filteredCourses.length > 0 &&
-            filteredCourses.map((course) => (
+      {activeTab === "Total Courses" && filteredCourses.length > 0 && (
+        <div className="bg-white p-4 rounded-lg shadow overflow-auto">
+          <div className="p-2 min-w-3xl mx-auto space-y-4">
+            {/* Table Header */}
+            <div className="grid grid-cols-4 gap-4 text-md md:text-xl py-2 px-3 md:py-3 mb-4 bg-light-grey mb-2">
+              <div className="font-semibold">Course Name</div>
+              <div className="font-semibold">Progress</div>
+              <div className="font-semibold">Overall Score</div>
+              <div className="font-semibold">Status</div>
+            </div>
+            {/* Courses */}
+            {filteredCourses.map((course) => (
               <div key={course.id} className="mb-4">
                 {/* Course row */}
                 <div className="flex items-start justify-between">
@@ -319,15 +382,33 @@ export default function MyCourses() {
                 )}
               </div>
             ))}
-
-          {/* Fallback message */}
-          {(activeTab !== "Total Courses" || filteredCourses.length === 0) && (
-            <div className="text-center text-gray-500 p-4">
-              No data for this tab.
-            </div>
-          )}
+            {/* Fallback message */}
+            {filteredCourses.length === 0 && (
+              <div className="text-center text-gray-500 p-4">
+                No data for this tab.
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      )}
+
+      {/* {Quiz Tab} */}
+      {activeTab === "Quiz" && quizList.length > 0 && (
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {quizList.map((quiz, idx) => (
+              <QuizCardComponent key={idx} {...quiz} />
+            ))}
+          </div>
+        </>
+      )}
+
+      {/* Fallback for other Tab */}
+      {activeTab !== "Total Courses" && activeTab !== "Quiz" && (
+        <div className="text-center text-gray-500 p-4">
+          No data for this tab.
+        </div>
+      )}
     </div>
   );
 }
