@@ -11,7 +11,7 @@ export default function Navigation({ currentIndex, setCurrentIndex, total }) {
           ${
             currentIndex === 0
               ? "bg-[#F6F6F6] text-[#CCCCCC] cursor-not-allowed"
-              : "bg-primary text-white hover:bg-buttonhover cursor-pointer"
+              : "bg-[#F6F6F6] border border-primary text-primary hover:bg-buttonhover/20 cursor-pointer"
           }
         `}>
         <ChevronLeft size={18} />

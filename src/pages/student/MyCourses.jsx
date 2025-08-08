@@ -1,8 +1,6 @@
 import { Filter, RefreshCcw } from "lucide-react";
 import useUIStore from "../../store/useUIStore";
 import QuizCardComponent from "../../Components/QuizCardComponent";
-
-// Tab Components
 import TotalCourses from "../../Components/TotalCourses";
 // import Classes from "../../Components/Classes";
 // import Assignment from "../../Components/Assignment";
@@ -22,6 +20,70 @@ export default function MyCourses() {
     setActiveTab,
     resetFilters,
   } = useUIStore();
+
+  const quizList = [
+    {
+      id: 1,
+      title: "Basic Islamic Manners",
+      quizes: 10,
+      duration: "15mins",
+      date: "15th July, 2025",
+      time: "4:00PM",
+      status: "start",
+      dueDate: "20th June 2025, 12:00PM",
+      image: "/islamic1.png",
+    },
+    {
+      id: 2,
+      title: "Arabic Alphabet Phonetic",
+      quizes: 10,
+      duration: "15mins",
+      date: "15th July, 2025",
+      time: "4:00PM",
+      status: "submitted",
+      image: "/arabic.png",
+    },
+    {
+      id: 3,
+      title: "Short Surah Memorization",
+      quizes: 10,
+      duration: "15mins",
+      date: "15th July, 2025",
+      time: "4:00PM",
+      status: "submitted",
+      image: "/surah.png",
+    },
+    {
+      id: 4,
+      title: "Stories of the Prophet",
+      quizes: 10,
+      duration: "15mins",
+      date: "15th July, 2025",
+      time: "4:00PM",
+      status: "submitted",
+      image: "/prophet.png",
+    },
+    {
+      id: 5,
+      title: "Short Surah Memorization",
+      quizes: 10,
+      duration: "15mins",
+      date: "15th July, 2025",
+      time: "4:00PM",
+      status: "submitted",
+      image: "/surah.png",
+    },
+    {
+      id: 6,
+      title: "Basic Islamic Manners",
+      quizes: 10,
+      duration: "15mins",
+      date: "15th July, 2025",
+      time: "4:00PM",
+      status: "missed",
+      image: "/islamic1.png",
+    },
+  ];
 
   const courses = [
     {
@@ -170,12 +232,12 @@ export default function MyCourses() {
         </div>
 
         {/* Tabs */}
-        <div className="flex mt-6 gap-6 text-textmuted text-md md:text-xl border-b">
+        <div className="flex flex-wrap justify-between items-center mt-6 gap-4 text-sm sm:text-base md:text-xl border-b overflow-x-auto">
           {["Classes", "Total Courses", "Assignment", "Quiz"].map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`pb-2 ${
+              className={`pb-2 whitespace-nowrap ${
                 activeTab === tab
                   ? "text-green-600 border-b-2 border-green-600"
                   : ""
@@ -188,44 +250,39 @@ export default function MyCourses() {
       </div>
 
       {/* Tab Content */}
-      <div className="bg-white p-4 rounded-lg shadow overflow-auto">
-        <div className="p-2 min-w-3xl mx-auto space-y-4">
-          {activeTab === "Total Courses" && (
-            <>
+
+      {activeTab === "Total Courses" && (
+        <>
+          <div className="bg-white w-full p-4 rounded-lg shadow overflow-auto">
+            <div className="p-2 min-w-3xl mx-auto space-y-4">
               <div className="grid grid-cols-4 gap-4 text-md md:text-xl py-2 px-3 md:py-3 mb-4 bg-light-grey mb-2">
                 <div className="font-semibold">Course Name</div>
                 <div className="font-semibold">Progress</div>
                 <div className="font-semibold">Overall Score</div>
                 <div className="font-semibold">Status</div>
               </div>
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* {Quiz Tab} */}
-      {activeTab === "Quiz" && quizList.length > 0 && (
-        <>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 w-full">
-            {quizList.map((quiz, idx) => (
-              <QuizCardComponent key={idx} {...quiz} />
-            ))}
-          </div>
-        </>
-      )}
               <TotalCourses
                 courses={filteredCourses}
                 expandedCourse={expandedCourse}
                 setExpandedCourse={setExpandedCourse}
               />
-            </>
-          )}
+            </div>
+          </div>
+        </>
+      )}
 
-          {/* {activeTab === "Classes" && <Classes />} */}
-          {/* {activeTab === "Assignment" && <Assignment />} */}
-          {/* {activeTab === "Quiz" && <Quiz />} */}
+      {activeTab === "Quiz" && quizList.length > 0 && (
+        <div className="w-full overflow-x-hidden">
+          <div className="grid grid-cols-1 md:grid-cols-2 [@media(min-width:1201px)]:grid-cols-3 gap-3 w-full">
+            {quizList.map((quiz, idx) => (
+              <QuizCardComponent key={idx} {...quiz} />
+            ))}
+          </div>
         </div>
-      </div>
+      )}
+
+      {/* {activeTab === "Classes" && <Classes />} */}
+      {/* {activeTab === "Assignment" && <Assignment />} */}
     </div>
   );
 }

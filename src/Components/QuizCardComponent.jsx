@@ -1,4 +1,3 @@
-// components/QuizCardComponent.jsx
 import React from "react";
 import Button from "./Button";
 
@@ -21,28 +20,33 @@ const QuizCardComponent = ({
 
   const statusColor = {
     submitted: "text-green-600",
-    missed: "text-gray-300",
+    missed: "text-gray-400",
   };
 
   return (
-    <div className="bg-white rounded-xl shadow p-4 w-full border border-gray-200 relative overflow-hidden">
-      <div className="flex items-start gap-4">
+    <div className="bg-white rounded-xl shadow p-4 w-full border border-gray-200 relative overflow-hidden max-w-full flex flex-col gap-5">
+      <div className="flex-1 flex flex-col sm:flex-row items-start gap-4">
         <img
           src={image}
           alt={title}
-          className="w-18 h-14 rounded object-cover"
+          className="w-20 h-16 rounded object-cover flex-shrink-0"
         />
-        <div className="flex-1">
-          <h3 className="text-base font-semibold text-gray-800">{title}</h3>
-          <p className="text-xs text-gray-500 flex items-center gap-2 mt-1">
-            ● <span> {questions} Questions</span> ● <span>{duration}</span>
+
+        <div className="flex-1 min-w-0">
+          <h3 className="text-base font-semibold text-gray-800 truncate">
+            {title}
+          </h3>
+
+          <p className="text-xs text-gray-500 flex flex-wrap items-center gap-2 mt-1">
+            ● <span>{questions} Questions</span> ● <span>{duration}</span>
           </p>
+
           <p className="text-sm font-semibold text-gray-700 mt-1">
             {date} ; {time}
           </p>
 
           {dueDate && status === "start" && (
-            <p className="text-xs text-red-500 mt-1">
+            <p className="text-xs text-red-500 mt-1 break-words">
               Submit before: {dueDate}
             </p>
           )}
@@ -55,20 +59,19 @@ const QuizCardComponent = ({
         </div>
       </div>
 
-      <div className="flex justify-between mt-4 gap-3 overflow-hidden">
-       
-
+      <div className="flex flex-col sm:flex-row justify-between  gap-3 w-full">
         <Button
           variant="cancel"
           size="lg"
-          className="border-[1px] rounded-[10px] font-montserrat font-bold px-4 py-1 text-sm h-[2.5rem]  "
+          className="w-full sm:w-auto border-[1px] rounded-[10px] font-montserrat font-bold px-4 py-2 text-sm"
         >
           Instructions
         </Button>
 
         <Button
+          size="lg"
           variant={!isDisabled ? "primary" : "secondary"}
-          className="rounded-[10px] w-[3.5rem] h-[2rem] text-[10px] sm:text-sm sm:w-[5.125rem] sm:h-[2.5rem]"
+          className="w-full sm:w-auto rounded-[10px] text-sm px-4 py-2"
         >
           Start
         </Button>
