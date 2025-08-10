@@ -1,4 +1,11 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  useCallback,
+} from "react";
 import { useNavigate } from "react-router";
 import Cookies from "js-cookie";
 import api from "../utils/api";
@@ -6,39 +13,37 @@ import api from "../utils/api";
 // Create context
 const AuthContext = createContext();
 
-// AuthProvider component
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-
   const navigate = useNavigate();
 
-  // Fetch user profile from backend
-  const fetchProfile = async () => {
+  // Memoized fetchProfile to prevent unnecessary re-creation
+  const fetchProfile = useCallback(async () => {
     try {
       const res = await api.get("/auth/profile", { withCredentials: true });
-      setUser(res?.data?.data?.user);
+      setUser(res?.data?.data?.user || null);
     } catch {
       setUser(null);
       Cookies.remove("token");
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  // Logout function: clear token, reset state, redirect
-  const logout = () => {
+  // Memoized logout function
+  const logout = useCallback(() => {
     Cookies.remove("token");
     setUser(null);
     navigate("/login", { replace: true });
-  };
+  }, [navigate]);
 
-  // Run once on mount
+  // Fetch profile on mount
   useEffect(() => {
     fetchProfile();
-  }, []);
+  }, [fetchProfile]);
 
-  // Memoize context value to avoid re-renders
+  // Memoize context value to prevent unnecessary re-renders
   const value = useMemo(
     () => ({
       user,
@@ -47,7 +52,7 @@ export const AuthProvider = ({ children }) => {
       fetchProfile,
       logout,
     }),
-    [user, loading]
+    [user, loading, fetchProfile, logout]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

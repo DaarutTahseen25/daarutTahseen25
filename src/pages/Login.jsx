@@ -130,7 +130,7 @@ const Login = () => {
               />
               <button
                 type='button'
-                onClick={setShowPassword}
+                onClick={() => setShowPassword((prev) => !prev)}
                 aria-label={showPassword ? "Hide password" : "Show password"}
                 className='absolute top-1/2 right-4 transform -translate-y-1/2 text-2xl text-textmain/70'>
                 {showPassword ? <FiEyeOff /> : <FiEye />}

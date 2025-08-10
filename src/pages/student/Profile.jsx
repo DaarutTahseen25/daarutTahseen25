@@ -1,92 +1,116 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useMemo, useCallback } from "react";
 import Button from "../../Components/Button";
-
 import { Loader } from "../../Components/Loader";
 import { useAuth } from "../../contexts/AuthContext";
-// import Modal from "../Modal";
 
 const Profile = () => {
   const { user } = useAuth();
 
-  const profile = user?.user || user;
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [passwordError, setPasswordError] = useState("");
-  const [confirmPasswordError, setConfirmPasswordError] = useState("");
+  const profile = useMemo(() => user?.user || user, [user]);
+
+  const [form, setForm] = useState(() => ({
+    fullName: profile?.full_name || "",
+    email: profile?.email || "",
+    matricNumber: profile?.matric_number || profile?.teacher_id || "",
+    phoneNumber: profile?.phone_number || "",
+    gender: profile?.gender || "Male",
+  }));
+
+  const [passwords, setPasswords] = useState({ password: "", confirm: "" });
+  const [errors, setErrors] = useState({ password: "", confirm: "" });
+
+  const [show, setShow] = useState({ password: false, confirm: false });
   const [isLoading, setIsLoading] = useState(false);
-  const [fullName, setFullName] = useState(profile?.full_name);
-  const [email, setEmail] = useState(profile?.email);
-  const [matricNumber, setMatricNumber] = useState(
-    profile?.matric_number || profile?.teacher_id
-  );
-  const [phoneNumber, setPhoneNumber] = useState(profile?.phone_number);
-  const [gender, setGender] = useState(profile?.gender);
+
   const [profilePic, setProfilePic] = useState(profile?.image);
   const fileInputRef = useRef(null);
 
-  // Handle file input change
-  const handleProfilePicChange = (e) => {
+  // =====================
+  // Handlers
+  // =====================
+  const handleProfilePicChange = useCallback((e) => {
     const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (ev) => {
-        setProfilePic(ev.target.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => setProfilePic(ev.target.result);
+    reader.readAsDataURL(file);
+  }, []);
 
-  function handlePasswordChange() {
-    // Logic to handle password change
-    if (password && confirmPassword) {
-      if (password === confirmPassword) {
-        // Simulate a password change
-        setIsLoading(true);
-        setTimeout(() => {
-          setPassword("");
-          setConfirmPassword("");
-          setIsLoading(false);
-          alert("Password changed successfully!");
-        }, 2000);
-      }
-    } else {
+  const handlePasswordInput = useCallback(
+    (field, value) => {
+      setPasswords((prev) => ({ ...prev, [field]: value }));
+
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        if (value.length < 8) {
+          newErrors[field] = "Password must be at least 8 characters";
+        } else if (field === "confirm" && value !== passwords.password) {
+          newErrors.confirm = "Passwords do not match";
+        } else {
+          newErrors[field] = "";
+        }
+        return newErrors;
+      });
+    },
+    [passwords.password]
+  );
+
+  const handlePasswordChange = useCallback(() => {
+    if (!passwords.password || !passwords.confirm) {
       alert("Please fill in both fields.");
-    }
-  }
-
-  function handleResetFields() {
-    setFullName("");
-    setEmail("");
-    setMatricNumber("");
-    setPhoneNumber("");
-    setGender("Male");
-  }
-
-  function handleProfileUpdate(e) {
-    e.preventDefault();
-    if (!fullName || !email || !matricNumber || !phoneNumber) {
-      alert("Please fill in all fields.");
       return;
     }
-    // Logic to handle profile update
+    if (errors.password || errors.confirm) return;
+
     setIsLoading(true);
     setTimeout(() => {
-      // Reset form or perform other actions as needed
-      handleResetFields();
+      setPasswords({ password: "", confirm: "" });
       setIsLoading(false);
-      alert("Profile updated successfully!");
-    }, 5000);
-  }
+      alert("Password changed successfully!");
+    }, 2000);
+  }, [errors, passwords]);
 
+  const handleFormChange = useCallback((field, value) => {
+    setForm((prev) => ({ ...prev, [field]: value }));
+  }, []);
+
+  const handleProfileUpdate = useCallback(
+    (e) => {
+      e.preventDefault();
+      const { fullName, email, matricNumber, phoneNumber } = form;
+
+      if (!fullName || !email || !matricNumber || !phoneNumber) {
+        alert("Please fill in all fields.");
+        return;
+      }
+      setIsLoading(true);
+      setTimeout(() => {
+        setForm({
+          fullName: "",
+          email: "",
+          matricNumber: "",
+          phoneNumber: "",
+          gender: "Male",
+        });
+        setIsLoading(false);
+        alert("Profile updated successfully!");
+      }, 5000);
+    },
+    [form]
+  );
+
+  // =====================
+  // Render
+  // =====================
   return (
     <section>
-      <h1 className='font-clash font-medium text-3xl sm:text-[40px] text-center sm:text-left text-accent '>
+      <h1 className='font-clash font-medium text-3xl sm:text-[40px] text-center sm:text-left text-accent'>
         Profile
       </h1>
-      <div className='mt-5 grid sm:grid-cols-[1fr_2fr] gap-5 '>
-        <div className='flex flex-col gap-y-6 '>
+      <div className='mt-5 grid sm:grid-cols-[1fr_2fr] gap-5'>
+        {/* Left Section */}
+        <div className='flex flex-col gap-y-6'>
+          {/* Profile Picture */}
           <div className='flex rounded-full mx-auto sm:mx-0 w-[14.25rem] h-[14.25rem] relative'>
             <img
               src={profilePic}
@@ -104,107 +128,95 @@ const Profile = () => {
               src='/edit-profile.png'
               alt=''
               className='w-11 h-11 absolute bottom-3 right-5.5 cursor-pointer'
-              onClick={() =>
-                fileInputRef.current && fileInputRef.current.click()
-              }
+              onClick={() => fileInputRef.current?.click()}
             />
           </div>
-          <div className=''>
+
+          {/* Change Password */}
+          <div>
             <p className='text-xl sm:text-2xl font-medium font-clash'>
               Change Password
             </p>
             <hr className='my-2 border-t border-t-[#CCCCCC]' />
             <div className='bg-white mt-3 flex flex-col justify-between rounded-sm gap-y-5 py-5 px-4 shadow-[0px_0px_5px_0.2px_rgba(0,0,0,0.25)]'>
+              {/* New Password */}
               <div className='font-bricolage'>
                 <label htmlFor='nPass' className='lg:text-xl block'>
                   New Password
                 </label>
                 <div
                   className={`flex items-center justify-between border py-3 px-2 lg:pl-3 lg:pr-1.5 rounded-lg ${
-                    passwordError ? "border-red-500" : "border-[#CCCCCC]"
+                    errors.password ? "border-red-500" : "border-[#CCCCCC]"
                   }`}>
                   <input
-                    type={showPassword ? "text" : "password"}
+                    type={show.password ? "text" : "password"}
                     id='nPass'
-                    value={password}
+                    value={passwords.password}
                     placeholder='Enter new password'
                     className='h-full focus:outline-0 text-sm lg:text-base w-full'
-                    onChange={(e) => {
-                      setPassword(e.target.value);
-                      if (e.target.value.length < 8) {
-                        setPasswordError(
-                          "Password must be at least 8 characters"
-                        );
-                      } else {
-                        setPasswordError("");
-                      }
-                    }}
+                    onChange={(e) =>
+                      handlePasswordInput("password", e.target.value)
+                    }
                     required
                   />
                   <img
                     src='/eye-icon.png'
                     alt=''
-                    className='w-5.5 h-3 lg:w-[1.80875rem] lg:h-[0.84125rem] cursor-pointer '
-                    onClick={() => setShowPassword(!showPassword)}
+                    className='w-5.5 h-3 lg:w-[1.8rem] lg:h-[0.84rem] cursor-pointer'
+                    onClick={() =>
+                      setShow((prev) => ({ ...prev, password: !prev.password }))
+                    }
                   />
                 </div>
-                {passwordError && (
-                  <p className='text-red-500 text-sm mt-1'>{passwordError}</p>
+                {errors.password && (
+                  <p className='text-red-500 text-sm mt-1'>{errors.password}</p>
                 )}
               </div>
+
+              {/* Confirm Password */}
               <div className='font-bricolage'>
                 <label htmlFor='cPass' className='lg:text-xl block'>
                   Confirm Password
                 </label>
                 <div
                   className={`flex items-center justify-between border py-3 px-2 lg:pl-3 lg:pr-1.5 rounded-lg ${
-                    confirmPasswordError ? "border-red-500" : "border-[#CCCCCC]"
+                    errors.confirm ? "border-red-500" : "border-[#CCCCCC]"
                   }`}>
                   <input
-                    type={showConfirmPassword ? "text" : "password"}
+                    type={show.confirm ? "text" : "password"}
                     id='cPass'
+                    value={passwords.confirm}
                     placeholder='Confirm password'
-                    value={confirmPassword}
-                    className={`h-full focus:outline-0 text-sm lg:text-base w-full `}
-                    onChange={(e) => {
-                      const value = e.target.value;
-                      setConfirmPassword(value);
-                      if (value.length < 8) {
-                        setConfirmPasswordError(
-                          "Password must be at least 8 characters"
-                        );
-                      } else if (value !== password) {
-                        setConfirmPasswordError("Passwords do not match");
-                      } else {
-                        setConfirmPasswordError("");
-                      }
-                    }}
+                    className='h-full focus:outline-0 text-sm lg:text-base w-full'
+                    onChange={(e) =>
+                      handlePasswordInput("confirm", e.target.value)
+                    }
                     required
                   />
                   <img
                     src='/eye-icon.png'
                     alt=''
-                    className='w-5.5 h-3 lg:w-[1.80875rem] lg:h-[0.84125rem] cursor-pointer '
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className='w-5.5 h-3 lg:w-[1.8rem] lg:h-[0.84rem] cursor-pointer'
+                    onClick={() =>
+                      setShow((prev) => ({ ...prev, confirm: !prev.confirm }))
+                    }
                   />
                 </div>
-                {confirmPasswordError && (
-                  <p className='text-red-500 text-sm mt-1'>
-                    {confirmPasswordError}
-                  </p>
+                {errors.confirm && (
+                  <p className='text-red-500 text-sm mt-1'>{errors.confirm}</p>
                 )}
               </div>
 
               <Button
                 variant='primary'
                 size='lg'
-                className=' rounded-[10px] mt-2 lg:mt-4 text-sm lg:text-base font-clash'
+                className='rounded-[10px] mt-2 lg:mt-4 text-sm lg:text-base font-clash'
                 onClick={handlePasswordChange}
                 isDisabled={
-                  !password ||
-                  !confirmPassword ||
-                  passwordError ||
-                  confirmPasswordError
+                  !passwords.password ||
+                  !passwords.confirm ||
+                  errors.password ||
+                  errors.confirm
                 }
                 type='button'>
                 Change Password
@@ -212,7 +224,9 @@ const Profile = () => {
             </div>
           </div>
         </div>
-        <div className=''>
+
+        {/* Right Section - Personal Info */}
+        <div>
           <p className='text-xl sm:text-2xl font-medium font-clash'>
             Personal Information
           </p>
@@ -220,85 +234,60 @@ const Profile = () => {
           <form
             onSubmit={handleProfileUpdate}
             className='bg-white font-bricolage mt-3 flex flex-col rounded-sm justify-between gap-y-5 lg:gap-y-7 p-5 shadow-[0px_0px_5px_0.2px_rgba(0,0,0,0.25)]'>
-            <div className=''>
-              <label htmlFor='fullName' className='lg:text-xl block'>
-                Full Name
-              </label>
-              <input
-                type='text'
-                id='fullName'
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-                className=' transition-transform duration-500 focus:border-none focus:outline-2 focus:outline-primary focus:-translate-y-1 focus:mt-2 focus:shadow-lg text-sm lg:text-base border border-[#CCCCCC] w-full py-3 px-2 lg:pl-3 lg:pr-1.5 rounded-lg '
-                placeholder='Abdulazeez Mukadeem'
-              />
-            </div>
-            <div className=''>
-              <label htmlFor='matric-number' className='lg:text-xl block'>
-                Matric Number
-              </label>
-              <input
-                type='text'
-                id='matric-number'
-                value={matricNumber}
-                onChange={(e) => setMatricNumber(e.target.value)}
-                className='transition-transform duration-500 focus:border-none focus:outline-2 focus:outline-primary focus:-translate-y-1 focus:mt-2 focus:shadow-lg text-sm lg:text-base border border-[#CCCCCC] w-full py-3 px-2 lg:pl-3 lg:pr-1.5 rounded-lg '
-                placeholder='DT/2025/0001'
-              />
-            </div>
-            <div className=''>
-              <label htmlFor='email' className='lg:text-xl block'>
-                Email
-              </label>
-              <input
-                type='email'
-                id='email'
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className='transition-transform duration-500 focus:border-none focus:outline-2 focus:outline-primary focus:-translate-y-1 focus:mt-2 focus:shadow-lg text-sm lg:text-base border border-[#CCCCCC] w-full py-3 px-2 lg:pl-3 lg:pr-1.5 rounded-lg '
-                placeholder='abdulazeezmukadeem1@gmail.com'
-              />
-            </div>
-            <div className=''>
-              <label htmlFor='phone-no' className='lg:text-xl block'>
-                Phone Number
-              </label>
-              <input
-                type='tel'
-                id='phone-no'
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-                className='transition-transform duration-500 focus:border-none focus:outline-2 focus:outline-primary focus:-translate-y-1 focus:mt-2 focus:shadow-lg text-sm lg:text-base border border-[#CCCCCC] w-full py-3 px-2 lg:pl-3 lg:pr-1.5 rounded-lg '
-                placeholder='Abdulazeez Mukadeem'
-              />
-            </div>
-            <div className=''>
+            {[
+              { id: "fullName", label: "Full Name", type: "text" },
+              { id: "matricNumber", label: "Matric Number", type: "text" },
+              { id: "email", label: "Email", type: "email" },
+              { id: "phoneNumber", label: "Phone Number", type: "tel" },
+            ].map(({ id, label, type }) => (
+              <div key={id}>
+                <label htmlFor={id} className='lg:text-xl block'>
+                  {label}
+                </label>
+                <input
+                  type={type}
+                  id={id}
+                  value={form[id]}
+                  onChange={(e) => handleFormChange(id, e.target.value)}
+                  className='transition-transform duration-500 focus:outline-primary text-sm lg:text-base border border-[#CCCCCC] w-full py-3 px-2 lg:pl-3 lg:pr-1.5 rounded-lg'
+                />
+              </div>
+            ))}
+
+            <div>
               <label htmlFor='gender' className='lg:text-xl block'>
                 Gender
               </label>
               <select
-                onChange={(e) => setGender(e.target.value)}
-                value={gender}
-                className='transition-transform duration-500 focus:border-none focus:outline-2 focus:outline-primary focus:-translate-y-1 focus:mt-2 focus:shadow-lg text-sm lg:text-base border border-[#CCCCCC] w-full py-3 px-2 lg:pl-3 lg:pr-1.5 rounded-lg '>
-                {["Male", "Female", "Other"].map((gen, index) => (
-                  <option key={index} value={gen}>
+                id='gender'
+                onChange={(e) => handleFormChange("gender", e.target.value)}
+                value={form.gender}
+                className='transition-transform duration-500 focus:outline-primary text-sm lg:text-base border border-[#CCCCCC] w-full py-3 px-2 lg:pl-3 lg:pr-1.5 rounded-lg'>
+                {["Male", "Female", "Other"].map((gen) => (
+                  <option key={gen} value={gen}>
                     {gen}
                   </option>
                 ))}
               </select>
             </div>
+
             <Button
               variant='primary'
               size='lg'
-              className=' rounded-[10px] mt-4 font-clash'
-              onClick={handleProfileUpdate}
-              isDisabled={!fullName || !email || !matricNumber || !phoneNumber}
+              className='rounded-[10px] mt-4 font-clash'
+              isDisabled={
+                !form.fullName ||
+                !form.email ||
+                !form.matricNumber ||
+                !form.phoneNumber
+              }
               type='submit'>
               Save
             </Button>
           </form>
         </div>
       </div>
+
       {isLoading && (
         <div className='fixed inset-0 flex items-center justify-center bg-black/50 z-50'>
           <Loader />

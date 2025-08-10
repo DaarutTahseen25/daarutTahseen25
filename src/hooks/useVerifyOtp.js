@@ -1,50 +1,80 @@
-import { useState } from "react";
+import { useReducer, useCallback } from "react";
 import api from "../utils/api";
 
-const useVerifyOtp = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [showError, setShowError] = useState(false);
-  const [lockOutsideClick, setLockOutsideClick] = useState(true);
-  const [error, setError] = useState("");
+const initialState = {
+  isLoading: false,
+  showSuccess: false,
+  showError: false,
+  lockOutsideClick: true,
+  error: "",
+};
 
-  const verifyOtp = async (email, code) => {
-    setError("");
-    setShowError(false);
+function reducer(state, action) {
+  switch (action.type) {
+    case "START_LOADING":
+      return { ...state, isLoading: true };
+    case "STOP_LOADING":
+      return { ...state, isLoading: false };
+    case "SUCCESS":
+      return {
+        ...state,
+        showSuccess: true,
+        lockOutsideClick: false,
+        showError: false,
+        error: "",
+      };
+    case "ERROR":
+      return {
+        ...state,
+        showError: true,
+        showSuccess: false,
+        error: action.payload || "Verification failed",
+      };
+    case "HIDE_POPUPS":
+      return {
+        ...state,
+        showError: false,
+        showSuccess: false,
+        error: "",
+      };
+    default:
+      return state;
+  }
+}
+
+const useVerifyOtp = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const verifyOtp = useCallback(async (email, code) => {
+    dispatch({ type: "ERROR", payload: "" });
 
     try {
-      setIsLoading(true);
+      dispatch({ type: "START_LOADING" });
       const response = await api.post("/auth/verify-otp", { email, code });
 
       if (response?.data?.success) {
-        setShowSuccess(true);
-        setLockOutsideClick(false);
-        return { success: true };
+        dispatch({ type: "SUCCESS" });
       } else {
-        setError("Verification failed");
-        setShowError(true);
-        return { success: false };
+        dispatch({ type: "ERROR", payload: "Verification failed" });
       }
     } catch (err) {
       const message =
         err.response?.data?.message ||
         err.message ||
         "Invalid OTP code or expired";
-      setError(message);
-      setShowError(true);
-      return { success: false };
+      dispatch({ type: "ERROR", payload: message });
     } finally {
-      setIsLoading(false);
+      dispatch({ type: "STOP_LOADING" });
+
+      setTimeout(() => {
+        dispatch({ type: "HIDE_POPUPS" });
+      }, 3000);
     }
-  };
+  }, []);
 
   return {
+    ...state,
     verifyOtp,
-    isLoading,
-    showSuccess,
-    showError,
-    error,
-    lockOutsideClick,
   };
 };
 

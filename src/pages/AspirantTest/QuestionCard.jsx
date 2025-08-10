@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useMemo, useCallback } from "react";
 import Navigation from "./Navigation";
 
-export default function QuestionCard({
+function QuestionCard({
   question,
   index,
   onAnswer,
@@ -10,6 +10,34 @@ export default function QuestionCard({
   setCurrentIndex,
   isSubmitted,
 }) {
+  const handleAnswer = useCallback(
+    (opt) => {
+      onAnswer(index, opt);
+    },
+    [onAnswer, index]
+  );
+
+  const optionsList = useMemo(
+    () =>
+      question.options.map((opt, i) => (
+        <label key={i} className='flex items-center gap-2 cursor-pointer'>
+          <input
+            type='radio'
+            name={`question-${index}`}
+            value={opt}
+            checked={question.answer === opt}
+            onChange={() => handleAnswer(opt)}
+            className='accent-black cursor-pointer disabled:cursor-not-allowed'
+            disabled={isSubmitted}
+          />
+          <span className='font-montserrat font-normal text-sm sm:text-base md:text-lg'>
+            {opt}
+          </span>
+        </label>
+      )),
+    [question.options, question.answer, handleAnswer, index, isSubmitted]
+  );
+
   return (
     <div className='flex flex-col gap-4 flex-1 w-full mb-5'>
       <h1 className='font-clash text-center sm:text-left font-medium text-xl sm:text-2xl md:text-4xl uppercase'>
@@ -26,29 +54,16 @@ export default function QuestionCard({
       </div>
 
       <div className='space-y-3 bg-white p-4 rounded-[5px] border border-[#CCCCCC] min-h-[250px]'>
-        {question.options.map((opt, i) => (
-          <label key={i} className='flex items-center gap-2 cursor-pointer'>
-            <input
-              type='radio'
-              name={`question-${index}`}
-              value={opt}
-              checked={question.answer === opt}
-              onChange={() => onAnswer(index, opt)}
-              className='accent-black cursor-pointer disabled:cursor-not-allowed'
-              disabled={isSubmitted}
-            />
-            <span className='font-montserrat font-normal text-sm sm:text-base md:text-lg'>
-              {opt}
-            </span>
-          </label>
-        ))}
+        {optionsList}
       </div>
 
       <Navigation
         currentIndex={index}
         setCurrentIndex={setCurrentIndex}
-        total={questions.length}
+        total={questions?.length}
       />
     </div>
   );
 }
+
+export default React.memo(QuestionCard);

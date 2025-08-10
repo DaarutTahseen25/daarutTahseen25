@@ -1,25 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, Suspense, lazy } from "react";
 import questionsData from "./data/questions";
-import Header from "./Header";
-import QuestionCard from "./QuestionCard";
-import Sidebar from "./Sidebar";
+
+// Lazy-load components
+const Header = lazy(() => import("./Header"));
+const QuestionCard = lazy(() => import("./QuestionCard"));
+const Sidebar = lazy(() => import("./Sidebar"));
+
+const frozenQuestions = Object.freeze(questionsData);
 
 export default function TestPage() {
-  const [questions, setQuestions] = useState(questionsData);
+  const [questions, setQuestions] = useState(frozenQuestions);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [showReminder, setShowReminder] = useState(false);
-  const [cheated, setCheated] = useState(false); // NEW
+  const [cheated, setCheated] = useState(false);
 
-  const handleAnswer = (index, selectedOption) => {
-    if (isSubmitted) return;
+  const handleAnswer = useCallback(
+    (index, selectedOption) => {
+      if (isSubmitted) return;
 
-    setQuestions((prev) =>
-      prev.map((q, i) => (i === index ? { ...q, answer: selectedOption } : q))
-    );
-  };
+      setQuestions((prev) =>
+        prev.map((q, i) => (i === index ? { ...q, answer: selectedOption } : q))
+      );
+    },
+    [isSubmitted]
+  );
 
-  const handleSubmit = () => {
+  const handleSubmit = useCallback(() => {
     if (isSubmitted) return;
 
     const selectedAnswers = questions.map((q) => ({
@@ -38,23 +45,21 @@ export default function TestPage() {
       alert("Answers submitted successfully!");
       setIsSubmitted(true);
     }, 1000);
-  };
+  }, [questions, cheated, isSubmitted]);
 
+  // Reminder effect
   useEffect(() => {
     const timeout = setTimeout(() => {
-      const anyAnswered = questions.some((q) => q.answer);
-      if (!anyAnswered && !isSubmitted) {
+      if (!isSubmitted && !questions.some((q) => q.answer)) {
         setShowReminder(true);
-
-        setTimeout(() => {
-          setShowReminder(false);
-        }, 6000);
+        setTimeout(() => setShowReminder(false), 6000);
       }
-    }, 1 * 60 * 1000);
+    }, 60_000);
 
     return () => clearTimeout(timeout);
   }, [questions, isSubmitted]);
 
+  // Cheating detection
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (document.visibilityState === "hidden" && !isSubmitted) {
@@ -64,13 +69,12 @@ export default function TestPage() {
     };
 
     document.addEventListener("visibilitychange", handleVisibilityChange);
-    return () => {
+    return () =>
       document.removeEventListener("visibilitychange", handleVisibilityChange);
-    };
   }, [isSubmitted]);
 
   return (
-    <section className='grid grid-rows-[auto_1fr] gap-10 min-h-screen bg-secondary  relative'>
+    <section className='grid grid-rows-[auto_1fr] gap-10 min-h-screen bg-secondary relative'>
       <header className='bg-white border-b border-[#CCCCCC] h-[80px] p-6 flex items-center justify-center'>
         <h1 className='font-clash text-center font-[500] text-[20px] sm:text-[24px] md:text-[28px] lg:text-[32px]'>
           DaarutTahseen Placement Test
@@ -86,22 +90,25 @@ export default function TestPage() {
 
       <div className='w-[95%] mx-auto'>
         <div className='flex flex-col md:flex-row justify-between items-start w-full gap-5'>
-          <QuestionCard
-            question={questions[currentIndex]}
-            index={currentIndex}
-            onAnswer={handleAnswer}
-            questions={questions}
-            setCurrentIndex={setCurrentIndex}
-            isSubmitted={isSubmitted}
-          />
+          <Suspense fallback={<div>Loading Question...</div>}>
+            <QuestionCard
+              question={questions[currentIndex]}
+              index={currentIndex}
+              onAnswer={handleAnswer}
+              isSubmitted={isSubmitted}
+              setCurrentIndex={setCurrentIndex}
+            />
+          </Suspense>
 
-          <Sidebar
-            questions={questions}
-            currentIndex={currentIndex}
-            setCurrentIndex={setCurrentIndex}
-            onSubmit={handleSubmit}
-            isSubmitted={isSubmitted}
-          />
+          <Suspense fallback={<div>Loading Sidebar...</div>}>
+            <Sidebar
+              questions={questions}
+              currentIndex={currentIndex}
+              setCurrentIndex={setCurrentIndex}
+              onSubmit={handleSubmit}
+              isSubmitted={isSubmitted}
+            />
+          </Suspense>
         </div>
       </div>
     </section>

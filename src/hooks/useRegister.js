@@ -1,33 +1,59 @@
-import { useState } from "react";
+import { useReducer, useCallback } from "react";
 import { useNavigate } from "react-router";
-import { uploadToCloudinary } from "../utils/uploadToCloudinary";
-import { register } from "../services/authService";
 import api from "../utils/api";
+
+const initialState = {
+  isSubmitting: false,
+  submitMessage: "",
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "SUBMIT_START":
+      return { ...state, isSubmitting: true, submitMessage: "" };
+    case "SUBMIT_SUCCESS":
+      return { ...state, isSubmitting: false, submitMessage: action.payload };
+    case "SUBMIT_ERROR":
+      return { ...state, isSubmitting: false, submitMessage: action.payload };
+    case "CLEAR_MESSAGE":
+      return { ...state, submitMessage: "" };
+    default:
+      return state;
+  }
+}
 
 const useRegister = () => {
   const navigate = useNavigate();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitMessage, setSubmitMessage] = useState("");
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  const register = async (formData, role) => {
-    try {
-      setIsSubmitting(true);
-      const res = await api.post("/auth/register", { ...formData, role });
-      setSubmitMessage(res?.data?.message || "User Registered Successfully");
-      navigate("/otp-page", { state: { email: formData.email } });
-    } catch (err) {
-      setSubmitMessage(err?.response?.data?.message || "Registration failed");
-      throw new Error(err?.response?.data?.message || "Registration failed");
-    } finally {
-      setIsSubmitting(false);
-      setTimeout(() => setSubmitMessage(""), 5000);
-    }
-  };
+  const register = useCallback(
+    async (formData, role) => {
+      try {
+        dispatch({ type: "SUBMIT_START" });
+
+        const res = await api.post("/auth/register", { ...formData, role });
+
+        dispatch({
+          type: "SUBMIT_SUCCESS",
+          payload: res?.data?.message || "User Registered Successfully",
+        });
+
+        navigate("/otp-page", { state: { email: formData.email } });
+      } catch (err) {
+        const errorMsg = err?.response?.data?.message || "Registration failed";
+        dispatch({ type: "SUBMIT_ERROR", payload: errorMsg });
+        throw new Error(errorMsg);
+      } finally {
+        setTimeout(() => dispatch({ type: "CLEAR_MESSAGE" }), 5000);
+      }
+    },
+    [navigate]
+  );
 
   return {
     register,
-    isSubmitting,
-    submitMessage,
+    isSubmitting: state.isSubmitting,
+    submitMessage: state.submitMessage,
   };
 };
 

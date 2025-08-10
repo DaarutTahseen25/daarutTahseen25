@@ -1,52 +1,63 @@
-import React, { useState } from "react";
+import React, { useState, useMemo, useCallback, useEffect } from "react";
 import { FaPen } from "react-icons/fa";
 import { useAuth } from "../../contexts/AuthContext";
 
 const TutorProfile = () => {
   const { user } = useAuth();
-  const profile = user?.user || user;
+  const profile = useMemo(() => user?.user || user, [user]);
 
-  // State for profile image
   const [profileImage, setProfileImage] = useState(profile?.image);
-
-  // State for password fields
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
-  // Dummy user info (you could fetch this from props/context/API)
   const [userInfo, setUserInfo] = useState({
-    fullName: profile.full_name,
-    teacherId: profile?.teacher_id,
-    email: profile?.email,
-    phone: profile?.phone_number,
-    gender: profile?.gender,
+    fullName: profile?.full_name || "",
+    teacherId: profile?.teacher_id || "",
+    email: profile?.email || "",
+    phone: profile?.phone_number || "",
+    gender: profile?.gender || "",
   });
 
-  const handleProfileImageChange = (e) => {
-    const file = e.target.files[0];
+  // Handle profile image upload
+  const handleProfileImageChange = useCallback((e) => {
+    const file = e.target.files?.[0];
     if (file) {
-      // For preview purposes
       const imageUrl = URL.createObjectURL(file);
       setProfileImage(imageUrl);
 
-      // TODO: Upload file logic here
+      // TODO: Upload logic here
       console.log("File selected:", file);
-    }
-  };
 
-  const handleChangePassword = () => {
+      // Cleanup old object URL when a new one is created
+      return () => URL.revokeObjectURL(imageUrl);
+    }
+  }, []);
+
+  // Password change handler
+  const handleChangePassword = useCallback(() => {
     if (!newPassword || !confirmPassword) {
-      return alert("Please fill out both fields.");
+      alert("Please fill out both fields.");
+      return;
     }
-
     if (newPassword !== confirmPassword) {
-      return alert("Passwords do not match.");
+      alert("Passwords do not match.");
+      return;
     }
-
-    // TODO: Call API to change password here
+    // TODO: API call for password change
     alert("Password changed successfully!");
     setNewPassword("");
     setConfirmPassword("");
+  }, [newPassword, confirmPassword]);
+
+  // Label formatter
+  const formatLabel = (key) => {
+    switch (key) {
+      case "fullName":
+        return "Full Name";
+      case "teacherId":
+        return "Teacher ID";
+      default:
+        return key.charAt(0).toUpperCase() + key.slice(1);
+    }
   };
 
   return (
@@ -76,24 +87,28 @@ const TutorProfile = () => {
           <h2 className='font-semibold font-clash text-xl mb-3'>
             Change Password
           </h2>
-          <div className='mb-3'>
-            <input
-              type='password'
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              placeholder='Enter new password'
-              className='w-full border border-textmuted px-3 py-3 rounded focus:outline-none'
-            />
-          </div>
-          <div className='mb-3'>
-            <input
-              type='password'
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              placeholder='Confirm password'
-              className='w-full border border-textmuted px-3 py-3 rounded focus:outline-none'
-            />
-          </div>
+          {[
+            {
+              value: newPassword,
+              set: setNewPassword,
+              placeholder: "Enter new password",
+            },
+            {
+              value: confirmPassword,
+              set: setConfirmPassword,
+              placeholder: "Confirm password",
+            },
+          ].map((field, i) => (
+            <div key={i} className='mb-3'>
+              <input
+                type='password'
+                value={field.value}
+                onChange={(e) => field.set(e.target.value)}
+                placeholder={field.placeholder}
+                className='w-full border border-textmuted px-3 py-3 rounded focus:outline-none'
+              />
+            </div>
+          ))}
           <button
             onClick={handleChangePassword}
             className='w-full bg-primary text-white py-2 rounded hover:bg-teal-600 transition'>
@@ -110,21 +125,17 @@ const TutorProfile = () => {
         <form className='space-y-4'>
           {Object.entries(userInfo).map(([key, value]) => (
             <div key={key}>
-              <label className='block text-sm mb-1'>
-                {key === "fullName"
-                  ? "Full Name"
-                  : key === "teacherId"
-                  ? "Teacher ID"
-                  : key.charAt(0).toUpperCase() + key.slice(1)}
-              </label>
+              <label className='block text-sm mb-1'>{formatLabel(key)}</label>
               <input
                 type='text'
                 value={value}
                 className='w-full border border-textmuted px-3 py-3 rounded focus:outline-none'
+                onChange={(e) =>
+                  setUserInfo((prev) => ({ ...prev, [key]: e.target.value }))
+                }
               />
             </div>
           ))}
-
           <button
             type='button'
             className='w-full bg-primary text-white py-2 text-semibold rounded hover:bg-teal-600 transition'

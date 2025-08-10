@@ -1,15 +1,23 @@
 import React, { Suspense, lazy } from "react";
-
-import "./App.css";
 import { Routes, Route, Navigate } from "react-router";
+import "./App.css";
 
-import QuranLoader from "./Components/QuranLoader";
+// Hooks
 import { usePageTitle } from "./hooks/usePageTitle";
 
-import DashboardRoutes from "./routes/DashbaordRoutes";
+// Components
+import QuranLoader from "./Components/QuranLoader";
+import DashbaordRoutes from "./routes/DashbaordRoutes";
 
-// Pages
-const Home = lazy(() => import("./pages/home"));
+// Reusable Fallback Loader
+const LoaderFallback = () => (
+  <div>
+    <QuranLoader />
+  </div>
+);
+
+// Pages (Public)
+const Home = lazy(() => import("./pages/Home"));
 const AboutUs = lazy(() => import("./pages/AboutUs"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const TermsOfService = lazy(() => import("./pages/TermsOfService"));
@@ -18,8 +26,9 @@ const Courses = lazy(() => import("./pages/Courses"));
 const AdmissionsPage = lazy(() => import("./pages/AdmissionsPage"));
 const ContactUsPage = lazy(() => import("./pages/ContactUsPage"));
 const ResourcesPage = lazy(() => import("./pages/ResourcesPage"));
+const UnAuthorized = lazy(() => import("./pages/UnAuthorized"));
 
-// Create Account Components
+// Pages (Account Creation Flow)
 const CreateAccount = lazy(() => import("./pages/CreateAccount"));
 const SelectAccount = lazy(() => import("./Components/SelectAccount"));
 const StudentRegistrationForm = lazy(() =>
@@ -29,19 +38,14 @@ const TutorRegistrationForm = lazy(() =>
   import("./Components/TutorRegistrationForm")
 );
 
-// OTP Component
+// OTP
 const OtpRegistration = lazy(() => import("./Components/OtpRegPage"));
-const UnAuthorized = lazy(() => import("./pages/UnAuthorized"));
 
 const App = () => {
   usePageTitle();
+
   return (
-    <Suspense
-      fallback={
-        <div className=''>
-          <QuranLoader />
-        </div>
-      }>
+    <Suspense fallback={<LoaderFallback />}>
       <Routes>
         {/* Public Pages */}
         <Route path='/' element={<Home />} />
@@ -64,8 +68,8 @@ const App = () => {
           <Route path='tutor-account' element={<TutorRegistrationForm />} />
         </Route>
 
-        {/* Dashboard routes grouped */}
-        <Route path='/*' element={<DashboardRoutes />} />
+        {/* Dashboard Routes */}
+        <Route path='/*' element={<DashbaordRoutes />} />
       </Routes>
     </Suspense>
   );

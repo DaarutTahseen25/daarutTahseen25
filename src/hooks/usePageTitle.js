@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useLocation } from "react-router";
 import { useAuth } from "../contexts/AuthContext";
 
@@ -6,32 +6,35 @@ export const usePageTitle = () => {
   const { user } = useAuth();
   const { pathname } = useLocation();
 
+  const pageTitle = useMemo(() => {
+    // Defensive: user.role might be undefined/null
+    const role = user?.role?.toLowerCase() || "";
+
+    if (pathname === "/") return "Home | Daaruttahseen";
+
+    const parts = pathname.slice(1).split("/").filter(Boolean);
+
+    if (parts[0]?.toLowerCase() === role) {
+      parts.shift();
+    }
+
+    if (parts.length === 0) return "Daaruttahseen";
+
+    const formatted = parts
+      .map((part) =>
+        part
+          .replace(/-/g, " ")
+          .split(" ")
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(" ")
+      )
+      .join(" | ");
+
+    return `${formatted} | Daaruttahseen`;
+  }, [pathname, user?.role]);
+
   useEffect(() => {
-    const formatTitle = (path) => {
-      if (path === "/") return "Home | Daaruttahseen";
-
-      let parts = path.slice(1).split("/");
-
-      if (parts[0].toLowerCase() === `${user?.role}`) {
-        parts.shift();
-      }
-
-      const formatted = parts
-        .map((part) =>
-          part
-            .replace(/-/g, " ")
-            .split(" ")
-            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(" ")
-        )
-        .join(" | ");
-
-      const finalTitle = formatted
-        ? `${formatted} | Daaruttahseen`
-        : "Daaruttahseen";
-      return finalTitle;
-    };
-
-    document.title = formatTitle(pathname);
-  }, [pathname]);
+    console.log("Setting document title:", pageTitle); // Debug log
+    document.title = pageTitle;
+  }, [pageTitle]);
 };

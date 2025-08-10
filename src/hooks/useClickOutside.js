@@ -1,10 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 
 export function useClickOutside(handler, shouldHandle = true) {
   const ref = useRef();
 
-  useEffect(() => {
-    function handleClickOutside(event) {
+  const handleClickOutside = useCallback(
+    (event) => {
       if (
         ref.current &&
         !ref.current.contains(event.target) &&
@@ -12,13 +12,16 @@ export function useClickOutside(handler, shouldHandle = true) {
       ) {
         handler();
       }
-    }
+    },
+    [handler, shouldHandle]
+  );
 
+  useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [handler, shouldHandle]);
+  }, [handleClickOutside]);
 
   return ref;
 }

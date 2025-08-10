@@ -1,86 +1,127 @@
-import { useState } from "react";
+import { useReducer, useCallback } from "react";
 
-const useContactForm = () => {
-  const [formData, setFormData] = useState({
+const initialState = {
+  formData: {
     email: "",
     name: "",
     message: "",
-  });
+  },
+  formErrors: {},
+  isSubmitting: false,
+  submitMessage: "",
+};
 
-  const [formErrors, setFormErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitMessage, setSubmitMessage] = useState("");
+function reducer(state, action) {
+  switch (action.type) {
+    case "CHANGE_FIELD":
+      return {
+        ...state,
+        formData: {
+          ...state.formData,
+          [action.field]: action.value,
+        },
 
-  const handleChange = (e) => {
+        formErrors: {
+          ...state.formErrors,
+          [action.field]: "",
+        },
+      };
+    case "SET_ERRORS":
+      return {
+        ...state,
+        formErrors: action.errors,
+      };
+    case "SUBMIT_START":
+      return {
+        ...state,
+        isSubmitting: true,
+        submitMessage: "",
+      };
+    case "SUBMIT_SUCCESS":
+      return {
+        ...state,
+        isSubmitting: false,
+        submitMessage: action.message,
+        formData: { email: "", name: "", message: "" },
+        formErrors: {},
+      };
+    case "SUBMIT_FAILURE":
+      return {
+        ...state,
+        isSubmitting: false,
+        submitMessage: action.message,
+      };
+    case "CLEAR_MESSAGE":
+      return {
+        ...state,
+        submitMessage: "",
+      };
+    default:
+      return state;
+  }
+}
+
+const validateForm = (formData) => {
+  const errors = {};
+  const name = formData.name.trim();
+  const email = formData.email.trim();
+  const message = formData.message.trim();
+
+  if (!name) errors.name = "This field cannot be empty";
+  if (!email) errors.email = "This field cannot be empty";
+  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+    errors.email = "Enter a valid email address";
+  if (!message) errors.message = "This field cannot be empty";
+
+  return errors;
+};
+
+const useContactForm = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const handleChange = useCallback((e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    dispatch({ type: "CHANGE_FIELD", field: name, value });
+  }, []);
 
-    if (formErrors[name]) {
-      setFormErrors((prev) => ({
-        ...prev,
-        [name]: "",
-      }));
-    }
-  };
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
 
-  const validate = () => {
-    const errors = {};
-    const name = formData.name.trim();
-    const email = formData.email.trim();
-    const message = formData.message.trim();
+      const errors = validateForm(state.formData);
+      if (Object.keys(errors).length > 0) {
+        dispatch({ type: "SET_ERRORS", errors });
+        return;
+      }
 
-    if (!name) {
-      errors.name = "This field cannot be empty";
-    }
+      dispatch({ type: "SUBMIT_START" });
 
-    if (!email) {
-      errors.email = "This field cannot be empty";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      errors.email = "Enter a valid email address";
-    }
+      try {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        console.log("Message sent:", state.formData);
 
-    if (!message) {
-      errors.message = "This field cannot be empty";
-    }
+        dispatch({
+          type: "SUBMIT_SUCCESS",
+          message: "Message sent successfully!",
+        });
 
-    setFormErrors(errors);
-    return Object.keys(errors).length === 0;
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!validate()) return;
-
-    setIsSubmitting(true);
-    setSubmitMessage("");
-
-    try {
-      // Simulate sending data to a server
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      console.log("Message sent:", formData);
-
-      setFormData({ email: "", name: "", message: "" });
-      setFormErrors({});
-      setSubmitMessage("Message sent successfully!");
-
-      setTimeout(() => setSubmitMessage(""), 5000);
-    } catch (error) {
-      console.error("Error sending message:", error);
-      setSubmitMessage("Failed to send message. Please try again.");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+        setTimeout(() => dispatch({ type: "CLEAR_MESSAGE" }), 5000);
+      } catch (error) {
+        console.error("Error sending message:", error);
+        dispatch({
+          type: "SUBMIT_FAILURE",
+          message: "Failed to send message. Please try again.",
+        });
+      }
+    },
+    [state.formData]
+  );
 
   return {
-    formData,
-    formErrors,
-    isSubmitting,
-    submitMessage,
+    formData: state.formData,
+    formErrors: state.formErrors,
+    isSubmitting: state.isSubmitting,
+    submitMessage: state.submitMessage,
     handleChange,
     handleSubmit,
   };
