@@ -71,6 +71,7 @@ const QuizCardComponent = ({
         <Button
           size="lg"
           variant={!isDisabled ? "primary" : "secondary"}
+          isDisabled={isDisabled}
           className="w-full sm:w-auto rounded-[10px] text-sm px-4 py-2"
         >
           Start
