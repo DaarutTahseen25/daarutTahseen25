@@ -1,0 +1,218 @@
+export const quizList = [
+  {
+    id: 1,
+    title: "Basic Islamic Manners",
+    quizes: 10,
+    duration: "15mins",
+    date: "15th July, 2025",
+    time: "4:00PM",
+    status: "start",
+    dueDate: "20th June 2025, 12:00PM",
+    image: "/islamic1.png",
+  },
+  {
+    id: 2,
+    title: "Arabic Alphabet Phonetic",
+    quizes: 10,
+    duration: "15mins",
+    date: "15th July, 2025",
+    time: "4:00PM",
+    status: "submitted",
+    image: "/arabic.png",
+  },
+  {
+    id: 3,
+    title: "Short Surah Memorization",
+    quizes: 10,
+    duration: "15mins",
+    date: "15th July, 2025",
+    time: "4:00PM",
+    status: "submitted",
+    image: "/surah.png",
+  },
+  {
+    id: 4,
+    title: "Stories of the Prophet",
+    quizes: 10,
+    duration: "15mins",
+    date: "15th July, 2025",
+    time: "4:00PM",
+    status: "submitted",
+    image: "/prophet.png",
+  },
+  {
+    id: 5,
+    title: "Short Surah Memorization",
+    quizes: 10,
+    duration: "15mins",
+    date: "15th July, 2025",
+    time: "4:00PM",
+    status: "submitted",
+    image: "/surah.png",
+  },
+  {
+    id: 6,
+    title: "Basic Islamic Manners",
+    quizes: 10,
+    duration: "15mins",
+    date: "15th July, 2025",
+    time: "4:00PM",
+    status: "missed",
+    image: "/islamic1.png",
+  },
+];
+
+export const courses = [
+  {
+    id: 1,
+    name: "Qur’an Recitation & Tajwid",
+    chapters: [
+      "Introduction to Tajwid",
+      "Makharij (Articulation Points)",
+      "Rules of Noon & Meem",
+      "Madd & Lengthening Rules",
+      "Practice & Recitation",
+    ],
+    progress: 70,
+    score: 80,
+    status: "In progress",
+    numberofchapters: 5,
+    lectures: 25,
+    image: "/arabic Language.png",
+  },
+  {
+    id: 2,
+    name: "Arabic Alphabet Phonetic",
+    chapters: [
+      "Introduction to Tajwid",
+      "Makharij (Articulation Points)",
+      "Rules of Noon & Meem",
+      "Madd & Lengthening Rules",
+      "Practice & Recitation",
+    ],
+    progress: 70,
+    score: 80,
+    status: "In progress",
+    numberofchapters: 5,
+    lectures: 30,
+    image: "/arabic Language.png",
+  },
+  {
+    id: 3,
+    name: "Basic Islamic Manners",
+    chapters: [
+      "Introduction to Tajwid",
+      "Makharij (Articulation Points)",
+      "Rules of Noon & Meem",
+      "Madd & Lengthening Rules",
+    ],
+    progress: 70,
+    score: 80,
+    status: "In progress",
+    numberofchapters: 4,
+    lectures: 27,
+    image: "/arabic Language.png",
+  },
+  {
+    id: 4,
+    name: "Short Surah Memorization",
+    chapters: [
+      "Introduction to Tajwid",
+      "Makharij (Articulation Points)",
+      "Rules of Noon & Meem",
+      "Madd & Lengthening Rules",
+      "Practice & Recitation",
+    ],
+    progress: 70,
+    score: 80,
+    status: "In progress",
+    numberofchapters: 5,
+    lectures: 30,
+    image: "/arabic Language.png",
+  },
+  {
+    id: 5,
+    name: "Stories of the Prophet",
+    chapters: [
+      "Introduction to Tajwid",
+      "Makharij (Articulation Points)",
+      "Rules of Noon & Meem",
+      "Madd & Lengthening Rules",
+    ],
+    progress: 100,
+    score: 90,
+    status: "Completed",
+    numberofchapters: 4,
+    lectures: 37,
+    image: "/arabic-alphabet.png",
+  },
+];
+
+export const levels = [
+  {
+    id: 1,
+    title: "Beginner level",
+    description:
+      "Start your Qur’anic journey from the Basics: Perfect for those new to Arabic and Islamic studies, the Beginner Course builds a strong foundation in Qur’an recitation, Arabic letters and grammar, Islamic manners, short surah memorization, and essential beliefs. You'll also explore the life of the Prophet ﷺ, basic hadith, and daily Islamic practices, all at a gentle pace to prepare you for higher levels.",
+    color: "cream",
+  },
+  {
+    id: 2,
+    title: "Intermediate level",
+    description:
+      "Strengthen Your Knowledge & Language Skills: Ideal for students with a basic foundation. The Intermediate Course dives deeper into Qur’anic tafsīr, Arabic grammar and morphology, hadith sciences, and Islamic jurisprudence. You'll refine your Tajwīd, study Aqeedah in depth, practice Arabic conversation, and build confidence for advanced Islamic studies.",
+    color: "primary",
+  },
+  {
+    id: 3,
+    title: "Advanced level",
+    description:
+      "Master the Qur’an and Deepen Your Islamic Knowledge:- Designed for dedicated learners, the Advanced Course focuses on high-level Qur’an memorization and Tajwīd, deep Tafsīr and Hadith analysis, advanced Arabic grammar and writing, as well as Aqeedah refutation and public speaking. It equips students for leadership, da'wah, and advanced Islamic engagement.",
+    color: "accent",
+  },
+];
+
+export const CLASSES_DATA = [
+  {
+    id: 1,
+    thumbnail: "/quran-recitation.png",
+    title: "Qur’an Recitation & Tajwid",
+    tutor: "By Abdulmalik Ahmad",
+    date: "15th July, 2025 ;",
+    time: "2:00PM",
+    timeLeft: "2 min",
+    color: "#D32F2F",
+  },
+  {
+    id: 2,
+    thumbnail: "/arabic-alphabet.png",
+    title: "Arabic Alphabet & Phonetics",
+    tutor: "By Ibrahim Lawal",
+    date: "15th July, 2025 ;",
+    time: "4:00PM",
+    timeLeft: "2 hrs",
+    color: "#009688",
+  },
+];
+
+export const trustedItems = [
+  {
+    image: "/Verified courses.png",
+    name: "verified courses",
+    figure: "50+",
+  },
+  {
+    image: "/tutor.png",
+    name: "qualified tutors",
+    figure: "80+",
+  },
+  {
+    image: "/student.png",
+    name: "active students",
+    figure: "1200+",
+  },
+  {
+    image: "/authentic.png",
+    name: "Based on Authentic Qur’an & Sunnah",
+  },
+];

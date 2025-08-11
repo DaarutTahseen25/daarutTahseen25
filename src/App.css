@@ -1,1 +1,78 @@
 @import "tailwindcss";
+
+@theme {
+  --font-poppins: "Poppins", sans-serif;
+  --font-montserrat: "Montserrat", sans-serif;
+  --font-bricolage: "Bricolage Grotesque", sans-serif;
+  --font-clash: "Clash Display", sans-serif;
+  --font-abril: "Abril Fatface", cursive;
+  --color-bglight: rgba(255, 255, 255);
+  --color-bgdark: rgba(0, 0, 0);
+  /*footer*/
+  --color-textmain: rgba(0, 0, 0);
+  /*body text*/
+  --color-textmuted: rgba(204, 204, 204);
+  /*light text,comments*/
+  --color-primary: rgba(0, 150, 136, 0.8);
+  /*button background*/
+  --color-buttonhover: rgba(0, 150, 136);
+  /*button hover*/
+  --color-secondary: rgba(255, 249, 196);
+  /* Soft blue */
+  --color-white: rgba(255, 255, 255);
+  /* base bg */
+  --color-black: rgba(0, 0, 0);
+  /*text button */
+  --color-error: rgba(213, 47, 47);
+  /* error */
+  --color-success: rgba(0, 150, 136);
+  /* success */
+  --color-accent: #360400;
+  --color-cream: #fff9c4;
+  --color-dark-grey: #cccccc;
+  --color-light-grey: #f6f6f6;
+  --color-dark-cyan: #009688;
+  --color-darkest-grey: #a9a9a9;
+  --color-light-grey: #f6f6f6;
+  /* custom screens */
+
+  --breakpoint-xb: 768px;
+}
+body {
+  font-size: 16px;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.loader {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #44e7d7ad;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+

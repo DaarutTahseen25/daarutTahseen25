@@ -1,17 +1,56 @@
-const Home = () => {
-  return (
-    <div>
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
-      <p className="text-lg text-gray-700">
-        This is a simple React app with Tailwind CSS.
-      </p>
-      <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition duration-300">
-        Click Me
-      </button>
-    </div>
-  )
-}
+import React, { useEffect, useState } from "react";
+import FeaturedCourses from "../Components/FeaturedCourses";
+import Hero from "../Components/Hero";
+import LandingPageHeader from "../Components/LandingPageHeader";
+import Trusted from "../Components/Trusted";
+import Footer from "../Components/Footer";
+import Testimonial from "../Components/Testimonial";
+import HomeSidebar from "../Components/HomeSidebar";
+import { ArrowUp } from "lucide-react"; // you can replace with any icon
 
-export default Home
+const Home = () => {
+  const [showScrollButton, setShowScrollButton] = useState(false);
+
+  // Track scroll position
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollButton(window.scrollY > 300);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Scroll to top function
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  return (
+    <main className='grid grid-rows-[auto_1fr_1fr_1fr_1fr_auto] h-screen relative'>
+      <HomeSidebar />
+      <LandingPageHeader />
+
+      <Hero />
+      <Trusted />
+      <FeaturedCourses />
+      <Testimonial />
+      <Footer />
+
+      {/* Scroll to Top Button */}
+      {showScrollButton && (
+        <button
+          onClick={scrollToTop}
+          className='fixed bottom-6 right-6 z-[50] cursor-pointer bg-buttonhover text-white p-3 rounded-full shadow-lg hover:bg-primary transition-all duration-300 opacity-80 hover:opacity-100'
+          aria-label='Scroll to top'>
+          <ArrowUp className='w-6 h-6' />
+        </button>
+      )}
+    </main>
+  );
+};
+
+export default Home;
