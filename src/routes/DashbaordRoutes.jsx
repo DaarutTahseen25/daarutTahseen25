@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router";
 import { useAuth } from "../contexts/AuthContext";
 import ProtectedRoute from "../auth/ProtectedRoute";
 import QuranLoader from "../Components/QuranLoader";
+import RoleRouteWrapper from "./RoleRouteWrapper";
 
 // Layouts
 const LayoutStudents = lazy(() => import("../layouts/LayoutStudents"));
@@ -53,7 +54,9 @@ const DashbaordRoutes = () => {
           path='/student/*'
           element={
             <ProtectedRoute allowedRoles={["student"]}>
+              {/* <RoleRouteWrapper> */}
               <LayoutStudents />
+              {/* </RoleRouteWrapper> */}
             </ProtectedRoute>
           }>
           <Route path='level-registration' element={<LevelRegistration />} />
@@ -72,7 +75,9 @@ const DashbaordRoutes = () => {
           path='/teacher'
           element={
             <ProtectedRoute allowedRoles={["teacher"]}>
+              {/* <RoleRouteWrapper> */}
               <LayoutTeachers />
+              {/* </RoleRouteWrapper> */}
             </ProtectedRoute>
           }>
           <Route index element={<DashboardTeacher />} />

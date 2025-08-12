@@ -4,6 +4,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import { formatDate } from "../../utils/helper";
 import CalendarComponent from "../../Components/CalendarComponent";
 import TotalCourses from "../../Components/TotalCourses";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 // Static classes data
 const classesData = Object.freeze([
@@ -93,11 +94,13 @@ const Header = memo(({ firstName }) => (
           “The best among you are those who learn and teach the Qur’an”
         </span>
       </p>
-      <img
+      <LazyLoadImage
         src='/dashb-student.png'
         alt='Student'
+        height='auto'
+        effect='blur'
         className='w-[6rem] h-[10rem] sm:w-[8.895rem] sm:h-[12.350625rem]'
-        loading='lazy'
+        decoding='async'
       />
     </div>
     <p className='font-montserrat text-sm text-dark-cyan font-semibold sm:mt-2'>
