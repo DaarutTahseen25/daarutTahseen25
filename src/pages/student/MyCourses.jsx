@@ -250,7 +250,7 @@ export default function MyCourses() {
             <img
               src={item.thumbnail}
               alt={item.title}
-              className="w-16 h-12 md:w-20 md:h-16 rounded-lg object-cover flex-shrink-0"
+              className="w-18 h-14 md:w-25 md:h-16 rounded-lg object-cover flex-shrink-0"
             />
             <div className="ml-3 md:ml-5 min-w-0">
               <h3 className="font-monsterrat font-bold  truncate">{item.title}</h3>
