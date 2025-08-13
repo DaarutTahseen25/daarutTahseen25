@@ -9,9 +9,7 @@ const Tabs = React.memo(({ activeTab, setActiveTab }) => {
           key={tab}
           onClick={() => setActiveTab(tab)}
           className={`pb-2 whitespace-nowrap ${
-            activeTab === tab
-              ? "text-green-600 border-b-2 border-green-600"
-              : ""
+            activeTab === tab ? "text-primary border-b-2 border-primary" : ""
           }`}>
           {tab}
         </button>

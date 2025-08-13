@@ -5,6 +5,7 @@ import { formatDate } from "../../utils/helper";
 import CalendarComponent from "../../Components/CalendarComponent";
 import TotalCourses from "../../Components/TotalCourses";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import StudentBoard from "../../Components/StudentBoard";
 
 // Static classes data
 const classesData = Object.freeze([
@@ -71,7 +72,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <TotalCourses />
+      <StudentBoard />
     </section>
   );
 };

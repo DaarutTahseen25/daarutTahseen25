@@ -216,3 +216,114 @@ export const trustedItems = [
     name: "Based on Authentic Qur’an & Sunnah",
   },
 ];
+
+export const classesData = [
+  {
+    id: 1,
+    thumbnail: "/quran-recitation.png",
+    title: "Qur'an Recitation & Tajwid",
+    chapter: "Chapter 1: Introduction to Tajwid",
+    Author: "By Abdulmalik Ahmad",
+    Date: "15th July, 2025 : 2:00PM",
+    time: "2 mins left",
+    button: {
+      label: "Join",
+    },
+  },
+  {
+    id: 2,
+    thumbnail: "/arabic-alphabet.png",
+    title: "Arabic Alphabet & Phonetics",
+    chapter: "Chapter 1: Orientation to Arabic Script",
+    Author: "By Ibrahim Lawal",
+    Date: "15th July, 2025 : 4:00PM",
+    time: "2 hrs left",
+    button: {
+      label: "Join",
+    },
+  },
+  {
+    id: 3,
+    thumbnail: "/basic-islamic.png",
+    title: "Basic Islamic Manners",
+    chapter: "Chapter 1: Personal Manners",
+    Author: "By Ismail Mahmud",
+    Date: "16th July, 2025 : 8:00AM",
+    time: "18 hrs left",
+    button: {
+      label: "Join",
+    },
+  },
+  {
+    id: 4,
+    thumbnail: "/short-surah.png",
+    title: "Short Surah Memorization",
+    chapter: "Chapter 1: Surah Al-Fatihah",
+    Author: "By Muhanned Suleiman",
+    Date: "16th July, 2025 : 12:00PM",
+    time: "22 hrs left",
+    button: {
+      label: "Join",
+    },
+  },
+  {
+    id: 5,
+    thumbnail: "/prophets-stories.png",
+    title: "Stories of the Prophet",
+    chapter: "Chapter 1: Introduction",
+    Author: "By Saliu Lukman",
+    Date: "17th July, 2025 : 10:00AM",
+    time: "1day 20hrs left",
+    button: {
+      label: "Join",
+    },
+  },
+  {
+    id: 6,
+    thumbnail: "/quran-recitation.png",
+    title: "Qur'an Recitation & Tajwid",
+    chapter: "Chapter 2: Makharij (Articulation Points)",
+    Author: "By Abdulmalik Ahmad",
+    Date: "14th July, 2025 : 4:00PM",
+    time: "Completed",
+    button: {
+      label: "View",
+    },
+  },
+  {
+    id: 7,
+    thumbnail: "/arabic-alphabet.png",
+    title: "Arabic Alphabet & Phonetics",
+    chapter: "Chapter 2: Arabic Alphabet Overview",
+    Author: "By Ibrahim Lawal",
+    Date: "14th July, 2025 : 12:00AM",
+    time: "Completed",
+    button: {
+      label: "View",
+    },
+  },
+  {
+    id: 8,
+    thumbnail: "/basic-islamic.png",
+    title: "Basic Islamic Manners",
+    chapter: "Chapter 2: Manners with Family and ",
+    Author: "By Ismail Mahmud",
+    Date: "13th July, 2025 : 2:00PM",
+    time: "Completed",
+    button: {
+      label: "View",
+    },
+  },
+  {
+    id: 9,
+    thumbnail: "/short-surah.png",
+    title: "Short Surah Memorization",
+    chapter: "Chapter 2: Surah Al-Ikhlas",
+    Author: "By Muhammed Suleiman",
+    Date: "13th July, 2025 : 8:00AM",
+    time: "Completed",
+    button: {
+      label: "View",
+    },
+  },
+];
