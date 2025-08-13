@@ -40,7 +40,7 @@ const DashboardTeacher = () => {
   return (
     <section className='flex flex-col gap-10'>
       {/* HEADER */}
-      <div>
+      <div className='flex flex-col gap-4'>
         <h1 className='font-clash font-medium text-3xl sm:text-[40px] text-center lg:text-left text-accent'>
           Dashboard
         </h1>
@@ -64,11 +64,11 @@ const DashboardTeacher = () => {
           />
         </div>
 
-        <div className='flex flex-row gap-x-4 text-xs ml-3'>
-          <p className='font-montserrat text-dark-cyan font-semibold sm:mt-2'>
+        <div className='flex flex-col sm:flex-row gap-y-1 sm:gap-x-4 text-xs sm:text-sm ml-1 sm:ml-3'>
+          <p className='font-montserrat text-dark-cyan font-semibold'>
             Course: Qur'an Recitation & Tajwid
           </p>
-          <p className='font-montserrat text-dark-cyan font-semibold sm:mt-2'>
+          <p className='font-montserrat text-dark-cyan font-semibold'>
             ID: {profile?.teacher_id}
           </p>
         </div>
@@ -80,12 +80,14 @@ const DashboardTeacher = () => {
       {/* UPCOMING CLASSES & CALENDAR */}
       <div className='grid grid-cols-1 xl:grid-cols-3 gap-y-5 gap-x-3 w-full'>
         <div className='xl:col-span-2'>
-          <h2 className='font-clash font-medium text-2xl text-center lg:text-left'>
-            Upcoming Classes
-          </h2>
-          <hr className='mt-1.5 border border-dark-grey' />
-          <div className='rounded-[15px] shadow-[0px_0px_5px_0.2px_rgba(0,0,0,0.25)] h-[17.5rem] bg-white border border-dark-grey mt-4'>
-            <ul className='flex flex-col px-3 divide-y divide-dark-grey'>
+          <div className='border-b border-[#cccccc] pb-1.5 mb-4'>
+            <h2 className='font-clash font-medium text-2xl text-center lg:text-left'>
+              Upcoming Classes
+            </h2>
+          </div>
+
+          <div className='rounded shadow bg-[#fefefc] mt-4 p-3 sm:p-4 w-full'>
+            <ul className='flex flex-col gap-3 sm:gap-4 divide-y divide-dark-grey'>
               {classesData.map((item) => (
                 <Classes key={item.title} {...item} />
               ))}
@@ -94,10 +96,12 @@ const DashboardTeacher = () => {
         </div>
 
         <div className='xl:col-span-1'>
-          <h2 className='font-clash font-medium text-2xl text-center lg:text-left'>
-            Calendar
-          </h2>
-          <hr className='mt-1.5 border border-dark-grey' />
+          <div className='border-b border-[#cccccc] pb-1.5 mb-4'>
+            <h2 className='font-clash font-medium text-2xl text-center lg:text-left'>
+              Calendar
+            </h2>
+          </div>
+
           <CalendarComponent />
         </div>
       </div>
@@ -123,39 +127,75 @@ const DashboardTeacher = () => {
 /* --- REUSABLE COMPONENTS --- */
 const Classes = React.memo(
   ({ thumbnail, title, tutor, date, time, timeLeft, color }) => {
+    const isDanger = color?.toLowerCase?.() === "#d32f2f";
+
     return (
-      <li className='flex items-center gap-x-1 sm:gap-x-0 justify-between text-left py-8'>
-        <img
-          src={thumbnail}
-          alt={title}
-          className='w-[3.5rem] h-[2.5rem] sm:w-[4.95625rem] sm:h-[3.7225rem]'
-        />
-        <p className='flex flex-col'>
-          <span className='font-montserrat font-semibold text-xs sm:text-sm'>
-            {title}
-          </span>
-          <span className='font-montserrat text-darkest-grey font-semibold text-[10px]'>
-            {tutor}
-          </span>
-        </p>
-        <span className='bg-[#FFF9C480] py-1 px-2 sm:px-[19px] font-montserrat font-bold text-[10px] rounded-[10px]'>
-          {date} <span className='hidden sm:inline'>{time}</span>
-        </span>
-        <p className='space-x-1 flex items-center'>
+      <li className='w-full rounded-lg border border-gray-100 bg-white p-2 sm:p-4'>
+        <div
+          className='
+            flex flex-col gap-2
+            sm:flex-row sm:items-center sm:justify-between
+          '>
+          {/* Left: Thumbnail + Title/Tutor */}
+          <div className='flex items-center gap-2 min-w-0 sm:min-w-[40%]'>
+            <img
+              src={thumbnail}
+              alt={title}
+              className='w-14 h-10 sm:w-20 sm:h-14 rounded-md object-cover flex-shrink-0'
+            />
+            <div className='min-w-0'>
+              <p className='font-montserrat font-semibold text-sm sm:text-base truncate'>
+                {title}
+              </p>
+              <p className='font-montserrat text-darkest-grey font-medium text-xs sm:text-sm truncate'>
+                {tutor}
+              </p>
+            </div>
+          </div>
+
+          {/* Middle: Date & Time */}
           <span
-            style={{ backgroundColor: color }}
-            className='h-[6px] w-[6px] rounded-[50%] sm:inline-block hidden'></span>
-          <span
-            style={{ color }}
-            className='font-montserrat font-bold text-[10px]'>
-            {timeLeft} left
+            className='
+              inline-flex items-center justify-center
+              bg-[#FFF9C480] rounded-[10px]
+              px-2 py-0.5 sm:px-4 sm:py-1
+              font-montserrat font-bold
+              text-[10px] sm:text-xs
+              flex-shrink-0
+            '>
+            {date}
+            <span className='hidden sm:inline mx-1'>•</span>
+            <span className='block sm:inline'>{time}</span>
           </span>
-        </p>
-        <Button
-          variant={color === "#D32F2F" ? "primary" : "secondary"}
-          className='rounded-[10px] w-[3.5rem] h-[2rem] text-xs sm:text-sm sm:w-[5.125rem] sm:h-[2.5rem]'>
-          Start
-        </Button>
+
+          {/* Right: Time-left + Start */}
+          <div className='flex items-center gap-2 sm:gap-4 flex-shrink-0'>
+            <p className='flex items-center gap-1'>
+              <span
+                aria-hidden='true'
+                className='h-1.5 w-1.5 rounded-full inline-block'
+                style={{ backgroundColor: color }}
+              />
+              <span
+                className='font-montserrat font-bold text-[10px] sm:text-xs whitespace-nowrap'
+                style={{ color }}>
+                {timeLeft} left
+              </span>
+            </p>
+
+            <Button
+              aria-label={`Start ${title}`}
+              variant={isDanger ? "primary" : "secondary"}
+              className='
+                rounded-[10px]
+                w-[3.5rem] h-[1.8rem]
+                sm:w-[5.125rem] sm:h-[2.5rem]
+                text-[10px] sm:text-sm
+              '>
+              Start
+            </Button>
+          </div>
+        </div>
       </li>
     );
   }
@@ -163,26 +203,25 @@ const Classes = React.memo(
 
 const SectionCard = ({ title, children }) => (
   <div>
-    <h2 className='font-clash font-medium text-2xl text-center lg:text-left'>
-      {title}
-    </h2>
-    <hr className='mt-1.5 border border-dark-grey mb-3' />
+    <div className='border-b border-dark-grey pb-1.5 mb-3'>
+      <h2 className='font-clash font-medium text-2xl text-center lg:text-left'>
+        {title}
+      </h2>
+    </div>
     {children}
   </div>
 );
 
 const TeachingProgress = React.memo(() => {
   return (
-    <div>
+    <div className='pb-1.5 mb-3 border-b border-dark-grey'>
       <h2 className='font-clash font-medium text-center lg:text-left text-2xl'>
         Teaching Progress
       </h2>
       <span className='font-montserrat text-center lg:text-left block mt-1 text-sm'>
         An overview of your Teaching activities including course delivery,
-        Student perfomance and engagement.
+        Student performance and engagement.
       </span>
-      <hr className='mt-1.5 border border-dark-grey' />
-      {/* Cards go here (same as your original, extracted if needed) */}
     </div>
   );
 });

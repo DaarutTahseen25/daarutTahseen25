@@ -326,3 +326,36 @@ export const classesData = [
     },
   },
 ];
+
+export const students = [
+  {
+    name: "Abdulkabir Aishat",
+    avatar: "/test5.png",
+    progress: 70,
+    score: 80,
+  },
+  {
+    name: "Adams Ibrahim",
+    avatar: "/test1.png",
+    progress: 70,
+    score: 80,
+  },
+  {
+    name: "Jafar Ibrahim",
+    avatar: "/test2.png",
+    progress: 70,
+    score: 80,
+  },
+  {
+    name: "Jimoh Jamiu",
+    avatar: "/test3.png",
+    progress: 70,
+    score: 80,
+  },
+  {
+    name: "Muhammad Rafiu",
+    avatar: "/test4.png",
+    progress: 100,
+    score: 80,
+  },
+];

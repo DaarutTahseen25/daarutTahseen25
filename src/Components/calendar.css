@@ -1,10 +1,10 @@
 /* Hide default borders and improve layout */
 .react-calendar {
-  border: 1px solid var(--color-dark-grey);
+  border: 1px solid transparent;
   font-family: var(--font-montserrat);
-  border-radius: 15px;
+  border-radius: 0.25rem;
   overflow: hidden;
-  box-shadow: 0 0px 5px 0.2px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
   background: white;
   font-size: 12px;
   font-weight: 400;

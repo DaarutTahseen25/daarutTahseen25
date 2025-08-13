@@ -19,14 +19,22 @@ const StudentBoard = () => {
       <div className=''>
         {/* Students List */}
 
-        <div className='bg-white w-full p-4 rounded-lg shadow overflow-auto'>
-          <div className='p-2 min-w-3xl mx-auto space-y-4'>
-            <div className='grid grid-cols-4 gap-4 text-md md:text-xl py-2 px-3 md:py-3 mb-4 bg-light-grey'>
+        <div className='bg-white w-full p-2 sm:p-4 rounded-lg shadow'>
+          <div className='w-full mx-auto space-y-4'>
+            {/* Header - Hide on mobile since course cards are self-explanatory */}
+            <div className='hidden lg:grid grid-cols-4 gap-4 text-md xl:text-xl py-2 px-3 md:py-3 mb-4 bg-light-grey rounded'>
               <div className='font-semibold'>Course Name</div>
-              <div className='font-semibold'>Progress</div>
-              <div className='font-semibold'>Overall Score</div>
               <div className='font-semibold'>Status</div>
             </div>
+
+            {/* Mobile Header - Optional simplified version */}
+            <div className='lg:hidden flex justify-between items-center py-2 px-3 mb-4 bg-light-grey rounded text-sm font-semibold'>
+              <span>Your Courses</span>
+              <span className='text-xs text-gray-600'>
+                {courses?.length || 0} total
+              </span>
+            </div>
+
             <TotalCourses
               courses={courses}
               expandedCourse={expandedCourse}
