@@ -6,7 +6,125 @@ import TotalCourses from "../../Components/TotalCourses";
 
 import { courses, quizList } from "../../constants/data";
 import Tabs from "./CoursesTab";
+<<<<<<< HEAD
 import ClassCompo from "../../Components/ClassCompo";
+=======
+import StudentAssignmentCard from "../../Components/StudentAssignment";
+
+
+
+
+const classesData = [
+  {
+    id: 1,
+    thumbnail: "/quran-recitation.png",
+    title: "Qur'an Recitation & Tajwid",
+    chapter: "Chapter 1: Introduction to Tajwid",
+    Author: "By Abdulmalik Ahmad",
+    Date: "15th July, 2025 : 2:00PM",
+    time: "2 mins left",
+    button: {
+      label: "Join"
+    }
+  },
+  { 
+    id: 2,
+    thumbnail: "/arabic-alphabet.png",
+    title: "Arabic Alphabet & Phonetics",
+    chapter: "Chapter 1: Orientation to Arabic Script",
+    Author: "By Ibrahim Lawal",
+    Date: "15th July, 2025 : 4:00PM",
+    time: "2 hrs left",
+    button: {
+      label: "Join"
+    }
+  },
+  {
+    id: 3,
+    thumbnail: "/basic-islamic.png",
+    title: "Basic Islamic Manners",
+    chapter: "Chapter 1: Personal Manners",
+    Author: "By Ismail Mahmud",
+    Date: "16th July, 2025 : 8:00AM",
+    time: "18 hrs left",
+    button: {
+      label: "Join"
+    }
+  },
+  {
+    id: 4,
+    thumbnail: "/short-surah.png",
+    title: "Short Surah Memorization",
+    chapter: "Chapter 1: Surah Al-Fatihah",
+    Author: "By Muhanned Suleiman",
+    Date: "16th July, 2025 : 12:00PM",
+    time: "22 hrs left",
+    button: {
+      label: "Join"
+    }
+  },
+  {
+    id: 5,
+    thumbnail: "/prophets-stories.png",
+    title: "Stories of the Prophet",
+    chapter: "Chapter 1: Introduction",
+    Author: "By Saliu Lukman",
+    Date: "17th July, 2025 : 10:00AM",
+    time: "1day 20hrs left",
+    button: {
+      label: "Join"
+    }
+  },
+  {
+    id: 6,
+    thumbnail: "/quran-recitation.png",
+    title: "Qur'an Recitation & Tajwid",
+    chapter: "Chapter 2: Makharij (Articulation Points)",
+    Author: "By Abdulmalik Ahmad",
+    Date: "14th July, 2025 : 4:00PM",
+    time: "Completed",
+    button: {
+      label: "View"
+    }
+  },
+  {
+    id: 7,
+    thumbnail: "/arabic-alphabet.png",
+    title: "Arabic Alphabet & Phonetics",
+    chapter: "Chapter 2: Arabic Alphabet Overview",
+    Author: "By Ibrahim Lawal",
+    Date: "14th July, 2025 : 12:00AM",
+    time: "Completed",
+    button: {
+      label: "View"
+    }
+  },
+  {
+    id: 8,
+    thumbnail: "/basic-islamic.png",
+    title: "Basic Islamic Manners",
+    chapter: "Chapter 2: Manners with Family and ",
+    Author: "By Ismail Mahmud",
+    Date: "13th July, 2025 : 2:00PM",
+    time: "Completed",
+    button: {
+      label: "View"
+    }
+  },
+  {
+    id: 9,
+    thumbnail: "/short-surah.png",
+    title: "Short Surah Memorization",
+    chapter: "Chapter 2: Surah Al-Ikhlas",
+    Author: "By Muhammed Suleiman",
+    Date: "13th July, 2025 : 8:00AM",
+    time: "Completed",
+    button: {
+      label: "View"
+    }
+  }
+];
+>>>>>>> 1f59be0806c0b574a441a88f98fa55ca80965190
 
 export default function MyCourses() {
   const {
@@ -120,7 +238,88 @@ export default function MyCourses() {
 
       {/* Classes Tab */}
 
+<<<<<<< HEAD
       {activeTab === "Classes" && <ClassCompo />}
+=======
+     { activeTab === "Classes" && (
+     <div className="rounded-2xl bg-white w-full shadow-2xl overflow-hidden">
+      <div className="divide-y divide-gray-200">
+
+      {classesData.map((item) => (
+        <div 
+          key={item.id} 
+          className="flex  flex-col md:flex-row items-start md:items-center  gap-4 p-2 md:p-6  ">
+          {/* Course Info */}
+          <div className="flex items-start flex-1 min-w-0">
+            <img
+              src={item.thumbnail}
+              alt={item.title}
+              className="w-18 h-14 md:w-25 md:h-16 rounded-lg object-cover flex-shrink-0"
+            />
+            <div className="ml-3 md:ml-5 min-w-0">
+              <h3 className="font-monsterrat font-bold  truncate">{item.title}</h3>
+              <p className="text-xs font-monsterrat weight:700  md:text-sm  truncate">{item.chapter}</p>
+              <p className="text-xs md:text-sm text-[#A9A9A9] font-montserrat truncate">{item.Author}</p>
+            </div>
+          </div>
+          
+          {/* Date */}
+          <div className="flex-1  ">
+            <div className="bg-[#FFFCE1] rounded-2xl p-3 md:p-1 md:mx-15 font-bold text-center">
+              <p className="text-xs md:text-sm  ">{item.Date}</p>
+            </div>
+          </div>
+          
+          {/* Time Status */}
+          <div className="flex items-center font-bold w-full md:w-auto md:px-4">
+            <div className={`w-2 h-2 rounded-full ${
+              item.id === 1 ? "bg-red-500" : 
+              item.time === "Completed" ? "bg-[#A9A9A9]" : "bg-[#33ABA0]"
+            }`}>
+
+              
+            </div>
+            <p className={`text-xs font-bold md:text-sm ml-2 ${
+              item.id === 1 ? "text-red-500" :
+              item.time === "Completed" ? "text-[#A9A9A9]" : "text-[#33ABA0]"
+            }`}>
+              {item.time}
+            </p>
+          </div>
+          
+          {/* Button */}
+         
+           <button className={`px-5 py-2 rounded-md text-lg font-clash ${
+              item.button.label === "View" 
+                ? "bg-[#33ABA0] text-white" 
+                : item.id === 1 
+                  ? "bg-[#33ABA0] text-white" 
+                  : "bg-gray-200 text-[#CCCCCC]" 
+            }`}>
+              {item.button.label}
+            </button>
+        </div>
+        
+      ))}
+      </div>
+      
+    </div>
+
+     )}
+
+
+     {/* Assignment Tab */}
+
+     { activeTab === "Assignment" && quizList.length > 0 && (
+        <div className='w-full overflow-x-hidden'>
+          <div className='grid grid-cols-1 md:grid-cols-2 [@media(min-width:1201px)]:grid-cols-3 gap-3 w-full'>
+            {quizList.map((assignment) => (
+              <StudentAssignmentCard key={assignment.id} {...assignment} />
+            ))}
+          </div>
+        </div>
+     )}
+>>>>>>> 1f59be0806c0b574a441a88f98fa55ca80965190
     </div>
   );
 }

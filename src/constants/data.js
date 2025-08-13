@@ -61,7 +61,6 @@ export const quizList = [
     image: "/islamic1.png",
   },
 ];
-
 export const courses = [
   {
     id: 1,
