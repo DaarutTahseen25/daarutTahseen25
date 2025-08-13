@@ -17,7 +17,7 @@ const LoaderFallback = () => (
 );
 
 // Pages (Public)
-const Home = lazy(() => import("./pages/Home"));
+const Home = lazy(() => import("./pages/home"));
 const AboutUs = lazy(() => import("./pages/AboutUs"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const TermsOfService = lazy(() => import("./pages/TermsOfService"));
