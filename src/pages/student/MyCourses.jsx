@@ -6,6 +6,7 @@ import TotalCourses from "../../Components/TotalCourses";
 
 import { courses, quizList } from "../../constants/data";
 import Tabs from "./CoursesTab";
+import StudentAssignmentCard from "../../Components/StudentAssignment";
 
 
 
@@ -303,6 +304,18 @@ export default function MyCourses() {
 
      )}
 
+
+     {/* Assignment Tab */}
+
+     { activeTab === "Assignment" && quizList.length > 0 && (
+        <div className='w-full overflow-x-hidden'>
+          <div className='grid grid-cols-1 md:grid-cols-2 [@media(min-width:1201px)]:grid-cols-3 gap-3 w-full'>
+            {quizList.map((assignment) => (
+              <StudentAssignmentCard key={assignment.id} {...assignment} />
+            ))}
+          </div>
+        </div>
+     )}
     </div>
   );
 }
