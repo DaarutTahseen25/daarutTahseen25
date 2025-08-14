@@ -82,40 +82,78 @@ const Dashboard = () => {
 /* ======================
    Header Section
 ====================== */
-const Header = memo(({ firstName }) => (
-  <div className='flex flex-col gap-4'>
-    <h1 className='font-clash font-medium text-3xl sm:text-[40px] text-center lg:text-left text-accent'>
-      Dashboard
-    </h1>
-    <div className='bg-[url(/dashboard-cal.png)] bg-cover rounded-4xl mt-4 py-10 md:py-8 pr-4 pl-4 sm:pl-10 flex w-full justify-between'>
-      <p className='flex flex-col gap-y-2 sm:gap-y-4 font-montserrat place-self-center text-white'>
-        <span className='text-sm font-semibold'>{formatDate(new Date())}</span>
-        <span className='font-clash font-medium text-2xl'>
-          Welcome back, {firstName}!
-        </span>
-        <span className='text-sm italic'>
-          “The best among you are those who learn and teach the Qur’an”
-        </span>
-      </p>
-      <LazyLoadImage
-        src='/dashb-student.png'
-        alt='Student'
-        height='auto'
-        effect='blur'
-        className='w-[6rem] h-[10rem] sm:w-[8.895rem] sm:h-[12.350625rem]'
-        decoding='async'
-      />
-    </div>
-    <div className='flex flex-col sm:flex-row gap-y-1 sm:gap-x-4 text-xs sm:text-sm ml-1 sm:ml-3'>
-      <p className='font-montserrat text-dark-cyan font-semibold'>
-        Level: Beginner (Class 1)
-      </p>
-      {/* <p className='font-montserrat text-dark-cyan font-semibold'>
-        ID: {profile?.matric_number}
-      </p> */}
-    </div>
-  </div>
-));
+const Header = memo(({ firstName = "Student" }) => {
+  return (
+    <header className='flex flex-col gap-4'>
+      {/* Title */}
+      <h1 className='font-clash font-medium text-3xl sm:text-[40px] text-center lg:text-left text-accent'>
+        Dashboard
+      </h1>
+
+      {/* Hero banner - uses a subtle gradient as the base and the decorative image as a low-opacity overlay on larger screens */}
+      <section className='relative rounded-4xl overflow-hidden '>
+        {/* Decorative background image (only visible on sm+ as an overlay) */}
+        <div
+          className="absolute inset-0 bg-[url('/dashboard-cal.png')] bg-cover bg-right pointer-events-none"
+          aria-hidden='true'
+        />
+
+        {/* Content container */}
+        <div className='relative  px-4 sm:px-8 py-8 sm:py-10 flex flex-col md:flex-row items-center md:items-stretch gap-6'>
+          {/* Text block */}
+          <div className='flex-1 text-white text-center md:text-left'>
+            <div className='text-sm font-semibold tracking-tight'>
+              {formatDate(new Date())}
+            </div>
+
+            <div className='mt-1 font-clash font-semibold text-2xl sm:text-3xl leading-tight'>
+              Welcome back, <span className='capitalize'>{firstName}</span>!
+            </div>
+
+            {/* Quote - hide on small screens for cleaner mobile layout */}
+            <p className='mt-3 text-sm italic text-white/90 hidden md:block'>
+              “The best among you are those who learn and teach the Qur’an”
+            </p>
+
+            {/* Small actions / quick stats - show on md+ only, hidden on small devices */}
+            <div className='mt-4 hidden md:flex items-center gap-4 text-xs sm:text-sm'>
+              <div className='bg-white/10 px-3 py-1 rounded-full'>
+                Recent: 2 new lessons
+              </div>
+              <div className='bg-white/10 px-3 py-1 rounded-full'>
+                Streak: 3 days
+              </div>
+            </div>
+          </div>
+
+          {/* Illustration - hidden on small screens to reduce visual noise and save bandwidth */}
+          <div className='flex-shrink-0 self-center md:self-end'>
+            <LazyLoadImage
+              src='/dashb-student.png'
+              alt='Student illustration'
+              height='auto'
+              effect='blur'
+              className='hidden md:block w-[8.5rem] h-[12rem] sm:w-[8.895rem] sm:h-[12.350625rem] object-contain'
+              decoding='async'
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Secondary info row - keep compact on mobile, reveal more on sm+ */}
+      <div className='flex flex-col sm:flex-row gap-y-1 sm:gap-x-4 text-xs sm:text-sm ml-1 sm:ml-3 items-start sm:items-center'>
+        <p className='font-montserrat text-dark-cyan font-semibold'>
+          Level: Beginner (Class 1)
+        </p>
+
+        {/* Optional ID or extra meta - hidden on very small screens to avoid wrapping */}
+        <p className='font-montserrat text-dark-cyan font-semibold hidden sm:inline'>
+          ID: 123456
+        </p>
+      </div>
+    </header>
+  );
+});
 
 /* ======================
    Learning Progress Section
@@ -238,71 +276,68 @@ const Classes = React.memo(
     const isDanger = color?.toLowerCase?.() === "#d32f2f";
 
     return (
-      <li className='w-full rounded-lg border border-gray-100 bg-white p-2 sm:p-4'>
+      <li
+        className='
+          w-full rounded-xl bg-white border border-gray-100 
+          p-4 shadow-sm hover:shadow-md transition-all duration-200
+          flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4
+        '>
+        {/* Left: Thumbnail + Info */}
+        <div className='flex items-start sm:items-center gap-3 min-w-0'>
+          <img
+            src={thumbnail}
+            alt={title}
+            className='
+              w-16 h-12 sm:w-20 sm:h-14 
+              rounded-lg object-cover flex-shrink-0
+            '
+          />
+          <div className='min-w-0'>
+            <h3 className='font-montserrat font-semibold text-sm sm:text-base truncate'>
+              {title}
+            </h3>
+            <p className='font-montserrat text-gray-500 text-xs sm:text-sm truncate'>
+              {tutor}
+            </p>
+          </div>
+        </div>
+
+        {/* Middle: Date & Time */}
         <div
           className='
-            flex flex-col gap-2
-            sm:flex-row sm:items-center sm:justify-between
+            flex items-center gap-1 sm:gap-2 bg-[#FFF9C480] 
+            rounded-full px-3 py-1 text-xs sm:text-sm font-bold
+            w-fit sm:w-auto
           '>
-          {/* Left: Thumbnail + Title/Tutor */}
-          <div className='flex items-center gap-2 min-w-0 sm:min-w-[40%]'>
-            <img
-              src={thumbnail}
-              alt={title}
-              className='w-14 h-10 sm:w-20 sm:h-14 rounded-md object-cover flex-shrink-0'
+          <span>{date}</span>
+          <span className='hidden sm:inline'>•</span>
+          <span>{time}</span>
+        </div>
+
+        {/* Right: Status + Button */}
+        <div className='flex items-center gap-3 flex-shrink-0'>
+          <div className='flex items-center gap-2'>
+            <span
+              className='h-2 w-2 rounded-full'
+              style={{ backgroundColor: color }}
             />
-            <div className='min-w-0'>
-              <p className='font-montserrat font-semibold text-sm sm:text-base truncate'>
-                {title}
-              </p>
-              <p className='font-montserrat text-darkest-grey font-medium text-xs sm:text-sm truncate'>
-                {tutor}
-              </p>
-            </div>
+            <span
+              className='font-montserrat font-bold text-xs sm:text-sm whitespace-nowrap'
+              style={{ color }}>
+              {timeLeft} left
+            </span>
           </div>
 
-          {/* Middle: Date & Time */}
-          <span
+          <Button
+            aria-label={`Start ${title}`}
+            variant={isDanger ? "primary" : "secondary"}
             className='
-              inline-flex items-center justify-center
-              bg-[#FFF9C480] rounded-[10px]
-              px-2 py-0.5 sm:px-4 sm:py-1
-              font-montserrat font-bold
-              text-[10px] sm:text-xs
-              flex-shrink-0
+              rounded-lg px-3 py-1 sm:px-4 sm:py-2 
+              text-xs sm:text-sm font-semibold
+              transition-colors duration-200
             '>
-            {date}
-            <span className='hidden sm:inline mx-1'>•</span>
-            <span className='block sm:inline'>{time}</span>
-          </span>
-
-          {/* Right: Time-left + Start */}
-          <div className='flex items-center gap-2 sm:gap-4 flex-shrink-0'>
-            <p className='flex items-center gap-1'>
-              <span
-                aria-hidden='true'
-                className='h-1.5 w-1.5 rounded-full inline-block'
-                style={{ backgroundColor: color }}
-              />
-              <span
-                className='font-montserrat font-bold text-[10px] sm:text-xs whitespace-nowrap'
-                style={{ color }}>
-                {timeLeft} left
-              </span>
-            </p>
-
-            <Button
-              aria-label={`Start ${title}`}
-              variant={isDanger ? "primary" : "secondary"}
-              className='
-                rounded-[10px]
-                w-[3.5rem] h-[1.8rem]
-                sm:w-[5.125rem] sm:h-[2.5rem]
-                text-[10px] sm:text-sm
-              '>
-              Start
-            </Button>
-          </div>
+            Start
+          </Button>
         </div>
       </li>
     );

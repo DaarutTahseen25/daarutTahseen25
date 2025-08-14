@@ -40,39 +40,61 @@ const DashboardTeacher = () => {
   return (
     <section className='flex flex-col gap-10'>
       {/* HEADER */}
-      <div className='flex flex-col gap-4'>
+      <header className='flex flex-col gap-4'>
+        {/* Title */}
         <h1 className='font-clash font-medium text-3xl sm:text-[40px] text-center lg:text-left text-accent'>
           Dashboard
         </h1>
 
-        <div className='bg-[url(/dashboard-cal.png)] bg-cover rounded-4xl mt-4 py-10 md:py-8 pr-4 pl-4 sm:pl-10 flex w-full justify-between'>
-          <p className='flex flex-col gap-y-2 sm:gap-y-4 font-montserrat place-self-center text-white'>
-            <span className='text-sm font-semibold'>
-              {formatDate(new Date())}
-            </span>
-            <span className='font-clash font-medium text-xl md:text-2xl'>
-              Welcome back, Ustadh {firstName}!
-            </span>
-            <span className='text-sm italic'>
-              “The best among you are those who learn and teach the Qur’an”
-            </span>
-          </p>
-          <img
-            src='/dashb-student.png'
-            alt=''
-            className='w-[6rem] h-[10rem] sm:w-[8.895rem] sm:h-[12.350625rem]'
+        {/* Banner */}
+        <section className='relative rounded-4xl overflow-hidden '>
+          {/* Decorative background image on sm+ */}
+          <div
+            className=" absolute inset-0 bg-[url('/dashboard-cal.png')] bg-cover bg-right  pointer-events-none"
+            aria-hidden='true'
           />
-        </div>
 
-        <div className='flex flex-col sm:flex-row gap-y-1 sm:gap-x-4 text-xs sm:text-sm ml-1 sm:ml-3'>
+          {/* Content */}
+          <div className='relative  px-4 sm:px-8 py-8 sm:py-10 flex flex-col md:flex-row items-center md:items-stretch gap-6'>
+            {/* Text */}
+            <div className='flex-1 text-white text-center md:text-left'>
+              <div className='text-sm font-semibold tracking-tight'>
+                {formatDate(new Date())}
+              </div>
+
+              <div className='mt-1 font-clash font-semibold text-xl md:text-2xl leading-tight'>
+                Welcome back, Ustadh {firstName}!
+              </div>
+
+              {/* Quote hidden on small screens */}
+              <p className='mt-3 text-sm italic text-white/90 hidden md:block'>
+                “The best among you are those who learn and teach the Qur’an”
+              </p>
+            </div>
+
+            {/* Illustration hidden on small devices */}
+            <div className='flex-shrink-0 self-center md:self-end'>
+              <img
+                src='/dashb-student.png'
+                alt='Teacher illustration'
+                className='hidden md:block w-[8.895rem] h-[12.350625rem] object-contain'
+                loading='lazy'
+                decoding='async'
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Secondary info */}
+        <div className='flex flex-col sm:flex-row gap-y-1 sm:gap-x-4 text-xs sm:text-sm ml-1 sm:ml-3 items-start sm:items-center'>
           <p className='font-montserrat text-dark-cyan font-semibold'>
             Course: Qur'an Recitation & Tajwid
           </p>
-          <p className='font-montserrat text-dark-cyan font-semibold'>
+          <p className='font-montserrat text-dark-cyan font-semibold hidden sm:inline'>
             ID: {profile?.teacher_id}
           </p>
         </div>
-      </div>
+      </header>
 
       {/* PROGRESS */}
       <TeachingProgress />

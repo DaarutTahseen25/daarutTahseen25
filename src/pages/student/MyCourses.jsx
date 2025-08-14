@@ -157,9 +157,11 @@ export default function MyCourses() {
         <div className='bg-white w-full p-2 sm:p-4 rounded-lg shadow'>
           <div className='w-full mx-auto space-y-4'>
             {/* Header - Hide on mobile since course cards are self-explanatory */}
-            <div className='hidden lg:grid grid-cols-3 gap-4 text-md xl:text-xl py-2 px-3 md:py-3 mb-4 bg-light-grey rounded'>
-              <div className='font-semibold'>Course Name</div>{" "}
-              <div className='font-semibold'>Status</div>
+            <div className='hidden lg:grid grid-cols-4 gap-4 py-2 px-3 md:py-3 mb-4 bg-light-grey rounded font-semibold text-md xl:text-lg text-gray-700'>
+              <div>Course</div>
+              <div>Progress</div>
+              <div>Score</div>
+              <div>Status</div>
             </div>
 
             {/* Mobile Header - Optional simplified version */}

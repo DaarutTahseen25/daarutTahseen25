@@ -20,11 +20,13 @@ function Button({
   };
 
   const variants = {
-    primary: "bg-primary text-white hover:bg-primarydark",
-    secondary: "bg-gray-100 text-gray-900 hover:bg-gray-200",
-    danger: "bg-red-500 text-white hover:bg-red-600",
-    outline: "border border-gray-400 text-gray-900 hover:bg-gray-50",
-    cancel: "bg-transparent border-2 border-primary text-primary",
+    primary: "bg-primary text-white hover:bg-primarydark cursor-pointer",
+    secondary: "bg-gray-100 text-gray-900 cursor-not-allowed",
+    danger: "bg-red-500 text-white hover:bg-red-600 cursor-pointer",
+    outline:
+      "border border-gray-400 text-gray-900 hover:bg-gray-50 cursor-pointer",
+    cancel:
+      "bg-transparent border-2 border-primary text-primary cursor-pointer",
     notActive: "bg-light-grey text-dark-grey",
   };
 
@@ -35,10 +37,9 @@ function Button({
   return (
     <button
       type={type}
-      className={`${base} ${sizes[size]} ${variants[variant]} ${cursor} ${rounded} ${className}`}
+      className={`${base} ${sizes[size]} ${variants[variant]}  ${rounded} ${className}`}
       onClick={onClick}
-      disabled={isDisabled}
-    >
+      disabled={isDisabled}>
       {children}
     </button>
   );

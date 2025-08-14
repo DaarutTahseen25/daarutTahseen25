@@ -5,15 +5,14 @@ import Pagination from "./Pagination";
 function TotalCourses({ courses, expandedCourse, setExpandedCourse }) {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
-
   const totalPages = Math.ceil(courses.length / itemsPerPage);
 
   const paginatedData = courses.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
-  const [contentHeights, setContentHeights] = useState({});
 
+  const [contentHeights, setContentHeights] = useState({});
   const contentRefs = useRef({});
 
   useEffect(() => {
@@ -40,10 +39,10 @@ function TotalCourses({ courses, expandedCourse, setExpandedCourse }) {
             <div
               key={course.id}
               className='mb-4 border border-[#cccccc] rounded-md w-full'>
-              {/* Header - Stack on mobile */}
-              <div className='flex flex-col lg:flex-row lg:items-start lg:justify-between p-3 lg:p-4 gap-3 lg:gap-4'>
-                {/* Image and Info - Full width on mobile */}
-                <div className='flex gap-3 w-full lg:w-1/4'>
+              {/* Header - Four columns on large screens */}
+              <div className='grid grid-cols-1 lg:grid-cols-4 items-center gap-4 p-3 lg:p-4'>
+                {/* Column 1 - Course Name & Chapters */}
+                <div className='flex gap-3'>
                   <img
                     src={course.image}
                     alt={course.name}
@@ -60,46 +59,46 @@ function TotalCourses({ courses, expandedCourse, setExpandedCourse }) {
                   </div>
                 </div>
 
-                {/* Progress, Score and Status - Stack on mobile */}
-                <div className='flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 w-full lg:w-auto lg:flex-1 lg:justify-end'>
-                  {/* Progress Bar */}
-                  <div className='flex items-center gap-2 flex-1 lg:flex-initial'>
-                    <div className='flex-1 lg:w-24 bg-gray-200 h-2 rounded'>
-                      <div
-                        className={`h-2 rounded ${
-                          course.progress === 100
-                            ? "bg-primary/40"
-                            : "bg-accent/40"
-                        }`}
-                        style={{ width: `${course.progress}%` }}></div>
-                    </div>
-                    {/* Score - Hide on very small screens */}
-                    <div className='text-xs sm:text-sm text-gray-700 hidden xs:block'>
-                      {course.score}%
-                    </div>
+                {/* Column 2 - Progress */}
+                <div className='flex items-center gap-2'>
+                  <div className='flex-1 bg-gray-200 h-2 rounded'>
+                    <div
+                      className={`h-2 rounded ${
+                        course.progress === 100
+                          ? "bg-primary/40"
+                          : "bg-accent/40"
+                      }`}
+                      style={{ width: `${course.progress}%` }}></div>
                   </div>
+                </div>
 
-                  {/* Status + Toggle */}
-                  <div className='flex items-center gap-2 justify-between sm:justify-end'>
-                    <span className='flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-full border border-[#cccccc]'>
-                      {course.status === "In progress" && (
-                        <LoaderCircle className='w-3 h-3 text-[#D32F2F]' />
-                      )}
-                      {course.status === "Completed" && (
-                        <Check className='w-3 h-3 text-primary' />
-                      )}
-                      <span className='truncate'>{course.status}</span>
-                    </span>
-                    <button
-                      onClick={() => setExpandedCourse(course.id)}
-                      className='text-gray-500 hover:text-gray-700 cursor-pointer transition-transform p-1'>
-                      {isExpanded ? (
-                        <ChevronDown size={20} />
-                      ) : (
-                        <ChevronRight size={20} />
-                      )}
-                    </button>
-                  </div>
+                {/* Column 3 - Score */}
+                <div className='text-sm font-medium text-gray-700'>
+                  {course.score}%
+                </div>
+
+                {/* Column 4 - Status + Toggle */}
+                <div className='flex items-center justify-between gap-2'>
+                  <span className='flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-full border border-[#cccccc]'>
+                    {course.status === "In progress" && (
+                      <LoaderCircle className='w-3 h-3 text-[#D32F2F]' />
+                    )}
+                    {course.status === "Completed" && (
+                      <Check className='w-3 h-3 text-primary' />
+                    )}
+                    <span className='truncate'>{course.status}</span>
+                  </span>
+                  <button
+                    onClick={() =>
+                      setExpandedCourse(isExpanded ? null : course.id)
+                    }
+                    className='text-gray-500 hover:text-gray-700 cursor-pointer transition-transform p-1'>
+                    {isExpanded ? (
+                      <ChevronDown size={20} />
+                    ) : (
+                      <ChevronRight size={20} />
+                    )}
+                  </button>
                 </div>
               </div>
 
@@ -121,7 +120,6 @@ function TotalCourses({ courses, expandedCourse, setExpandedCourse }) {
                         <span className='break-words'>{title}</span>
                       </div>
                       <div className='flex gap-2 flex-shrink-0'>
-                        {/* Hide PDF button on very small screens */}
                         <button className='hidden sm:flex items-center gap-1 text-xs text-teal-600 border border-teal-600 px-2 py-1 rounded hover:bg-teal-50 whitespace-nowrap'>
                           Download PDF
                         </button>
