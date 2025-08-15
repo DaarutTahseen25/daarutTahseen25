@@ -2,8 +2,10 @@ import { useRef, useState, useMemo, useCallback } from "react";
 import Button from "../../Components/Button";
 import { Loader } from "../../Components/Loader";
 import { useAuth } from "../../contexts/AuthContext";
+import { usePageTitle } from "../../hooks/usePageTitle";
 
 const Profile = () => {
+  usePageTitle("My Profile");
   const { user } = useAuth();
 
   const profile = useMemo(() => user?.user || user, [user]);
@@ -104,113 +106,115 @@ const Profile = () => {
   // =====================
   return (
     <section>
-      <h1 className='font-clash font-medium text-3xl sm:text-[40px] text-center sm:text-left text-accent'>
+      <h1 className="font-clash font-medium text-3xl sm:text-[40px] text-center sm:text-left text-accent">
         Profile
       </h1>
-      <div className='mt-5 grid sm:grid-cols-[1fr_2fr] gap-5'>
+      <div className="mt-5 grid sm:grid-cols-[1fr_2fr] gap-5">
         {/* Left Section */}
-        <div className='flex flex-col gap-y-6'>
+        <div className="flex flex-col gap-y-6">
           {/* Profile Picture */}
-          <div className='flex rounded-full mx-auto sm:mx-0 w-[14.25rem] h-[14.25rem] relative'>
+          <div className="flex rounded-full mx-auto sm:mx-0 w-[14.25rem] h-[14.25rem] relative">
             <img
               src={profilePic}
-              alt='Profile'
-              className='w-full h-full rounded-full object-cover'
+              alt="Profile"
+              className="w-full h-full rounded-full object-cover"
             />
             <input
-              type='file'
-              accept='image/*'
+              type="file"
+              accept="image/*"
               ref={fileInputRef}
-              className='hidden'
+              className="hidden"
               onChange={handleProfilePicChange}
             />
             <img
-              src='/edit-profile.png'
-              alt=''
-              className='w-11 h-11 absolute bottom-3 right-5.5 cursor-pointer'
+              src="/edit-profile.png"
+              alt=""
+              className="w-11 h-11 absolute bottom-3 right-5.5 cursor-pointer"
               onClick={() => fileInputRef.current?.click()}
             />
           </div>
 
           {/* Change Password */}
           <div>
-            <p className='text-xl sm:text-2xl font-medium font-clash'>
+            <p className="text-xl sm:text-2xl font-medium font-clash">
               Change Password
             </p>
-            <hr className='my-2 border-t border-t-[#CCCCCC]' />
-            <div className='bg-white mt-3 flex flex-col justify-between rounded-sm gap-y-5 py-5 px-4 shadow-[0px_0px_5px_0.2px_rgba(0,0,0,0.25)]'>
+            <hr className="my-2 border-t border-t-[#CCCCCC]" />
+            <div className="bg-white mt-3 flex flex-col justify-between rounded-sm gap-y-5 py-5 px-4 shadow-[0px_0px_5px_0.2px_rgba(0,0,0,0.25)]">
               {/* New Password */}
-              <div className='font-bricolage'>
-                <label htmlFor='nPass' className='lg:text-xl block'>
+              <div className="font-bricolage">
+                <label htmlFor="nPass" className="lg:text-xl block">
                   New Password
                 </label>
                 <div
                   className={`flex items-center justify-between border py-3 px-2 lg:pl-3 lg:pr-1.5 rounded-lg ${
                     errors.password ? "border-red-500" : "border-[#CCCCCC]"
-                  }`}>
+                  }`}
+                >
                   <input
                     type={show.password ? "text" : "password"}
-                    id='nPass'
+                    id="nPass"
                     value={passwords.password}
-                    placeholder='Enter new password'
-                    className='h-full focus:outline-0 text-sm lg:text-base w-full'
+                    placeholder="Enter new password"
+                    className="h-full focus:outline-0 text-sm lg:text-base w-full"
                     onChange={(e) =>
                       handlePasswordInput("password", e.target.value)
                     }
                     required
                   />
                   <img
-                    src='/eye-icon.png'
-                    alt=''
-                    className='w-5.5 h-3 lg:w-[1.8rem] lg:h-[0.84rem] cursor-pointer'
+                    src="/eye-icon.png"
+                    alt=""
+                    className="w-5.5 h-3 lg:w-[1.8rem] lg:h-[0.84rem] cursor-pointer"
                     onClick={() =>
                       setShow((prev) => ({ ...prev, password: !prev.password }))
                     }
                   />
                 </div>
                 {errors.password && (
-                  <p className='text-red-500 text-sm mt-1'>{errors.password}</p>
+                  <p className="text-red-500 text-sm mt-1">{errors.password}</p>
                 )}
               </div>
 
               {/* Confirm Password */}
-              <div className='font-bricolage'>
-                <label htmlFor='cPass' className='lg:text-xl block'>
+              <div className="font-bricolage">
+                <label htmlFor="cPass" className="lg:text-xl block">
                   Confirm Password
                 </label>
                 <div
                   className={`flex items-center justify-between border py-3 px-2 lg:pl-3 lg:pr-1.5 rounded-lg ${
                     errors.confirm ? "border-red-500" : "border-[#CCCCCC]"
-                  }`}>
+                  }`}
+                >
                   <input
                     type={show.confirm ? "text" : "password"}
-                    id='cPass'
+                    id="cPass"
                     value={passwords.confirm}
-                    placeholder='Confirm password'
-                    className='h-full focus:outline-0 text-sm lg:text-base w-full'
+                    placeholder="Confirm password"
+                    className="h-full focus:outline-0 text-sm lg:text-base w-full"
                     onChange={(e) =>
                       handlePasswordInput("confirm", e.target.value)
                     }
                     required
                   />
                   <img
-                    src='/eye-icon.png'
-                    alt=''
-                    className='w-5.5 h-3 lg:w-[1.8rem] lg:h-[0.84rem] cursor-pointer'
+                    src="/eye-icon.png"
+                    alt=""
+                    className="w-5.5 h-3 lg:w-[1.8rem] lg:h-[0.84rem] cursor-pointer"
                     onClick={() =>
                       setShow((prev) => ({ ...prev, confirm: !prev.confirm }))
                     }
                   />
                 </div>
                 {errors.confirm && (
-                  <p className='text-red-500 text-sm mt-1'>{errors.confirm}</p>
+                  <p className="text-red-500 text-sm mt-1">{errors.confirm}</p>
                 )}
               </div>
 
               <Button
-                variant='primary'
-                size='lg'
-                className='rounded-[10px] mt-2 lg:mt-4 text-sm lg:text-base font-clash'
+                variant="primary"
+                size="lg"
+                className="rounded-[10px] mt-2 lg:mt-4 text-sm lg:text-base font-clash"
                 onClick={handlePasswordChange}
                 isDisabled={
                   !passwords.password ||
@@ -218,7 +222,8 @@ const Profile = () => {
                   errors.password ||
                   errors.confirm
                 }
-                type='button'>
+                type="button"
+              >
                 Change Password
               </Button>
             </div>
@@ -227,13 +232,14 @@ const Profile = () => {
 
         {/* Right Section - Personal Info */}
         <div>
-          <p className='text-xl sm:text-2xl font-medium font-clash'>
+          <p className="text-xl sm:text-2xl font-medium font-clash">
             Personal Information
           </p>
-          <hr className='my-2 border-t border-t-[#CCCCCC]' />
+          <hr className="my-2 border-t border-t-[#CCCCCC]" />
           <form
             onSubmit={handleProfileUpdate}
-            className='bg-white font-bricolage mt-3 flex flex-col rounded-sm justify-between gap-y-5 lg:gap-y-7 p-5 shadow-[0px_0px_5px_0.2px_rgba(0,0,0,0.25)]'>
+            className="bg-white font-bricolage mt-3 flex flex-col rounded-sm justify-between gap-y-5 lg:gap-y-7 p-5 shadow-[0px_0px_5px_0.2px_rgba(0,0,0,0.25)]"
+          >
             {[
               { id: "fullName", label: "Full Name", type: "text" },
               { id: "matricNumber", label: "Matric Number", type: "text" },
@@ -241,7 +247,7 @@ const Profile = () => {
               { id: "phoneNumber", label: "Phone Number", type: "tel" },
             ].map(({ id, label, type }) => (
               <div key={id}>
-                <label htmlFor={id} className='lg:text-xl block'>
+                <label htmlFor={id} className="lg:text-xl block">
                   {label}
                 </label>
                 <input
@@ -249,20 +255,21 @@ const Profile = () => {
                   id={id}
                   value={form[id]}
                   onChange={(e) => handleFormChange(id, e.target.value)}
-                  className='transition-transform duration-500 focus:outline-primary text-sm lg:text-base border border-[#CCCCCC] w-full py-3 px-2 lg:pl-3 lg:pr-1.5 rounded-lg'
+                  className="transition-transform duration-500 focus:outline-primary text-sm lg:text-base border border-[#CCCCCC] w-full py-3 px-2 lg:pl-3 lg:pr-1.5 rounded-lg"
                 />
               </div>
             ))}
 
             <div>
-              <label htmlFor='gender' className='lg:text-xl block'>
+              <label htmlFor="gender" className="lg:text-xl block">
                 Gender
               </label>
               <select
-                id='gender'
+                id="gender"
                 onChange={(e) => handleFormChange("gender", e.target.value)}
                 value={form.gender}
-                className='transition-transform duration-500 focus:outline-primary text-sm lg:text-base border border-[#CCCCCC] w-full py-3 px-2 lg:pl-3 lg:pr-1.5 rounded-lg'>
+                className="transition-transform duration-500 focus:outline-primary text-sm lg:text-base border border-[#CCCCCC] w-full py-3 px-2 lg:pl-3 lg:pr-1.5 rounded-lg"
+              >
                 {["Male", "Female", "Other"].map((gen) => (
                   <option key={gen} value={gen}>
                     {gen}
@@ -272,16 +279,17 @@ const Profile = () => {
             </div>
 
             <Button
-              variant='primary'
-              size='lg'
-              className='rounded-[10px] mt-4 font-clash'
+              variant="primary"
+              size="lg"
+              className="rounded-[10px] mt-4 font-clash"
               isDisabled={
                 !form.fullName ||
                 !form.email ||
                 !form.matricNumber ||
                 !form.phoneNumber
               }
-              type='submit'>
+              type="submit"
+            >
               Save
             </Button>
           </form>
@@ -289,7 +297,7 @@ const Profile = () => {
       </div>
 
       {isLoading && (
-        <div className='fixed inset-0 flex items-center justify-center bg-black/50 z-50'>
+        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
           <Loader />
         </div>
       )}

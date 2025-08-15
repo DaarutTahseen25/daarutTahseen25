@@ -1,31 +1,85 @@
+// import React from "react";
+// import { NavLink } from "react-router";
+// import { useAuth } from "../contexts/AuthContext";
+
+// const DashboardSidebarLink = ({ icon, label, to, disabled = false }) => {
+//   const { user } = useAuth();
+//   const baseClasses =
+//     "flex items-center px-7 gap-3 w-full h-10 rounded-md transition-colors duration-200";
+
+//   const activeClasses = "bg-primary text-white";
+//   const hoverClasses = "hover:bg-primary hover:text-white";
+//   const disabledClasses = "text-gray-400 cursor-not-allowed opacity-50";
+
+//   // Render disabled as non-clickable div
+//   if (disabled) {
+//     return (
+//       <div className={`${baseClasses} ${disabledClasses}`}>
+//         <span className='flex items-center justify-center'>{icon}</span>
+//         <span>{label}</span>
+//       </div>
+//     );
+//   }
+
+//   // Render logout button if `to` is missing
+//   if (!to) {
+//     return (
+//       <button className={`${baseClasses} ${hoverClasses} text-dark-grey`}>
+//         <span className='flex items-center justify-center'>{icon}</span>
+//         <span>{label}</span>
+//       </button>
+//     );
+//   }
+
+//   const isExact = to === `/${user.role}`;
+
+//   return (
+//     <NavLink
+//       to={to}
+//       {...(isExact ? { end: true } : {})}
+//       className={({ isActive }) =>
+//         `${baseClasses} text-[#A9A9A9] ${hoverClasses} ${
+//           isActive ? activeClasses : ""
+//         }`
+//       }>
+//       <span className='flex items-center justify-center'>{icon}</span>
+//       <span>{label}</span>
+//     </NavLink>
+//   );
+// };
+
+// export default DashboardSidebarLink;
+
 import React from "react";
 import { NavLink } from "react-router";
 import { useAuth } from "../contexts/AuthContext";
 
 const DashboardSidebarLink = ({ icon, label, to, disabled = false }) => {
   const { user } = useAuth();
+
   const baseClasses =
-    "flex items-center px-7 gap-3 w-full h-10 rounded-md transition-colors duration-200";
+    "flex items-center px-6 gap-3 w-full h-11 rounded-lg font-medium transition-all duration-300";
 
-  const activeClasses = "bg-primary text-white";
-  const hoverClasses = "hover:bg-primary hover:text-white";
-  const disabledClasses = "text-gray-400 cursor-not-allowed opacity-50";
+  const activeClasses = "bg-primary text-white shadow-md";
+  const hoverClasses = "hover:bg-primary hover:text-white hover:scale-[1.02]";
+  const disabledClasses =
+    "text-gray-400 cursor-not-allowed opacity-50 bg-gray-100";
 
-  // Render disabled as non-clickable div
+  // Disabled link
   if (disabled) {
     return (
       <div className={`${baseClasses} ${disabledClasses}`}>
-        <span className='flex items-center justify-center'>{icon}</span>
+        <span className="flex items-center justify-center text-lg">{icon}</span>
         <span>{label}</span>
       </div>
     );
   }
 
-  // Render logout button if `to` is missing
+  // Button (e.g., logout)
   if (!to) {
     return (
-      <button className={`${baseClasses} ${hoverClasses} text-dark-grey`}>
-        <span className='flex items-center justify-center'>{icon}</span>
+      <button className={`${baseClasses} text-dark-grey ${hoverClasses}`}>
+        <span className="flex items-center justify-center text-lg">{icon}</span>
         <span>{label}</span>
       </button>
     );
@@ -41,8 +95,9 @@ const DashboardSidebarLink = ({ icon, label, to, disabled = false }) => {
         `${baseClasses} text-[#A9A9A9] ${hoverClasses} ${
           isActive ? activeClasses : ""
         }`
-      }>
-      <span className='flex items-center justify-center'>{icon}</span>
+      }
+    >
+      <span className="flex items-center justify-center text-lg">{icon}</span>
       <span>{label}</span>
     </NavLink>
   );

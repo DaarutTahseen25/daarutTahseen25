@@ -1,15 +1,9 @@
 import React from "react";
-import Button from "../Components/Button";
-import LandingPageHeader from "../Components/LandingPageHeader";
-import Footer from "../Components/Footer";
-import HomeSidebar from "../Components/HomeSidebar";
-
+import { usePageTitle } from "./../hooks/usePageTitle";
 const PrivacyPolicy = () => {
+  usePageTitle("Our Policies");
   return (
     <main className="grid grid-rows-[auto_1fr_auto] min-h-screen">
-      <HomeSidebar />
-      <LandingPageHeader />
-
       <div className="w-[90%] md:w-[85%] mx-auto my-5">
         <h1 className="text-3xl font-bold text-center mb-8 text-gray-800 font-clash">
           Privacy Policy
@@ -150,8 +144,6 @@ const PrivacyPolicy = () => {
           </div>
         </div>
       </div>
-
-      <Footer />
     </main>
   );
 };

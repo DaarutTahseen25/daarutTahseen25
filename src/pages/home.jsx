@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import FeaturedCourses from "../Components/FeaturedCourses";
 import Hero from "../Components/Hero";
-import LandingPageHeader from "../Components/LandingPageHeader";
 import Trusted from "../Components/Trusted";
-import Footer from "../Components/Footer";
 import Testimonial from "../Components/Testimonial";
-import HomeSidebar from "../Components/HomeSidebar";
-import { ArrowUp } from "lucide-react"; // you can replace with any icon
+import { ArrowUp } from "lucide-react";
+import { usePageTitle } from "../hooks/usePageTitle";
 
 const Home = () => {
+  usePageTitle("Home");
   const [showScrollButton, setShowScrollButton] = useState(false);
 
   // Track scroll position
@@ -30,23 +29,20 @@ const Home = () => {
   };
 
   return (
-    <main className='grid grid-rows-[auto_1fr_1fr_1fr_1fr_auto] h-screen relative'>
-      <HomeSidebar />
-      <LandingPageHeader />
-
+    <main className="grid">
       <Hero />
       <Trusted />
       <FeaturedCourses />
       <Testimonial />
-      <Footer />
 
       {/* Scroll to Top Button */}
       {showScrollButton && (
         <button
           onClick={scrollToTop}
-          className='fixed bottom-6 right-6 z-[50] cursor-pointer bg-buttonhover text-white p-3 rounded-full shadow-lg hover:bg-primary transition-all duration-300 opacity-80 hover:opacity-100'
-          aria-label='Scroll to top'>
-          <ArrowUp className='w-6 h-6' />
+          className="fixed bottom-6 right-6 z-[50] cursor-pointer bg-buttonhover text-white p-3 rounded-full shadow-lg hover:bg-primary transition-all duration-300 opacity-80 hover:opacity-100"
+          aria-label="Scroll to top"
+        >
+          <ArrowUp className="w-6 h-6" />
         </button>
       )}
     </main>

@@ -1,15 +1,11 @@
 import React from "react";
-import LandingPageHeader from "../Components/LandingPageHeader";
-import Footer from "../Components/Footer";
-import HomeSidebar from "../Components/HomeSidebar";
+import { usePageTitle } from "../hooks/usePageTitle";
 
 const AboutUs = () => {
+  usePageTitle("About Us");
   return (
-    <main className='grid grid-rows-[auto_1fr_1fr_1fr_1fr_auto] h-screen'>
-      <HomeSidebar />
-      <LandingPageHeader />
+    <main className="grid  h-screen">
       <h1>About us</h1>
-      <Footer />
     </main>
   );
 };

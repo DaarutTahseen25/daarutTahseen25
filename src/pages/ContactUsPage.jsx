@@ -1,11 +1,8 @@
-import React, { useState } from "react";
-import LandingPageHeader from "../Components/LandingPageHeader";
-import Footer from "../Components/Footer";
-import HomeSidebar from "../Components/HomeSidebar";
 import { Mail, MapPin, Phone } from "lucide-react";
 import Input from "../Components/input";
 import Button from "../Components/Button";
 import useContactForm from "../hooks/useContactForm";
+import { usePageTitle } from "../hooks/usePageTitle";
 
 const info = [
   {
@@ -26,20 +23,18 @@ const info = [
 ];
 
 const ContactUsPage = () => {
- const {
-   formData,
-   formErrors,
-   isSubmitting,
-   submitMessage,
-   handleChange,
-   handleSubmit,
- } = useContactForm();
-
+  usePageTitle("Contact Us");
+  const {
+    formData,
+    formErrors,
+    isSubmitting,
+    submitMessage,
+    handleChange,
+    handleSubmit,
+  } = useContactForm();
 
   return (
-    <main className="grid grid-rows-[auto_1fr_auto] min-h-screen">
-      <HomeSidebar />
-      <LandingPageHeader />
+    <main className="grid min-h-screen">
       <section className="bg-primary py-10 text-white">
         <div className="w-[90%] md:w-[85%] mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
           {/* Left Side */}
@@ -247,7 +242,6 @@ const ContactUsPage = () => {
           </div>
         </div>
       </section>
-      <Footer />
     </main>
   );
 };

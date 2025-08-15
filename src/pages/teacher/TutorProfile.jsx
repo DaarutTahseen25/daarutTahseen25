@@ -1,8 +1,10 @@
 import React, { useState, useMemo, useCallback, useEffect } from "react";
 import { FaPen } from "react-icons/fa";
 import { useAuth } from "../../contexts/AuthContext";
+import { usePageTitle } from "../../hooks/usePageTitle";
 
 const TutorProfile = () => {
+  usePageTitle("My Profile");
   const { user } = useAuth();
   const profile = useMemo(() => user?.user || user, [user]);
 
@@ -61,30 +63,30 @@ const TutorProfile = () => {
   };
 
   return (
-    <div className='min-h-screen max-w-[1000px] mx-auto p-6 flex flex-col md:flex-row items-start gap-6'>
+    <div className="min-h-screen max-w-[1000px] mx-auto p-6 flex flex-col md:flex-row items-start gap-6">
       {/* LEFT SIDE */}
-      <div className='w-full md:w-1/3 flex flex-col items-center'>
+      <div className="w-full md:w-1/3 flex flex-col items-center">
         {/* Profile Picture */}
-        <div className='relative w-32 h-32 rounded-full border-2 border-white shadow overflow-hidden mb-5'>
+        <div className="relative w-32 h-32 rounded-full border-2 border-white shadow overflow-hidden mb-5">
           <img
             src={profileImage}
-            alt='Profile'
-            className='w-full h-full object-cover rounded-full'
+            alt="Profile"
+            className="w-full h-full object-cover rounded-full"
           />
-          <label className='absolute bottom-1 right-1 bg-secondary p-3 rounded-full shadow cursor-pointer'>
-            <FaPen className='text-primary' />
+          <label className="absolute bottom-1 right-1 bg-secondary p-3 rounded-full shadow cursor-pointer">
+            <FaPen className="text-primary" />
             <input
-              type='file'
-              accept='image/*'
-              className='hidden'
+              type="file"
+              accept="image/*"
+              className="hidden"
               onChange={handleProfileImageChange}
             />
           </label>
         </div>
 
         {/* Change Password */}
-        <div className='bg-white p-4 rounded shadow w-full'>
-          <h2 className='font-semibold font-clash text-xl mb-3'>
+        <div className="bg-white p-4 rounded shadow w-full">
+          <h2 className="font-semibold font-clash text-xl mb-3">
             Change Password
           </h2>
           {[
@@ -99,37 +101,38 @@ const TutorProfile = () => {
               placeholder: "Confirm password",
             },
           ].map((field, i) => (
-            <div key={i} className='mb-3'>
+            <div key={i} className="mb-3">
               <input
-                type='password'
+                type="password"
                 value={field.value}
                 onChange={(e) => field.set(e.target.value)}
                 placeholder={field.placeholder}
-                className='w-full border border-textmuted px-3 py-3 rounded focus:outline-none'
+                className="w-full border border-textmuted px-3 py-3 rounded focus:outline-none"
               />
             </div>
           ))}
           <button
             onClick={handleChangePassword}
-            className='w-full bg-primary text-white py-2 rounded hover:bg-teal-600 transition'>
+            className="w-full bg-primary text-white py-2 rounded hover:bg-teal-600 transition"
+          >
             Change Password
           </button>
         </div>
       </div>
 
       {/* RIGHT SIDE */}
-      <div className='bg-white p-6 rounded shadow w-full md:w-2/3'>
-        <h2 className='font-semibold font-clash text-xl mb-4'>
+      <div className="bg-white p-6 rounded shadow w-full md:w-2/3">
+        <h2 className="font-semibold font-clash text-xl mb-4">
           Personal Information
         </h2>
-        <form className='space-y-4'>
+        <form className="space-y-4">
           {Object.entries(userInfo).map(([key, value]) => (
             <div key={key}>
-              <label className='block text-sm mb-1'>{formatLabel(key)}</label>
+              <label className="block text-sm mb-1">{formatLabel(key)}</label>
               <input
-                type='text'
+                type="text"
                 value={value}
-                className='w-full border border-textmuted px-3 py-3 rounded focus:outline-none'
+                className="w-full border border-textmuted px-3 py-3 rounded focus:outline-none"
                 onChange={(e) =>
                   setUserInfo((prev) => ({ ...prev, [key]: e.target.value }))
                 }
@@ -137,9 +140,10 @@ const TutorProfile = () => {
             </div>
           ))}
           <button
-            type='button'
-            className='w-full bg-primary text-white py-2 text-semibold rounded hover:bg-teal-600 transition'
-            onClick={() => alert("Saved!")}>
+            type="button"
+            className="w-full bg-primary text-white py-2 text-semibold rounded hover:bg-teal-600 transition"
+            onClick={() => alert("Saved!")}
+          >
             Save
           </button>
         </form>

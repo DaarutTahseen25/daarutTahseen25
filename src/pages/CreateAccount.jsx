@@ -1,6 +1,8 @@
 import { Outlet } from "react-router";
+import { usePageTitle } from "../hooks/usePageTitle";
 
 const CreateAccount = () => {
+  usePageTitle("Registeration");
   return (
     <div className="w-screen  grid grid-cols-1 lg:grid-cols-2">
       <div className="w-screen h-screen grid grid-cols-1 lg:grid-cols-2">

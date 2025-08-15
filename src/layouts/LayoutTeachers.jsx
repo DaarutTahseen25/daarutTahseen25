@@ -6,13 +6,13 @@ import HomeSidebar from "../Components/HomeSidebar";
 
 const LayoutTeachers = () => {
   return (
-    <div className='grid min-h-screen grid-cols-1 lg:grid-cols-[250px_1fr]'>
+    <div className="grid min-h-screen grid-cols-1 lg:grid-cols-[250px_1fr]">
       {/* Sidebar - fixed height */}
       <DashboardSidebar />
       <HomeSidebar />
 
       {/* Main content area - scrollable */}
-      <div className='flex flex-col h-screen overflow-y-auto'>
+      <div className="flex flex-col h-screen overflow-y-auto">
         <DashboardHeader />
         <DashboardMain />
       </div>

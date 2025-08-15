@@ -1,10 +1,9 @@
 import React from "react";
 import { Link } from "react-router";
-import HomeSidebar from "../Components/HomeSidebar";
-import LandingPageHeader from "../Components/LandingPageHeader";
-import Footer from "../Components/Footer";
+import { usePageTitle } from "../hooks/usePageTitle";
 
 const TermsOfService = () => {
+  usePageTitle("Our Terms");
   const lastUpdated = new Date().toLocaleDateString();
 
   const sectionClass = "mb-6";
@@ -12,17 +11,12 @@ const TermsOfService = () => {
   const textClass = "text-gray-600 leading-relaxed";
 
   return (
-    <main className='grid grid-rows-[auto_1fr_auto] min-h-screen'>
-      <header>
-        <HomeSidebar />
-        <LandingPageHeader />
-      </header>
-
-      <article className='w-[90%] md:w-[85%] mx-auto my-5'>
-        <h1 className='text-3xl font-bold text-center mb-8 text-gray-800 font-clash'>
+    <main className="grid grid-rows-[auto_1fr_auto] min-h-screen">
+      <article className="w-[90%] md:w-[85%] mx-auto my-5">
+        <h1 className="text-3xl font-bold text-center mb-8 text-gray-800 font-clash">
           Terms of Service
         </h1>
-        <p className='text-sm mb-8 text-gray-600 leading-relaxed'>
+        <p className="text-sm mb-8 text-gray-600 leading-relaxed">
           Last updated: {lastUpdated}
         </p>
 
@@ -31,7 +25,7 @@ const TermsOfService = () => {
           <p className={textClass}>
             By using DaarutTahseen LMS, you accept and agree to be bound to our
             Terms of Service and{" "}
-            <Link to='/privacy-policy' className='text-blue-600 underline'>
+            <Link to="/privacy-policy" className="text-blue-600 underline">
               Privacy Policy
             </Link>
             .
@@ -69,7 +63,7 @@ const TermsOfService = () => {
         <section className={sectionClass}>
           <h2 className={headingClass}>5. Conduct</h2>
           <p className={textClass}>You must agree not to:</p>
-          <ul className='list-disc pl-6 mb-4 text-gray-600'>
+          <ul className="list-disc pl-6 mb-4 text-gray-600">
             <li>Harass or abuse others</li>
             <li>Share or sell course content</li>
             <li>Use fake credentials or submit fraudulent documents</li>
@@ -104,26 +98,24 @@ const TermsOfService = () => {
 
         <section>
           <h2 className={headingClass}>Contact</h2>
-          <p className='mb-2 text-gray-600 leading-relaxed'>
+          <p className="mb-2 text-gray-600 leading-relaxed">
             For questions, contact us at:
           </p>
           <ul>
             <li className={textClass}>
-              <strong className='font-clash'>Business Address:</strong> 18,
+              <strong className="font-clash">Business Address:</strong> 18,
               Cucumber Drive, Arowona Adegbeye Estate, New Felele, Ibadan.
             </li>
             <li className={textClass}>
-              <strong className='font-clash'>Email:</strong>{" "}
+              <strong className="font-clash">Email:</strong>{" "}
               daaruttahseeninstitution@gmail.com
             </li>
             <li className={textClass}>
-              <strong className='font-clash'>Phone:</strong> +2349043609339
+              <strong className="font-clash">Phone:</strong> +2349043609339
             </li>
           </ul>
         </section>
       </article>
-
-      <Footer />
     </main>
   );
 };
