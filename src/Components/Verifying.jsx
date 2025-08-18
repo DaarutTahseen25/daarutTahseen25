@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 const Verifying = () => {
   return (
-    <div className='min-w-[300px] sm:w-[500px] h-[328px] flex flex-col items-center justify-center gap-10 bg-white rounded-[20px] py-3 px-10'>
+    <div className='min-w-[300px] sm:w-[500px] h-[328px] flex flex-col items-center justify-center gap-10 py-3 px-10'>
       <img
         src='/verifying.png'
         alt='Verifying animation'

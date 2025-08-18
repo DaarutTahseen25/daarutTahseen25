@@ -57,12 +57,15 @@ const useVerifyOtp = () => {
       } else {
         dispatch({ type: "ERROR", payload: "Verification failed" });
       }
+
+      return response.data;
     } catch (err) {
       const message =
         err.response?.data?.message ||
         err.message ||
         "Invalid OTP code or expired";
       dispatch({ type: "ERROR", payload: message });
+      return { success: false, message };
     } finally {
       dispatch({ type: "STOP_LOADING" });
 

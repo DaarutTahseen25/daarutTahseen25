@@ -118,7 +118,7 @@ const semesterData = {
   beginner: [
     {
       title: "First Semester",
-      icon: <BiSolidBook className="text-[#009688]" />,
+      icon: <FcOk className='text-[#009688]' />,
       items: [
         "Focus on core foundation",
         "Midterm test after 2 months",
@@ -127,12 +127,12 @@ const semesterData = {
     },
     {
       title: "Second Semester",
-      icon: <FcOk className="text-[#009688]" />,
+      icon: <FcOk className='text-[#009688]' />,
       items: ["Emphasis on mastery", "Class Progression", "Final exams"],
     },
     {
       title: "Assessments Include:",
-      icon: <FcOrganization className="text-[#009688]" />,
+      icon: <FcOk className='text-[#009688]' />,
       items: [
         "Written exams",
         "Oral exmas (Qur'an, Hadith, Arabic)",
@@ -143,7 +143,7 @@ const semesterData = {
   intermediate: [
     {
       title: "First Semester",
-      icon: <BiSolidBook className="text-[#009688]" />,
+      icon: <FcOk className='text-[#009688]' />,
       items: [
         "Focus on core foundation",
         "Midterm test after 2 months",
@@ -152,12 +152,12 @@ const semesterData = {
     },
     {
       title: "Second Semester",
-      icon: <FcOk className="text-[#009688]" />,
+      icon: <FcOk className='text-[#009688]' />,
       items: ["Emphasis on mastery", "Class Progression", "Final exams"],
     },
     {
       title: "Assessments Include:",
-      icon: <FcOrganization className="text-[#009688]" />,
+      icon: <FcOk className='text-[#009688]' />,
       items: [
         "Written exams",
         "Oral exams (Qur'an , Hadith, Arabic)",
@@ -168,7 +168,7 @@ const semesterData = {
   advanced: [
     {
       title: "First Semester",
-      icon: <BiSolidBook className="text-[#009688]" />,
+      icon: <FcOk className='text-[#009688]' />,
       items: [
         "Advanced Tafseer",
         "Islamic Jurisprudence",
@@ -177,12 +177,12 @@ const semesterData = {
     },
     {
       title: "Second Semester",
-      icon: <FcOk className="text-[#009688]" />,
+      icon: <FcOk className='text-[#009688]' />,
       items: ["Emphasis on mastery", "Class Progression", "Final exams"],
     },
     {
       title: "Assessments Include:",
-      icon: <FcOrganization className="text-[#009688]" />,
+      icon: <FcOk className='text-[#009688]' />,
       items: [
         "Written exams",
         "Oral exams (Qur'an , Hadith, Arabic)",
@@ -211,161 +211,233 @@ const Courses = () => {
   };
 
   return (
-    <div className="grid grid-rows-[auto_1fr_auto] bg-[#FFFCE1] min-h-screen">
-      {/* Hero Section */}
-      <div className="container mx-auto px-4 py-8 md:py-12">
-        <h1 className="text-2xl md:text-4xl font-clash  text-[#360400] text-center py-6 md:py-12">
-          Our Courses - Discover Your Path to Quranic Knowledge
-        </h1>
-        <p className="text-center px-4  text-sm text-[#360400] font-bricolage md:text-base">
-          DaarutTahseen Offers structured Quranic and islamic studies programs
-          for all levels, prompting both intellectual{" "}
-          <span className="hidden md:inline">
-            <br />
-          </span>{" "}
-          and spiritual growth. With a two-semester academic year (16 weeks
-          each) classes run five days weekly, covering 2-
-          <span className="hidden md:inline">
-            <br />
-          </span>
-          3 subjects daily in 15-hour sessions. Explore our catalog to find the
-          course that suits your goals.
-        </p>
-      </div>
+    <div className='min-h-screen bg-gradient-to-br from-[#FFFCE1]/30 via-transparent to-[#009688]/5'>
+      {/* Hero Section with modern design */}
+      <section className='relative overflow-hidden py-12 md:py-16 lg:py-24 px-4'>
+        {/* Decorative background elements */}
+        <div className='absolute inset-0 bg-gradient-to-br from-[#009688]/5 via-transparent to-[#360400]/5'></div>
+        <div className='absolute top-0 right-0 w-64 h-64 md:w-96 md:h-96 bg-gradient-to-bl from-[#009688]/10 to-transparent rounded-full blur-3xl'></div>
+        <div className='absolute bottom-0 left-0 w-48 h-48 md:w-80 md:h-80 bg-gradient-to-tr from-[#360400]/10 to-transparent rounded-full blur-3xl'></div>
 
-      {/* Course Categories */}
-      <section className="container mx-auto w-full px-4 sm:px-6 lg:w-[80%]">
-        <div className="border-2 mt-6 border-none rounded-2xl p-4 sm:p-6 md:p-8 lg:p-10 bg-white shadow-sm">
-          {/* Navigation Tabs */}
-          <div className="flex justify-center items-center border-gray-200 mb-6 sm:mb-8 w-full">
-            <div className="flex flex-col items-center sm:flex-row w-full sm:w-auto gap-0 sm:gap-4 md:gap-6 lg:gap-8">
-              <button
-                onClick={() => setActiveLevel("beginner")}
-                className={`px-3 sm:px-4 md:px-6 py-2 sm:py-3 text-center font-clash whitespace-nowrap transition-colors duration-200 text-xl sm:text-2xl md:text-3xl ${
-                  activeLevel === "beginner"
-                    ? "text-[#009688] font-clash border-b-2 border-[#009688]"
-                    : "text-[#666666] hover:text-[#009688]"
-                }`}
-              >
-                Beginner
-              </button>
-
-              <button
-                onClick={() => setActiveLevel("intermediate")}
-                className={`px-3 sm:px-4 md:px-6 py-2 sm:py-3 text-center font-clash whitespace-nowrap transition-colors duration-200 text-xl sm:text-2xl md:text-3xl ${
-                  activeLevel === "intermediate"
-                    ? "text-[#009688] font-clash border-b-2 border-[#009688]"
-                    : "text-[#666666] hover:text-[#009688]"
-                }`}
-              >
-                Intermediate
-              </button>
-
-              <button
-                onClick={() => setActiveLevel("advanced")}
-                className={`px-3 sm:px-4 md:px-6 py-2 sm:py-3 text-center font-clash whitespace-nowrap transition-colors duration-200 text-xl sm:text-2xl md:text-3xl ${
-                  activeLevel === "advanced"
-                    ? "text-[#009688] font-clash border-b-2 border-[#009688]"
-                    : "text-[#666666] hover:text-[#009688]"
-                }`}
-              >
-                Advanced
-              </button>
+        <div className='relative z-10 max-w-7xl mx-auto'>
+          {/* Modern badge */}
+          <div className='text-center mb-6 md:mb-8'>
+            <div className='inline-block px-6 py-2 bg-[#009688]/10 rounded-full text-[#009688] font-medium text-sm mb-4 md:mb-6'>
+              Structured Islamic Education
             </div>
           </div>
 
-          {/* Course Items */}
-          <div className="mx-auto">
-            <h1 className="text-3xl text-[#009688] px-8 sm:text-xl md:text-2xl font-clash mb-3 sm:mb-4 md:mb-6">
-              {activeLevel.charAt(0).toUpperCase() + activeLevel.slice(1)}{" "}
-              Classes
-            </h1>
-            <div className="space-y-4 sm:space-y-5 md:space-y-6">
-              {Array.from({ length: getCourseCount() }, (_, i) => i + 1).map(
-                (courseNum) => {
-                  const course = courseData[activeLevel][courseNum];
-                  return (
-                    <div
-                      key={courseNum}
-                      className="mb-4 sm:mb-5 md:mb-6 py-4 sm:py-5 px-4 sm:px-5 rounded-xl sm:rounded-2xl border-2 border-gray-100 hover:border-[#009688]/20 hover:shadow-md transition-all duration-300 pb-4 sm:pb-5 md:pb-6"
-                    >
-                      <div className="flex items-center gap-2 sm:gap-3">
-                        <VscStarFull className="text-black text-lg sm:text-xl" />
-                        <h2 className="text-base sm:text-lg text-[#360400] md:text-xl font-montserrat">
-                          {course.title}
-                        </h2>
-                      </div>
-                      <ul className="list-disc mt-3 sm:mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 md:gap-4">
-                        {course.items.map((item, index) => (
-                          <li
-                            key={index}
-                            className="ml-5 sm:ml-6 text-xs sm:text-sm md:text-base text-gray-700"
-                          >
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  );
-                }
-              )}
+          {/* Hero title with gradient accent */}
+          <h1 className='text-3xl sm:text-4xl md:text-6xl font-bold text-[#360400] font-clash leading-tight text-center mb-6 md:mb-8  px-2'>
+            Our Courses
+            <span className='block text-[#009688] bg-gradient-to-r from-[#009688] to-[#360400] bg-clip-text '>
+              Discover Your Path
+            </span>
+            <span className='text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl block mt-2'>
+              to Quranic Knowledge
+            </span>
+          </h1>
+          <div className='w-24 h-1 bg-gradient-to-r from-[#009688] to-[#360400] mx-auto rounded-full mb-8'></div>
+
+          {/* Enhanced description card */}
+          <div className='max-w-4xl mx-auto px-2'>
+            <div className='  '>
+              <p className='text-base md:text-lg lg:text-xl text-gray-700 text-center leading-relaxed'>
+                <span className='font-semibold text-[#360400]'>
+                  DaarutTahseen
+                </span>{" "}
+                offers structured Quranic and Islamic studies programs for all
+                levels, promoting both{" "}
+                <span className='font-semibold text-[#009688]'>
+                  intellectual
+                </span>{" "}
+                and{" "}
+                <span className='font-semibold text-[#009688]'>
+                  spiritual growth
+                </span>
+                . With a two-semester academic year (16 weeks each), classes run
+                five days weekly, covering 2-3 subjects daily in 1.5-hour
+                sessions.
+              </p>
+              <div className='mt-4 md:mt-6 p-3 md:p-4 rounded-xl md:rounded-2xl bg-[#009688]/10 border border-[#009688]/20'>
+                <p className='text-base md:text-lg lg:text-xl text-[#360400] text-center font-medium'>
+                  Explore our catalog to find the course that suits your goals.
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Semester Breakdown  */}
-      <section className="bg-white mx-auto flex justify-center  shadow-xl px-4 w-full mt-10 mb-10">
-        <div className=" justify-between p-6 md:p-8 lg:p-10  ">
-          <h2 className="text-3xl text-center font-clash  text-[#360400]  md:mb-8">
-            Semester Breakdown
-          </h2>
-          <div className="grid  lg:flex grid-cols-1 gap-7 md:grid-cols-2 lg:gap-15">
+      {/* Course Categories with modern design */}
+      <section className='px-4 pb-12 md:pb-16'>
+        <div className='max-w-6xl mx-auto'>
+          <div className=' p-4 md:p-8 lg:p-12 '>
+            {/* Modern Navigation Tabs */}
+            <div className='flex justify-center mb-8 md:mb-12'>
+              <div className='bg-gray-100/80 p-1.5 md:p-2 rounded-xl md:rounded-2xl  w-full max-w-xl'>
+                <div className='flex gap-1 md:gap-2'>
+                  {["beginner", "intermediate", "advanced"].map((level) => (
+                    <button
+                      key={level}
+                      onClick={() => setActiveLevel(level)}
+                      className={`flex-1 px-3 md:px-6 lg:px-8 py-2 md:py-3 lg:py-4 rounded-lg md:rounded-xl font-clash text-xs sm:text-sm md:text-lg lg:text-xl transition-all duration-300 ${
+                        activeLevel === level
+                          ? "bg-[#009688] text-white shadow-lg transform scale-105"
+                          : "text-[#666666] hover:text-[#009688] hover:bg-white/50"
+                      }`}>
+                      {level.charAt(0).toUpperCase() + level.slice(1)}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Course Items with enhanced design */}
+            <div className='max-w-5xl mx-auto'>
+              <div className='text-center mb-6 md:mb-10'>
+                <h2 className='text-2xl md:text-3xl lg:text-4xl font-clash text-[#009688] mb-3 md:mb-4'>
+                  {activeLevel.charAt(0).toUpperCase() + activeLevel.slice(1)}{" "}
+                  Classes
+                </h2>
+                <div className='w-16 md:w-24 h-1 bg-gradient-to-r from-[#009688] to-[#360400] mx-auto rounded-full'></div>
+              </div>
+
+              <div className='space-y-4 md:space-y-6 lg:space-y-8'>
+                {Array.from({ length: getCourseCount() }, (_, i) => i + 1).map(
+                  (courseNum) => {
+                    const course = courseData[activeLevel][courseNum];
+                    return (
+                      <div
+                        key={courseNum}
+                        className='group bg-white rounded-xl md:rounded-2xl p-4 md:p-6 lg:p-8 border border-gray-200 hover:border-[#009688]/30  transition-all duration-500 '>
+                        {/* Course header */}
+                        <div className='flex items-center gap-3 md:gap-4 mb-4 md:mb-6'>
+                          <div className='p-2 md:p-3 bg-[#009688]/10 rounded-full group-hover:bg-[#009688]/20 transition-colors duration-300 flex-shrink-0'>
+                            <VscStarFull className='text-[#009688] text-lg md:text-xl lg:text-2xl group-hover:scale-110 transition-transform duration-200' />
+                          </div>
+                          <h3 className='text-lg md:text-xl lg:text-2xl font-clash text-[#360400] group-hover:text-[#009688] transition-colors duration-300'>
+                            {course.title}
+                          </h3>
+                        </div>
+
+                        {/* Course items grid */}
+                        <div className='grid gap-2 md:gap-3 lg:gap-4'>
+                          {course.items.map((item, index) => (
+                            <div
+                              key={index}
+                              className='flex items-start gap-2 md:gap-3 p-2 md:p-3 bg-white/70 rounded-lg md:rounded-xl border border-gray-100   transition-all duration-200 group/item'>
+                              <div className='w-1.5 h-1.5 md:w-2 md:h-2 bg-[#009688] rounded-full flex-shrink-0 mt-2  transition-transform duration-200'></div>
+                              <span className='text-sm md:text-base text-gray-700 group-hover/item:text-[#360400] transition-colors duration-200 leading-relaxed'>
+                                {item}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  }
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Enhanced Semester Breakdown */}
+      <section className='py-12 md:py-16 bg-white/50 backdrop-blur-sm'>
+        <div className='max-w-6xl mx-auto px-4'>
+          <div className='text-center mb-8 md:mb-12'>
+            <h2 className='text-2xl md:text-3xl lg:text-4xl font-clash text-[#360400] mb-3 md:mb-4'>
+              Semester Breakdown
+            </h2>
+            <p className='text-base md:text-lg text-gray-600 max-w-2xl mx-auto px-2'>
+              Understanding our structured academic approach for {activeLevel}{" "}
+              level
+            </p>
+            <div className='w-16 md:w-24 h-1 bg-gradient-to-r from-[#009688] to-[#360400] mx-auto rounded-full mt-3 md:mt-4'></div>
+          </div>
+
+          <div className='grid gap-4 md:gap-6 lg:gap-8 sm:grid-cols-2 lg:grid-cols-3'>
             {semesterData[activeLevel]?.map((semester, index) => (
               <div
                 key={index}
-                className="border border-gray-200 p-5 md:p-6 rounded-lg hover:shadow-md transition-all duration-300"
-              >
-                <div className="flex  items-center gap-3 mb-4">
-                  {semester.icon}
-                  <h3 className="text-sm md:text-sm font-montserrat text-[#360400]">
+                className='group bg-white rounded-xl md:rounded-2xl p-4 md:p-6 lg:p-8  border border-gray-100  hover:border-[#009688]/20 transition-all duration-500 '>
+                {/* Semester header */}
+                <div className='flex items-center gap-3 md:gap-4 mb-4 md:mb-6'>
+                  <div className='p-2 md:p-3 bg-[#009688]/10 rounded-full group-hover:bg-[#009688]/20 transition-colors duration-300 flex-shrink-0'>
+                    <div className='text-xl md:text-2xl  transition-transform duration-200'>
+                      {semester.icon}
+                    </div>
+                  </div>
+                  <h3 className='text-base md:text-lg lg:text-xl font-clash text-[#360400] group-hover:text-[#009688] transition-colors duration-300'>
                     {semester.title}
                   </h3>
                 </div>
-                <ul className="space-y-2 ">
+
+                {/* Semester items */}
+                <ul className='space-y-2 md:space-y-3'>
                   {semester.items.map((item, id) => (
                     <li
                       key={id}
-                      className="list-disc text-gray-700 text-sm md:text-base "
-                    >
-                      {item}
+                      className='flex items-start gap-2 md:gap-3 p-2 md:p-3 bg-gray-50/50 rounded-lg md:rounded-xl  transition-colors duration-200 group/item'>
+                      <div className='w-1.5 h-1.5 md:w-2 md:h-2 bg-[#009688] rounded-full mt-1.5 md:mt-2 flex-shrink-0  transition-transform duration-200'></div>
+                      <span className='text-sm md:text-base text-gray-700  transition-colors duration-200 leading-relaxed'>
+                        {item}
+                      </span>
                     </li>
                   ))}
                 </ul>
+
+                {/* Decorative bottom accent */}
+                <div className='mt-4 md:mt-6 h-1 bg-gradient-to-r from-[#009688]/20 to-[#360400]/20 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left'></div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Enrollment Section */}
-      <section className="container mx-auto px-4 py-8 md:py-12 text-center">
-        <h1 className="text-3xl md:text-2xl text-[#360400] font-clash mb-4">
-          How to Enroll
-        </h1>
-        <p className="mb-6 text-[#000000] max-w-2xl mx-auto">
-          Ready to begin your journey of Quranic and islamic knowledge at
-          daarutahseen institution
-        </p>
-        <Button className="mx-auto">Enroll Now</Button>
-        <p className="mt-6 md:mt-9 text-sm md:text-base">
-          You'll be redirected to the Admission page to select your class and
-          complete registration.
-        </p>
-        <p className="text-sm md:text-base">
-          <span className="text-[#009688] font-medium">Need help? </span>
-          Our Team is here to guide you.
-        </p>
+      {/* Enhanced Enrollment Section */}
+      <section className='py-12 md:py-16 relative overflow-hidden'>
+        {/* Decorative elements */}
+        <div className='absolute top-0 left-0 w-32 h-32 md:w-40 md:h-40 bg-[#009688]/10 rounded-full blur-2xl'></div>
+        <div className='absolute bottom-0 right-0 w-40 h-40 md:w-48 md:h-48 bg-[#360400]/10 rounded-full blur-2xl'></div>
+
+        <div className='relative z-10 max-w-4xl mx-auto px-4 text-center'>
+          <div className='mb-8 md:mb-12'>
+            <h2 className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-clash text-[#360400] mb-4 md:mb-6 leading-tight'>
+              Ready to Begin Your Journey?
+            </h2>
+            <p className='text-lg md:text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed px-2'>
+              Take the first step towards deepening your Quranic and Islamic
+              knowledge at
+              <span className='font-semibold text-[#009688]'>
+                {" "}
+                DaarutTahseen Institution
+              </span>
+            </p>
+          </div>
+
+          <div className='mb-8 md:mb-10'>
+            <Button className='px-8 md:px-12 py-4 md:py-6  text-white font-bold text-lg md:text-xl rounded-xl md:rounded-2xl shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300 '>
+              Enroll Now
+              <span className='ml-2 md:ml-3 group-hover:translate-x-1 transition-transform duration-200'>
+                →
+              </span>
+            </Button>
+          </div>
+
+          <div className=' p-6 md:p-8 max-w-2xl mx-auto   '>
+            <p className='text-base md:text-lg text-gray-700 mb-3 md:mb-4 leading-relaxed'>
+              You'll be redirected to the Admission page to select your class
+              and complete registration.
+            </p>
+            <p className='text-base md:text-lg text-gray-700'>
+              <span className='font-bold text-[#009688]'>Need help?</span> Our
+              expert team is here to guide you every step of the way.
+            </p>
+          </div>
+        </div>
       </section>
     </div>
   );

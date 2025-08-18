@@ -27,7 +27,7 @@ function Button({
       "border border-gray-400 text-gray-900 hover:bg-gray-50 cursor-pointer",
     cancel:
       "bg-transparent border-2 border-primary text-primary cursor-pointer",
-    notActive: "bg-light-grey text-dark-grey",
+    notActive: "bg-light-grey text-dark-grey cursor-not-allowed",
   };
 
   const cursor = isDisabled

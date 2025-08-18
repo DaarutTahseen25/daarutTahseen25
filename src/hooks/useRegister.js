@@ -38,7 +38,9 @@ const useRegister = () => {
           payload: res?.data?.message || "User Registered Successfully",
         });
 
-        navigate("/otp-page", { state: { email: formData.email } });
+        const registeredEmail = res?.data?.data?.email;
+
+        navigate("/otp-page", { state: { email: registeredEmail } });
       } catch (err) {
         const errorMsg = err?.response?.data?.message || "Registration failed";
         dispatch({ type: "SUBMIT_ERROR", payload: errorMsg });
