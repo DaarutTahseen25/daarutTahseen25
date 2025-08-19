@@ -1,5 +1,6 @@
 import { memo, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { toast } from "react-toastify";
 
 function Navigation({ currentIndex, setCurrentIndex, total }) {
   const handlePrev = useCallback(() => {
@@ -11,7 +12,7 @@ function Navigation({ currentIndex, setCurrentIndex, total }) {
   }, [setCurrentIndex]);
 
   const handleSubmit = useCallback(() => {
-    alert("Submit functionality to be implemented");
+    toast.success("Submit functionality to be implemented");
   }, []);
 
   const isFirst = currentIndex === 0;

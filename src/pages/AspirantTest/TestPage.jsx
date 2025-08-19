@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, Suspense, lazy } from "react";
 import questionsData from "./data/questions";
 import { usePageTitle } from "../../hooks/usePageTitle";
+import { toast } from "react-toastify";
 
 // Lazy-load components
 const Header = lazy(() => import("./Header"));
@@ -44,7 +45,7 @@ export default function TestPage() {
     console.log("Submitting answers:", submissionPayload);
 
     setTimeout(() => {
-      alert("Answers submitted successfully!");
+      toast.success("Answers submitted successfully!");
       setIsSubmitted(true);
     }, 1000);
   }, [questions, cheated, isSubmitted]);

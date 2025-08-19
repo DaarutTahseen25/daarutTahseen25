@@ -15,6 +15,7 @@ import Button from "../../Components/Button";
 import { Loader } from "../../Components/Loader";
 import { useAuth } from "../../contexts/AuthContext";
 import { usePageTitle } from "../../hooks/usePageTitle";
+import { useProfile } from "../../hooks/useProfile";
 
 const Profile = () => {
   usePageTitle("My Profile");
@@ -22,103 +23,26 @@ const Profile = () => {
 
   const profile = useMemo(() => user?.user || user, [user]);
 
-  const [form, setForm] = useState(() => ({
-    fullName: profile?.full_name || "",
-    email: profile?.email || "",
-    matricNumber: profile?.matric_number || profile?.teacher_id || "",
-    phoneNumber: profile?.phone_number || "",
-    gender: profile?.gender || "Male",
-  }));
+  const {
+    state,
+    fileInputRef,
+    dispatch,
+    handleFormChange,
+    handleProfilePicChange,
+    handlePasswordInput,
+    handlePasswordChange,
+    handleProfileUpdate,
+  } = useProfile(profile);
 
-  const [passwords, setPasswords] = useState({
-    oldPassword: "",
-    password: "",
-    confirm: "",
-  });
-  const [errors, setErrors] = useState({
-    oldPassword: "",
-    password: "",
-    confirm: "",
-  });
-
-  const [show, setShow] = useState({
-    oldPassword: false,
-    password: false,
-    confirm: false,
-  });
-  const [isLoading, setIsLoading] = useState(false);
-
-  const [profilePic, setProfilePic] = useState(profile?.image);
-  const fileInputRef = useRef(null);
-
-  // =====================
-  // Handlers
-  // =====================
-  const handleProfilePicChange = useCallback((e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = (ev) => setProfilePic(ev.target.result);
-    reader.readAsDataURL(file);
-  }, []);
-
-  const handlePasswordInput = useCallback(
-    (field, value) => {
-      setPasswords((prev) => ({ ...prev, [field]: value }));
-
-      setErrors((prev) => {
-        const newErrors = { ...prev };
-        if (field === "oldPassword" && value.length < 1) {
-          newErrors[field] = "Current password is required";
-        } else if (field === "password" && value.length < 8) {
-          newErrors[field] = "Password must be at least 8 characters";
-        } else if (field === "confirm" && value !== passwords.password) {
-          newErrors.confirm = "Passwords do not match";
-        } else {
-          newErrors[field] = "";
-        }
-        return newErrors;
-      });
-    },
-    [passwords.password]
-  );
-
-  const handlePasswordChange = useCallback(() => {
-    if (!passwords.oldPassword || !passwords.password || !passwords.confirm) {
-      alert("Please fill in all fields.");
-      return;
-    }
-    if (errors.oldPassword || errors.password || errors.confirm) return;
-
-    setIsLoading(true);
-    setTimeout(() => {
-      setPasswords({ oldPassword: "", password: "", confirm: "" });
-      setIsLoading(false);
-      alert("Password changed successfully!");
-    }, 2000);
-  }, [errors, passwords]);
-
-  const handleFormChange = useCallback((field, value) => {
-    setForm((prev) => ({ ...prev, [field]: value }));
-  }, []);
-
-  const handleProfileUpdate = useCallback(
-    (e) => {
-      e.preventDefault();
-      const { fullName, email, matricNumber, phoneNumber } = form;
-
-      if (!fullName || !email || !matricNumber || !phoneNumber) {
-        alert("Please fill in all fields.");
-        return;
-      }
-      setIsLoading(true);
-      setTimeout(() => {
-        setIsLoading(false);
-        alert("Profile updated successfully!");
-      }, 2000);
-    },
-    [form]
-  );
+  const {
+    form,
+    passwords,
+    errors,
+    show,
+    isLoadingPassword,
+    isLoadingProfile,
+    profilePic,
+  } = state;
 
   // =====================
   // Render
@@ -211,6 +135,7 @@ const Profile = () => {
                   <div className='relative'>
                     <User className='w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2' />
                     <input
+                      disabled={isLoadingProfile}
                       type='text'
                       value={form.fullName}
                       onChange={(e) =>
@@ -231,6 +156,7 @@ const Profile = () => {
                     <GraduationCap className='w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2' />
                     <input
                       type='text'
+                      disabled
                       value={form.matricNumber}
                       onChange={(e) =>
                         handleFormChange("matricNumber", e.target.value)
@@ -249,12 +175,13 @@ const Profile = () => {
                   <div className='relative'>
                     <Users className='w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2' />
                     <select
+                      disabled={isLoadingProfile}
                       onChange={(e) =>
                         handleFormChange("gender", e.target.value)
                       }
                       value={form.gender}
-                      className='w-full py-2.5 pl-9 pr-8 rounded-lg border border-gray-200 bg-white/70 focus:outline-none focus:ring-1 focus:ring-[#009688] focus:border-[#009688] text-sm appearance-none'>
-                      {["Male", "Female", "Other"].map((gen) => (
+                      className='w-full py-2.5 pl-9 pr-8 rounded-lg border border-gray-200 bg-white/70 focus:outline-none focus:ring-1 focus:ring-[#009688] focus:border-[#009688] text-sm appearance-none capitalize'>
+                      {["male", "female", "other"].map((gen) => (
                         <option key={gen} value={gen}>
                           {gen}
                         </option>
@@ -272,6 +199,7 @@ const Profile = () => {
                     <Mail className='w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2' />
                     <input
                       type='email'
+                      disabled
                       value={form.email}
                       onChange={(e) =>
                         handleFormChange("email", e.target.value)
@@ -291,6 +219,7 @@ const Profile = () => {
                     <Phone className='w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2' />
                     <input
                       type='tel'
+                      disabled={isLoadingProfile}
                       value={form.phoneNumber}
                       onChange={(e) =>
                         handleFormChange("phoneNumber", e.target.value)
@@ -303,6 +232,7 @@ const Profile = () => {
               </div>
 
               <Button
+                disabled={isLoadingProfile}
                 variant='primary'
                 size='lg'
                 className={`w-full py-2.5 rounded-lg font-clash font-semibold text-sm mt-5 ${
@@ -320,7 +250,7 @@ const Profile = () => {
                   !form.phoneNumber
                 }
                 type='submit'>
-                Save Changes
+                {isLoadingProfile ? "Saving..." : "Save Changes"}
               </Button>
             </form>
           </div>
@@ -347,38 +277,40 @@ const Profile = () => {
                 </label>
                 <div className='relative'>
                   <input
-                    type={show.oldPassword ? "text" : "password"}
-                    value={passwords.oldPassword}
+                    disabled={isLoadingPassword}
+                    type={show.current_password ? "text" : "password"}
+                    value={passwords.current_password}
                     placeholder='Enter current password'
                     className={`w-full py-2.5 px-3 pr-10 rounded-lg border bg-white/70 focus:outline-none focus:ring-1 focus:ring-[#009688] text-sm ${
-                      errors.oldPassword
+                      errors.current_password
                         ? "border-red-400 focus:border-red-400"
                         : "border-gray-200 focus:border-[#009688]"
                     }`}
                     onChange={(e) =>
-                      handlePasswordInput("oldPassword", e.target.value)
+                      handlePasswordInput("current_password", e.target.value)
                     }
                   />
                   <button
                     type='button'
+                    disabled={isLoadingPassword}
                     className='absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600'
                     onClick={() =>
                       setShow((prev) => ({
                         ...prev,
-                        oldPassword: !prev.oldPassword,
+                        current_password: !prev.current_password,
                       }))
                     }>
-                    {show.oldPassword ? (
+                    {show.current_password ? (
                       <EyeOff className='w-4 h-4' />
                     ) : (
                       <Eye className='w-4 h-4' />
                     )}
                   </button>
                 </div>
-                {errors.oldPassword && (
+                {errors.current_password && (
                   <p className='text-red-500 text-xs flex items-center gap-1 mt-1'>
                     <AlertCircle className='w-3 h-3' />
-                    {errors.oldPassword}
+                    {errors.current_password}
                   </p>
                 )}
               </div>
@@ -390,35 +322,40 @@ const Profile = () => {
                 </label>
                 <div className='relative'>
                   <input
-                    type={show.password ? "text" : "password"}
-                    value={passwords.password}
+                    disabled={isLoadingPassword}
+                    type={show.new_password ? "text" : "password"}
+                    value={passwords.new_password}
                     placeholder='Enter new password'
                     className={`w-full py-2.5 px-3 pr-10 rounded-lg border bg-white/70 focus:outline-none focus:ring-1 focus:ring-[#009688] text-sm ${
-                      errors.password
+                      errors.new_password
                         ? "border-red-400 focus:border-red-400"
                         : "border-gray-200 focus:border-[#009688]"
                     }`}
                     onChange={(e) =>
-                      handlePasswordInput("password", e.target.value)
+                      handlePasswordInput("new_password", e.target.value)
                     }
                   />
                   <button
                     type='button'
+                    disabled={isLoadingPassword}
                     className='absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600'
                     onClick={() =>
-                      setShow((prev) => ({ ...prev, password: !prev.password }))
+                      setShow((prev) => ({
+                        ...prev,
+                        new_password: !prev.new_password,
+                      }))
                     }>
-                    {show.password ? (
+                    {show.new_password ? (
                       <EyeOff className='w-4 h-4' />
                     ) : (
                       <Eye className='w-4 h-4' />
                     )}
                   </button>
                 </div>
-                {errors.password && (
+                {errors.new_password && (
                   <p className='text-red-500 text-xs flex items-center gap-1 mt-1'>
                     <AlertCircle className='w-3 h-3' />
-                    {errors.password}
+                    {errors.new_password}
                   </p>
                 )}
               </div>
@@ -430,63 +367,69 @@ const Profile = () => {
                 </label>
                 <div className='relative'>
                   <input
-                    type={show.confirm ? "text" : "password"}
-                    value={passwords.confirm}
-                    placeholder='Confirm new password'
+                    disabled={isLoadingPassword}
+                    type={show.confirm_password ? "text" : "password"}
+                    value={passwords.confirm_password}
+                    placeholder='Confirm password'
                     className={`w-full py-2.5 px-3 pr-10 rounded-lg border bg-white/70 focus:outline-none focus:ring-1 focus:ring-[#009688] text-sm ${
-                      errors.confirm
+                      errors.confirm_password
                         ? "border-red-400 focus:border-red-400"
                         : "border-gray-200 focus:border-[#009688]"
                     }`}
                     onChange={(e) =>
-                      handlePasswordInput("confirm", e.target.value)
+                      handlePasswordInput("confirm_password", e.target.value)
                     }
                   />
                   <button
+                    disabled={isLoadingPassword}
                     type='button'
                     className='absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600'
                     onClick={() =>
-                      setShow((prev) => ({ ...prev, confirm: !prev.confirm }))
+                      setShow((prev) => ({
+                        ...prev,
+                        confirm_password: !prev.confirm_password,
+                      }))
                     }>
-                    {show.confirm ? (
+                    {show.confirm_password ? (
                       <EyeOff className='w-4 h-4' />
                     ) : (
                       <Eye className='w-4 h-4' />
                     )}
                   </button>
                 </div>
-                {errors.confirm && (
+                {errors.confirm_password && (
                   <p className='text-red-500 text-xs flex items-center gap-1 mt-1'>
                     <AlertCircle className='w-3 h-3' />
-                    {errors.confirm}
+                    {errors.confirm_password}
                   </p>
                 )}
               </div>
 
               <Button
+                disabled={isLoadingPassword}
                 variant='primary'
                 size='lg'
                 className={`w-full py-2.5 rounded-lg font-clash font-semibold text-sm mt-5 ${
-                  !passwords.oldPassword ||
-                  !passwords.password ||
-                  !passwords.confirm ||
-                  errors.oldPassword ||
-                  errors.password ||
-                  errors.confirm
+                  !passwords.current_password ||
+                  !passwords.new_password ||
+                  !passwords.confirm_password ||
+                  errors.current_password ||
+                  errors.new_password ||
+                  errors.confirm_password
                     ? "opacity-50 cursor-not-allowed"
                     : ""
                 }`}
                 onClick={handlePasswordChange}
                 isDisabled={
-                  !passwords.oldPassword ||
-                  !passwords.password ||
-                  !passwords.confirm ||
-                  errors.oldPassword ||
-                  errors.password ||
-                  errors.confirm
+                  !passwords.current_password ||
+                  !passwords.new_password ||
+                  !passwords.confirm_password ||
+                  errors.current_password ||
+                  errors.new_password ||
+                  errors.confirm_password
                 }
                 type='button'>
-                Change Password
+                {isLoadingPassword ? "Changing..." : "Change Password"}
               </Button>
             </div>
           </div>
@@ -494,18 +437,23 @@ const Profile = () => {
       </div>
 
       {/* Compact Loading Overlay */}
-      {isLoading && (
-        <div className='fixed inset-0 flex items-center justify-center bg-black/40 z-50'>
-          <div className=''>
-            <Loader />
-            <p className='text-[#360400] font-clash font-medium text-sm text-center mt-3'>
-              Updating...
-            </p>
-          </div>
-        </div>
-      )}
     </section>
   );
 };
 
 export default Profile;
+
+{
+  /* {
+       isLoading && (
+         <div className='fixed inset-0 flex items-center justify-center bg-black/40 z-50'>
+           <div className=''>
+             <Loader />
+             <p className='text-[#360400] font-clash font-medium text-sm text-center mt-3'>
+               Updating...
+             </p>
+           </div>
+         </div>
+       );
+     } */
+}

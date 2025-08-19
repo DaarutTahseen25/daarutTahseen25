@@ -1,6 +1,7 @@
 import { useReducer, useCallback } from "react";
 import { useNavigate } from "react-router";
 import api from "../utils/api";
+import { getErrorMessage } from "../utils/helper";
 
 const initialState = {
   isSubmitting: false,
@@ -42,7 +43,7 @@ const useRegister = () => {
 
         navigate("/otp-page", { state: { email: registeredEmail } });
       } catch (err) {
-        const errorMsg = err?.response?.data?.message || "Registration failed";
+        const errorMsg = getErrorMessage(err, "Registration failed");
         dispatch({ type: "SUBMIT_ERROR", payload: errorMsg });
         throw new Error(errorMsg);
       } finally {

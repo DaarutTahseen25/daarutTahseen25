@@ -72,3 +72,28 @@ export const truncateEmail = (email, maxUsernameLength = 6) => {
 
   return `${username.slice(0, maxUsernameLength)}...@${domain}`;
 };
+
+// utils/getErrorMessage.js
+// utils/getErrorMessage.js
+export const getErrorMessage = (err, fallback = "Something went wrong") => {
+  const errorMessages = {
+    400: "Bad request. Please check your input.",
+    401: "Invalid credentials.",
+    403: "Access denied.",
+    404: "Resource not found.",
+    500: "Server error. Please try again later.",
+  };
+
+  if (!err?.response) {
+    if (err?.message?.toLowerCase().includes("network error")) {
+      return "No internet connection. Please check your network.";
+    }
+    return "Unable to connect to the server. Try again later.";
+  }
+
+  return (
+    err?.response?.data?.message ||
+    errorMessages[err?.response?.status] ||
+    fallback
+  );
+};

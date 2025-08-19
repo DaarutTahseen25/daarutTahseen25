@@ -1,5 +1,6 @@
 import { useReducer, useCallback } from "react";
 import api from "../utils/api";
+import { getErrorMessage } from "../utils/helper";
 
 const initialState = {
   isLoading: false,
@@ -34,7 +35,7 @@ const useResendOtp = () => {
     } catch (err) {
       dispatch({
         type: "ERROR",
-        payload: err?.response?.data?.message || "Failed to resend OTP",
+        payload: getErrorMessage(err, "Failed to resend OTP"),
       });
     }
   }, []);

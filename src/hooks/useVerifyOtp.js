@@ -1,5 +1,6 @@
 import { useReducer, useCallback } from "react";
 import api from "../utils/api";
+import { getErrorMessage } from "../utils/helper";
 
 const initialState = {
   isLoading: false,
@@ -60,10 +61,8 @@ const useVerifyOtp = () => {
 
       return response.data;
     } catch (err) {
-      const message =
-        err.response?.data?.message ||
-        err.message ||
-        "Invalid OTP code or expired";
+      const message = getErrorMessage(err, "Invalid OTP code or expired");
+
       dispatch({ type: "ERROR", payload: message });
       return { success: false, message };
     } finally {

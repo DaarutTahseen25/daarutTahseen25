@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 
 import { useAuth } from "../contexts/AuthContext";
 import api from "../utils/api";
+import { getErrorMessage } from "../utils/helper";
 
 const initialState = {
   isSubmitting: false,
@@ -61,10 +62,8 @@ export const useLogin = () => {
         navigate(`/${identifier}`, { replace: true });
         return { success: true };
       } catch (err) {
-        console.error(err?.response || err);
-        const errorMsg =
-          err?.response?.data?.message ||
-          "Invalid Login Credentials, Login Failed";
+        const errorMsg = getErrorMessage(err, "Login Failed");
+
         dispatch({ type: "SUBMIT_ERROR", payload: errorMsg });
         return { success: false, error: errorMsg };
       } finally {

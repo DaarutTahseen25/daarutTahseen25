@@ -15,6 +15,7 @@ import {
   RefreshCw,
 } from "lucide-react";
 import useResendOtp from "../hooks/useResendOtp";
+import { toast } from "react-toastify";
 
 function OtpRegistration() {
   const { state } = useLocation();
@@ -81,7 +82,7 @@ function OtpRegistration() {
 
   const handleVerifyClick = async () => {
     if (!email) {
-      alert("Email not found. Please register again.");
+      toast.error("Email not found. Please register again.");
       return;
     }
 
