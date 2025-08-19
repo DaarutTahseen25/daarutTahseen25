@@ -124,7 +124,7 @@ const Profile = () => {
   // Render
   // =====================
   return (
-    <section className='min-h-screen bg-gradient-to-br from-[#FFFCE1]/30 via-transparent to-[#009688]/5 p-4 md:p-6 lg:p-8'>
+    <section className='min-h-screen bg-gradient-to-br from-[#FFFCE1]/30 via-transparent to-[#009688]/5'>
       {/* Compact Header */}
       <div className='max-w-7xl mx-auto mb-8 md:mb-12'>
         <div className='text-center md:text-left'>

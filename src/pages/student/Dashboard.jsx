@@ -47,7 +47,7 @@ const Dashboard = () => {
   }, [user]);
 
   return (
-    <section className='flex flex-col gap-10 p-4 md:p-6 lg:p-8 '>
+    <section className='flex flex-col gap-10   '>
       <Header firstName={firstName} id={matricNumber} />
 
       <LearningProgress />

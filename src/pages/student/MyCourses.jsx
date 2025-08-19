@@ -49,7 +49,7 @@ export default function MyCourses() {
   }, [searchTerm, filterProgress, filterStatus]);
 
   return (
-    <div className='p-4 min-h-screen font-clash p-4 md:p-6 lg:p-8'>
+    <div className='p-4 min-h-screen font-clash '>
       <div className='mb-4'>
         <div className='max-w-7xl  mb-8 md:mb-12'>
           <div className='text-center md:text-left'>

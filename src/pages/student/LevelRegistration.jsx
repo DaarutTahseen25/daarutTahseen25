@@ -11,7 +11,7 @@ const LevelRegistration = () => {
   );
 
   return (
-    <section className='p-4 md:p-6 lg:p-8'>
+    <section className=''>
       <div className='max-w-7xl  mb-8 md:mb-12'>
         <div className='text-center md:text-left'>
           <div className='inline-block px-4 py-2 bg-[#009688]/10 rounded-full text-[#009688] font-medium text-sm mb-4'>
