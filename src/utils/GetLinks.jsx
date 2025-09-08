@@ -10,7 +10,10 @@ import {
   Users,
 } from "lucide-react";
 
-export const getDashboardSidebarLinks = (role,user) => {
+// helper for student access
+const requiresActive = (user) => user?.is_active ?? false;
+
+export const getDashboardSidebarLinks = (role, user) => {
   if (role === "student") {
     return [
       {
@@ -18,50 +21,49 @@ export const getDashboardSidebarLinks = (role,user) => {
         icon: <LayoutDashboard />,
         label: "Dashboard",
         to: "/student",
-        requiresLevel: false,
+        requiresLevel: requiresActive(user),
       },
       {
         key: "mycourses",
         icon: <BookOpen />,
         label: "My Courses",
         to: "/student/my-courses",
-        requiresLevel: false,
+        requiresLevel: requiresActive(user),
       },
       {
         key: "level-registration",
         icon: <School />,
         label: "Level Registration",
         to: "/student/level-registration",
-        requiresLevel: false,
+        requiresLevel: false, // always accessible
       },
-
       {
         key: "curriculum",
         icon: <ListTree />,
         label: "Curriculum",
         to: "/student/curriculum",
-        requiresLevel: false,
+        requiresLevel: requiresActive(user),
       },
       {
         key: "notifications",
         icon: <Bell />,
         label: "Notifications",
         to: "/student/messages",
-        requiresLevel: false,
+        requiresLevel: requiresActive(user),
       },
       {
         key: "payfees",
         icon: <CreditCard />,
         label: "Pay Fees",
         to: "/student/my-fees",
-        requiresLevel: false,
+        requiresLevel: requiresActive(user),
       },
       {
         key: "resources",
         icon: <FileText />,
         label: "Resources",
         to: "/student/resources",
-        requiresLevel: false,
+        requiresLevel: requiresActive(user),
       },
     ];
   }
@@ -108,6 +110,53 @@ export const getDashboardSidebarLinks = (role,user) => {
         icon: <FileText />,
         label: "Library",
         to: "/teacher/library",
+        requiresLevel: false,
+      },
+    ];
+  }
+
+  if (role === "admin") {
+    return [
+      {
+        key: "dashboard",
+        icon: <LayoutDashboard />,
+        label: "Dashboard",
+        to: "/admin",
+        requiresLevel: false,
+      },
+      {
+        key: "students",
+        icon: <Users />,
+        label: "Students Management",
+        to: "/admin/students",
+        requiresLevel: false,
+      },
+      {
+        key: "teachers",
+        icon: <Users />,
+        label: "Teachers Management",
+        to: "/admin/teachers",
+        requiresLevel: false,
+      },
+      {
+        key: "payouts",
+        icon: <CreditCard />,
+        label: "Payout History",
+        to: "/admin/payouts",
+        requiresLevel: false,
+      },
+      {
+        key: "aptitude-test",
+        icon: <FileText />,
+        label: "Aptitude Test",
+        to: "/admin/aptitude-test",
+        requiresLevel: false,
+      },
+      {
+        key: "view-aptitude-test",
+        icon: <FileText />,
+        label: "View Aptitude Test",
+        to: "/admin/view-aptitude-test",
         requiresLevel: false,
       },
     ];

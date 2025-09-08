@@ -8,6 +8,7 @@ const LandingRoutes = lazy(() => import("./LandingRoutes"));
 // Dashboard Routes
 const StudentRoutes = lazy(() => import("./StudentRoutes"));
 const TeacherRoutes = lazy(() => import("./TeacherRoutes"));
+const AdminRoutes = lazy(() => import("./AdminRoutes"));
 
 // Auth-related pages
 const OtpRegPage = lazy(() => import("../Components/OtpRegPage"));
@@ -42,6 +43,7 @@ export default function AppRoutes() {
 
         {/* Teacher dashboard */}
         <Route path="/teacher/*" element={<TeacherRoutes />} />
+        <Route path="/admin/*" element={<AdminRoutes />} />
 
         {/* Auth & Misc */}
         <Route path="/otp-page" element={<OtpRegPage />} />
