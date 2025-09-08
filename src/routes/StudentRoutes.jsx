@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router";
 import { useAuth } from "../contexts/AuthContext";
 import ProtectedRoute from "../auth/ProtectedRoute";
 import QuranLoader from "../Components/QuranLoader";
+import RequireLevel from "../auth/RequireLevel"; // 👈 import it
 
 const LayoutStudents = lazy(() => import("../layouts/LayoutStudents"));
 const LevelRegistration = lazy(() =>
@@ -38,15 +39,19 @@ export default function StudentRoutes() {
             </ProtectedRoute>
           }
         >
-          <Route index element={<Dashboard />} />
+
           <Route path="level-registration" element={<LevelRegistration />} />
           <Route path="profile" element={<Profile />} />
-          <Route path="my-courses" element={<MyCourses />} />
-          <Route path="admission" element={<Admission />} />
-          <Route path="curriculum" element={<Curriculum />} />
-          <Route path="messages" element={<Notifications />} />
-          <Route path="my-fees" element={<PayFees />} />
-          <Route path="resources" element={<Resources />} />
+
+          <Route element={<RequireLevel />}>
+            <Route index element={<Dashboard />} />
+            <Route path="my-courses" element={<MyCourses />} />
+            <Route path="admission" element={<Admission />} />
+            <Route path="curriculum" element={<Curriculum />} />
+            <Route path="messages" element={<Notifications />} />
+            <Route path="my-fees" element={<PayFees />} />
+            <Route path="resources" element={<Resources />} />
+          </Route>
         </Route>
       </Routes>
     </Suspense>

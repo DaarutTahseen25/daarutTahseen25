@@ -10,7 +10,7 @@ import {
   Users,
 } from "lucide-react";
 
-export const getDashboardSidebarLinks = (role) => {
+export const getDashboardSidebarLinks = (role,user) => {
   if (role === "student") {
     return [
       {
