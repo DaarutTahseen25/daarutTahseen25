@@ -56,7 +56,7 @@ const DashboardSidebar = () => {
             <div className="absolute inset-0 bg-gradient-to-b from-gray-50/30 to-transparent opacity-50" />
 
             <ul className="flex flex-col gap-3 w-[90%] mx-auto relative z-10">
-              {getDashboardSidebarLinks(role,user).map((item, index) => (
+              {getDashboardSidebarLinks(role, user).map((item, index) => (
                 <li
                   key={item.key}
                   style={{

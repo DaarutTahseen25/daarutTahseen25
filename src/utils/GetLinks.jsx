@@ -10,7 +10,6 @@ import {
   Users,
 } from "lucide-react";
 
-// helper for student access
 const requiresActive = (user) => user?.is_active ?? false;
 
 export const getDashboardSidebarLinks = (role, user) => {
@@ -138,13 +137,7 @@ export const getDashboardSidebarLinks = (role, user) => {
         to: "/admin/teachers",
         requiresLevel: false,
       },
-      {
-        key: "payouts",
-        icon: <CreditCard />,
-        label: "Payout History",
-        to: "/admin/payouts",
-        requiresLevel: false,
-      },
+
       {
         key: "aptitude-test",
         icon: <FileText />,
@@ -157,6 +150,13 @@ export const getDashboardSidebarLinks = (role, user) => {
         icon: <FileText />,
         label: "View Aptitude Test",
         to: "/admin/view-aptitude-test",
+        requiresLevel: false,
+      },
+      {
+        key: "payouts",
+        icon: <CreditCard />,
+        label: "Payout History",
+        to: "/admin/payouts-history",
         requiresLevel: false,
       },
     ];

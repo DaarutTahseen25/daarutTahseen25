@@ -1,7 +1,7 @@
 import React from "react";
 
 const PayoutHistory = () => {
-  return <div>PayoutHistory</div>;
+  return <div>Payout History</div>;
 };
 
 export default PayoutHistory;

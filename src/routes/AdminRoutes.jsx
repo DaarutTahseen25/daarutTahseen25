@@ -26,21 +26,16 @@ export default function AdminRoutes() {
   return (
     <Suspense fallback={<LoaderFallback />}>
       <Routes>
-        <Route
-          path="/*"
-          element={
-            <ProtectedRoute allowedRoles={["admin"]}>
-              <AdminLayout />
-            </ProtectedRoute>
-          }
-        >
-          <Route path="profile" element={<Profile />} />
-          <Route index element={<Dashboard />} />
-          <Route path="students" element={<Students />} />
-          <Route path="teachers" element={<Tutors />} />
-          <Route path="payout-history" element={<PayoutHistory />} />
-          <Route path="aptitude-test" element={<Tests />} />
-          <Route path="view-aptitude-test" element={<ViewTests />} />
+        <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
+          <Route path="/" element={<AdminLayout />}>
+            <Route path="profile" element={<Profile />} />
+            <Route index element={<Dashboard />} />
+            <Route path="students" element={<Students />} />
+            <Route path="teachers" element={<Tutors />} />
+            <Route path="payouts-history" element={<PayoutHistory />} />
+            <Route path="aptitude-test" element={<Tests />} />
+            <Route path="view-aptitude-test" element={<ViewTests />} />
+          </Route>
         </Route>
       </Routes>
     </Suspense>
