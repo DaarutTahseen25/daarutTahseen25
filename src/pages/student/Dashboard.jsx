@@ -159,7 +159,7 @@ const Header = memo(({ firstName = "Student", id, profile }) => {
 
       {/* Secondary info row - keep compact on mobile, reveal more on sm+ */}
       <div className="flex flex-col sm:flex-row gap-y-1 sm:gap-x-4 text-xs sm:text-sm ml-1 sm:ml-3 items-center sm:items-start">
-        <p className="font-montserrat text-dark-cyan font-semibold">
+        <p className="font-montserrat text-dark-cyan font-semibold capitalize">
           Level: {profile?.level} (Class 1)
         </p>
 

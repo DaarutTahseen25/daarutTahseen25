@@ -18,8 +18,6 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  console.log(user);
-
   // Memoized fetchProfile to prevent unnecessary re-creation
   const fetchProfile = useCallback(async () => {
     try {
