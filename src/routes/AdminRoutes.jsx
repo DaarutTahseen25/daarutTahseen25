@@ -8,7 +8,7 @@ import Profile from "../pages/student/Profile";
 
 const Dashboard = lazy(() => import("../pages/Admin/Dashboard"));
 const Students = lazy(() => import("../pages/Admin/Students"));
-const Tutors = lazy(() => import("../pages/admin/Tutors"));
+const Tutors = lazy(() => import("../pages/Admin/Tutors"));
 const PayoutHistory = lazy(() => import("../pages/Admin/PayoutHistory"));
 const Tests = lazy(() => import("../pages/Admin/Tests"));
 const ViewTests = lazy(() => import("../pages/Admin/ViewTests"));
