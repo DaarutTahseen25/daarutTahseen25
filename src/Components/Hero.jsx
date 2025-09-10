@@ -1,23 +1,14 @@
-import React from "react";
-import Button from "./Button";
-import HeroGallery from "./HeroGallery";
 import HeroInfo from "./HeroInfo";
 
 export default function Hero() {
-  // const user = "";
   return (
-    <section className="bg-secondary py-16 sm:py-20 md:py-24">
-      <div className="w-[90%] md:w-[85%] mx-auto flex flex-col-reverse lg:flex-row items-center md:items-start justify-between gap-10  ">
-        {/* Left Content */}
+    <section className="relative bg-[url('/herobg.png')] bg-cover bg-center py-16 sm:py-20 md:py-24">
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-accent/80 z-0"></div>
+
+      {/* Content */}
+      <div className="relative z-10 w-[90%] md:w-[85%] mx-auto flex flex-col-reverse lg:flex-row items-center md:items-start justify-between gap-10">
         <HeroInfo />
-        {/* Right Content */}
-        <HeroGallery />
-        {/* fallback mobile devices imagejjjjjjjjk */}
-        <img
-          src="/her3.jpg"
-          alt=""
-          className="w-full lg:hidden block rounded-lg"
-        />
       </div>
     </section>
   );
