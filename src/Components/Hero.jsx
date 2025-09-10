@@ -12,7 +12,7 @@ export default function Hero() {
         <HeroInfo />
         {/* Right Content */}
         <HeroGallery />
-        {/* fallback mobile devices imagejjjj */}
+        {/* fallback mobile devices imagejjjjjj */}
         <img
           src="/her3.jpg"
           alt=""
