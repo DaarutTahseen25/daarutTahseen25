@@ -6,6 +6,7 @@ import Success from "./Success";
 
 import api from "../utils/api";
 import { useAuth } from "../contexts/AuthContext";
+import { getErrorMessage } from "../utils/helper";
 
 const LevelCard = ({ title, color, description }) => {
   const [view, setView] = useState("");
@@ -39,7 +40,8 @@ const LevelCard = ({ title, color, description }) => {
 
       return "success";
     } catch (err) {
-      console.error("Registration error:", err.response?.data || err.message);
+      const message = getErrorMessage(err, "levelRegistration");
+      setError(message);
       return "error";
     }
   };

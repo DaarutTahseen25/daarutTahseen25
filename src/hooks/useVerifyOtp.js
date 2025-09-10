@@ -61,7 +61,7 @@ const useVerifyOtp = () => {
 
       return response.data;
     } catch (err) {
-      const message = getErrorMessage(err, "Invalid OTP code or expired");
+      const message = getErrorMessage(err, "otp");
 
       dispatch({ type: "ERROR", payload: message });
       return { success: false, message };
