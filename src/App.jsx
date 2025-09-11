@@ -1,24 +1,10 @@
-// App.jsx
-import { Routes, Route, Link } from "react-router";
-import Home from "./pages/Home";
-import About from "./pages/About";
-import ".App.css"
-
+import React from "react";
+import AppRoutes from "./routes/AppRoutes";
+import "./App.css";
+import { usePageTitle } from "./hooks/usePageTitle";
 const App = () => {
-  return (
-    <>
-      <nav>
-        <Link to="/">Home</Link> | <Link to="/about">About</Link>
-      </nav>
+  usePageTitle("Home");
+  return <AppRoutes />;
+};
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-      </Routes>
-    </>
-  );
-}
-
-export default App
-
-
+export default App;
