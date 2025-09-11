@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from "react-router";
 import { Suspense, lazy } from "react";
 import QuranLoader from "../Components/QuranLoader";
+import RequireTestAuth from "../auth/RequireTestAuth";
 
 const LandingRoutes = lazy(() => import("./LandingRoutes"));
 const StudentRoutes = lazy(() => import("./StudentRoutes"));
@@ -17,6 +18,7 @@ const TutorRegistrationForm = lazy(() =>
   import("../Components/TutorRegistrationForm")
 );
 const OtpRegPage = lazy(() => import("../Components/OtpRegPage"));
+const TestRoutes = lazy(() => import("./TestRoutes"));
 
 const LoaderFallback = () => (
   <div className="w-full h-screen flex justify-center items-center text-lg font-medium">
@@ -37,6 +39,14 @@ export default function AppRoutes() {
         <Route path="/student/*" element={<StudentRoutes />} />
         <Route path="/teacher/*" element={<TeacherRoutes />} />
         <Route path="/admin/*" element={<AdminRoutes />} />
+        <Route
+          path="/assessment/*"
+          element={
+            <RequireTestAuth>
+              <TestRoutes />
+            </RequireTestAuth>
+          }
+        />
         {/* Create Account Flow */}{" "}
         <Route path="/create" element={<CreateAccount />}>
           {" "}

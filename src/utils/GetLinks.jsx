@@ -1,4 +1,3 @@
-// utils/getDashboardSidebarLinks.js
 import { dashboardLinks } from "./sidebarConfig";
 
 export const getDashboardSidebarLinks = (role, user) => {

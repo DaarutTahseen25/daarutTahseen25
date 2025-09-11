@@ -1,14 +1,14 @@
 // components/HomeSidebar.jsx
 import React, { useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router"; // ✅ correct package
+import { Link, useLocation, useNavigate } from "react-router";
 import { LogOut, X, LayoutGrid } from "lucide-react";
 
 import Button from "./Button";
 import useUIStore from "../store/useUIStore";
 import { useAuth } from "../contexts/AuthContext";
 import { truncateEmail } from "../utils/helper";
-import { getDashboardSidebarLinks } from "../utils/GetLinks"; // ✅ updated helper
-import { landingLinks } from "../utils/sidebarConfig"; // ✅ use shared landing links
+import { getDashboardSidebarLinks } from "../utils/GetLinks";
+import { landingLinks } from "../utils/sidebarConfig";
 
 export default function HomeSidebar() {
   const { logout, user } = useAuth();
@@ -24,7 +24,6 @@ export default function HomeSidebar() {
     ? location.pathname.startsWith(`/${role}`)
     : false;
 
-  // Use dashboard links if user is in dashboard, otherwise landing links
   const links =
     user && role && isDashboardPage
       ? getDashboardSidebarLinks(role, profile)
@@ -36,7 +35,6 @@ export default function HomeSidebar() {
     setTimeout(() => logout(), 100);
   };
 
-  // Lock scroll and add keyframes when sidebar opens
   useEffect(() => {
     if (!isSidebarOpen) return;
     const originalOverflow = document.body.style.overflow;

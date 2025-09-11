@@ -1,97 +1,116 @@
 import React, { useState } from "react";
 import Button from "../../Components/Button";
 import { useAuth } from "../../contexts/AuthContext";
+import { Link, useNavigate } from "react-router";
+import { usePageTitle } from "../../hooks/usePageTitle";
 
 const Admission = () => {
+  usePageTitle("Admission");
   const { user } = useAuth();
 
-  const [test, setTest] = useState("Pending");
+  const [test, setTest] = useState("In Progress"); // "Pending" | "In Progress" | "Completed"
   const [isCompleted, setIsCompleted] = useState(false);
 
-  // Button rendering logic
-  const renderActionButton = () => {
-    if (test === "Pending") {
-      return (
-        <Button
-          variant="notActive"
-          className="w-[120px] mt-4 h-[40px] rounded-[10px]"
-          disabled
-        >
-          Take Test
-        </Button>
-      );
-    }
+  const ActionButton = () => {
+    const navigate = useNavigate();
 
-    if (test === "In Progress") {
-      return (
-        <Button className="w-[120px] hover:bg-buttonhover mt-4 h-[40px] rounded-[10px]">
-          Take Test
-        </Button>
-      );
+    const handleTakeTest = () => {
+      navigate("/assessment/", { replace: true });
+    };
+    switch (test) {
+      case "Pending":
+        return (
+          <Button
+            variant="notActive"
+            disabled
+            className="w-40 h-12 mt-6 rounded-xl"
+          >
+            Take Test
+          </Button>
+        );
+      case "In Progress":
+        return (
+          <Button
+            onClick={handleTakeTest}
+            className="w-40 h-12 mt-6 rounded-xl transition-colors hover:bg-buttonhover focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+          >
+            Take Test
+          </Button>
+        );
+      case "Completed":
+        return (
+          <Button
+            className="w-40 h-12 mt-6 rounded-xl transition-colors hover:bg-buttonhover focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            variant={isCompleted ? "default" : "notActive"}
+            disabled={!isCompleted}
+          >
+            View Result
+          </Button>
+        );
+      default:
+        return null;
     }
-
-    if (test === "Completed") {
-      return (
-        <Button
-          className="w-[120px] hover:bg-buttonhover mt-4 h-[40px] rounded-[10px]"
-          variant={isCompleted ? "default" : "notActive"}
-          disabled={!isCompleted}
-        >
-          View Result
-        </Button>
-      );
-    }
-
-    return null;
   };
 
   return (
-    <section>
-      <h1 className="font-clash font-[500] text-[40px] text-center lg:text-left text-accent">
-        Admission
-      </h1>
+    <main className="mx-auto w-[95%] max-w-4xl px-4 py-8">
+      {/* Page Header */}
+      <header className="text-center lg:text-left mb-6">
+        <h1 className="font-clash font-semibold text-3xl md:text-4xl text-accent">
+          Admission
+        </h1>
+      </header>
 
-      <div className="flex flex-col gap-4 mt-4">
-        <h2 className="font-clash font-[500] text-[25px] text-center lg:text-left text-accent">
-          You have Registered for the{" "}
-          <span className="text-primary capitalize">{user?.level} level</span>
+      {/* Intro Section */}
+      <section className="space-y-4 text-center lg:text-left">
+        <h2 className="font-clash font-medium text-xl md:text-2xl text-accent leading-relaxed">
+          You have registered for the{" "}
+          <span className="text-primary capitalize">{user?.level} level</span>.
         </h2>
-        <p className="font-montserrat font-[400] text-[14px] text-center lg:text-left text-accent">
+        <p className="font-montserrat text-base md:text-lg text-accent max-w-2xl mx-auto lg:mx-0">
           You have completed your level registration. A placement test will be
           assigned to you shortly based on your selected level.
         </p>
-      </div>
+      </section>
 
-      <div className="bg-white mt-4 px-6 py-3 rounded-lg shadow-md">
-        <div className="flex items-center gap-[10px] mb-4">
-          <h3 className="font-clash font-[500] text-[20px] text-black uppercase">
-            REGISTRATION STATUS
-          </h3>
+      {/* Status Card */}
+      <section
+        aria-labelledby="registration-status"
+        className="mt-8 rounded-xl bg-white px-6 py-6 shadow-lg"
+      >
+        <h3
+          id="registration-status"
+          className="font-clash font-medium text-lg md:text-xl text-black uppercase mb-4"
+        >
+          Registration Status
+        </h3>
+
+        <ul className="divide-y divide-dark-grey/30 font-montserrat text-sm md:text-base text-darkest-grey">
+          <li className="py-3 text-black">
+            <span className="font-semibold text-dark-grey">Status:</span>{" "}
+            {test === "Pending"
+              ? "Waiting for Test Schedule"
+              : test === "In Progress"
+              ? "Test Ongoing"
+              : "Test Completed"}
+          </li>
+          <li className="py-3 text-black capitalize">
+            <span className="font-semibold text-dark-grey">
+              Selected Level:
+            </span>{" "}
+            {user?.level}
+          </li>
+          <li className="py-3 text-black">
+            <span className="font-semibold text-dark-grey">Test:</span> {test}
+          </li>
+        </ul>
+
+        {/* Action Button */}
+        <div className="flex justify-center lg:justify-start">
+          <ActionButton />
         </div>
-
-        <div className="w-full">
-          <div className="font-montserrat font-[400] text-[14px] text-darkest-grey mb-4 py-4 border-y-2 border-dark-grey flex flex-col gap-2">
-            <small className="text-black">
-              <span className="text-dark-grey">Status:</span>{" "}
-              {test === "Pending"
-                ? "Waiting for Test Schedule"
-                : test === "In Progress"
-                ? "Test Ongoing"
-                : "Test Completed"}
-            </small>
-            <small className="capitalize text-black">
-              <span className="text-dark-grey">Selected Level:</span>{" "}
-              {user?.level}
-            </small>
-            <small className="text-black">
-              <span className="text-dark-grey">Test:</span> {test}
-            </small>
-          </div>
-
-          {renderActionButton()}
-        </div>
-      </div>
-    </section>
+      </section>
+    </main>
   );
 };
 
