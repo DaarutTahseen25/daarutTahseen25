@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import Button from "../../Components/Button";
 import { useAuth } from "../../contexts/AuthContext";
@@ -8,7 +9,7 @@ const Admission = () => {
   usePageTitle("Admission");
   const { user } = useAuth();
 
-  const [test, setTest] = useState("In Progress"); // "Pending" | "In Progress" | "Completed"
+  const [test, setTest] = useState("In Progress");
   const [isCompleted, setIsCompleted] = useState(false);
 
   const ActionButton = () => {
