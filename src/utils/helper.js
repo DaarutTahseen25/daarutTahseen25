@@ -106,6 +106,20 @@ export function getErrorMessage(error, context = "general") {
       500: "Login service unavailable. Try again later.",
     },
 
+    testErrors: {
+      400: "Invalid submission data. Please review your answers and try again.",
+      401: "You are not authorized. Please log in again.",
+      403: "You are not allowed to submit this test. Contact support if you think this is an error.",
+      404: "Test submission endpoint not found. Please refresh and try again.",
+      409: "You have already submitted this test.",
+      422: "Some answers are missing or invalid. Check and resubmit.",
+      429: "Too many submission attempts. Please wait a moment and try again.",
+      500: "Server error while submitting the test. Please try again later.",
+      502: "Bad gateway. The server encountered a problem.",
+      503: "Submission service temporarily unavailable. Please try again shortly.",
+      504: "Submission request timed out. Please check your connection and retry.",
+    },
+
     // OTP context
     otp: {
       400: "Invalid OTP format.",
