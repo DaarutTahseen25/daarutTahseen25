@@ -35,7 +35,7 @@ const useResendOtp = () => {
     } catch (err) {
       dispatch({
         type: "ERROR",
-        payload: getErrorMessage(err, "Failed to resend OTP"),
+        payload: getErrorMessage(err, "otp"),
       });
     }
   }, []);

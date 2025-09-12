@@ -62,7 +62,7 @@ export const useLogin = () => {
         navigate(`/${identifier}`, { replace: true });
         return { success: true };
       } catch (err) {
-        const errorMsg = getErrorMessage(err, "Login Failed");
+        const errorMsg = getErrorMessage(err, "login");
 
         dispatch({ type: "SUBMIT_ERROR", payload: errorMsg });
         return { success: false, error: errorMsg };

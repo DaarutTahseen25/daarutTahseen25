@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from "react";
-import { Routes, Route } from "react-router";
+import { Routes, Route, Navigate } from "react-router";
 import { useAuth } from "../contexts/AuthContext";
 import ProtectedRoute from "../auth/ProtectedRoute";
 import QuranLoader from "../Components/QuranLoader";
@@ -26,16 +26,9 @@ export default function TeacherRoutes() {
   if (loading) return <LoaderFallback />;
 
   return (
-    <Suspense fallback={<LoaderFallback />}>
-      <Routes>
-        <Route
-          path="/*"
-          element={
-            <ProtectedRoute allowedRoles={["teacher"]}>
-              <LayoutTeachers />
-            </ProtectedRoute>
-          }
-        >
+    <Routes>
+      <Route element={<ProtectedRoute allowedRoles={["teacher"]} />}>
+        <Route path="/" element={<LayoutTeachers />}>
           <Route index element={<DashboardTeacher />} />
           <Route path="library" element={<Library />} />
           <Route path="payments" element={<Payments />} />
@@ -43,8 +36,10 @@ export default function TeacherRoutes() {
           <Route path="my-courses" element={<TeacherCourses />} />
           <Route path="my-classes" element={<Classes />} />
           <Route path="profile" element={<Profile />} />
+
+          <Route path="*" element={<Navigate to="/teacher" replace />} />
         </Route>
-      </Routes>
-    </Suspense>
+      </Route>
+    </Routes>
   );
 }

@@ -1,20 +1,14 @@
-import React, { Suspense, lazy } from "react";
 import { Routes, Route, Navigate } from "react-router";
+import { Suspense, lazy } from "react";
 import QuranLoader from "../Components/QuranLoader";
+import RequireTestAuth from "../auth/RequireTestAuth";
 
-// Lazy load route groups
 const LandingRoutes = lazy(() => import("./LandingRoutes"));
-
-// Dashboard Routes
 const StudentRoutes = lazy(() => import("./StudentRoutes"));
 const TeacherRoutes = lazy(() => import("./TeacherRoutes"));
-
-// Auth-related pages
-const OtpRegPage = lazy(() => import("../Components/OtpRegPage"));
+const AdminRoutes = lazy(() => import("./AdminRoutes"));
 const LogIn = lazy(() => import("../pages/Login"));
 const UnAuthorized = lazy(() => import("../pages/UnAuthorized"));
-
-// Create Account Flow pages
 const CreateAccount = lazy(() => import("../pages/CreateAccount"));
 const SelectAccount = lazy(() => import("../Components/SelectAccount"));
 const StudentRegistrationForm = lazy(() =>
@@ -23,6 +17,8 @@ const StudentRegistrationForm = lazy(() =>
 const TutorRegistrationForm = lazy(() =>
   import("../Components/TutorRegistrationForm")
 );
+const OtpRegPage = lazy(() => import("../Components/OtpRegPage"));
+const TestRoutes = lazy(() => import("./TestRoutes"));
 
 const LoaderFallback = () => (
   <div className="w-full h-screen flex justify-center items-center text-lg font-medium">
@@ -34,27 +30,33 @@ export default function AppRoutes() {
   return (
     <Suspense fallback={<LoaderFallback />}>
       <Routes>
-        {/* Public landing pages */}
+        {/* Public routes */}
         <Route path="/*" element={<LandingRoutes />} />
-
-        {/* Student dashboard */}
-        <Route path="/student/*" element={<StudentRoutes />} />
-
-        {/* Teacher dashboard */}
-        <Route path="/teacher/*" element={<TeacherRoutes />} />
-
-        {/* Auth & Misc */}
         <Route path="/otp-page" element={<OtpRegPage />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/unauthorized" element={<UnAuthorized />} />
-
-        {/* Create Account Flow */}
+        {/* Dashboards */}
+        <Route path="/student/*" element={<StudentRoutes />} />
+        <Route path="/teacher/*" element={<TeacherRoutes />} />
+        <Route path="/admin/*" element={<AdminRoutes />} />
+        <Route
+          path="/assessment/*"
+          element={
+            <RequireTestAuth>
+              <TestRoutes />
+            </RequireTestAuth>
+          }
+        />
+        {/* Create Account Flow */}{" "}
         <Route path="/create" element={<CreateAccount />}>
-          <Route index element={<Navigate to="select" replace />} />
-          <Route path="select" element={<SelectAccount />} />
-          <Route path="student-account" element={<StudentRegistrationForm />} />
-          <Route path="tutor-account" element={<TutorRegistrationForm />} />
+          {" "}
+          <Route index element={<Navigate to="select" replace />} />{" "}
+          <Route path="select" element={<SelectAccount />} />{" "}
+          <Route path="student-account" element={<StudentRegistrationForm />} />{" "}
+          <Route path="tutor-account" element={<TutorRegistrationForm />} />{" "}
         </Route>
+        {/* Catch-all */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Suspense>
   );

@@ -3,7 +3,7 @@ import DashboardMain from "../Components/DashboardMain";
 import DashboardSidebar from "../Components/DashboardSidebar";
 import HomeSidebar from "../Components/HomeSidebar";
 
-const LayoutStudents = () => {
+const AdminLayout = () => {
   return (
     <div className="grid min-h-screen grid-cols-1 lg:grid-cols-[250px_1fr]">
       <DashboardSidebar />
@@ -16,4 +16,4 @@ const LayoutStudents = () => {
   );
 };
 
-export default LayoutStudents;
+export default AdminLayout;

@@ -29,6 +29,7 @@ const useRegister = () => {
 
   const register = useCallback(
     async (formData, role) => {
+      console.log(formData, role);
       try {
         dispatch({ type: "SUBMIT_START" });
 
@@ -43,7 +44,7 @@ const useRegister = () => {
 
         navigate("/otp-page", { state: { email: registeredEmail } });
       } catch (err) {
-        const errorMsg = getErrorMessage(err, "Registration failed");
+        const errorMsg = getErrorMessage(err, "registration");
         dispatch({ type: "SUBMIT_ERROR", payload: errorMsg });
         throw new Error(errorMsg);
       } finally {

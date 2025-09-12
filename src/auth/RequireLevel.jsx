@@ -5,14 +5,16 @@ const RequireLevel = () => {
   const { user } = useAuth();
   const location = useLocation();
 
-  if (user?.role === "student" && !user?.level) {
-    return (
-      <Navigate
-        to='/student/level-registration'
-        state={{ from: location }}
-        replace
-      />
-    );
+  if (!user) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  if (
+    user.role === "student" &&
+    !user.level &&
+    location.pathname !== "/student/level-registration"
+  ) {
+    return <Navigate to="/student/level-registration" replace />;
   }
 
   return <Outlet />;

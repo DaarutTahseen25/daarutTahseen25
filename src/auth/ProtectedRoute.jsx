@@ -1,8 +1,8 @@
 import React from "react";
-import { Navigate } from "react-router";
+import { Navigate, Outlet } from "react-router";
 import { useAuth } from "../contexts/AuthContext";
 
-const ProtectedRoute = ({ children, allowedRoles }) => {
+const ProtectedRoute = ({ allowedRoles }) => {
   const { user, loading } = useAuth();
 
   // 🌀 Fullscreen loading screen to prevent white flashes
@@ -24,8 +24,8 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
     return <Navigate to="/unauthorized" replace />;
   }
 
-  // ✅ If all checks pass, render the protected children
-  return children;
+  // ✅ If all checks pass, render child routes
+  return <Outlet />;
 };
 
 export default ProtectedRoute;

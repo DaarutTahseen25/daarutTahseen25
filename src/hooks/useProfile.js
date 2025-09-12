@@ -162,7 +162,7 @@ export function useProfile(profile) {
         toast.success(res?.data?.message || "Password updated successfully!");
       })
       .catch((err) => {
-        toast.error(getErrorMessage(err, "Failed to update password."));
+        toast.error(getErrorMessage(err, "passwordUpdate"));
       })
       .finally(() => dispatch({ type: "SET_LOADING_PASSWORD", value: false }));
   }, [state]);
@@ -212,12 +212,12 @@ export function useProfile(profile) {
 
         toast.success(res?.data?.message || "Profile updated successfully!");
       } catch (err) {
-        toast.error(getErrorMessage(err, "Failed to update profile."));
+        toast.error(getErrorMessage(err, "profileUpdate"));
       } finally {
         dispatch({ type: "SET_LOADING_PROFILE", value: false });
       }
     },
-    [state.form, state.profilePic, state.profileFile]
+    [state.form, state.profilePic, state.profileFile, setUser, user?.role]
   );
 
   return {
