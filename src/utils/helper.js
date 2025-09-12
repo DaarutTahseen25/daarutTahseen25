@@ -97,3 +97,35 @@ export const getErrorMessage = (err, fallback = "Something went wrong") => {
     fallback
   );
 };
+
+export const formatDeadline = (date) => {
+  if (!(date instanceof Date) || isNaN(date)) return "";
+
+  const day = date.getDate();
+  const month = date.toLocaleString("en-US", { month: "long" });
+  const year = date.getFullYear();
+
+  // suffix for day
+  const getSuffix = (d) => {
+    if (d > 3 && d < 21) return "th";
+    switch (d % 10) {
+      case 1:
+        return "st";
+      case 2:
+        return "nd";
+      case 3:
+        return "rd";
+      default:
+        return "th";
+    }
+  };
+
+  // time in 12-hour format with AM/PM
+  const time = date.toLocaleString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  });
+
+  return `${day}${getSuffix(day)} ${month}, ${year}; ${time}`;
+};

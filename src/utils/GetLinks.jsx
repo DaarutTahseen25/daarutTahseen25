@@ -1,12 +1,15 @@
 import {
   Bell,
   BookOpen,
+  Calendar,
   CreditCard,
+  Eye,
   FileText,
   LayoutDashboard,
   ListTree,
   MessageSquare,
   School,
+  UserCog,
   Users,
 } from "lucide-react";
 
@@ -108,6 +111,67 @@ export const getDashboardSidebarLinks = (role) => {
         icon: <FileText />,
         label: "Library",
         to: "/teacher/library",
+        requiresLevel: false,
+      },
+    ];
+  }
+
+  if (role === "admin") {
+    return [
+      {
+        key: "dashboard",
+        icon: <LayoutDashboard />,
+        label: "Dashboard",
+        to: "/admin",
+        requiresLevel: false,
+      },
+      {
+        key: "students",
+        icon: <Users />,
+        label: "Students Management",
+        to: "/student/management",
+        requiresLevel: false,
+      },
+      {
+        key: "teachers",
+        icon: <UserCog />,
+        label: "Teachers Management",
+        to: "/teacher/management",
+        requiresLevel: false,
+      },
+      {
+        key: "courses",
+        icon: <BookOpen />,
+        label: "Courses Management",
+        to: "/courses/management",
+        requiresLevel: false,
+      },
+      {
+        key: "timetables",
+        icon: <Calendar />,
+        label: "Timetable Management",
+        to: "/timetables/management",
+        requiresLevel: false,
+      },
+      {
+        key: "amptitude-tests",
+        icon: <FileText />,
+        label: "Amptitude Test",
+        to: "/tests/management",
+        requiresLevel: false,
+      },
+      {
+        key: "view-amptitude-tests",
+        icon: <Eye />,
+        label: "View Amptitude Tests",
+        to: "/tests/view-tests",
+        requiresLevel: false,
+      },
+      {
+        key: "payments-history",
+        icon: <CreditCard />,
+        label: "Payments History",
+        to: "/payments/history",
         requiresLevel: false,
       },
     ];
