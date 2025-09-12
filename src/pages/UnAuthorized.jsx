@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { usePageTitle } from "../hooks/usePageTitle";
 import { ShieldX, ArrowLeft, LogIn, Home, AlertTriangle } from "lucide-react";
 

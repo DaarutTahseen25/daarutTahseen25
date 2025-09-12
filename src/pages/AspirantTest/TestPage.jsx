@@ -4,6 +4,7 @@ import { usePageTitle } from "../../hooks/usePageTitle";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 import useTestQuestions from "./useTestQuestions";
+import { useSubmitTest } from "./useSubmitTest";
 
 const QuestionCard = lazy(() => import("./QuestionCard"));
 const Sidebar = lazy(() => import("./Sidebar"));
@@ -11,11 +12,13 @@ const Sidebar = lazy(() => import("./Sidebar"));
 export default function TestPage() {
   usePageTitle("Assessment Test");
 
+  const { submitTest, isSubmitted, setIsSubmitted, isSubmiting } =
+    useSubmitTest();
+
   const navigate = useNavigate();
   const { questions, loading, error, setQuestions } = useTestQuestions();
 
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const [showReminder, setShowReminder] = useState(false);
   const [cheated, setCheated] = useState(false);
 
@@ -56,12 +59,14 @@ export default function TestPage() {
         };
       });
 
+    // submitTest({ answers: selectedAnswers });
+
     console.log("Submitting answers:", { answers: selectedAnswers });
 
     toast.success("Answers submitted successfully!");
     setIsSubmitted(true);
     navigate("/student/level-registration", { replace: true });
-  }, [questions, isSubmitted, navigate]);
+  }, [questions, isSubmitted, navigate, setIsSubmitted]);
 
   useEffect(() => {
     const onHidden = () => {
@@ -118,6 +123,7 @@ export default function TestPage() {
               setCurrentIndex={safeSetIndex}
               onSubmit={handleSubmit}
               isSubmitted={isSubmitted}
+              isSubmiting={isSubmiting}
             />
           </Suspense>
         </div>

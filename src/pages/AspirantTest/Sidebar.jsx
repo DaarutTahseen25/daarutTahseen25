@@ -8,6 +8,7 @@ export default function Sidebar({
   onSubmit,
   isSubmitted,
   testDurationMinutes = 20,
+  isSubmitting,
 }) {
   const [timeLeft, setTimeLeft] = useState(testDurationMinutes * 60);
   const [isWarning, setIsWarning] = useState(false);
@@ -189,7 +190,7 @@ export default function Sidebar({
       <button
         type="button"
         onClick={handleSubmit}
-        disabled={!isAnyAnswered || isSubmitted}
+        disabled={!isAnyAnswered || isSubmitted || isSubmitting}
         className={`
           w-full py-3 mt-auto rounded-md text-center text-base font-semibold
           transition-all duration-200
@@ -208,6 +209,8 @@ export default function Sidebar({
           ? "Submitted"
           : timeLeft <= 60
           ? "Submit Now!"
+          : isSubmitting
+          ? "Submitting..."
           : "Submit Answers"}
       </button>
 
