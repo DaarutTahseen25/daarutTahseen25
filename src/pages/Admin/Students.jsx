@@ -1,11 +1,12 @@
 "use client";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { FaEye } from "react-icons/fa";
 import { PencilLine, Trash2 } from "lucide-react";
 import DeleteOverlay from "../../Components/Suspendstudent";
 import AddOverlay from "../../Components/Addstudent";
 import EditOverlay from "../../Components/Studentdetailsedit";
 import ViewOverlay from "../../Components/Studentdetails";
+import Pagination from "../../Components/Pagination";
 import { useGetUsers } from "./useGetUsers";
 
 const statusColors = {
@@ -32,6 +33,10 @@ export default function Students() {
   const [filterStatus, setFilterStatus] = useState("All");
   const [overlay, setOverlay] = useState({ type: null, student: null });
 
+  // pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 3;
+
   const handleDelete = (id) => {
     setStudents((prev) => prev.filter((s) => s._id !== id));
   };
@@ -44,24 +49,37 @@ export default function Students() {
     );
   };
 
-  const filtered = students.filter((s) => {
-    const matchesSearch = s.full_name
-      ?.toLowerCase()
-      .includes(search.toLowerCase());
-    const matchesLevel =
-      filterLevel === "All" ||
-      (s.level ? s.level.toLowerCase() === filterLevel.toLowerCase() : false);
+  const filtered = useMemo(() => {
+    return students.filter((s) => {
+      const matchesSearch = s.full_name
+        ?.toLowerCase()
+        .includes(search.toLowerCase());
 
-    const derivedStatus = s.is_verified
-      ? s.is_active
-        ? "Active"
-        : "Suspended"
-      : "Pending";
-    const matchesStatus =
-      filterStatus === "All" || derivedStatus === filterStatus;
+      const matchesLevel =
+        filterLevel === "All" ||
+        (s.level ? s.level.toLowerCase() === filterLevel.toLowerCase() : false);
 
-    return matchesSearch && matchesLevel && matchesStatus;
-  });
+      const derivedStatus = s.is_verified
+        ? s.is_active
+          ? "Active"
+          : "Suspended"
+        : "Pending";
+
+      const matchesStatus =
+        filterStatus === "All" || derivedStatus === filterStatus;
+
+      return matchesSearch && matchesLevel && matchesStatus;
+    });
+  }, [students, search, filterLevel, filterStatus]);
+
+  const totalPages = Math.ceil(filtered.length / pageSize) || 1;
+  const currentData = useMemo(() => {
+    const start = (currentPage - 1) * pageSize;
+    return filtered.slice(start, start + pageSize);
+  }, [filtered, currentPage]);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useMemo(() => setCurrentPage(1), [search, filterLevel, filterStatus]);
 
   if (isLoading) return <h1>Loading...</h1>;
 
@@ -87,7 +105,7 @@ export default function Students() {
         </div>
 
         {/* Filters */}
-        <div className="bg-white rounded-xl shadow p-6">
+        <div className="bg-white rounded-xl shadow p-6 flex flex-col">
           <div className="flex flex-col md:flex-row gap-4 mb-6">
             <input
               type="text"
@@ -133,77 +151,93 @@ export default function Students() {
                 </tr>
               </thead>
               <tbody>
-                {filtered.map((s) => {
-                  const status = s.is_verified
-                    ? s.is_active
-                      ? "Active"
-                      : "Suspended"
-                    : "Pending";
-                  const joinDate = new Date(s.createdAt).toLocaleDateString();
-                  return (
-                    <tr key={s._id} className="hover:bg-gray-50">
-                      <td className="py-3 flex items-center gap-3">
-                        <img
-                          src={s.image}
-                          alt={s.full_name}
-                          className="w-10 h-10 rounded-full"
-                        />
-                        <div>
-                          <p className="font-semibold font-clash text-textmain">
-                            {s.full_name}
-                          </p>
-                          <p className="text-gray-500 text-sm">{s.email}</p>
-                        </div>
-                      </td>
-                      <td>
-                        <span
-                          className={`px-3 py-1 capitalize rounded-full text-sm ${
-                            s.level ? levelColors[s.level] : "bg-gray-100"
-                          }`}
-                        >
-                          {s.level || "Nill"}
-                        </span>
-                      </td>
-                      <td>
-                        <span
-                          className={`px-3 py-1 rounded-full text-sm ${statusColors[status]}`}
-                        >
-                          {status}
-                        </span>
-                      </td>
-                      <td className="text-gray-600">{joinDate}</td>
-                      <td className="flex gap-3">
-                        <button
-                          className="text-[#2462FF] hover:text-blue-700"
-                          onClick={() =>
-                            setOverlay({ type: "view", student: s })
-                          }
-                        >
-                          <FaEye className="size-4" />
-                        </button>
-                        <button
-                          className="text-primary hover:text-buttonhover"
-                          onClick={() =>
-                            setOverlay({ type: "edit", student: s })
-                          }
-                        >
-                          <PencilLine className="size-4" />
-                        </button>
-                        <button
-                          className="text-red-500 hover:text-red-700"
-                          onClick={() =>
-                            setOverlay({ type: "delete", student: s })
-                          }
-                        >
-                          <Trash2 className="size-4" />
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })}
+                {currentData.length ? (
+                  currentData.map((s) => {
+                    const status = s.is_verified
+                      ? s.is_active
+                        ? "Active"
+                        : "Suspended"
+                      : "Pending";
+                    const joinDate = new Date(s.createdAt).toLocaleDateString();
+                    return (
+                      <tr key={s._id} className="hover:bg-gray-50">
+                        <td className="py-3 flex items-center gap-3">
+                          <img
+                            src={s.image}
+                            alt={s.full_name}
+                            className="w-10 h-10 rounded-full"
+                          />
+                          <div>
+                            <p className="font-semibold font-clash text-textmain">
+                              {s.full_name}
+                            </p>
+                            <p className="text-gray-500 text-sm">{s.email}</p>
+                          </div>
+                        </td>
+                        <td>
+                          <span
+                            className={`px-3 py-1 capitalize rounded-full text-sm ${
+                              s.level ? levelColors[s.level] : "bg-gray-100"
+                            }`}
+                          >
+                            {s.level || "Nill"}
+                          </span>
+                        </td>
+                        <td>
+                          <span
+                            className={`px-3 py-1 rounded-full text-sm ${statusColors[status]}`}
+                          >
+                            {status}
+                          </span>
+                        </td>
+                        <td className="text-gray-600">{joinDate}</td>
+                        <td className="flex gap-3">
+                          <button
+                            className="text-[#2462FF] hover:text-blue-700"
+                            onClick={() =>
+                              setOverlay({ type: "view", student: s })
+                            }
+                          >
+                            <FaEye className="size-4" />
+                          </button>
+                          <button
+                            className="text-primary hover:text-buttonhover"
+                            onClick={() =>
+                              setOverlay({ type: "edit", student: s })
+                            }
+                          >
+                            <PencilLine className="size-4" />
+                          </button>
+                          <button
+                            className="text-red-500 hover:text-red-700"
+                            onClick={() =>
+                              setOverlay({ type: "delete", student: s })
+                            }
+                          >
+                            <Trash2 className="size-4" />
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })
+                ) : (
+                  <tr>
+                    <td colSpan={5} className="text-center py-6 text-gray-500">
+                      No students found
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>
+          {currentData.length > 0 && (
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+            />
+          )}
+          {/* Pagination component */}
         </div>
       </div>
 

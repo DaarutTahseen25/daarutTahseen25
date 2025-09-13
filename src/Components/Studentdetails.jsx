@@ -1,6 +1,14 @@
 import { AiOutlineClose } from "react-icons/ai";
 
 function ViewOverlay({ student, onClose }) {
+  const derivedStatus = student.is_verified
+    ? student.is_active
+      ? "Active"
+      : "Suspended"
+    : "Pending";
+
+  const joinDate = new Date(student.createdAt).toLocaleDateString();
+
   if (!student) return null;
 
   return (
@@ -18,12 +26,12 @@ function ViewOverlay({ student, onClose }) {
 
         <div>
           <img
-            src={student.avatar}
-            alt={student.name}
+            src={student.image}
+            alt={student.full_name}
             className="h-30 w-30 rounded-full mx-auto my-4"
           />
           <p className="text-md font-semibold font-clash text-textmain text-center">
-            {student.name}
+            {student.full_name}
           </p>
           <p className="text-sm text-textmuted text-center">{student.email}</p>
         </div>
@@ -32,26 +40,24 @@ function ViewOverlay({ student, onClose }) {
           <div className="flex flex-col pr-6">
             <p className="text-md text-textmuted mt-4">Level</p>
             <p className="text-md font-semibold text-textmain">
-              {student.level}
+              {student.level || "Nill"}
             </p>
           </div>
           <div className="flex flex-col pr-6">
             <p className="text-md text-textmuted mt-4">Status</p>
             <p className="text-md font-semibold text-textmain">
-              {student.status}
+              {derivedStatus}
             </p>
           </div>
           <div className="flex flex-col pr-6">
             <p className="text-md text-textmuted mt-4">Progress</p>
             <p className="text-md font-semibold text-textmain">
-              {student.progress}%
+              {student.progress || 0}%
             </p>
           </div>
           <div className="flex flex-col pr-6">
             <p className="text-md text-textmuted mt-4">Join Date</p>
-            <p className="text-md font-semibold text-textmain">
-              {student.date}
-            </p>
+            <p className="text-md font-semibold text-textmain">{joinDate}</p>
           </div>
         </div>
       </div>
