@@ -8,7 +8,10 @@ function ViewOverlay({ student, onClose }) {
       <div className="bg-white p-4 rounded-lg shadow max-w-md w-full">
         <div className="flex items-center justify-between">
           <h2 className="font-semibold text-xl font-clash">Student details</h2>
-          <button onClick={onClose} className="text-xl text-textmain">
+          <button
+            onClick={onClose}
+            className="text-xl cursor-pointer text-textmain"
+          >
             <AiOutlineClose />
           </button>
         </div>

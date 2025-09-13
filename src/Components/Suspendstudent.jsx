@@ -8,7 +8,10 @@ function DeleteOverlay({ student, onClose, onDelete }) {
       <div className="bg-white p-4 rounded-lg shadow max-w-md w-full">
         <div className="flex items-center justify-between">
           <h2 className="font-semibold text-xl font-clash">Delete Student</h2>
-          <button onClick={onClose} className="text-xl text-textmain">
+          <button
+            onClick={onClose}
+            className="text-xl cursor-pointer text-textmain"
+          >
             <AiOutlineClose />
           </button>
         </div>
@@ -57,7 +60,7 @@ function DeleteOverlay({ student, onClose, onDelete }) {
             onDelete(student.id);
             onClose();
           }}
-          className="mx-auto block px-5 py-2 bg-error text-white rounded mt-8 font-clash"
+          className="mx-auto cursor-pointer block px-5 py-2 bg-error text-white rounded mt-8 font-clash"
         >
           Delete Student
         </button>

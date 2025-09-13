@@ -2,16 +2,22 @@ import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 
 function EditOverlay({ student, onClose, onUpdate }) {
-  if (!student) return null;
+  const derivedStatus = student.is_verified
+    ? student.is_active
+      ? "Active"
+      : "Suspended"
+    : "Pending";
+
+  const joinDate = new Date(student.createdAt).toLocaleDateString();
 
   const [form, setForm] = useState({
-    name: student.name,
+    name: student.full_name,
     email: student.email,
-    level: student.level,
-    status: student.status,
-    progress: student.progress,
-    date: student.date,
-    avatar: student.avatar,
+    level: student.level || "Nill",
+    status: derivedStatus,
+    progress: student.progress || 0,
+    date: joinDate,
+    avatar: student.image,
   });
 
   const handleChange = (e) => {
@@ -24,12 +30,17 @@ function EditOverlay({ student, onClose, onUpdate }) {
     onClose();
   };
 
+  if (!student) return null;
+
   return (
     <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-50">
       <div className="bg-white p-4 rounded-lg shadow max-w-md w-full">
         <div className="flex items-center justify-between">
           <h2 className="font-semibold text-xl font-clash">Edit Student</h2>
-          <button onClick={onClose} className="text-xl text-textmain">
+          <button
+            onClick={onClose}
+            className="text-xl cursor-pointer text-textmain"
+          >
             <AiOutlineClose />
           </button>
         </div>
@@ -101,7 +112,7 @@ function EditOverlay({ student, onClose, onUpdate }) {
 
         <button
           onClick={handleSubmit}
-          className="mx-auto block px-5 py-2 bg-success text-white rounded mt-8 font-clash"
+          className="mx-auto cursor-pointer block px-5 py-2 bg-primary hover:bg-buttonhover text-white rounded mt-8 font-clash"
         >
           Update Student Details
         </button>

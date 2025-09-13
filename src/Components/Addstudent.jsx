@@ -41,7 +41,10 @@ function AddOverlay({ onClose, onAdd }) {
       <div className="bg-white p-6 rounded-lg shadow max-w-md w-full">
         <div className="flex items-center justify-between mb-4">
           <h2 className="font-semibold text-xl font-clash">Add New Student</h2>
-          <button onClick={onClose} className="text-xl text-textmain">
+          <button
+            onClick={onClose}
+            className="text-xl cursor-pointer text-textmain"
+          >
             <AiOutlineClose />
           </button>
         </div>
@@ -103,7 +106,7 @@ function AddOverlay({ onClose, onAdd }) {
           </button>
           <button
             onClick={handleSave}
-            className="px-8 py-2 bg-primary text-white rounded"
+            className="px-8 py-2 cursor-pointer bg-primary text-white rounded"
           >
             Add Student
           </button>
