@@ -12,7 +12,7 @@ function DeleteOverlay({ student, onClose, onDelete }) {
   if (!student) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-black/75 flex items-center justify-center z-50">
       <div className="bg-white p-4 rounded-lg shadow max-w-md w-full">
         <div className="flex items-center justify-between">
           <h2 className="font-semibold text-xl font-clash">Delete Student</h2>

@@ -37,7 +37,7 @@ function AddOverlay({ onClose, onAdd }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-black/75 flex items-center justify-center z-50">
       <div className="bg-white p-6 rounded-lg shadow max-w-md w-full">
         <div className="flex items-center justify-between mb-4">
           <h2 className="font-semibold text-xl font-clash">Add New Student</h2>
