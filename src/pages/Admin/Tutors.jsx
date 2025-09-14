@@ -258,8 +258,11 @@ import EditOverlay from "../../Components/Studentdetailsedit";
 import ViewOverlay from "../../Components/Studentdetails";
 import Pagination from "../../Components/Pagination";
 import { useGetUsers } from "./useGetUsers";
+import { LoaderFallback } from "../../routes/AppRoutes";
+import { usePageTitle } from "../../hooks/usePageTitle";
 
 export default function Tutors() {
+  usePageTitle("Teachers Management");
   const {
     users: students,
     isLoading,
@@ -376,7 +379,7 @@ export default function Tutors() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useMemo(() => setCurrentPage(1), [search, filterLevel, filterStatus]);
 
-  if (isLoading) return <h1>Loading...</h1>;
+  if (isLoading) return <LoaderFallback />;
 
   return (
     <div className="min-h-screen p-3">

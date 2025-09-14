@@ -7,6 +7,8 @@ import EditOverlay from "../../Components/Studentdetailsedit";
 import ViewOverlay from "../../Components/Studentdetails";
 import Pagination from "../../Components/Pagination";
 import { useGetUsers } from "./useGetUsers";
+import { LoaderFallback } from "../../routes/AppRoutes";
+import { usePageTitle } from "../../hooks/usePageTitle";
 
 const statusColors = {
   Active: "bg-green-100 text-green-800 border-green-200",
@@ -21,6 +23,7 @@ const levelColors = {
 };
 
 export default function Students() {
+  usePageTitle("Students Management");
   const {
     users: students,
     isLoading,
@@ -144,7 +147,7 @@ export default function Students() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useMemo(() => setCurrentPage(1), [search, filterLevel, filterStatus]);
 
-  if (isLoading) return <h1>Loading...</h1>;
+  if (isLoading) return <LoaderFallback />;
 
   return (
     <div className="min-h-screen p-3">
