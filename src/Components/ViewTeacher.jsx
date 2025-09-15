@@ -1,13 +1,13 @@
 import { AiOutlineClose } from "react-icons/ai";
 
-function ViewOverlay({ student, onClose }) {
-  const derivedStatus = student.is_verified
-    ? student.is_active
+function ViewTeacher({ teacher, onClose }) {
+  const derivedStatus = teacher.is_verified
+    ? teacher.is_active
       ? "Active"
       : "Suspended"
     : "Pending";
 
-  const joinDate = new Date(student.createdAt).toLocaleDateString();
+  const joinDate = new Date(teacher.createdAt).toLocaleDateString();
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -22,7 +22,7 @@ function ViewOverlay({ student, onClose }) {
     }
   };
 
-  if (!student) return null;
+  if (!teacher) return null;
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
@@ -30,7 +30,7 @@ function ViewOverlay({ student, onClose }) {
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-100">
           <h2 className="font-semibold text-xl font-clash text-gray-900">
-            Student Details
+            Teacher Details
           </h2>
           <button
             onClick={onClose}
@@ -44,8 +44,8 @@ function ViewOverlay({ student, onClose }) {
         <div className="px-6 py-8 text-center">
           <div className="relative inline-block">
             <img
-              src={student.image}
-              alt={student.full_name}
+              src={teacher.image}
+              alt={teacher.full_name}
               className="h-24 w-24 rounded-full mx-auto object-cover ring-4 ring-gray-100"
             />
             <div
@@ -57,9 +57,9 @@ function ViewOverlay({ student, onClose }) {
             </div>
           </div>
           <h3 className="text-lg font-semibold font-clash text-gray-900 mt-4">
-            {student.full_name}
+            {teacher.full_name}
           </h3>
-          <p className="text-sm text-gray-500 mt-1">{student.email}</p>
+          <p className="text-sm text-gray-500 mt-1">{teacher.email}</p>
         </div>
 
         {/* Details Grid */}
@@ -70,7 +70,7 @@ function ViewOverlay({ student, onClose }) {
                 Level
               </p>
               <p className="text-lg font-semibold text-gray-900">
-                {student.level || "Not Set"}
+                {teacher.level || "Not Set"}
               </p>
             </div>
 
@@ -82,11 +82,11 @@ function ViewOverlay({ student, onClose }) {
                 <div className="flex-1 bg-gray-200 rounded-full h-2">
                   <div
                     className="bg-blue-500 h-2 rounded-full transition-all duration-300"
-                    style={{ width: `${student.progress || 0}%` }}
+                    style={{ width: `${teacher.progress || 0}%` }}
                   ></div>
                 </div>
                 <span className="text-lg font-semibold text-gray-900">
-                  {student.progress || 0}%
+                  {teacher.progress || 0}%
                 </span>
               </div>
             </div>
@@ -104,4 +104,4 @@ function ViewOverlay({ student, onClose }) {
   );
 }
 
-export default ViewOverlay;
+export default ViewTeacher;
