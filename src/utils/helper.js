@@ -167,3 +167,17 @@ export function getErrorMessage(error, context = "general") {
     "Unexpected error occurred."
   );
 }
+
+export function formatCurrency(
+  amount,
+  { currency = "USD", locale = "en-US", minimumFractionDigits = 0 } = {}
+) {
+  if (isNaN(amount)) return "";
+
+  return new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency,
+    minimumFractionDigits,
+    maximumFractionDigits: 2,
+  }).format(amount);
+}
