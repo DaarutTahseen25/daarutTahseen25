@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 import useTestQuestions from "./useTestQuestions";
 import { useSubmitTest } from "./useSubmitTest";
+import { LoaderFallback } from "../../routes/AppRoutes";
 
 const QuestionCard = lazy(() => import("./QuestionCard"));
 const Sidebar = lazy(() => import("./Sidebar"));
@@ -89,7 +90,7 @@ export default function TestPage() {
     return () => clearTimeout(timeout);
   }, [questions, isSubmitted]);
 
-  if (loading) return <div>Loading questions…</div>;
+  if (loading) return <LoaderFallback />;
   if (error) return <div className="text-red-500">{error}</div>;
   if (!questions || questions.length === 0)
     return <div>No questions found.</div>;
@@ -104,28 +105,24 @@ export default function TestPage() {
 
       <div className="w-[95%] mx-auto">
         <div className="flex flex-col md:flex-row justify-between gap-5">
-          <Suspense fallback={<div>Loading Question…</div>}>
-            <QuestionCard
-              question={questions[currentIndex]}
-              index={currentIndex}
-              total={questions.length}
-              questions={questions}
-              onAnswer={handleAnswer}
-              isSubmitted={isSubmitted}
-              setCurrentIndex={safeSetIndex}
-            />
-          </Suspense>
+          <QuestionCard
+            question={questions[currentIndex]}
+            index={currentIndex}
+            total={questions.length}
+            questions={questions}
+            onAnswer={handleAnswer}
+            isSubmitted={isSubmitted}
+            setCurrentIndex={safeSetIndex}
+          />
 
-          <Suspense fallback={<div>Loading Sidebar…</div>}>
-            <Sidebar
-              questions={questions}
-              currentIndex={currentIndex}
-              setCurrentIndex={safeSetIndex}
-              onSubmit={handleSubmit}
-              isSubmitted={isSubmitted}
-              isSubmiting={isSubmiting}
-            />
-          </Suspense>
+          <Sidebar
+            questions={questions}
+            currentIndex={currentIndex}
+            setCurrentIndex={safeSetIndex}
+            onSubmit={handleSubmit}
+            isSubmitted={isSubmitted}
+            isSubmiting={isSubmiting}
+          />
         </div>
       </div>
     </>
