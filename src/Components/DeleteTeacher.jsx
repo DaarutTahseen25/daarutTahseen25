@@ -1,13 +1,13 @@
 import { AiOutlineClose } from "react-icons/ai";
 
-function DeleteOverlay({ student, onClose, onDelete }) {
-  const derivedStatus = student.is_verified
-    ? student.is_active
+function DeleteTeacher({ teacher, onClose, onDelete }) {
+  const derivedStatus = teacher.is_verified
+    ? teacher.is_active
       ? "Active"
       : "Suspended"
     : "Pending";
 
-  const joinDate = new Date(student.createdAt).toLocaleDateString();
+  const joinDate = new Date(teacher.createdAt).toLocaleDateString();
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -22,7 +22,7 @@ function DeleteOverlay({ student, onClose, onDelete }) {
     }
   };
 
-  if (!student) return null;
+  if (!teacher) return null;
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
@@ -30,7 +30,7 @@ function DeleteOverlay({ student, onClose, onDelete }) {
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-100">
           <h2 className="font-semibold text-xl font-clash text-red-600">
-            Delete Student
+            Delete Teacher
           </h2>
           <button
             onClick={onClose}
@@ -44,7 +44,7 @@ function DeleteOverlay({ student, onClose, onDelete }) {
         <div className="px-6 pt-4 pb-2">
           <div className="bg-red-50 border border-red-200 rounded-lg p-4">
             <p className="text-red-800 text-sm font-medium">
-              ⚠️ This action cannot be undone. The student record will be
+              ⚠️ This action cannot be undone. The teacher record will be
               permanently deleted.
             </p>
           </div>
@@ -54,8 +54,8 @@ function DeleteOverlay({ student, onClose, onDelete }) {
         <div className="px-6 py-4 text-center">
           <div className="relative inline-block">
             <img
-              src={student.image}
-              alt={student.full_name}
+              src={teacher.image}
+              alt={teacher.full_name}
               className="h-20 w-20 rounded-full mx-auto object-cover ring-4 ring-red-100"
             />
             <div
@@ -67,9 +67,9 @@ function DeleteOverlay({ student, onClose, onDelete }) {
             </div>
           </div>
           <h3 className="text-lg font-semibold font-clash text-gray-900 mt-3">
-            {student.full_name}
+            {teacher.full_name}
           </h3>
-          <p className="text-sm text-gray-500 mt-1">{student.email}</p>
+          <p className="text-sm text-gray-500 mt-1">{teacher.email}</p>
         </div>
 
         {/* Details Grid */}
@@ -77,19 +77,19 @@ function DeleteOverlay({ student, onClose, onDelete }) {
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-gray-50 rounded-lg p-3">
               <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">
-                Level
+                Experience
               </p>
               <p className="text-sm font-semibold text-gray-900">
-                {student.level || "Not Set"}
+                {teacher.experience || "12 years"}
               </p>
             </div>
 
             <div className="bg-gray-50 rounded-lg p-3">
               <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">
-                Progress
+                Subject
               </p>
               <p className="text-sm font-semibold text-gray-900">
-                {student.progress || 0}%
+                {teacher.subject || "Not Set"}
               </p>
             </div>
 
@@ -113,12 +113,12 @@ function DeleteOverlay({ student, onClose, onDelete }) {
             </button>
             <button
               onClick={() => {
-                onDelete(student.id);
+                onDelete(teacher.id);
                 onClose();
               }}
               className="flex-1 px-4 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium font-clash transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
             >
-              Delete Student
+              Delete Teacher
             </button>
           </div>
         </div>
@@ -127,4 +127,4 @@ function DeleteOverlay({ student, onClose, onDelete }) {
   );
 }
 
-export default DeleteOverlay;
+export default DeleteTeacher;
