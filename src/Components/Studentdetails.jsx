@@ -81,7 +81,7 @@ function ViewOverlay({ student, onClose }) {
               <div className="flex items-center space-x-2">
                 <div className="flex-1 bg-gray-200 rounded-full h-2">
                   <div
-                    className="bg-blue-500 h-2 rounded-full transition-all duration-300"
+                    className="bg-primary h-2 rounded-full transition-all duration-300"
                     style={{ width: `${student.progress || 0}%` }}
                   ></div>
                 </div>
