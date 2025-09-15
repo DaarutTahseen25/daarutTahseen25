@@ -253,7 +253,7 @@ import { useState, useMemo } from "react";
 import { FaEye, FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 import { PencilLine, Trash2, Search, Filter } from "lucide-react";
 import DeleteOverlay from "../../Components/Suspendstudent";
-import AddOverlay from "../../Components/Addstudent";
+import AddTeacher from "../../Components/AddTeacher";
 import EditOverlay from "../../Components/Studentdetailsedit";
 import ViewOverlay from "../../Components/Studentdetails";
 import Pagination from "../../Components/Pagination";
@@ -665,7 +665,7 @@ export default function Tutors() {
         />
       )}
       {overlay.type === "add" && (
-        <AddOverlay
+        <AddTeacher
           onClose={() => setOverlay({ type: null, student: null })}
           onAdd={handleAdd}
         />
