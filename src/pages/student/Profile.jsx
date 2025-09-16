@@ -1,4 +1,4 @@
-import { useRef, useState, useMemo, useCallback } from "react";
+import { useMemo } from "react";
 import {
   Lock,
   User,
@@ -16,6 +16,7 @@ import { Loader } from "../../Components/Loader";
 import { useAuth } from "../../contexts/AuthContext";
 import { usePageTitle } from "../../hooks/usePageTitle";
 import { useProfile } from "../../hooks/useProfile";
+import DashTitle from "../../Components/DashTitle";
 
 const Profile = () => {
   usePageTitle("My Profile");
@@ -26,7 +27,6 @@ const Profile = () => {
   const {
     state,
     fileInputRef,
-    dispatch,
     handleFormChange,
     handleProfilePicChange,
     handlePasswordInput,
@@ -42,66 +42,60 @@ const Profile = () => {
     isLoadingPassword,
     isLoadingProfile,
     profilePic,
+    setShow,
   } = state;
 
   // =====================
   // Render
   // =====================
   return (
-    <section className='min-h-screen bg-gradient-to-br from-[#FFFCE1]/30 via-transparent to-[#009688]/5'>
+    <section className="min-h-screen bg-gradient-to-br from-[#FFFCE1]/30 via-transparent to-[#009688]/5">
       {/* Compact Header */}
-      <div className='max-w-7xl mx-auto mb-8 md:mb-12'>
-        <div className='text-center md:text-left'>
-          <div className='inline-block px-4 py-2 bg-[#009688]/10 rounded-full text-[#009688] font-medium text-sm mb-4'>
-            Account Settings
-          </div>
-          <h1 className='font-clash font-bold text-3xl md:text-4xl lg:text-5xl text-[#360400] mb-4'>
-            My Profile
-            <span className='block text-[#009688] text-2xl md:text-3xl lg:text-4xl mt-2'>
-              Manage Your Account
-            </span>
-          </h1>
-          <div className='w-20 h-1 bg-gradient-to-r from-[#009688] to-[#360400] mx-auto md:mx-0 rounded-full'></div>
-        </div>
+      <div className="max-w-7xl mx-auto mb-8 md:mb-12">
+        <DashTitle
+          title="Profile"
+          subtitle="View and update your personal information and account settings"
+        />
       </div>
 
       {/* Improved Layout */}
-      <div className='max-w-6xl mx-auto space-y-6'>
+      <div className="max-w-6xl mx-auto space-y-6">
         {/* Top Row - Profile Picture */}
-        <div className='bg-white/90 rounded-2xl p-5 border border-white/50 shadow-sm'>
-          <div className='flex items-center gap-6'>
+        <div className="bg-white/90 rounded-2xl p-5 border border-white/50 shadow-sm">
+          <div className="flex items-center gap-6">
             {/* Profile Picture */}
-            <div className='relative group'>
-              <div className='w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-3 border-white shadow-md'>
+            <div className="relative group">
+              <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-3 border-white shadow-md">
                 <img
                   src={profilePic}
-                  alt='Profile'
-                  className='w-full h-full object-cover'
+                  alt="Profile"
+                  className="w-full h-full object-cover"
                 />
               </div>
               <div
-                className='absolute inset-0 rounded-full bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center cursor-pointer'
-                onClick={() => fileInputRef.current?.click()}>
-                <Camera className='w-5 h-5 text-white' />
+                className="absolute inset-0 rounded-full bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center cursor-pointer"
+                onClick={() => fileInputRef.current?.click()}
+              >
+                <Camera className="w-5 h-5 text-white" />
               </div>
               <input
-                type='file'
-                accept='image/*'
+                type="file"
+                accept="image/*"
                 ref={fileInputRef}
-                className='hidden'
+                className="hidden"
                 onChange={handleProfilePicChange}
               />
             </div>
 
             {/* Profile Info */}
-            <div className='flex-1'>
-              <div className='flex items-center gap-2 mb-1'>
-                <User className='w-4 h-4 text-[#009688]' />
-                <h3 className='font-clash font-bold text-lg text-[#360400]'>
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-1">
+                <User className="w-4 h-4 text-[#009688]" />
+                <h3 className="font-clash font-bold text-lg text-[#360400]">
                   Profile Picture
                 </h3>
               </div>
-              <p className='text-gray-600 text-sm'>
+              <p className="text-gray-600 text-sm">
                 Click on your picture to change it
               </p>
             </div>
@@ -109,78 +103,79 @@ const Profile = () => {
         </div>
 
         {/* Main Content Grid */}
-        <div className='grid gap-6 lg:grid-cols-2'>
+        <div className="grid gap-6 lg:grid-cols-2">
           {/* Personal Information */}
-          <div className='bg-white/90 rounded-2xl p-5 border border-white/50 shadow-sm'>
-            <div className='flex items-center gap-2 mb-4'>
-              <div className='p-2 bg-[#009688]/10 rounded-lg'>
-                <User className='w-5 h-5 text-[#009688]' />
+          <div className="bg-white/90 rounded-2xl p-5 border border-white/50 shadow-sm">
+            <div className="flex items-center gap-2 mb-4">
+              <div className="p-2 bg-[#009688]/10 rounded-lg">
+                <User className="w-5 h-5 text-[#009688]" />
               </div>
               <div>
-                <h3 className='font-clash font-bold text-lg text-[#360400]'>
+                <h3 className="font-clash font-bold text-lg text-[#360400]">
                   Personal Information
                 </h3>
-                <p className='text-gray-600 text-xs'>Update your details</p>
+                <p className="text-gray-600 text-xs">Update your details</p>
               </div>
             </div>
 
-            <form onSubmit={handleProfileUpdate} className='space-y-4'>
+            <form onSubmit={handleProfileUpdate} className="space-y-4">
               {/* Form Fields Grid */}
-              <div className='grid gap-4 sm:grid-cols-2'>
+              <div className="grid gap-4 sm:grid-cols-2">
                 {/* Full Name */}
-                <div className='sm:col-span-2'>
-                  <label className='text-sm font-medium text-[#360400] block mb-1'>
+                <div className="sm:col-span-2">
+                  <label className="text-sm font-medium text-[#360400] block mb-1">
                     Full Name
                   </label>
-                  <div className='relative'>
-                    <User className='w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2' />
+                  <div className="relative">
+                    <User className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
                     <input
                       disabled={isLoadingProfile}
-                      type='text'
+                      type="text"
                       value={form.fullName}
                       onChange={(e) =>
                         handleFormChange("fullName", e.target.value)
                       }
-                      className='w-full py-2.5 pl-9 pr-3 rounded-lg border border-gray-200 bg-white/70 focus:outline-none focus:ring-1 focus:ring-[#009688] focus:border-[#009688] text-sm'
-                      placeholder='Enter full name'
+                      className="w-full py-2.5 pl-9 pr-3 rounded-lg border border-gray-200 bg-white/70 focus:outline-none focus:ring-1 focus:ring-[#009688] focus:border-[#009688] text-sm"
+                      placeholder="Enter full name"
                     />
                   </div>
                 </div>
 
                 {/* Matric Number */}
                 <div>
-                  <label className='text-sm font-medium text-[#360400] block mb-1'>
+                  <label className="text-sm font-medium text-[#360400] block mb-1">
                     Matric Number
                   </label>
-                  <div className='relative'>
-                    <GraduationCap className='w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2' />
+                  <div className="relative">
+                    <GraduationCap className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
                     <input
-                      type='text'
+                      type="text"
                       disabled
                       value={form.matricNumber}
                       onChange={(e) =>
                         handleFormChange("matricNumber", e.target.value)
                       }
-                      className='w-full py-2.5 pl-9 pr-3 rounded-lg border border-gray-200 bg-white/70 focus:outline-none focus:ring-1 focus:ring-[#009688] focus:border-[#009688] text-sm'
-                      placeholder='Enter matric number'
+                      className="w-full py-2.5 pl-9 pr-3 rounded-lg border border-gray-200 bg-white/70 focus:outline-none focus:ring-1 focus:ring-[#009688] focus:border-[#009688] text-sm"
+                      placeholder="Enter matric number"
                     />
                   </div>
                 </div>
 
                 {/* Gender */}
                 <div>
-                  <label className='text-sm font-medium text-[#360400] block mb-1'>
+                  <label className="text-sm font-medium text-[#360400] block mb-1">
                     Gender
                   </label>
-                  <div className='relative'>
-                    <Users className='w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2' />
+                  <div className="relative">
+                    <Users className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
                     <select
                       disabled={isLoadingProfile}
                       onChange={(e) =>
                         handleFormChange("gender", e.target.value)
                       }
                       value={form.gender}
-                      className='w-full py-2.5 pl-9 pr-8 rounded-lg border border-gray-200 bg-white/70 focus:outline-none focus:ring-1 focus:ring-[#009688] focus:border-[#009688] text-sm appearance-none capitalize'>
+                      className="w-full py-2.5 pl-9 pr-8 rounded-lg border border-gray-200 bg-white/70 focus:outline-none focus:ring-1 focus:ring-[#009688] focus:border-[#009688] text-sm appearance-none capitalize"
+                    >
                       {["male", "female", "other"].map((gen) => (
                         <option key={gen} value={gen}>
                           {gen}
@@ -192,40 +187,40 @@ const Profile = () => {
 
                 {/* Email */}
                 <div>
-                  <label className='text-sm font-medium text-[#360400] block mb-1'>
+                  <label className="text-sm font-medium text-[#360400] block mb-1">
                     Email
                   </label>
-                  <div className='relative'>
-                    <Mail className='w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2' />
+                  <div className="relative">
+                    <Mail className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
                     <input
-                      type='email'
+                      type="email"
                       disabled
                       value={form.email}
                       onChange={(e) =>
                         handleFormChange("email", e.target.value)
                       }
-                      className='w-full py-2.5 pl-9 pr-3 rounded-lg border border-gray-200 bg-white/70 focus:outline-none focus:ring-1 focus:ring-[#009688] focus:border-[#009688] text-sm'
-                      placeholder='Enter email'
+                      className="w-full py-2.5 pl-9 pr-3 rounded-lg border border-gray-200 bg-white/70 focus:outline-none focus:ring-1 focus:ring-[#009688] focus:border-[#009688] text-sm"
+                      placeholder="Enter email"
                     />
                   </div>
                 </div>
 
                 {/* Phone */}
                 <div>
-                  <label className='text-sm font-medium text-[#360400] block mb-1'>
+                  <label className="text-sm font-medium text-[#360400] block mb-1">
                     Phone Number
                   </label>
-                  <div className='relative'>
-                    <Phone className='w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2' />
+                  <div className="relative">
+                    <Phone className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
                     <input
-                      type='tel'
+                      type="tel"
                       disabled={isLoadingProfile}
                       value={form.phoneNumber}
                       onChange={(e) =>
                         handleFormChange("phoneNumber", e.target.value)
                       }
-                      className='w-full py-2.5 pl-9 pr-3 rounded-lg border border-gray-200 bg-white/70 focus:outline-none focus:ring-1 focus:ring-[#009688] focus:border-[#009688] text-sm'
-                      placeholder='Enter phone number'
+                      className="w-full py-2.5 pl-9 pr-3 rounded-lg border border-gray-200 bg-white/70 focus:outline-none focus:ring-1 focus:ring-[#009688] focus:border-[#009688] text-sm"
+                      placeholder="Enter phone number"
                     />
                   </div>
                 </div>
@@ -233,8 +228,8 @@ const Profile = () => {
 
               <Button
                 disabled={isLoadingProfile}
-                variant='primary'
-                size='lg'
+                variant="primary"
+                size="lg"
                 className={`w-full py-2.5 rounded-lg font-clash font-semibold text-sm mt-5 ${
                   !form.fullName ||
                   !form.email ||
@@ -249,38 +244,39 @@ const Profile = () => {
                   !form.matricNumber ||
                   !form.phoneNumber
                 }
-                type='submit'>
+                type="submit"
+              >
                 {isLoadingProfile ? "Saving..." : "Save Changes"}
               </Button>
             </form>
           </div>
 
           {/* Password Section */}
-          <div className='bg-white/90 rounded-2xl p-5 border border-white/50 shadow-sm'>
-            <div className='flex items-center gap-2 mb-4'>
-              <div className='p-2 bg-[#009688]/10 rounded-lg'>
-                <Lock className='w-5 h-5 text-[#009688]' />
+          <div className="bg-white/90 rounded-2xl p-5 border border-white/50 shadow-sm">
+            <div className="flex items-center gap-2 mb-4">
+              <div className="p-2 bg-[#009688]/10 rounded-lg">
+                <Lock className="w-5 h-5 text-[#009688]" />
               </div>
               <div>
-                <h3 className='font-clash font-bold text-lg text-[#360400]'>
+                <h3 className="font-clash font-bold text-lg text-[#360400]">
                   Security
                 </h3>
-                <p className='text-gray-600 text-xs'>Change your password</p>
+                <p className="text-gray-600 text-xs">Change your password</p>
               </div>
             </div>
 
-            <div className='space-y-4'>
+            <div className="space-y-4">
               {/* Current Password */}
               <div>
-                <label className='text-sm font-medium text-[#360400] block mb-1'>
+                <label className="text-sm font-medium text-[#360400] block mb-1">
                   Current Password
                 </label>
-                <div className='relative'>
+                <div className="relative">
                   <input
                     disabled={isLoadingPassword}
                     type={show.current_password ? "text" : "password"}
                     value={passwords.current_password}
-                    placeholder='Enter current password'
+                    placeholder="Enter current password"
                     className={`w-full py-2.5 px-3 pr-10 rounded-lg border bg-white/70 focus:outline-none focus:ring-1 focus:ring-[#009688] text-sm ${
                       errors.current_password
                         ? "border-red-400 focus:border-red-400"
@@ -291,25 +287,26 @@ const Profile = () => {
                     }
                   />
                   <button
-                    type='button'
+                    type="button"
                     disabled={isLoadingPassword}
-                    className='absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600'
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
                     onClick={() =>
                       setShow((prev) => ({
                         ...prev,
                         current_password: !prev.current_password,
                       }))
-                    }>
+                    }
+                  >
                     {show.current_password ? (
-                      <EyeOff className='w-4 h-4' />
+                      <EyeOff className="w-4 h-4" />
                     ) : (
-                      <Eye className='w-4 h-4' />
+                      <Eye className="w-4 h-4" />
                     )}
                   </button>
                 </div>
                 {errors.current_password && (
-                  <p className='text-red-500 text-xs flex items-center gap-1 mt-1'>
-                    <AlertCircle className='w-3 h-3' />
+                  <p className="text-red-500 text-xs flex items-center gap-1 mt-1">
+                    <AlertCircle className="w-3 h-3" />
                     {errors.current_password}
                   </p>
                 )}
@@ -317,15 +314,15 @@ const Profile = () => {
 
               {/* New Password */}
               <div>
-                <label className='text-sm font-medium text-[#360400] block mb-1'>
+                <label className="text-sm font-medium text-[#360400] block mb-1">
                   New Password
                 </label>
-                <div className='relative'>
+                <div className="relative">
                   <input
                     disabled={isLoadingPassword}
                     type={show.new_password ? "text" : "password"}
                     value={passwords.new_password}
-                    placeholder='Enter new password'
+                    placeholder="Enter new password"
                     className={`w-full py-2.5 px-3 pr-10 rounded-lg border bg-white/70 focus:outline-none focus:ring-1 focus:ring-[#009688] text-sm ${
                       errors.new_password
                         ? "border-red-400 focus:border-red-400"
@@ -336,25 +333,26 @@ const Profile = () => {
                     }
                   />
                   <button
-                    type='button'
+                    type="button"
                     disabled={isLoadingPassword}
-                    className='absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600'
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
                     onClick={() =>
                       setShow((prev) => ({
                         ...prev,
                         new_password: !prev.new_password,
                       }))
-                    }>
+                    }
+                  >
                     {show.new_password ? (
-                      <EyeOff className='w-4 h-4' />
+                      <EyeOff className="w-4 h-4" />
                     ) : (
-                      <Eye className='w-4 h-4' />
+                      <Eye className="w-4 h-4" />
                     )}
                   </button>
                 </div>
                 {errors.new_password && (
-                  <p className='text-red-500 text-xs flex items-center gap-1 mt-1'>
-                    <AlertCircle className='w-3 h-3' />
+                  <p className="text-red-500 text-xs flex items-center gap-1 mt-1">
+                    <AlertCircle className="w-3 h-3" />
                     {errors.new_password}
                   </p>
                 )}
@@ -362,15 +360,15 @@ const Profile = () => {
 
               {/* Confirm Password */}
               <div>
-                <label className='text-sm font-medium text-[#360400] block mb-1'>
+                <label className="text-sm font-medium text-[#360400] block mb-1">
                   Confirm New Password
                 </label>
-                <div className='relative'>
+                <div className="relative">
                   <input
                     disabled={isLoadingPassword}
                     type={show.confirm_password ? "text" : "password"}
                     value={passwords.confirm_password}
-                    placeholder='Confirm password'
+                    placeholder="Confirm password"
                     className={`w-full py-2.5 px-3 pr-10 rounded-lg border bg-white/70 focus:outline-none focus:ring-1 focus:ring-[#009688] text-sm ${
                       errors.confirm_password
                         ? "border-red-400 focus:border-red-400"
@@ -382,24 +380,25 @@ const Profile = () => {
                   />
                   <button
                     disabled={isLoadingPassword}
-                    type='button'
-                    className='absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600'
+                    type="button"
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
                     onClick={() =>
                       setShow((prev) => ({
                         ...prev,
                         confirm_password: !prev.confirm_password,
                       }))
-                    }>
+                    }
+                  >
                     {show.confirm_password ? (
-                      <EyeOff className='w-4 h-4' />
+                      <EyeOff className="w-4 h-4" />
                     ) : (
-                      <Eye className='w-4 h-4' />
+                      <Eye className="w-4 h-4" />
                     )}
                   </button>
                 </div>
                 {errors.confirm_password && (
-                  <p className='text-red-500 text-xs flex items-center gap-1 mt-1'>
-                    <AlertCircle className='w-3 h-3' />
+                  <p className="text-red-500 text-xs flex items-center gap-1 mt-1">
+                    <AlertCircle className="w-3 h-3" />
                     {errors.confirm_password}
                   </p>
                 )}
@@ -407,8 +406,8 @@ const Profile = () => {
 
               <Button
                 disabled={isLoadingPassword}
-                variant='primary'
-                size='lg'
+                variant="primary"
+                size="lg"
                 className={`w-full py-2.5 rounded-lg font-clash font-semibold text-sm mt-5 ${
                   !passwords.current_password ||
                   !passwords.new_password ||
@@ -428,7 +427,8 @@ const Profile = () => {
                   errors.new_password ||
                   errors.confirm_password
                 }
-                type='button'>
+                type="button"
+              >
                 {isLoadingPassword ? "Changing..." : "Change Password"}
               </Button>
             </div>

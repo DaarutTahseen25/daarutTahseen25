@@ -1,11 +1,15 @@
-import React from 'react'
+import React from "react";
+import DashTitle from "../../Components/DashTitle";
 
 const ViewTests = () => {
   return (
     <div>
-      ViewTests
+      <DashTitle
+        title="Aptitude Tests"
+        subtitle="Browse, filter, and review all available aptitude tests"
+      />
     </div>
-  )
-}
+  );
+};
 
-export default ViewTests
+export default ViewTests;

@@ -9,6 +9,7 @@ import Pagination from "../../Components/Pagination";
 import { useGetUsers } from "./useGetUsers";
 import { LoaderFallback } from "../../routes/AppRoutes";
 import { usePageTitle } from "../../hooks/usePageTitle";
+import DashTitle from "../../Components/DashTitle";
 
 const statusColors = {
   Active: "bg-green-100 text-green-800 border-green-200",
@@ -159,14 +160,10 @@ export default function Students() {
       <div className="max-w-7xl">
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-6">
-          <div>
-            <h1 className="text-3xl font-semibold text-center text-accent lg:text-left font-clash mb-1">
-              Student Management
-            </h1>
-            <p className="text-accent text-center lg:text-left">
-              Manage student accounts and information
-            </p>
-          </div>
+          <DashTitle
+            title="Students Management"
+            subtitle="Add, edit, and monitor all registered students"
+          />
           <button
             onClick={() => setOverlay({ type: "add", student: null })}
             className="bg-primary hover:bg-buttonhover transition-colors text-white px-6 py-3 rounded-lg mt-6 md:mt-0 font-medium shadow-sm hover:shadow-md"
