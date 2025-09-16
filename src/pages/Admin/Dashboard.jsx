@@ -35,7 +35,7 @@ const Dashboard = () => {
       </div>
 
       {/* Banner */}
-      <section className="relative rounded-4xl overflow-hidden ">
+      <section className="relative rounded-4xl overflow-hidden mb-5 ">
         {/* Decorative background image on sm+ */}
         <div
           className=" absolute inset-0 bg-[url('/dashboard-cal.png')] bg-cover bg-right  pointer-events-none"
@@ -75,30 +75,30 @@ const Dashboard = () => {
 
       {/*  */}
 
-      <div className="mt-4 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-col-4 gap-5 w-full  ">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatsCard
           label="Total Students"
           value={students.length}
           icon={Users}
-          color="#2563eb"
+          color="#3b82f6"
         />
         <StatsCard
           label="Total Teachers"
           value={teachers.length}
           icon={UserRound}
-          color="#009688"
+          color="#10b981"
         />
         <StatsCard
           label="Active Courses"
           value={89}
           icon={BookOpen}
-          color="#B71CB9"
+          color="#8b5cf6"
         />
         <StatsCard
           label="Total Revenue"
           value={45680}
           icon={DollarSign}
-          color="#D63808"
+          color="#f59e0b"
         />
       </div>
     </div>

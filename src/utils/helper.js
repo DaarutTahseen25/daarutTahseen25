@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 export function formatDate(dateInput) {
   const date = new Date(dateInput);
 

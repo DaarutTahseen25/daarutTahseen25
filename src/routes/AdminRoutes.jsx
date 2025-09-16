@@ -12,6 +12,8 @@ const Tutors = lazy(() => import("../pages/Admin/Tutors"));
 const PayoutHistory = lazy(() => import("../pages/Admin/PayoutHistory"));
 const Tests = lazy(() => import("../pages/Admin/Tests"));
 const ViewTests = lazy(() => import("../pages/Admin/ViewTests"));
+const Messages = lazy(() => import("../pages/Admin/Messages"));
+const Courses = lazy(() => import("../pages/Admin/Courses"));
 
 const LoaderFallback = () => (
   <div className="w-full h-screen flex justify-center items-center text-lg font-medium">
@@ -32,6 +34,8 @@ export default function AdminRoutes() {
             <Route index element={<Dashboard />} />
             <Route path="students" element={<Students />} />
             <Route path="teachers" element={<Tutors />} />
+            <Route path="messages" element={<Messages />} />
+            <Route path="courses" element={<Courses />} />
             <Route path="payouts-history" element={<PayoutHistory />} />
             <Route path="aptitude-test" element={<Tests />} />
             <Route path="view-aptitude-test" element={<ViewTests />} />
