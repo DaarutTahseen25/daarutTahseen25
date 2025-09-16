@@ -56,14 +56,14 @@ function EditOverlay({ student, onClose, onUpdate }) {
             name="name"
             value={form.name}
             onChange={handleChange}
-            className="text-md font-semibold font-clash text-textmain text-center w-full text-center border border-textmuted focus:outline-none focus:border-primary focus:ring-none px-4 py-1 rounded mb-2"
+            className="text-md font-semibold font-clash text-textmain w-full text-center border border-textmuted focus:outline-none focus:border-primary focus:ring-none px-4 py-1 rounded mb-2"
           />
           <input
             type="email"
             name="email"
             value={form.email}
             onChange={handleChange}
-            className="text-sm text-textmuted text-center w-full  text-center border border-textmuted focus:outline-none focus:border-primary focus:ring-none px-4 py-1 rounded mt-2"
+            className="text-sm text-textmuted text-center w-full   border border-textmuted focus:outline-none focus:border-primary focus:ring-none px-4 py-1 rounded mt-2"
           />
         </div>
 
