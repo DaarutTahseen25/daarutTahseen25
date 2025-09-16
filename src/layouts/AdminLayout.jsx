@@ -5,7 +5,7 @@ import HomeSidebar from "../Components/HomeSidebar";
 
 const AdminLayout = () => {
   return (
-    <div className="grid min-h-screen grid-cols-1 lg:grid-cols-[250px_1fr]">
+    <div className="grid min-h-screen grid-cols-1 lg:grid-cols-[300px_1fr]">
       <DashboardSidebar />
       <HomeSidebar />
       <div className="flex flex-col h-screen overflow-y-auto">

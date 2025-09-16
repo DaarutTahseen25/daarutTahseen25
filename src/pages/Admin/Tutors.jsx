@@ -1,275 +1,29 @@
-// /* eslint-disable no-unused-vars */
-// "use client";
-// import { useState, useMemo } from "react";
-// import { FaEye } from "react-icons/fa";
-// import { PencilLine, Trash2 } from "lucide-react";
-// import DeleteOverlay from "../../Components/Suspendstudent";
-// import AddOverlay from "../../Components/Addstudent";
-// import EditOverlay from "../../Components/Studentdetailsedit";
-// import ViewOverlay from "../../Components/Studentdetails";
-// import Pagination from "../../Components/Pagination";
-// import { useGetUsers } from "./useGetUsers";
-
-// export default function Tutors() {
-//   const {
-//     users: students,
-//     isLoading,
-//     setUsers: setStudents,
-//   } = useGetUsers({ role: "teacher" });
-
-//   const [search, setSearch] = useState("");
-//   const [filterLevel, setFilterLevel] = useState("All");
-//   const [filterStatus, setFilterStatus] = useState("All");
-//   const [overlay, setOverlay] = useState({ type: null, student: null });
-
-//   // pagination state
-//   const [currentPage, setCurrentPage] = useState(1);
-//   const pageSize = 5;
-
-//   const handleDelete = (id) => {
-//     setStudents((prev) => prev.filter((s) => s._id !== id));
-//   };
-
-//   const handleAdd = (student) => setStudents((prev) => [...prev, student]);
-
-//   const handleUpdate = (updatedStudent) => {
-//     setStudents((prev) =>
-//       prev.map((s) => (s._id === updatedStudent._id ? updatedStudent : s))
-//     );
-//   };
-
-//   const filtered = useMemo(() => {
-//     return students.filter((s) => {
-//       const matchesSearch = s.full_name
-//         ?.toLowerCase()
-//         .includes(search.toLowerCase());
-
-//       const matchesLevel =
-//         filterLevel === "All" ||
-//         (s.level ? s.level.toLowerCase() === filterLevel.toLowerCase() : false);
-
-//       const derivedStatus = s.is_verified
-//         ? s.is_active
-//           ? "Active"
-//           : "Suspended"
-//         : "Pending";
-
-//       const matchesStatus =
-//         filterStatus === "All" || derivedStatus === filterStatus;
-
-//       return matchesSearch && matchesLevel && matchesStatus;
-//     });
-//   }, [students, search, filterLevel, filterStatus]);
-
-//   const totalPages = Math.ceil(filtered.length / pageSize) || 1;
-//   const currentData = useMemo(() => {
-//     const start = (currentPage - 1) * pageSize;
-//     return filtered.slice(start, start + pageSize);
-//   }, [filtered, currentPage]);
-
-//   // eslint-disable-next-line react-hooks/exhaustive-deps
-//   useMemo(() => setCurrentPage(1), [search, filterLevel, filterStatus]);
-
-//   if (isLoading) return <h1>Loading...</h1>;
-
-//   return (
-//     <div className="min-h-screen p-3">
-//       <div className="max-w-7xl">
-//         {/* Header */}
-//         <div className="flex flex-col md:flex-row justify-between items-center mb-6">
-//           <div>
-//             <h1 className="text-3xl font-semibold text-accent font-clash mb-1">
-//               Teachers Management
-//             </h1>
-//             <p className="text-accent">
-//               Manage teachers accounts and information
-//             </p>
-//           </div>
-//           <button
-//             onClick={() => setOverlay({ type: "add", student: null })}
-//             className="bg-primary hover:bg-buttonhover transition-colors text-white px-4 py-2 rounded-lg mt-6 md:mt-0"
-//           >
-//             + Add New Teacher
-//           </button>
-//         </div>
-
-//         {/* Filters */}
-//         <div className="bg-white rounded-xl shadow p-6 flex flex-col">
-//           <div className="flex flex-col md:flex-row gap-4 mb-6">
-//             <input
-//               type="text"
-//               placeholder="Search a teacher..."
-//               value={search}
-//               onChange={(e) => setSearch(e.target.value)}
-//               className="flex-1 border border-textmuted rounded-lg px-4 py-2 focus:outline-none focus:border-primary"
-//             />
-//           </div>
-
-//           {/* Table */}
-//           <div className="overflow-x-auto">
-//             <table className="w-full text-left min-w-5xl">
-//               <thead>
-//                 <tr className="text-gray-600 border-b border-textmuted">
-//                   <th className="py-2">Teachers</th>
-//                   <th className="py-2">Subjcet</th>
-//                   <th className="py-2">Experience</th>
-//                   <th className="py-2">Status</th>
-//                   <th className="py-2">Join Date</th>
-//                   <th className="py-2">Actions</th>
-//                 </tr>
-//               </thead>
-//               <tbody>
-//                 {currentData.length ? (
-//                   currentData.map((s) => {
-//                     const status = s.is_verified
-//                       ? s.is_active
-//                         ? "Active"
-//                         : "Suspended"
-//                       : "Pending";
-//                     const joinDate = new Date(s.createdAt).toLocaleDateString();
-//                     return (
-//                       <tr key={s._id} className="hover:bg-gray-50">
-//                         <td className="py-3 flex items-center gap-3">
-//                           <img
-//                             src={s.image}
-//                             alt={s.full_name}
-//                             className="w-10 h-10 rounded-full"
-//                           />
-//                           <div>
-//                             <p className="font-semibold font-clash text-textmain">
-//                               {s.full_name}
-//                             </p>
-//                             <p className="text-gray-500 text-sm">{s.email}</p>
-//                           </div>
-//                         </td>
-//                         <td>
-//                           <span
-//                             className={`px-3 py-1 capitalize rounded-full text-sm text-[#2462FF]  bg-[#2462FF33]
-//                             }`}
-//                           >
-//                             Quranic Studies
-//                           </span>
-//                         </td>
-//                         <td>
-//                           <span
-//                             className={`px-3 py-1 capitalize rounded-full text-sm
-//                             }`}
-//                           >
-//                             15 years
-//                           </span>
-//                         </td>
-//                         <td>
-//                           <span
-//                             className={`px-3 py-1 rounded-full text-sm bg-[#00968833]`}
-//                           >
-//                             {status}
-//                           </span>
-//                         </td>
-//                         <td className="text-gray-600">{joinDate}</td>
-//                         <td className="flex gap-3">
-//                           <button
-//                             className="text-[#2462FF] hover:text-blue-700"
-//                             onClick={() =>
-//                               setOverlay({ type: "view", student: s })
-//                             }
-//                           >
-//                             <FaEye className="size-4" />
-//                           </button>
-//                           <button
-//                             className="text-primary hover:text-buttonhover"
-//                             onClick={() =>
-//                               setOverlay({ type: "edit", student: s })
-//                             }
-//                           >
-//                             <PencilLine className="size-4" />
-//                           </button>
-//                           <button
-//                             className="text-red-500 hover:text-red-700"
-//                             onClick={() =>
-//                               setOverlay({ type: "delete", student: s })
-//                             }
-//                           >
-//                             <Trash2 className="size-4" />
-//                           </button>
-//                         </td>
-//                       </tr>
-//                     );
-//                   })
-//                 ) : (
-//                   <tr>
-//                     <td colSpan={5} className="text-center py-6 text-gray-500">
-//                       No students found
-//                     </td>
-//                   </tr>
-//                 )}
-//               </tbody>
-//             </table>
-//           </div>
-//           {currentData.length > 0 && (
-//             <Pagination
-//               currentPage={currentPage}
-//               totalPages={totalPages}
-//               onPageChange={setCurrentPage}
-//             />
-//           )}
-//           {/* Pagination component */}
-//         </div>
-//       </div>
-
-//       {/* Overlays */}
-//       {overlay.type === "view" && (
-//         <ViewOverlay
-//           student={overlay.student}
-//           onClose={() => setOverlay({ type: null, student: null })}
-//         />
-//       )}
-//       {overlay.type === "edit" && (
-//         <EditOverlay
-//           student={overlay.student}
-//           onClose={() => setOverlay({ type: null, student: null })}
-//           onUpdate={handleUpdate}
-//         />
-//       )}
-//       {overlay.type === "delete" && (
-//         <DeleteOverlay
-//           student={overlay.student}
-//           onClose={() => setOverlay({ type: null, student: null })}
-//           onDelete={handleDelete}
-//         />
-//       )}
-//       {overlay.type === "add" && (
-//         <AddOverlay
-//           onClose={() => setOverlay({ type: null, student: null })}
-//           onAdd={handleAdd}
-//         />
-//       )}
-//     </div>
-//   );
-// }
-
 /* eslint-disable no-unused-vars */
 
 import { useState, useMemo } from "react";
 import { FaEye, FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 import { PencilLine, Trash2, Search, Filter } from "lucide-react";
-import DeleteOverlay from "../../Components/Suspendstudent";
-import AddOverlay from "../../Components/Addstudent";
-import EditOverlay from "../../Components/Studentdetailsedit";
-import ViewOverlay from "../../Components/Studentdetails";
+import AddTeacher from "../../Components/AddTeacher";
+import EditTeacher from "../../Components/EditTeacher";
+import ViewTeacher from "../../Components/ViewTeacher";
 import Pagination from "../../Components/Pagination";
 import { useGetUsers } from "./useGetUsers";
+import { LoaderFallback } from "../../routes/AppRoutes";
+import { usePageTitle } from "../../hooks/usePageTitle";
+import DeleteTeacher from "../../Components/DeleteTeacher";
 
 export default function Tutors() {
+  usePageTitle("Teachers Management");
   const {
-    users: students,
+    users: teachers,
     isLoading,
-    setUsers: setStudents,
+    setUsers: setTeachers,
   } = useGetUsers({ role: "teacher" });
 
   const [search, setSearch] = useState("");
   const [filterLevel, setFilterLevel] = useState("All");
   const [filterStatus, setFilterStatus] = useState("All");
-  const [overlay, setOverlay] = useState({ type: null, student: null });
+  const [overlay, setOverlay] = useState({ type: null, teacher: null });
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
 
   // pagination state
@@ -277,14 +31,14 @@ export default function Tutors() {
   const pageSize = 5;
 
   const handleDelete = (id) => {
-    setStudents((prev) => prev.filter((s) => s._id !== id));
+    setTeachers((prev) => prev.filter((s) => s._id !== id));
   };
 
-  const handleAdd = (student) => setStudents((prev) => [...prev, student]);
+  const handleAdd = (teacher) => setTeachers((prev) => [...prev, teacher]);
 
-  const handleUpdate = (updatedStudent) => {
-    setStudents((prev) =>
-      prev.map((s) => (s._id === updatedStudent._id ? updatedStudent : s))
+  const handleUpdate = (updatedTeacher) => {
+    setTeachers((prev) =>
+      prev.map((s) => (s._id === updatedTeacher._id ? updatedTeacher : s))
     );
   };
 
@@ -308,7 +62,7 @@ export default function Tutors() {
   };
 
   const filtered = useMemo(() => {
-    let result = students.filter((s) => {
+    let result = teachers.filter((s) => {
       const matchesSearch = s.full_name
         ?.toLowerCase()
         .includes(search.toLowerCase());
@@ -365,7 +119,7 @@ export default function Tutors() {
     }
 
     return result;
-  }, [students, search, filterLevel, filterStatus, sortConfig]);
+  }, [teachers, search, filterLevel, filterStatus, sortConfig]);
 
   const totalPages = Math.ceil(filtered.length / pageSize) || 1;
   const currentData = useMemo(() => {
@@ -376,7 +130,7 @@ export default function Tutors() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useMemo(() => setCurrentPage(1), [search, filterLevel, filterStatus]);
 
-  if (isLoading) return <h1>Loading...</h1>;
+  if (isLoading) return <LoaderFallback />;
 
   return (
     <div className="min-h-screen p-3">
@@ -392,7 +146,7 @@ export default function Tutors() {
             </p>
           </div>
           <button
-            onClick={() => setOverlay({ type: "add", student: null })}
+            onClick={() => setOverlay({ type: "add", teacher: null })}
             className="bg-primary hover:bg-buttonhover transition-colors text-white px-6 py-3 rounded-lg mt-6 md:mt-0 font-medium shadow-sm hover:shadow-md"
           >
             + Add New Teacher
@@ -572,7 +326,7 @@ export default function Tutors() {
                             <button
                               className="p-2 text-blue-600 hover:text-blue-800 hover:bg-blue-100 rounded-lg transition-colors duration-150"
                               onClick={() =>
-                                setOverlay({ type: "view", student: s })
+                                setOverlay({ type: "view", teacher: s })
                               }
                               title="View Details"
                             >
@@ -581,7 +335,7 @@ export default function Tutors() {
                             <button
                               className="p-2 text-primary hover:text-buttonhover hover:bg-primary/10 rounded-lg transition-colors duration-150"
                               onClick={() =>
-                                setOverlay({ type: "edit", student: s })
+                                setOverlay({ type: "edit", teacher: s })
                               }
                               title="Edit Teacher"
                             >
@@ -590,7 +344,7 @@ export default function Tutors() {
                             <button
                               className="p-2 text-red-500 hover:text-red-700 hover:bg-red-100 rounded-lg transition-colors duration-150"
                               onClick={() =>
-                                setOverlay({ type: "delete", student: s })
+                                setOverlay({ type: "delete", teacher: s })
                               }
                               title="Delete Teacher"
                             >
@@ -642,28 +396,28 @@ export default function Tutors() {
 
       {/* Overlays */}
       {overlay.type === "view" && (
-        <ViewOverlay
-          student={overlay.student}
-          onClose={() => setOverlay({ type: null, student: null })}
+        <ViewTeacher
+          teacher={overlay.teacher}
+          onClose={() => setOverlay({ type: null, teacher: null })}
         />
       )}
       {overlay.type === "edit" && (
-        <EditOverlay
-          student={overlay.student}
-          onClose={() => setOverlay({ type: null, student: null })}
+        <EditTeacher
+          teacher={overlay.teacher}
+          onClose={() => setOverlay({ type: null, teacher: null })}
           onUpdate={handleUpdate}
         />
       )}
       {overlay.type === "delete" && (
-        <DeleteOverlay
-          student={overlay.student}
-          onClose={() => setOverlay({ type: null, student: null })}
+        <DeleteTeacher
+          teacher={overlay.teacher}
+          onClose={() => setOverlay({ type: null, teacher: null })}
           onDelete={handleDelete}
         />
       )}
       {overlay.type === "add" && (
-        <AddOverlay
-          onClose={() => setOverlay({ type: null, student: null })}
+        <AddTeacher
+          onClose={() => setOverlay({ type: null, teacher: null })}
           onAdd={handleAdd}
         />
       )}

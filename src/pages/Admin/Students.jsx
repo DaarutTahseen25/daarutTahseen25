@@ -7,6 +7,8 @@ import EditOverlay from "../../Components/Studentdetailsedit";
 import ViewOverlay from "../../Components/Studentdetails";
 import Pagination from "../../Components/Pagination";
 import { useGetUsers } from "./useGetUsers";
+import { LoaderFallback } from "../../routes/AppRoutes";
+import { usePageTitle } from "../../hooks/usePageTitle";
 
 const statusColors = {
   Active: "bg-green-100 text-green-800 border-green-200",
@@ -21,6 +23,7 @@ const levelColors = {
 };
 
 export default function Students() {
+  usePageTitle("Students Management");
   const {
     users: students,
     isLoading,
@@ -122,6 +125,11 @@ export default function Students() {
           bValue = levelOrder[bValue?.toLowerCase()] || 0;
         }
 
+        if (sortConfig.key === "progress") {
+          aValue = a.progress ?? 0;
+          bValue = b.progress ?? 0;
+        }
+
         if (aValue < bValue) {
           return sortConfig.direction === "asc" ? -1 : 1;
         }
@@ -144,7 +152,7 @@ export default function Students() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useMemo(() => setCurrentPage(1), [search, filterLevel, filterStatus]);
 
-  if (isLoading) return <h1>Loading...</h1>;
+  if (isLoading) return <LoaderFallback />;
 
   return (
     <div className="min-h-screen p-3">
@@ -241,6 +249,16 @@ export default function Students() {
                   </th>
                   <th className="px-6 py-4 text-left">
                     <button
+                      onClick={() => handleSort("progress")}
+                      className="flex items-center gap-2 text-sm font-semibold text-gray-700 hover:text-gray-900 transition-colors"
+                    >
+                      Progress
+                      {getSortIcon("progress")}
+                    </button>
+                  </th>
+
+                  <th className="px-6 py-4 text-left">
+                    <button
                       onClick={() => handleSort("createdAt")}
                       className="flex items-center gap-2 text-sm font-semibold text-gray-700 hover:text-gray-900 transition-colors"
                     >
@@ -327,7 +345,7 @@ export default function Students() {
                             {s.level
                               ? s.level.charAt(0).toUpperCase() +
                                 s.level.slice(1)
-                              : "Not Set"}
+                              : "Not Registered"}
                           </span>
                         </td>
                         <td className="px-6 py-4">
@@ -346,6 +364,19 @@ export default function Students() {
                             {status}
                           </span>
                         </td>
+
+                        <td className="px-6 py-4">
+                          <div className="w-full bg-gray-200 rounded-full h-2">
+                            <div
+                              className="bg-primary h-2 rounded-full"
+                              style={{ width: `${s.progress || 0}%` }}
+                            />
+                          </div>
+                          <span className="text-xs text-gray-600 mt-1 block">
+                            {s.progress ? `${s.progress}%` : "0%"}
+                          </span>
+                        </td>
+
                         <td className="px-6 py-4 text-sm text-gray-600 font-medium">
                           {joinDate}
                         </td>
