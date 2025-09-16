@@ -138,10 +138,10 @@ export default function Tutors() {
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-6">
           <div>
-            <h1 className="text-3xl font-semibold text-accent font-clash mb-1">
+            <h1 className="text-3xl font-semibold text-accent text-center  lg:text-left font-clash mb-1">
               Teachers Management
             </h1>
-            <p className="text-accent">
+            <p className="text-accent text-center lg:text-left">
               Manage teachers accounts and information
             </p>
           </div>

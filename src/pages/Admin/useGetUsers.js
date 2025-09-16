@@ -24,7 +24,6 @@ export const useGetUsers = ({ page = 1, limit = 10, role, search } = {}) => {
           signal: controller.signal,
           withCredentials: true,
         });
-        console.log(res?.data?.data?.users);
 
         setUsers(res?.data?.data?.users);
         setPagination(res.data.data.pagination);
