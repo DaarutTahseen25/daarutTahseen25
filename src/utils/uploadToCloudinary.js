@@ -1,7 +1,7 @@
 export const uploadToCloudinary = async (file, folder = "Daaruttahseen") => {
   const formData = new FormData();
   formData.append("file", file);
-  formData.append("upload_preset", "daaruttahseen_images"); // hardcoded or correctly loaded from env
+  formData.append("upload_preset", "daaruttahseen_images");
   formData.append("folder", folder);
 
   const res = await fetch(
