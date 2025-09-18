@@ -1,8 +1,8 @@
 // src/hooks/useUpdatePassword.js
 import { useState, useCallback } from "react";
-import api from "../utils/api";
+import api from "../../../utils/api";
 import { toast } from "react-toastify";
-import { getErrorMessage } from "../utils/helper";
+import { getErrorMessage } from "../../../utils/helper";
 
 export default function useUpdatePassword() {
   const [passwords, setPasswords] = useState({
@@ -13,44 +13,52 @@ export default function useUpdatePassword() {
   const [errors, setErrors] = useState({});
   const [isLoadingPassword, setIsLoadingPassword] = useState(false);
 
+  const validate = useCallback(
+    (fields = passwords) => {
+      const newErrors = {};
+
+      if (!fields.current_password.trim()) {
+        newErrors.current_password = "Current password is required";
+      }
+
+      if (!fields.new_password) {
+        newErrors.new_password = "New password is required";
+      } else if (fields.new_password.length < 8) {
+        newErrors.new_password = "Password must be at least 8 characters";
+      }
+
+      if (!fields.confirm_password) {
+        newErrors.confirm_password = "Please confirm your new password";
+      } else if (fields.confirm_password !== fields.new_password) {
+        newErrors.confirm_password = "Passwords do not match";
+      }
+
+      return newErrors;
+    },
+    [passwords]
+  );
+
   const handlePasswordInput = useCallback(
     (field, value) => {
       setPasswords((prev) => ({ ...prev, [field]: value }));
 
-      let error = "";
-      if (field === "current_password" && value.trim().length < 1) {
-        error = "Current password is required";
-      } else if (field === "new_password" && value.length < 6) {
-        error = "Password must be at least 6 characters";
-      } else if (
-        field === "confirm_password" &&
-        value !== passwords.new_password
-      ) {
-        error = "Passwords do not match";
-      }
-
-      setErrors((prev) => ({ ...prev, [field]: error }));
+      const fieldErrors = validate({ ...passwords, [field]: value });
+      setErrors((prev) => ({ ...prev, [field]: fieldErrors[field] || "" }));
     },
-    [passwords.new_password]
+    [passwords, validate]
   );
 
   const handlePasswordChange = useCallback(async () => {
-    const { current_password, new_password, confirm_password } = passwords;
-
-    if (!current_password || !new_password || !confirm_password) {
-      toast.warning("Please fill in all fields.");
-      return;
-    }
-    if (
-      errors.current_password ||
-      errors.new_password ||
-      errors.confirm_password
-    ) {
+    const allErrors = validate();
+    if (Object.keys(allErrors).length > 0) {
+      setErrors(allErrors);
+      toast.warning("Please correct the highlighted errors.");
       return;
     }
 
     setIsLoadingPassword(true);
     try {
+      const { current_password, new_password, confirm_password } = passwords;
       const res = await api.put(
         "/auth/change-password",
         { current_password, new_password, confirm_password },
@@ -69,7 +77,7 @@ export default function useUpdatePassword() {
     } finally {
       setIsLoadingPassword(false);
     }
-  }, [passwords, errors]);
+  }, [passwords, validate]);
 
   return {
     passwords,
