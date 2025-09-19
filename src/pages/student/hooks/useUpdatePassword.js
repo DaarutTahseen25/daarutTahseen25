@@ -23,7 +23,7 @@ export default function useUpdatePassword() {
 
       if (!fields.new_password) {
         newErrors.new_password = "New password is required";
-      } else if (fields.new_password.length < 8) {
+      } else if (fields.new_password.length < 6) {
         newErrors.new_password = "Password must be at least 8 characters";
       }
 

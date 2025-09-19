@@ -16,9 +16,18 @@ const NotificationSettings = () => {
           title={"SMS Notifications"}
           subtitle={"Receive notifications via email"}
         />
-        <NotificationDiv />
-        <NotificationDiv />
-        <NotificationDiv />
+        <NotificationDiv
+          title={"Push Notifications"}
+          subtitle={"Receive push notifications"}
+        />
+        <NotificationDiv
+          title={"Weekly Reports"}
+          subtitle={"Get weekly summary reports"}
+        />
+        <NotificationDiv
+          title={"System Alerts"}
+          subtitle={"Receive system maintenance alerts"}
+        />
       </div>
     </div>
   );
