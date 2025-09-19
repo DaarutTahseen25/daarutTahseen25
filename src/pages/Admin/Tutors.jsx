@@ -11,6 +11,7 @@ import { useGetUsers } from "./useGetUsers";
 import { LoaderFallback } from "../../routes/AppRoutes";
 import { usePageTitle } from "../../hooks/usePageTitle";
 import DeleteTeacher from "../../Components/DeleteTeacher";
+import DashTitle from "../../Components/DashTitle";
 
 export default function Tutors() {
   usePageTitle("Teachers Management");
@@ -137,14 +138,10 @@ export default function Tutors() {
       <div className="max-w-7xl">
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-6">
-          <div>
-            <h1 className="text-3xl font-semibold text-accent text-center  lg:text-left font-clash mb-1">
-              Teachers Management
-            </h1>
-            <p className="text-accent text-center lg:text-left">
-              Manage teachers accounts and information
-            </p>
-          </div>
+          <DashTitle
+            title="Teachers Management"
+            subtitle="Add, edit, and monitor all registered teachers"
+          />
           <button
             onClick={() => setOverlay({ type: "add", teacher: null })}
             className="bg-primary hover:bg-buttonhover transition-colors text-white px-6 py-3 rounded-lg mt-6 md:mt-0 font-medium shadow-sm hover:shadow-md"
