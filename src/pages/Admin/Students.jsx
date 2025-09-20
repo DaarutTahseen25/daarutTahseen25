@@ -1,93 +1,10 @@
-"use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
 import DeleteOverlay from "../../Components/Suspendstudent";
 import AddOverlay from "../../Components/Addstudent";
 import EditOverlay from "../../Components/Studentdetailsedit";
 import ViewOverlay from "../../Components/Studentdetails";
-
-const initialStudents = [
-  {
-    id: 1,
-    name: "Aishat Abiodun",
-    email: "ibrahimabiodun@gmail.com",
-    avatar: "https://randomuser.me/api/portraits/men/1.jpg",
-    level: "Beginner",
-    status: "Active",
-    progress: 70,
-    date: "01/03/2024",
-  },
-  {
-    id: 2,
-    name: "Ibrahim Adams",
-    email: "ibrahimabiodun@gmail.com",
-    avatar: "https://randomuser.me/api/portraits/men/24.jpg",
-    level: "Intermediate",
-    status: "Suspended",
-    progress: 65,
-    date: "01/03/2024",
-  },
-  {
-    id: 3,
-    name: "Jimoh Abiodun",
-    email: "ibrahimabiodun@gmail.com",
-    avatar: "https://randomuser.me/api/portraits/men/13.jpg",
-    level: "Advance",
-    status: "Pending",
-    progress: 80,
-    date: "01/03/2024",
-  },
-  {
-    id: 4,
-    name: "Maryam Omar",
-    email: "ibrahimabiodun@gmail.com",
-    avatar: "https://randomuser.me/api/portraits/women/22.jpg",
-    level: "Beginner",
-    status: "Suspended",
-    progress: 25,
-    date: "01/03/2024",
-  },
-  {
-    id: 5,
-    name: "Muhammad Rafiu",
-    email: "ibrahimabiodun@gmail.com",
-    avatar: "https://randomuser.me/api/portraits/men/31.jpg",
-    level: "Advance",
-    status: "Active",
-    progress: 100,
-    date: "01/03/2024",
-  },
-  {
-    id: 6,
-    name: "Ahmed Hassan",
-    email: "ibrahimabiodun@gmail.com",
-    avatar: "https://randomuser.me/api/portraits/men/18.jpg",
-    level: "Intermediate",
-    status: "Pending",
-    progress: 70,
-    date: "01/03/2024",
-  },
-  {
-    id: 7,
-    name: "Fatima Ali",
-    email: "ibrahimabiodun@gmail.com",
-    avatar: "https://randomuser.me/api/portraits/women/11.jpg",
-    level: "Advance",
-    status: "Active",
-    progress: 95,
-    date: "01/03/2024",
-  },
-  {
-    id: 8,
-    name: "Aisha Ibrahim",
-    email: "ibrahimabiodun@gmail.com",
-    avatar: "https://randomuser.me/api/portraits/women/14.jpg",
-    level: "Intermediate",
-    status: "Active",
-    progress: 90,
-    date: "01/03/2024",
-  },
-];
+import api from "../../utils/api";
 
 const statusColors = {
   Active: "bg-green-100 text-green-700",
@@ -102,24 +19,62 @@ const levelColors = {
 };
 
 export default function Students() {
-  const [students, setStudents] = useState(initialStudents);
+  const [students, setStudents] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [filterLevel, setFilterLevel] = useState("All");
   const [filterStatus, setFilterStatus] = useState("All");
   const [overlay, setOverlay] = useState({ type: null, student: null });
 
-  const handleDelete = (id) => {
-    setStudents(students.filter((s) => s.id !== id));
+  // Im fetching students on mount
+  useEffect(() => {
+    const fetchStudents = async () => {
+      try {
+        const res = await api.get("/auth/users?role=student&page=1&limit=50");
+        setStudents(res.data.results || []);
+      } catch (err) {
+        console.error("Failed to fetch students:", err);
+        setStudents([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchStudents();
+  }, []);
+
+  // Add student
+  const handleAdd = async (student) => {
+    try {
+      const res = await api.post("/students", student);
+      setStudents((prev) => [...prev, res.data]);
+    } catch (err) {
+      console.error("Failed to add student:", err);
+    }
   };
 
-  const handleAdd = (student) => {
-    setStudents((prev) => [...prev, student]);
+  // Update student
+  const handleUpdate = async (updatedStudent) => {
+    try {
+      const res = await api.put(
+        `/students/${updatedStudent.id}`,
+        updatedStudent
+      );
+      setStudents((prev) =>
+        prev.map((s) => (s.id === updatedStudent.id ? res.data : s))
+      );
+    } catch (err) {
+      console.error("Failed to update student:", err);
+    }
   };
 
-  const handleUpdate = (updatedStudent) => {
-    setStudents((prev) =>
-      prev.map((s) => (s.id === updatedStudent.id ? updatedStudent : s))
-    );
+  // Delete student
+  const handleDelete = async (id) => {
+    try {
+      await api.delete(`/students/${id}`);
+      setStudents((prev) => prev.filter((s) => s.id !== id));
+    } catch (err) {
+      console.error("Failed to delete student:", err);
+    }
   };
 
   const filtered = students.filter((s) => {
@@ -128,6 +83,10 @@ export default function Students() {
     const matchesStatus = filterStatus === "All" || s.status === filterStatus;
     return matchesSearch && matchesLevel && matchesStatus;
   });
+
+  if (loading) {
+    return <p className="p-6">Loading students...</p>;
+  }
 
   return (
     <div className="min-h-screen p-3">
@@ -156,13 +115,13 @@ export default function Students() {
               placeholder="Search students"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="flex-1 border border-textmuted rounded-lg px-4 py-2 focus:outline-none focus:ring-none focus:border-primary"
+              className="flex-1 border border-textmuted rounded-lg px-4 py-2 focus:outline-none focus:border-primary"
             />
 
             <select
               value={filterLevel}
               onChange={(e) => setFilterLevel(e.target.value)}
-              className="border border-textmuted rounded-lg px-4 py-2 focus:outline-none focus:ring-none focus:border-primary"
+              className="border border-textmuted rounded-lg px-4 py-2 focus:outline-none focus:border-primary"
             >
               <option>All</option>
               <option>Beginner</option>
@@ -173,7 +132,7 @@ export default function Students() {
             <select
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
-              className="border border-textmuted rounded-lg px-4 py-2 focus:outline-none focus:ring-none focus:border-primary"
+              className="border border-textmuted rounded-lg px-4 py-2 focus:outline-none focus:border-primary"
             >
               <option>All</option>
               <option>Active</option>
@@ -239,7 +198,6 @@ export default function Students() {
                         <span className="text-sm">{s.progress}%</span>
                       </div>
                     </td>
-
                     <td className="text-gray-600">{s.date}</td>
                     <td className="flex gap-3">
                       <button
@@ -288,7 +246,7 @@ export default function Students() {
         <DeleteOverlay
           student={overlay.student}
           onClose={() => setOverlay({ type: null, student: null })}
-          onDelete={handleDelete}
+          onDelete={() => handleDelete(overlay.student.id)}
         />
       )}
       {overlay.type === "add" && (
