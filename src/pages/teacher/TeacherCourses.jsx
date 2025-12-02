@@ -107,7 +107,7 @@ export default function TeacherCourses() {
   );
 
   return (
-    <section>
+    <div>
       <div className="max-w-7xl mb-8 md:mb-12">
         <DashTitle
           title="My Courses"
