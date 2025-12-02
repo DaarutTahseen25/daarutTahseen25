@@ -1,6 +1,9 @@
+# dependencies
 node_modules/
 node_modules/.vite/
+
+# build output
 dist/
 
-
-
+# environment variables
+.env
