@@ -106,8 +106,8 @@ export default function TeacherCourses() {
   );
 
   return (
-    <section className="">
-      <div className="max-w-7xl  mb-8 md:mb-12">
+    <section>
+       <div className="max-w-7xl  mb-8 md:mb-12">
         <DashTitle
           title="My Courses"
           subtitle="Manage, update, and track the performance of all your courses"
