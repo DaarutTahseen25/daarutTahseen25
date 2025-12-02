@@ -86,6 +86,7 @@ const quizList = [
 
 export default function TeacherCourses() {
   usePageTitle("My Courses");
+
   const {
     searchTerm,
     filterProgress,
@@ -107,7 +108,7 @@ export default function TeacherCourses() {
 
   return (
     <section>
-       <div className="max-w-7xl  mb-8 md:mb-12">
+      <div className="max-w-7xl mb-8 md:mb-12">
         <DashTitle
           title="My Courses"
           subtitle="Manage, update, and track the performance of all your courses"
@@ -115,6 +116,7 @@ export default function TeacherCourses() {
       </div>
 
       {/* Tab Content */}
+
       {activeTab === "Total Students" && <StudentTable />}
 
       {activeTab === "Quiz" && quizList.length > 0 && (
@@ -127,11 +129,7 @@ export default function TeacherCourses() {
         </div>
       )}
 
-      {/* Classes Tab */}
-
       {activeTab === "Classes" && <ClassCompo />}
-
-      {/* Assignment Tab */}
 
       {activeTab === "Assignment" && assignments.length > 0 && (
         <div className="w-full overflow-x-hidden">
