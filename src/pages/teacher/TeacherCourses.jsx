@@ -133,7 +133,7 @@ export default function TeacherCourses() {
 
       {/* Assignment Tab */}
 
-      {activeTab === "Assignment" && quizList.length > 0 && (
+      {activeTab === "Assignment" && assignments.length > 0 && (
         <div className="w-full overflow-x-hidden">
           <div className="grid grid-cols-1 md:grid-cols-2 [@media(min-width:1201px)]:grid-cols-3 gap-3 w-full">
             {assignments.map((assignment) => (
