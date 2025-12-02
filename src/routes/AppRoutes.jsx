@@ -20,7 +20,7 @@ const TutorRegistrationForm = lazy(() =>
 const OtpRegPage = lazy(() => import("../Components/OtpRegPage"));
 const TestRoutes = lazy(() => import("./TestRoutes"));
 
-const LoaderFallback = () => (
+export const LoaderFallback = () => (
   <div className="w-full h-screen flex justify-center items-center text-lg font-medium">
     <QuranLoader />
   </div>

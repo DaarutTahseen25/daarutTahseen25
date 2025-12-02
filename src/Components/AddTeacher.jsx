@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 
-function AddOverlay({ onClose, onAdd }) {
+function AddTeacher({ onClose, onAdd }) {
   const [form, setForm] = useState({
     name: "",
     email: "",
-    level: "Beginner",
+    subject: "",
+    experience: "Choose experience",
     status: "Active",
     progress: 0,
   });
@@ -42,7 +43,7 @@ function AddOverlay({ onClose, onAdd }) {
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-100">
           <h2 className="font-semibold text-xl font-clash text-gray-900">
-            Add New Student
+            Add New Teacher
           </h2>
           <button
             onClick={onClose}
@@ -94,21 +95,39 @@ function AddOverlay({ onClose, onAdd }) {
             )}
           </div>
 
-          {/* Level and Status Row */}
+          {/* Subject field */}
+
+          <div>
+            <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
+              Subject taking*
+            </label>
+            <select
+              name="subject"
+              value={form.subject}
+              onChange={handleChange}
+              className="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+            >
+              <option value="Beginner">Quranic studies</option>
+              <option value="Intermediate">Hadith</option>
+              <option value="Advanced">Nahw</option>
+            </select>
+          </div>
+
+          {/* experience and Status Row */}
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
-                Level
+                Experience
               </label>
               <select
-                name="level"
-                value={form.level}
+                name="experience"
+                value={form.experience}
                 onChange={handleChange}
                 className="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
               >
-                <option value="Beginner">Beginner</option>
-                <option value="Intermediate">Intermediate</option>
-                <option value="Advanced">Advanced</option>
+                <option value="Beginner">12 years</option>
+                <option value="Intermediate">15 years</option>
+                <option value="Advanced">30 years</option>
               </select>
             </div>
 
@@ -130,27 +149,6 @@ function AddOverlay({ onClose, onAdd }) {
           </div>
 
           {/* Initial Progress */}
-          <div>
-            <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
-              Initial Progress ({form.progress}%)
-            </label>
-            <div className="space-y-2">
-              <input
-                type="range"
-                name="progress"
-                min="0"
-                max="100"
-                value={form.progress}
-                onChange={handleChange}
-                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
-              />
-              <div className="flex justify-between text-xs text-gray-400">
-                <span>0%</span>
-                <span>50%</span>
-                <span>100%</span>
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* Action Buttons */}
@@ -166,7 +164,7 @@ function AddOverlay({ onClose, onAdd }) {
               onClick={handleSave}
               className="flex-1 px-4 py-3 bg-primary hover:bg-buttonhover text-white rounded-lg font-medium font-clash transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
             >
-              Add Student
+              Add Teacher
             </button>
           </div>
         </div>
@@ -198,4 +196,4 @@ function AddOverlay({ onClose, onAdd }) {
   );
 }
 
-export default AddOverlay;
+export default AddTeacher;

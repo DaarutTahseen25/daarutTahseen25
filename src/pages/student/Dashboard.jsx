@@ -3,6 +3,7 @@ import Button from "../../Components/Button";
 import { useAuth } from "../../contexts/AuthContext";
 import { formatDate } from "../../utils/helper";
 import CalendarComponent from "../../Components/CalendarComponent";
+import DashTitle from "../../Components/DashTitle";
 
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
@@ -94,18 +95,10 @@ const Header = memo(({ firstName = "Student", id, profile }) => {
     <header className="flex flex-col gap-4">
       {/* Title */}
       <div className="max-w-7xl  mb-8 md:mb-12">
-        <div className="text-center md:text-left">
-          <div className="inline-block px-4 py-2 bg-[#009688]/10 rounded-full text-[#009688] font-medium text-sm mb-4">
-            Overview
-          </div>
-          <h1 className="font-clash font-bold text-3xl md:text-4xl lg:text-5xl text-[#360400] mb-4">
-            Dashboard
-            <span className="block text-[#009688] text-2xl md:text-3xl lg:text-4xl mt-2">
-              Track Your Performance
-            </span>
-          </h1>
-          <div className="w-20 h-1 bg-gradient-to-r from-[#009688] to-[#360400] mx-auto md:mx-0 rounded-full"></div>
-        </div>
+        <DashTitle
+          title="Student Dashboard"
+          subtitle="Get an overview of your courses, progress, and upcoming activities"
+        />
       </div>
 
       {/* Hero banner  */}

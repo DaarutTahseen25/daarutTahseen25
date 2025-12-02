@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 export function formatDate(dateInput) {
   const date = new Date(dateInput);
 
@@ -166,4 +167,18 @@ export function getErrorMessage(error, context = "general") {
     messages.general[status] ||
     "Unexpected error occurred."
   );
+}
+
+export function formatCurrency(
+  amount,
+  { currency = "USD", locale = "en-US", minimumFractionDigits = 0 } = {}
+) {
+  if (isNaN(amount)) return "";
+
+  return new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency,
+    minimumFractionDigits,
+    maximumFractionDigits: 2,
+  }).format(amount);
 }

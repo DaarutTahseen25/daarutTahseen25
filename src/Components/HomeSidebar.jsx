@@ -67,9 +67,9 @@ export default function HomeSidebar() {
       />
 
       {/* Sidebar */}
-      <aside className="fixed lg:hidden top-0 right-0 h-screen w-80 bg-white/95 backdrop-blur-xl shadow-2xl z-50 p-6 flex flex-col justify-between border-l border-gray-200/50 transform transition-transform duration-300 animate-[slideInRight_0.3s_ease-out]">
+      <aside className="fixed lg:hidden top-0 right-0 h-screen w-80 bg-white/95 backdrop-blur-xl shadow-2xl z-50 p-6 flex flex-col gap-10 border-l border-gray-200/50 transform transition-transform duration-300 animate-[slideInRight_0.3s_ease-out]">
         {/* Header */}
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex justify-between items-center ">
           <div className="h-1 w-12 bg-accent rounded-full"></div>
           <button
             onClick={closeSidebar}
@@ -81,7 +81,7 @@ export default function HomeSidebar() {
         </div>
 
         {/* Links */}
-        <nav className="flex flex-col gap-2">
+        <nav className="flex flex-col gap-2 flex-1">
           {links.map((item, i) => (
             <Link
               key={item.key}
@@ -102,7 +102,7 @@ export default function HomeSidebar() {
             <Link
               to={`/${role}`}
               onClick={closeSidebar}
-              className="flex items-center gap-3 mt-2 px-4 py-3 rounded-xl border border-primary/50 hover:bg-green-50 transition"
+              className="flex items-center gap-3 px-4 py-3 rounded-xl border border-primary/50 hover:bg-green-50 transition"
             >
               <LayoutGrid size={20} />
               <span className="font-semibold text-primary">Dashboard</span>

@@ -7,7 +7,7 @@ import AssignmentCard from "../../Components/Assignment";
 import CalendarComponent from "../../Components/CalendarComponent";
 import Quiz from "../../Components/Quiz";
 import StudentTable from "../../Components/TotalStudents";
-import QuizCard from "./QuizCard";
+import DashTitle from "../../Components/DashTitle";
 
 const classesData = Object.freeze([
   {
@@ -46,18 +46,10 @@ const DashboardTeacher = () => {
       <header className="flex flex-col gap-4">
         {/* Title */}
         <div className="max-w-7xl  mb-8 md:mb-12">
-          <div className="text-center md:text-left">
-            <div className="inline-block px-4 py-2 bg-[#009688]/10 rounded-full text-[#009688] font-medium text-sm mb-4">
-              Overview
-            </div>
-            <h1 className="font-clash font-bold text-3xl md:text-4xl lg:text-5xl text-[#360400] mb-4">
-              Dashboard
-              <span className="block text-[#009688] text-2xl md:text-3xl lg:text-4xl mt-2">
-                Monitor Your Impact
-              </span>
-            </h1>
-            <div className="w-20 h-1 bg-gradient-to-r from-[#009688] to-[#360400] mx-auto md:mx-0 rounded-full"></div>
-          </div>
+          <DashTitle
+            title="Dashboard"
+            subtitle="Monitor your classes, track student progress, and manage course content"
+          />
         </div>
 
         {/* Banner */}
@@ -77,8 +69,7 @@ const DashboardTeacher = () => {
               </div>
 
               <div className="mt-1 font-clash font-semibold text-xl md:text-2xl leading-tight">
-                Welcome back,{" "}
-                {profile?.gender === "male" ? "Ustadh" : "Ustadha"} {firstName}!
+                Welcome back, Ustadh {firstName}!
               </div>
 
               {/* Quote hidden on small screens */}
@@ -150,28 +141,10 @@ const DashboardTeacher = () => {
         </div>
         <div className="xl:col-span-1 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 gap-4">
           <SectionCard title="Assignment">
-            <AssignmentCard
-              title="Qur’an Recitation & Tajwid"
-              subtitle="Submit before: 20th June 2025; 12:00PM"
-              deadline="2025-10-10T11:00:00"
-              image="/quran-recitation.png"
-              students={["/test1.png", "/test2.png", "/test3.png"]}
-              totalSubmitted={7}
-              onView={() => console.log("View clicked")}
-              onCreate={() => console.log("Create clicked")}
-            />
+            <AssignmentCard />
           </SectionCard>
           <SectionCard title="Quiz">
-            <QuizCard
-              title="Mathematics Quiz"
-              date="30th October, 2025"
-              time="2:00PM"
-              questions={25}
-              duration="40 mins"
-              deadline="2025-10-10T11:00:00"
-              image="/arabic.png"
-              disableSeeAll:false
-            />
+            <Quiz />
           </SectionCard>
         </div>
       </div>

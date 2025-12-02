@@ -15,6 +15,7 @@
     "axios": "^1.11.0",
     "js-cookie": "^3.0.5",
     "lucide-react": "^0.518.0",
+    "motion": "^12.23.12",
     "react": "^19.1.0",
     "react-calendar": "^6.0.0",
     "react-countdown-circle-timer": "^3.2.1",

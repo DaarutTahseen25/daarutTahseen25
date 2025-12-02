@@ -1,23 +1,23 @@
 import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 
-function EditOverlay({ student, onClose, onUpdate }) {
-  const derivedStatus = student.is_verified
-    ? student.is_active
+function EditTeacher({ teacher, onClose, onUpdate }) {
+  const derivedStatus = teacher.is_verified
+    ? teacher.is_active
       ? "Active"
       : "Suspended"
     : "Pending";
 
-  const joinDate = new Date(student.createdAt).toLocaleDateString();
+  const joinDate = new Date(teacher.createdAt).toLocaleDateString();
 
   const [form, setForm] = useState({
-    name: student.full_name,
-    email: student.email,
-    level: student.level || "",
+    name: teacher.full_name,
+    email: teacher.email,
+    experience: teacher.experience || "12 years",
     status: derivedStatus,
-    progress: student.progress || 0,
+    subject: teacher.subject,
     date: joinDate,
-    avatar: student.image,
+    avatar: teacher.image,
   });
 
   const handleChange = (e) => {
@@ -26,11 +26,11 @@ function EditOverlay({ student, onClose, onUpdate }) {
   };
 
   const handleSubmit = () => {
-    onUpdate({ ...student, ...form });
+    onUpdate({ ...teacher, ...form });
     onClose();
   };
 
-  if (!student) return null;
+  if (!teacher) return null;
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
@@ -38,7 +38,7 @@ function EditOverlay({ student, onClose, onUpdate }) {
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-100">
           <h2 className="font-semibold text-xl font-clash text-gray-900">
-            Edit Student
+            Edit Teacher
           </h2>
           <button
             onClick={onClose}
@@ -82,14 +82,14 @@ function EditOverlay({ student, onClose, onUpdate }) {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
-                  Level
+                  Experience
                 </label>
                 <input
                   type="text"
                   name="level"
-                  value={form.level}
+                  value={form.experience}
                   onChange={handleChange}
-                  placeholder="Student Level"
+                  placeholder="Teacher Experience"
                   className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
                 />
               </div>
@@ -113,24 +113,18 @@ function EditOverlay({ student, onClose, onUpdate }) {
 
             <div>
               <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
-                Progress ({form.progress}%)
+                Subject
               </label>
-              <div className="space-y-2">
-                <input
-                  type="range"
-                  name="progress"
-                  min="0"
-                  max="100"
-                  value={form.progress}
-                  onChange={handleChange}
-                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
-                />
-                <div className="flex justify-between text-xs text-gray-400">
-                  <span>0%</span>
-                  <span>50%</span>
-                  <span>100%</span>
-                </div>
-              </div>
+              <select
+                name="status"
+                value={form.subject}
+                onChange={handleChange}
+                className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+              >
+                <option value="Quranic Studies">Quranic Studies</option>
+                <option value="Hadith Studies">Hadith Studies</option>
+                <option value="Language Studies">Language Studies</option>
+              </select>
             </div>
 
             <div>
@@ -152,7 +146,7 @@ function EditOverlay({ student, onClose, onUpdate }) {
             onClick={handleSubmit}
             className="w-full mt-8 px-6 py-3 bg-primary hover:bg-buttonhover text-white rounded-lg font-medium font-clash transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
           >
-            Update Student Details
+            Update Teacher Details
           </button>
         </div>
       </div>
@@ -183,4 +177,4 @@ function EditOverlay({ student, onClose, onUpdate }) {
   );
 }
 
-export default EditOverlay;
+export default EditTeacher;
