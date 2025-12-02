@@ -1,5 +1,5 @@
 import React from "react";
-import { formatDeadline } from "../utils/helper";
+import { formatDate } from "../utils/helper";
 
 const AssignmentCard = ({
   title,
@@ -54,7 +54,7 @@ const AssignmentCard = ({
             >
               {isClosed
                 ? "Submission Closed"
-                : `Submit before ${formatDeadline(deadlineDate)}`}
+                : `Submit before ${formatDate(deadlineDate)}`}
             </p>
           )}
         </div>
