@@ -154,6 +154,6 @@ export default function TeacherCourses() {
           </div>
         </div>
       )}
-    </div>
+    </section>
   );
 }
