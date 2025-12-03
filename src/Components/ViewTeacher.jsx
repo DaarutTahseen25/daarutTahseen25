@@ -1,6 +1,6 @@
-import { AiOutlineClose } from "react-icons/ai";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 
-function ViewTeacher({ teacher, onClose }) {
+function ViewTeacher({ teacher, open, onOpenChange }) {
   const derivedStatus = teacher.is_verified
     ? teacher.is_active
       ? "Active"
@@ -25,37 +25,16 @@ function ViewTeacher({ teacher, onClose }) {
   if (!teacher) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full transform transition-all">
-        {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-100">
-          <h2 className="font-semibold text-xl font-clash text-gray-900">
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-md bg-white">
+        <DialogHeader>
+          <DialogTitle className="font-semibold text-xl font-clash text-gray-900">
             Teacher Details
-          </h2>
-          <button
-            onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-full transition-colors duration-200"
-          >
-            <AiOutlineClose className="text-gray-600 text-lg" />
-          </button>
-        </div>
+          </DialogTitle>
+        </DialogHeader>
 
         {/* Profile Section */}
         <div className="px-6 py-8 text-center">
-          <div className="relative inline-block">
-            <img
-              src={teacher.image}
-              alt={teacher.full_name}
-              className="h-24 w-24 rounded-full mx-auto object-cover ring-4 ring-gray-100"
-            />
-            <div
-              className={`absolute -bottom-1 -right-1 px-2 py-1 rounded-full text-xs font-medium border ${getStatusColor(
-                derivedStatus
-              )}`}
-            >
-              {derivedStatus}
-            </div>
-          </div>
           <h3 className="text-lg font-semibold font-clash text-gray-900 mt-4">
             {teacher.full_name}
           </h3>
@@ -99,8 +78,8 @@ function ViewTeacher({ teacher, onClose }) {
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 }
 

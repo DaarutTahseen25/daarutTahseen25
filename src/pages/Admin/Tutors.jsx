@@ -134,7 +134,7 @@ export default function Tutors() {
   if (isLoading) return <LoaderFallback />;
 
   return (
-    <div className="min-h-screen p-3">
+    <div className="min-h-screen">
       <div className="max-w-7xl">
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-6">
@@ -395,26 +395,30 @@ export default function Tutors() {
       {overlay.type === "view" && (
         <ViewTeacher
           teacher={overlay.teacher}
-          onClose={() => setOverlay({ type: null, teacher: null })}
+          open={true}
+          onOpenChange={() => setOverlay({ type: null, teacher: null })}
         />
       )}
       {overlay.type === "edit" && (
         <EditTeacher
           teacher={overlay.teacher}
-          onClose={() => setOverlay({ type: null, teacher: null })}
+          open={true}
+          onOpenChange={() => setOverlay({ type: null, teacher: null })}
           onUpdate={handleUpdate}
         />
       )}
       {overlay.type === "delete" && (
         <DeleteTeacher
           teacher={overlay.teacher}
-          onClose={() => setOverlay({ type: null, teacher: null })}
+          open={true}
+          onOpenChange={() => setOverlay({ type: null, teacher: null })}
           onDelete={handleDelete}
         />
       )}
       {overlay.type === "add" && (
         <AddTeacher
-          onClose={() => setOverlay({ type: null, teacher: null })}
+          open={true}
+          onOpenChange={() => setOverlay({ type: null, teacher: null })}
           onAdd={handleAdd}
         />
       )}

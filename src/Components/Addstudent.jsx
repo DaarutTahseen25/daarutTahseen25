@@ -1,7 +1,13 @@
 import { useState } from "react";
-import { AiOutlineClose } from "react-icons/ai";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "./ui/dialog";
 
-function AddOverlay({ onClose, onAdd }) {
+function AddOverlay({ open, onOpenChange, onAdd }) {
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -33,27 +39,20 @@ function AddOverlay({ onClose, onAdd }) {
       avatar: "https://randomuser.me/api/portraits/lego/1.jpg",
       date: new Date().toLocaleDateString(),
     });
-    onClose();
+    onOpenChange(false);
   };
 
   return (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full transform transition-all">
-        {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-100">
-          <h2 className="font-semibold text-xl font-clash text-gray-900">
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-md bg-white">
+        <DialogHeader>
+          <DialogTitle className="font-semibold text-xl font-clash text-gray-900">
             Add New Student
-          </h2>
-          <button
-            onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-full transition-colors duration-200"
-          >
-            <AiOutlineClose className="text-gray-600 text-lg" />
-          </button>
-        </div>
+          </DialogTitle>
+        </DialogHeader>
 
         {/* Form Content */}
-        <div className="p-6 space-y-4">
+        <div className="space-y-4 py-4">
           {/* Name Field */}
           <div>
             <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
@@ -153,25 +152,21 @@ function AddOverlay({ onClose, onAdd }) {
           </div>
         </div>
 
-        {/* Action Buttons */}
-        <div className="px-6 pb-6">
-          <div className="flex space-x-3">
-            <button
-              onClick={onClose}
-              className="flex-1 px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg font-medium transition-colors duration-200"
-            >
-              Cancel
-            </button>
-            <button
-              onClick={handleSave}
-              className="flex-1 px-4 py-3 bg-primary hover:bg-buttonhover text-white rounded-lg font-medium font-clash transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-            >
-              Add Student
-            </button>
-          </div>
-        </div>
-      </div>
-
+        <DialogFooter className="flex space-x-3 sm:justify-between">
+          <button
+            onClick={() => onOpenChange(false)}
+            className="flex-1 px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg font-medium transition-colors duration-200"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={handleSave}
+            className="flex-1 px-4 py-3 bg-primary hover:bg-buttonhover text-white rounded-lg font-medium font-clash transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+          >
+            Add Student
+          </button>
+        </DialogFooter>
+      </DialogContent>
       <style jsx>{`
         .slider::-webkit-slider-thumb {
           appearance: none;
@@ -194,7 +189,7 @@ function AddOverlay({ onClose, onAdd }) {
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
       `}</style>
-    </div>
+    </Dialog>
   );
 }
 

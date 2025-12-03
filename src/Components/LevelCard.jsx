@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Dialog, DialogContent } from "./ui/dialog";
 import Button from "./Button";
 import RegistrationError from "./RegistrationError";
 import ConfirmLevelRegistration from "./ConfirmLevelRegistration";
@@ -84,17 +85,9 @@ const LevelCard = ({ title, color, description }) => {
       </Button>
 
       {/* Modal */}
-      {view !== "" && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
-          <div className="relative">
-            {/* Close button */}
-            <button
-              onClick={closeModal}
-              className="absolute cursor-pointer top-3 right-4 text-gray-400 hover:text-gray-600 text-xl"
-            >
-              &times;
-            </button>
-
+      <Dialog open={view !== ""} onOpenChange={(open) => !open && closeModal()}>
+        <DialogContent className="sm:max-w-[500px] bg-white rounded-[20px] p-0 overflow-hidden">
+          <div className="relative p-6 sm:p-8">
             {/* Views */}
             {view === "confirm" && (
               <ConfirmLevelRegistration
@@ -109,8 +102,8 @@ const LevelCard = ({ title, color, description }) => {
 
             {view === "error" && <RegistrationError error={error} />}
           </div>
-        </div>
-      )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

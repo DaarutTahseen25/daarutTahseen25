@@ -156,7 +156,7 @@ export default function Students() {
   if (isLoading) return <LoaderFallback />;
 
   return (
-    <div className="min-h-screen p-3">
+    <div className="min-h-screen">
       <div className="max-w-7xl">
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-6">
@@ -454,26 +454,30 @@ export default function Students() {
       {overlay.type === "view" && (
         <ViewOverlay
           student={overlay.student}
-          onClose={() => setOverlay({ type: null, student: null })}
+          open={true}
+          onOpenChange={() => setOverlay({ type: null, student: null })}
         />
       )}
       {overlay.type === "edit" && (
         <EditOverlay
           student={overlay.student}
-          onClose={() => setOverlay({ type: null, student: null })}
+          open={true}
+          onOpenChange={() => setOverlay({ type: null, student: null })}
           onUpdate={handleUpdate}
         />
       )}
       {overlay.type === "delete" && (
         <DeleteOverlay
           student={overlay.student}
-          onClose={() => setOverlay({ type: null, student: null })}
+          open={true}
+          onOpenChange={() => setOverlay({ type: null, student: null })}
           onDelete={handleDelete}
         />
       )}
       {overlay.type === "add" && (
         <AddOverlay
-          onClose={() => setOverlay({ type: null, student: null })}
+          open={true}
+          onOpenChange={() => setOverlay({ type: null, student: null })}
           onAdd={handleAdd}
         />
       )}

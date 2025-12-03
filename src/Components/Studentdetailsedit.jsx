@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { AiOutlineClose } from "react-icons/ai";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 
-function EditOverlay({ student, onClose, onUpdate }) {
+function EditOverlay({ student, open, onOpenChange, onUpdate }) {
   const derivedStatus = student.is_verified
     ? student.is_active
       ? "Active"
@@ -27,35 +27,23 @@ function EditOverlay({ student, onClose, onUpdate }) {
 
   const handleSubmit = () => {
     onUpdate({ ...student, ...form });
-    onClose();
+    onOpenChange(false);
   };
 
   if (!student) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full transform transition-all">
-        {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-100">
-          <h2 className="font-semibold text-xl font-clash text-gray-900">
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-md bg-white">
+        <DialogHeader>
+          <DialogTitle className="font-semibold text-xl font-clash text-gray-900">
             Edit Student
-          </h2>
-          <button
-            onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-full transition-colors duration-200"
-          >
-            <AiOutlineClose className="text-gray-600 text-lg" />
-          </button>
-        </div>
+          </DialogTitle>
+        </DialogHeader>
 
         {/* Profile Section */}
         <div className="px-6 py-6">
           <div className="text-center mb-6">
-            <img
-              src={form.avatar}
-              alt={form.name}
-              className="h-24 w-24 rounded-full mx-auto object-cover ring-4 ring-gray-100 mb-4"
-            />
 
             <div className="space-y-3">
               <input
@@ -155,32 +143,32 @@ function EditOverlay({ student, onClose, onUpdate }) {
             Update Student Details
           </button>
         </div>
-      </div>
-
-      <style jsx>{`
-        .slider::-webkit-slider-thumb {
-          appearance: none;
-          height: 20px;
-          width: 20px;
-          border-radius: 50%;
-          background: rgba(0, 150, 136, 0.8);
-          cursor: pointer;
-          border: 2px solid #ffffff;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .slider::-moz-range-thumb {
-          height: 20px;
-          width: 20px;
-          border-radius: 50%;
-          background: rgba(0, 150, 136, 0.8);
-          cursor: pointer;
-          border: 2px solid #ffffff;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-      `}</style>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 }
 
 export default EditOverlay;
+
+<style jsx>{`
+  .slider::-webkit-slider-thumb {
+    appearance: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: rgba(0, 150, 136, 0.8);
+    cursor: pointer;
+    border: 2px solid #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .slider::-moz-range-thumb {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: rgba(0, 150, 136, 0.8);
+    cursor: pointer;
+    border: 2px solid #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+`}</style>;
