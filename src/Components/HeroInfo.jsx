@@ -44,9 +44,9 @@ const HeroInfo = () => {
             </Button>
           </Link>
         ) : (
-          <Link to="/create">
+          <Link to="/apply">
             <Button className="bg-primary hover:bg-buttonhover transition-all duration-500 py-4 px-6 w-[169px] h-[71px] text-white text-[18px] font-medium rounded-[10px] border-2 border-cream shadow-[0_0_10px_5px_rgba(0,0,0,0.25)] font-clash relative overflow-hidden group-hover:scale-105 group-hover:shadow-[0_0_20px_10px_rgba(0,0,0,0.3)] transform transition-transform">
-              <span className="relative z-10">Get Started</span>
+              <span className="relative z-10">Apply</span>
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
             </Button>
           </Link>

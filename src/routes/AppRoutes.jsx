@@ -10,15 +10,9 @@ const AdminRoutes = lazy(() => import("./AdminRoutes"));
 const LogIn = lazy(() => import("../pages/Login"));
 const UnAuthorized = lazy(() => import("../pages/UnAuthorized"));
 const CreateAccount = lazy(() => import("../pages/CreateAccount"));
-const SelectAccount = lazy(() => import("../Components/SelectAccount"));
-const StudentRegistrationForm = lazy(() =>
-  import("../Components/StudentRegistrationForm")
-);
-const TutorRegistrationForm = lazy(() =>
-  import("../Components/TutorRegistrationForm")
-);
 const OtpRegPage = lazy(() => import("../Components/OtpRegPage"));
 const TestRoutes = lazy(() => import("./TestRoutes"));
+const AspirantRoutes = lazy(() => import("./AspirantRoutes"));
 
 export const LoaderFallback = () => (
   <div className="w-full h-screen flex justify-center items-center text-lg font-medium">
@@ -39,6 +33,7 @@ export default function AppRoutes() {
         <Route path="/student/*" element={<StudentRoutes />} />
         <Route path="/teacher/*" element={<TeacherRoutes />} />
         <Route path="/admin/*" element={<AdminRoutes />} />
+        <Route path="/aspirant/*" element={<AspirantRoutes />} />
         <Route
           path="/assessment/*"
           element={
@@ -48,13 +43,7 @@ export default function AppRoutes() {
           }
         />
         {/* Create Account Flow */}{" "}
-        <Route path="/create" element={<CreateAccount />}>
-          {" "}
-          <Route index element={<Navigate to="select" replace />} />{" "}
-          <Route path="select" element={<SelectAccount />} />{" "}
-          <Route path="student-account" element={<StudentRegistrationForm />} />{" "}
-          <Route path="tutor-account" element={<TutorRegistrationForm />} />{" "}
-        </Route>
+        <Route path="/apply" element={<CreateAccount />} />
         {/* Catch-all */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

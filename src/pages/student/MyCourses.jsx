@@ -3,14 +3,15 @@ import { Filter, RefreshCcw } from "lucide-react";
 
 import QuizCardComponent from "../../Components/QuizCardComponent";
 import TotalCourses from "../../Components/TotalCourses";
-import StudentAssignment from "../../Components/StudentAssignment";
+import StudentAssignments from "../../Components/StudentAssignments";
+import StudentExams from "../../Components/StudentExams";
 import ClassCompo from "../../Components/ClassCompo";
 import DashTitle from "../../Components/DashTitle";
 
 import useUIStore from "../../store/useUIStore";
 import { usePageTitle } from "../../hooks/usePageTitle";
 
-import { courses, quizList } from "../../constants/data";
+import { courses, examList } from "../../constants/data";
 import Tabs from "./CoursesTab";
 
 export default function MyCourses() {
@@ -50,7 +51,7 @@ export default function MyCourses() {
   }, [searchTerm, filterProgress, filterStatus]);
 
   return (
-    <div className="p-4 min-h-screen font-clash ">
+    <div className="min-h-screen font-clash ">
       <div className="mb-4">
         <div className="max-w-7xl  mb-8 md:mb-12">
           <DashTitle
@@ -141,84 +142,63 @@ export default function MyCourses() {
                 <option value="Completed">Completed</option>
                 <option value="In progress">In Progress</option>
               </select>
-
-              {/* Search Input - Flexible width */}
-              <input
-                type="text"
-                placeholder="Search courses..."
-                value={searchTerm}
-                onChange={handleSearchChange}
-                className="flex-1 min-w-48 max-w-xs border px-3 py-2 rounded text-sm shadow-sm border-textmuted focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all"
-              />
             </div>
 
-            {/* Reset Button */}
-            <button
-              onClick={resetFilters}
-              className="text-red-400 text-sm flex items-center gap-1 px-3 py-2 hover:bg-red-50 rounded transition-colors whitespace-nowrap flex-shrink-0"
-            >
-              <RefreshCcw className="w-4 h-4" />
-              Reset
-            </button>
+            {/* Search Input - Flexible width */}
+            <input
+              type="text"
+              placeholder="Search courses..."
+              value={searchTerm}
+              onChange={handleSearchChange}
+              className="flex-1 min-w-48 max-w-xs border px-3 py-2 rounded text-sm shadow-sm border-textmuted focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all"
+            />
           </div>
-        </div>
 
-        {/* Tabs */}
-        <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
+          {/* Reset Button */}
+          <button
+            onClick={resetFilters}
+            className="text-red-400 text-sm flex items-center gap-1 px-3 py-2 hover:bg-red-50 rounded transition-colors whitespace-nowrap flex-shrink-0"
+          >
+            <RefreshCcw className="w-4 h-4" />
+            Reset
+          </button>
+        </div>
       </div>
+
+      {/* Tabs */}
+      <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
 
       {/* Tab Content */}
       {activeTab === "Total Courses" && (
-        <div className="bg-white w-full p-2 sm:p-4 rounded-lg shadow">
-          <div className="w-full mx-auto space-y-4">
-            {/* Header - Hide on mobile since course cards are self-explanatory */}
-            <div className="hidden lg:grid grid-cols-4 gap-4 py-2 px-3 md:py-3 mb-4 bg-light-grey rounded font-semibold text-md xl:text-lg text-gray-700">
-              <div>Course</div>
-              <div>Progress</div>
-              <div>Score</div>
-              <div>Status</div>
-            </div>
-
-            {/* Mobile Header - Optional simplified version */}
-            <div className="lg:hidden flex justify-between items-center py-2 px-3 mb-4 bg-light-grey rounded text-sm font-semibold">
-              <span>Your Courses</span>
-              <span className="text-xs text-gray-600">
-                {filteredCourses?.length || 0} total
-              </span>
-            </div>
-
-            <TotalCourses
-              courses={filteredCourses}
-              expandedCourse={expandedCourse}
-              setExpandedCourse={setExpandedCourse}
-            />
-          </div>
-        </div>
-      )}
-
-      {activeTab === "Quiz" && quizList.length > 0 && (
-        <div className="w-full overflow-x-hidden">
-          <div className="grid grid-cols-1 md:grid-cols-2 [@media(min-width:1201px)]:grid-cols-3 gap-3 w-full">
-            {quizList.map((quiz) => (
-              <QuizCardComponent key={quiz.id} {...quiz} />
-            ))}
-          </div>
+        <div className="w-full mt-6">
+          <TotalCourses
+            courses={filteredCourses}
+            expandedCourse={expandedCourse}
+            setExpandedCourse={setExpandedCourse}
+          />
         </div>
       )}
 
       {/* Classes Tab */}
 
-      {activeTab === "Classes" && <ClassCompo />}
+      {activeTab === "Classes" && (
+        <div className="mt-6">
+          <ClassCompo />
+        </div>
+      )}
 
       {/* Assignment Tab */}
 
-      {activeTab === "Assignment" && quizList.length > 0 && (
-        <div className="w-full overflow-x-hidden">
-          <div className="grid grid-cols-1 md:grid-cols-2 [@media(min-width:1201px)]:grid-cols-3 gap-3 w-full">
-            {quizList.map((assignment) => (
-              <StudentAssignment key={assignment.id} {...assignment} />
-            ))}
-          </div>
+      {activeTab === "Assignment" && examList.length > 0 && (
+        <div className="w-full overflow-x-hidden mt-6">
+          <StudentAssignments assignments={examList} />
+        </div>
+      )}
+
+      {/* Exam Tab */}
+      {activeTab === "Exam" && examList.length > 0 && (
+        <div className="w-full overflow-x-hidden mt-6">
+          <StudentExams exams={examList} />
         </div>
       )}
     </div>

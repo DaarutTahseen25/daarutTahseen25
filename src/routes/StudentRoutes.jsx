@@ -7,14 +7,10 @@ import ProtectedRoute from "../auth/ProtectedRoute";
 // Lazy-loaded pages
 const Dashboard = lazy(() => import("../pages/student/Dashboard"));
 const MyCourses = lazy(() => import("../pages/student/MyCourses"));
-const Admission = lazy(() => import("../pages/student/Admission"));
-const Curriculum = lazy(() => import("../pages/student/Curriculum"));
+const ExamPage = lazy(() => import("../pages/student/ExamPage"));
+const Admission = lazy(() => import("../pages/aspirant/Admission"));
 const Notifications = lazy(() => import("../pages/student/Notifications"));
-const PayFees = lazy(() => import("../pages/student/PayFees"));
-const Resources = lazy(() => import("../pages/student/Resources"));
-const LevelRegistration = lazy(() =>
-  import("../pages/student/LevelRegistration")
-);
+const Results = lazy(() => import("../pages/student/Results"));
 const Profile = lazy(() => import("../pages/student/Profile"));
 
 const StudentRoutes = () => {
@@ -23,20 +19,15 @@ const StudentRoutes = () => {
       {/* Protect all student routes */}
       <Route element={<ProtectedRoute allowedRoles={["student"]} />}>
         <Route path="/" element={<LayoutStudents />}>
-          {/* Only students with a level can access these */}
-          <Route element={<RequireLevel />}>
-            <Route index element={<Dashboard />} />
-            <Route path="my-courses" element={<MyCourses />} />
-            <Route path="admission" element={<Admission />} />
-            <Route path="curriculum" element={<Curriculum />} />
-            <Route path="messages" element={<Notifications />} />
-            <Route path="my-fees" element={<PayFees />} />
-            <Route path="resources" element={<Resources />} />
-          </Route>
+          <Route index element={<Dashboard />} />
+          <Route path="my-courses" element={<MyCourses />} />
+          <Route path="exam/:id" element={<ExamPage />} />
+          <Route path="admission" element={<Admission />} />
+          <Route path="messages" element={<Notifications />} />
+          <Route path="results" element={<Results />} />
 
           {/* Always accessible */}
           <Route path="profile" element={<Profile />} />
-          <Route path="level-registration" element={<LevelRegistration />} />
 
           {/* Catch-all */}
           <Route path="*" element={<Navigate to="/student" replace />} />

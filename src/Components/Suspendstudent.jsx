@@ -1,6 +1,12 @@
-import { AiOutlineClose } from "react-icons/ai";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "./ui/dialog";
 
-function DeleteOverlay({ student, onClose, onDelete }) {
+function DeleteOverlay({ student, open, onOpenChange, onDelete }) {
   const derivedStatus = student.is_verified
     ? student.is_active
       ? "Active"
@@ -25,47 +31,16 @@ function DeleteOverlay({ student, onClose, onDelete }) {
   if (!student) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full transform transition-all">
-        {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-100">
-          <h2 className="font-semibold text-xl font-clash text-red-600">
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-md bg-white">
+        <DialogHeader>
+          <DialogTitle className="font-semibold text-xl font-clash text-red-600">
             Delete Student
-          </h2>
-          <button
-            onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-full transition-colors duration-200"
-          >
-            <AiOutlineClose className="text-gray-600 text-lg" />
-          </button>
-        </div>
-
-        {/* Warning Message */}
-        <div className="px-6 pt-4 pb-2">
-          <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-            <p className="text-red-800 text-sm font-medium">
-              ⚠️ This action cannot be undone. The student record will be
-              permanently deleted.
-            </p>
-          </div>
-        </div>
+          </DialogTitle>
+        </DialogHeader>
 
         {/* Profile Section */}
         <div className="px-6 py-4 text-center">
-          <div className="relative inline-block">
-            <img
-              src={student.image}
-              alt={student.full_name}
-              className="h-20 w-20 rounded-full mx-auto object-cover ring-4 ring-red-100"
-            />
-            <div
-              className={`absolute -bottom-1 -right-1 px-2 py-1 rounded-full text-xs font-medium border ${getStatusColor(
-                derivedStatus
-              )}`}
-            >
-              {derivedStatus}
-            </div>
-          </div>
           <h3 className="text-lg font-semibold font-clash text-gray-900 mt-3">
             {student.full_name}
           </h3>
@@ -102,28 +77,25 @@ function DeleteOverlay({ student, onClose, onDelete }) {
           </div>
         </div>
 
-        {/* Action Buttons */}
-        <div className="px-6 pb-6">
-          <div className="flex space-x-3">
-            <button
-              onClick={onClose}
-              className="flex-1 px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg font-medium transition-colors duration-200"
-            >
-              Cancel
-            </button>
-            <button
-              onClick={() => {
-                onDelete(student.id);
-                onClose();
-              }}
-              className="flex-1 px-4 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium font-clash transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
-            >
-              Delete Student
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+        <DialogFooter className="flex space-x-3 sm:justify-between">
+          <button
+            onClick={() => onOpenChange(false)}
+            className="flex-1 px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg font-medium transition-colors duration-200"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={() => {
+              onDelete(student.id);
+              onOpenChange(false);
+            }}
+            className="flex-1 px-4 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium font-clash transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+          >
+            Delete Student
+          </button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }
 

@@ -16,7 +16,7 @@ const LevelRegistration = () => {
     []
   );
 
-  if (user?.level) return <Admission />;
+  if (!user?.level) return <Admission />;
 
   return (
     <section className="">

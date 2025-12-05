@@ -1,13 +1,13 @@
 import DashboardHeader from "../Components/DashboardHeader";
 import DashboardMain from "../Components/DashboardMain";
 import DashboardSidebar from "../Components/DashboardSidebar";
-import HomeSidebar from "../Components/HomeSidebar";
+import MobileDashboardSidebar from "../Components/MobileDashboardSidebar";
 
 const LayoutStudents = () => {
   return (
     <div className="grid min-h-screen grid-cols-1 lg:grid-cols-[250px_1fr]">
       <DashboardSidebar />
-      <HomeSidebar />
+      <MobileDashboardSidebar />
       <div className="flex flex-col h-screen overflow-y-auto">
         <DashboardHeader />
         <DashboardMain />
