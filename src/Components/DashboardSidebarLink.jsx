@@ -1,17 +1,16 @@
 // components/DashboardSidebarLink.jsx
 import React from "react";
-import { NavLink } from "react-router"; //
+import { NavLink } from "react-router";
 import { useAuth } from "../contexts/AuthContext";
 
 const DashboardSidebarLink = ({ icon, label, to, disabled = false }) => {
   const { user } = useAuth();
 
   const baseClasses =
-    "flex items-center px-6 gap-3 w-full h-11 rounded-lg font-medium transition-all duration-300";
-  const activeClasses = "bg-primary text-white shadow-md";
-  const hoverClasses = "hover:bg-primary hover:text-white hover:scale-[1.02]";
-  const disabledClasses =
-    "text-gray-400 cursor-not-allowed opacity-50 bg-gray-100";
+    "flex items-center px-3 gap-3 w-full py-2.5 rounded-lg font-normal text-sm transition-colors";
+  const activeClasses = "bg-primary/10 text-primary font-medium";
+  const hoverClasses = "hover:bg-gray-50";
+  const disabledClasses = "text-gray-300 cursor-not-allowed opacity-60";
 
   // 🚫 Disabled link (e.g., requires level but user has none)
   if (disabled) {
@@ -28,7 +27,7 @@ const DashboardSidebarLink = ({ icon, label, to, disabled = false }) => {
     return (
       <button
         type="button"
-        className={`${baseClasses} text-dark-grey ${hoverClasses}`}
+        className={`${baseClasses} text-gray-600 ${hoverClasses}`}
       >
         <span className="flex items-center justify-center text-lg">{icon}</span>
         <span>{label}</span>
@@ -37,14 +36,14 @@ const DashboardSidebarLink = ({ icon, label, to, disabled = false }) => {
   }
 
   // Determine if this link is exactly the role root (e.g. /student, /teacher, /admin)
-  const isExact = user?.role && to === `/${user.role}`;
+  const isExact = user?.role && to === `/${user?.role || "aspirant"}`;
 
   return (
     <NavLink
       to={to}
       {...(isExact ? { end: true } : {})}
       className={({ isActive }) =>
-        `${baseClasses} text-[#A9A9A9] ${hoverClasses} ${
+        `${baseClasses} text-gray-600 ${hoverClasses} ${
           isActive ? activeClasses : ""
         }`
       }

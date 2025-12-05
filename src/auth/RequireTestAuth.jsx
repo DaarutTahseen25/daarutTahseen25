@@ -6,6 +6,6 @@ export default function RequireTestAuth({ children }) {
 
   if (loading) return null;
 
-  const isAspirant = user?.role === "student" && !user?.is_admitted;
+  const isAspirant = user?.role === "aspirant" || "aspirant";
   return isAspirant ? children : <Navigate to="/unauthorized" replace />;
 }

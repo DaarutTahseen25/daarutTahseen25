@@ -13,6 +13,7 @@ import {
   Info,
   GraduationCap,
   Phone,
+  Award,
 } from "lucide-react";
 
 /**
@@ -62,8 +63,13 @@ export const dashboardLinks = [
     key: "dashboard",
     icon: <LayoutDashboard size={20} />,
     label: "Dashboard",
-    to: { student: "/student", teacher: "/teacher", admin: "/admin" },
-    roles: ["student", "teacher", "admin"],
+    to: {
+      student: "/student",
+      teacher: "/teacher",
+      admin: "/admin",
+      aspirant: "/aspirant",
+    },
+    roles: ["student", "teacher", "admin", "aspirant"],
     requiresLevel: false,
   },
   // --- Student only ---
@@ -79,17 +85,9 @@ export const dashboardLinks = [
     key: "level-registration",
     icon: <School size={20} />,
     label: "Level Registration",
-    to: { student: "/student/level-registration" },
-    roles: ["student"],
+    to: { aspirant: "/aspirant/level-registration" },
+    roles: ["aspirant"],
     requiresLevel: false,
-  },
-  {
-    key: "curriculum",
-    icon: <ListTree size={20} />,
-    label: "Curriculum",
-    to: { student: "/student/curriculum" },
-    roles: ["student"],
-    requiresLevel: true,
   },
   {
     key: "notifications",
@@ -100,18 +98,10 @@ export const dashboardLinks = [
     requiresLevel: true,
   },
   {
-    key: "payfees",
-    icon: <CreditCard size={20} />,
-    label: "Pay Fees",
-    to: { student: "/student/my-fees" },
-    roles: ["student"],
-    requiresLevel: true,
-  },
-  {
-    key: "resources",
-    icon: <FileText size={20} />,
-    label: "Resources",
-    to: { student: "/student/resources" },
+    key: "results",
+    icon: <Award size={20} />,
+    label: "Results",
+    to: { student: "/student/results" },
     roles: ["student"],
     requiresLevel: true,
   },

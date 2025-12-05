@@ -139,7 +139,7 @@ export default function HomeSidebar() {
           ) : (
             <Link to="/login" onClick={closeSidebar}>
               <Button className="w-full bg-primary text-white font-semibold py-3 rounded-xl shadow-lg hover:shadow-xl transition hover:scale-105">
-                Login / Register
+                Login
               </Button>
             </Link>
           )}
