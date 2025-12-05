@@ -16,10 +16,6 @@ import {
   Award,
 } from "lucide-react";
 
-/**
- * Public (landing-page) links
- * These do NOT require auth/roles.
- */
 export const landingLinks = [
   { key: "home", icon: <Home size={20} />, label: "Home", to: "/" },
   {
