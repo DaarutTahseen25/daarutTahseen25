@@ -1,154 +1,164 @@
-import React from "react";
+import { useMemo, useCallback, useState } from "react";
+import { Filter, RefreshCcw } from "lucide-react";
+
+import StudentAssignments from "../../Components/StudentAssignments";
+import StudentExams from "../../Components/StudentExams";
 import DashTitle from "../../Components/DashTitle";
 import { usePageTitle } from "../../hooks/usePageTitle";
 
-import Tabs from "./CoursesTab";
-import StudentTable from "../../Components/TotalStudents";
-import AssignmentCard from "../../Components/Assignment";
-import QuizCard from "./QuizCard";
+import { examList, students } from "../../constants/data";
+import ReusableTabs from "../../Components/ReusableTabs";
+import ClassCompo from "./ClassCompo";
+import TotalStudents from "./TotalStudents";
+import UploadResources from "./UploadResources";
 
-const assignments = [
-  {
-    id: 1,
-    title: "Qur’an Recitation & Tajwid",
-    subtitle: "Submit before: 20th June 2025; 12:00PM",
-    deadline: "2025-10-20T12:00:00",
-    image: "/quran-recitation.png",
-    students: ["/test1.png", "/test2.png", "/test3.png", "/test4.png"],
-    totalSubmitted: 7,
-  },
-  {
-    id: 2,
-    title: "Islamic History",
-    subtitle: "Submit before: 25th June 2025; 5:00PM",
-    deadline: "2025-06-25T17:00:00",
-    image: "/arabic.png",
-    students: ["/test2.png", "/test3.png"],
-    totalSubmitted: 3,
-  },
-  {
-    id: 3,
-    title: "Arabic Language Basics",
-    subtitle: "Submit before: 1st July 2025; 10:00AM",
-    deadline: "2025-07-01T10:00:00",
-    image: "/arabic.png",
-    students: ["/test1.png", "/test4.png", "/test5.png", "/test6.png"],
-    totalSubmitted: 10,
-  },
-];
-
-const quizList = [
-  {
-    title: "Islamic History Quiz",
-    date: "20th October, 2025",
-    time: "12:00PM",
-    questions: 20,
-    duration: "30 mins",
-    deadline: "2025-10-20T12:00:00",
-    image: "/arabic.png",
-    onView: () => console.log("View Islamic History Quiz"),
-    onCreate: () => console.log("Create Islamic History Quiz"),
-    onSeeAll: () => console.log("See All Islamic History Quizzes"),
-    disableSeeAll: false,
-  },
-  {
-    title: "Computer Science Quiz",
-    date: "25th October, 2025",
-    time: "10:00AM",
-    questions: 15,
-    duration: "20 mins",
-    deadline: "2025-07-01T10:00:00",
-    image: "/arabic.png",
-    onView: () => console.log("View Computer Science Quiz"),
-    onCreate: () => console.log("Create Computer Science Quiz"),
-    onSeeAll: () => console.log("See All Computer Science Quizzes"),
-    disableSeeAll: false,
-  },
-  {
-    title: "Mathematics Quiz",
-    date: "30th October, 2025",
-    time: "2:00PM",
-    questions: 25,
-    duration: "40 mins",
-    deadline: "2025-07-01T10:00:00",
-    image: "/arabic.png",
-    onView: () => console.log("View Mathematics Quiz"),
-    onCreate: () => console.log("Create Mathematics Quiz"),
-    onSeeAll: () => console.log("See All Mathematics Quizzes"),
-    disableSeeAll: false,
-  },
-];
-
-export default function Classes() {
+export default function MyCourses() {
   usePageTitle("My Courses");
-  const {
-    searchTerm,
-    filterProgress,
-    filterStatus,
-    activeTab,
-    setSearchTerm,
-    setFilterProgress,
-    setFilterStatus,
-    setActiveTab,
-    resetFilters,
-  } = useUIStore();
+  // Local tab state
+  const [activeTab, setActiveTab] = useState("Classes");
+  // Local filter states
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterProgress, setFilterProgress] = useState("");
+  const [filterStatus, setFilterStatus] = useState("");
 
-  const handleSearchChange = useCallback(
-    (e) => {
-      setSearchTerm(e.target.value);
-    },
-    [setSearchTerm]
-  );
+  const handleSearchChange = useCallback((e) => {
+    setSearchTerm(e.target.value);
+  }, []);
+
+  const resetFilters = useCallback(() => {
+    setSearchTerm("");
+    setFilterProgress("");
+    setFilterStatus("");
+  }, []);
+
+  const filteredStudents = useMemo(() => {
+    return students
+      .filter((student) =>
+        student.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+      .filter((student) =>
+        filterProgress === "In progress" ? student.progress < 100 : true
+      )
+      .filter((student) =>
+        filterStatus ? student.status === filterStatus : true
+      );
+  }, [searchTerm, filterProgress, filterStatus]);
 
   return (
-    <section className="">
-      <div className="max-w-7xl  mb-8 md:mb-12">
-        <DashTitle
-          title="My Classes"
-          subtitle="View schedules, manage students, and monitor class activities"
-        />
+    <div className="min-h-screen font-clash  ">
+      <div className="mb-4">
+        <div className="max-w-7xl  mb-8 md:mb-12">
+          <DashTitle
+            title="My Classes"
+            subtitle="View schedules, manage students, and monitor class activities"
+          />
+        </div>
+
+        {/* Redesigned Filters Bar (like Notifications) */}
+        <div className="bg-white rounded-xl border border-gray-200 p-4 mb-6">
+          <div className="flex flex-wrap items-center gap-3">
+            {/* Filter Toggle (for future pills) */}
+            <button
+              className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+              // onClick={() => setShowFilters(!showFilters)}
+            >
+              <Filter size={16} />
+              <span className="text-sm font-medium">Filter by</span>
+            </button>
+
+            {/* Date Dropdown */}
+            <select
+              value={filterProgress}
+              onChange={(e) => setFilterProgress(e.target.value)}
+              className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors cursor-pointer"
+            >
+              <option value="">Date</option>
+              <option value="Progress">Progress</option>
+            </select>
+
+            {/* Status Dropdown */}
+            <select
+              value={filterStatus}
+              onChange={(e) => setFilterStatus(e.target.value)}
+              className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors cursor-pointer"
+            >
+              <option value="">Status</option>
+              <option value="Completed">Completed</option>
+              <option value="In progress">In Progress</option>
+            </select>
+
+            {/* Search */}
+            <div className="flex-1 min-w-[200px] relative">
+              <svg
+                width="16"
+                height="16"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z"
+                />
+              </svg>
+              <input
+                type="text"
+                placeholder="Search..."
+                value={searchTerm}
+                onChange={handleSearchChange}
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+              />
+            </div>
+
+            {/* Reset Button */}
+            <button
+              onClick={resetFilters}
+              className="px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+            >
+              Reset
+            </button>
+          </div>
+        </div>
       </div>
 
-      {/* Tab Content */}
-      {activeTab === "Total Students" && <StudentTable />}
+      {/* Tabs */}
+      <ReusableTabs
+        tabs={["Classes", "Total Students", "Assignment", "Exam"]}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+      />
 
-      {activeTab === "Quiz" && quizList.length > 0 && (
-        <div className="w-full overflow-x-hidden">
-          <div className="grid grid-cols-1 md:grid-cols-2 [@media(min-width:1201px)]:grid-cols-3 gap-3 w-full">
-            {quizList.map((quiz, index) => (
-              <QuizCard key={index} {...quiz} />
-            ))}
-          </div>
+      {/* Tab Content */}
+      {activeTab === "Total Students" && (
+        <div className="w-full mt-6">
+          <TotalStudents students={filteredStudents} />
         </div>
       )}
 
       {/* Classes Tab */}
-
-      {activeTab === "Classes" && <ClassCompo />}
-
-      {/* Assignment Tab */}
-
-      {activeTab === "Assignment" && quizList.length > 0 && (
-        <div className="w-full overflow-x-hidden">
-          <div className="grid grid-cols-1 md:grid-cols-2 [@media(min-width:1201px)]:grid-cols-3 gap-3 w-full">
-            {assignments.map((assignment) => (
-              <AssignmentCard
-                key={assignment.id}
-                title={assignment.title}
-                subtitle={assignment.subtitle}
-                deadline={assignment.deadline}
-                image={assignment.image}
-                students={assignment.students}
-                totalSubmitted={assignment.totalSubmitted}
-                onView={() => console.log(`View ${assignment.title}`)}
-                onCreate={() => console.log(`Create for ${assignment.title}`)}
-                onSeeAll={() => console.log(`See all for ${assignment.title}`)}
-                disableSeeAll={false}
-              />
-            ))}
-          </div>
+      {activeTab === "Classes" && (
+        <div className="mt-6 space-y-6">
+          <ClassCompo />
+          <UploadResources />
         </div>
       )}
-    </section>
+
+      {/* Assignment Tab */}
+      {activeTab === "Assignment" && examList.length > 0 && (
+        <div className="w-full overflow-x-hidden mt-6">
+          <StudentAssignments assignments={examList} />
+        </div>
+      )}
+
+      {/* Exam Tab */}
+      {activeTab === "Exam" && examList.length > 0 && (
+        <div className="w-full overflow-x-hidden mt-6">
+          <StudentExams exams={examList} />
+        </div>
+      )}
+    </div>
   );
 }

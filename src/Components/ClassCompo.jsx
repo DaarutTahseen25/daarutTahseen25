@@ -4,13 +4,30 @@ import { classesData } from "../constants/data";
 
 const ClassCompo = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [filterDate, setFilterDate] = useState("");
+  const [filterStatus, setFilterStatus] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
   const itemsPerPage = 5;
 
-  // Separate upcoming and completed classes
-  const upcomingClasses = classesData.filter(
+  // Filter logic
+  const filteredClasses = classesData.filter((item) => {
+    const matchesDate = filterDate === "" || item.Date.includes(filterDate);
+    const matchesStatus =
+      filterStatus === "" ||
+      (filterStatus === "Completed" && item.time === "Completed") ||
+      (filterStatus === "Upcoming" && item.time !== "Completed");
+    const matchesSearch =
+      searchTerm === "" ||
+      item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.chapter.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesDate && matchesStatus && matchesSearch;
+  });
+
+  // Separate upcoming and completed classes from filtered results
+  const upcomingClasses = filteredClasses.filter(
     (item) => item.time !== "Completed"
   );
-  const completedClasses = classesData.filter(
+  const completedClasses = filteredClasses.filter(
     (item) => item.time === "Completed"
   );
 
@@ -20,6 +37,13 @@ const ClassCompo = () => {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+
+  const handleReset = () => {
+    setFilterDate("");
+    setFilterStatus("");
+    setSearchTerm("");
+    setCurrentPage(1);
+  };
 
   const ClassCard = ({ item, isUpcoming }) => {
     const isUrgent = item.time.includes("min");
@@ -87,6 +111,89 @@ const ClassCompo = () => {
 
   return (
     <div className="w-full space-y-8">
+      {/* Redesigned Filters Bar (like Notifications) */}
+      <div className="bg-white rounded-xl border border-gray-200 p-4 mb-6">
+        <div className="flex flex-wrap items-center gap-3">
+          {/* Filter Toggle (for future pills) */}
+          <button
+            className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+            // onClick={() => setShowFilters(!showFilters)}
+          >
+            <svg
+              width="16"
+              height="16"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M16 21v-2a4 4 0 00-8 0v2M12 11v3m0 0V7m0 7h.01"
+              />
+            </svg>
+            <span className="text-sm font-medium">Filter by</span>
+          </button>
+
+          {/* Date Dropdown */}
+          <select
+            value={filterDate}
+            onChange={(e) => setFilterDate(e.target.value)}
+            className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors cursor-pointer"
+          >
+            <option value="">Date</option>
+            <option value="July">July</option>
+            <option value="June">June</option>
+          </select>
+
+          {/* Status Dropdown */}
+          <select
+            value={filterStatus}
+            onChange={(e) => setFilterStatus(e.target.value)}
+            className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors cursor-pointer"
+          >
+            <option value="">Status</option>
+            <option value="Upcoming">Upcoming</option>
+            <option value="Completed">Completed</option>
+          </select>
+
+          {/* Search */}
+          <div className="flex-1 min-w-[200px] relative">
+            <svg
+              width="16"
+              height="16"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z"
+              />
+            </svg>
+            <input
+              type="text"
+              placeholder="Search..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+            />
+          </div>
+
+          {/* Reset Button */}
+          <button
+            onClick={handleReset}
+            className="px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+          >
+            Reset
+          </button>
+        </div>
+      </div>
+
       {/* Upcoming Classes Section */}
       {upcomingClasses.length > 0 && (
         <div>
