@@ -6,8 +6,9 @@ import Button from "../../Components/Button";
 import AssignmentCard from "../../Components/Assignment";
 import CalendarComponent from "../../Components/CalendarComponent";
 import Quiz from "../../Components/Quiz";
-import StudentTable from "../../Components/TotalStudents";
+import TotalStudents from "./TotalStudents";
 import DashTitle from "../../Components/DashTitle";
+import { students } from "../../constants/data";
 
 const classesData = Object.freeze([
   {
@@ -137,7 +138,7 @@ const DashboardTeacher = () => {
       {/* STUDENT TABLE, ASSIGNMENT & QUIZ */}
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-y-5 gap-x-5 w-full">
         <div className="xl:col-span-2">
-          <StudentTable />
+          {/* <TotalStudents students={students} />{" "} */}
         </div>
         <div className="xl:col-span-1 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 gap-4">
           <SectionCard title="Assignment">

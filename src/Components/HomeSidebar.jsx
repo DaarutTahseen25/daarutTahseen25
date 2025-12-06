@@ -1,24 +1,31 @@
 // components/HomeSidebar.jsx
-import React, { useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router";
+import React, { useEffect, useState } from "react";
+import { NavLink, useLocation, useNavigate } from "react-router";
 import { LogOut, X, LayoutGrid } from "lucide-react";
 
 import Button from "./Button";
 import useUIStore from "../store/useUIStore";
 import { useAuth } from "../contexts/AuthContext";
-import { truncateEmail } from "../utils/helper";
 import { getDashboardSidebarLinks } from "../utils/GetLinks";
 import { landingLinks } from "../utils/sidebarConfig";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "./ui/dialog";
 
 export default function HomeSidebar() {
   const { logout, user } = useAuth();
   const { isSidebarOpen, closeSidebar } = useUIStore();
   const navigate = useNavigate();
   const location = useLocation();
+  const [showLogoutDialog, setShowLogoutDialog] = useState(false);
 
   const profile = user?.user || user || null;
   const firstName = profile?.full_name?.split(" ")[0] || "Guest";
-  const email = truncateEmail(profile?.email || "guest@example.com");
   const role = profile?.role;
   const isDashboardPage = role
     ? location.pathname.startsWith(`/${role}`)
@@ -31,6 +38,11 @@ export default function HomeSidebar() {
 
   const handleLogout = () => {
     closeSidebar();
+    setShowLogoutDialog(true);
+  };
+
+  const confirmLogout = () => {
+    setShowLogoutDialog(false);
     navigate("/login", { replace: true });
     setTimeout(() => logout(), 100);
   };
@@ -39,112 +51,131 @@ export default function HomeSidebar() {
     if (!isSidebarOpen) return;
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-
-    const style = document.createElement("style");
-    style.textContent = `
-      @keyframes slideInRight {
-        from {opacity:0; transform:translateX(20px);}
-        to {opacity:1; transform:translateX(0);}
-      }
-      @keyframes fadeIn {from{opacity:0;} to{opacity:1;}}
-    `;
-    document.head.appendChild(style);
-
     return () => {
       document.body.style.overflow = originalOverflow;
-      document.head.removeChild(style);
     };
   }, [isSidebarOpen]);
-
-  if (!isSidebarOpen) return null;
 
   return (
     <>
       {/* Overlay */}
       <div
-        className="fixed lg:hidden inset-0 bg-black/50 backdrop-blur-sm z-40 transition-opacity duration-300 animate-[fadeIn_0.3s_ease-out]"
+        className={`fixed lg:hidden inset-0 bg-black/30 z-40 transition-opacity duration-300 ${
+          isSidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
         onClick={closeSidebar}
       />
 
       {/* Sidebar */}
-      <aside className="fixed lg:hidden top-0 right-0 h-screen w-80 bg-white/95 backdrop-blur-xl shadow-2xl z-50 p-6 flex flex-col gap-10 border-l border-gray-200/50 transform transition-transform duration-300 animate-[slideInRight_0.3s_ease-out]">
-        {/* Header */}
-        <div className="flex justify-between items-center ">
-          <div className="h-1 w-12 bg-accent rounded-full"></div>
-          <button
-            onClick={closeSidebar}
-            className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-xl transition"
-            aria-label="Close Sidebar"
-          >
-            <X size={20} />
-          </button>
-        </div>
-
-        {/* Links */}
-        <nav className="flex flex-col gap-2 flex-1">
-          {links.map((item, i) => (
-            <Link
-              key={item.key}
-              to={item.to}
+      <aside
+        className={`fixed lg:hidden top-0 right-0 h-screen w-80 bg-white shadow-xl z-50 flex flex-col border-l border-gray-200 transition-transform duration-300 ease-in-out ${
+          isSidebarOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+        aria-hidden={!isSidebarOpen}
+      >
+        <div className="flex flex-col h-full">
+          {/* Header */}
+          <div className="flex justify-between items-center p-4 border-b border-gray-200">
+            <img src="/logo.png" alt="Logo" className="w-20 h-auto" />
+            <button
               onClick={closeSidebar}
-              className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gradient-to-r hover:from-green-50 hover:to-green-50 hover:shadow-sm transition transform hover:translate-x-1"
-              style={{ animationDelay: `${i * 50}ms` }}
+              className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition"
+              aria-label="Close Sidebar"
             >
-              {item.icon}
-              <span className="font-medium text-gray-700 group-hover:text-gray-900">
-                {item.label}
-              </span>
-            </Link>
-          ))}
+              <X size={20} />
+            </button>
+          </div>
 
-          {/* Dashboard shortcut when on public pages */}
-          {!isDashboardPage && role && (
-            <Link
-              to={`/${role}`}
-              onClick={closeSidebar}
-              className="flex items-center gap-3 px-4 py-3 rounded-xl border border-primary/50 hover:bg-green-50 transition"
-            >
-              <LayoutGrid size={20} />
-              <span className="font-semibold text-primary">Dashboard</span>
-            </Link>
-          )}
-        </nav>
-
-        {/* Bottom section */}
-        <div className="space-y-4">
-          <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent" />
-          {user ? (
-            <ul className="flex flex-col gap-3">
-              <li className="flex items-center gap-4">
-                <img
-                  src={profile?.image}
-                  alt="Profile"
-                  className="h-12 w-12 rounded-full object-cover ring-2 ring-blue-200 shadow-md"
-                />
-                <div>
-                  <h1 className="font-semibold text-gray-900">{firstName}</h1>
-                  <p className="text-sm text-gray-600 bg-white px-2 py-1 rounded-md">
-                    {email}
-                  </p>
-                </div>
-              </li>
-              <li
-                onClick={handleLogout}
-                className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-red-50 cursor-pointer text-red-600 hover:text-red-700 border border-red-200/50"
-              >
-                <LogOut size={20} />
-                <span className="font-medium">Log out</span>
-              </li>
+          {/* Navigation Links */}
+          <nav className="flex-1 py-4 overflow-y-auto">
+            <ul className="flex flex-col gap-1 px-3">
+              {links.map((item) => (
+                <li key={item.key}>
+                  <NavLink
+                    to={item.to}
+                    onClick={closeSidebar}
+                    className={({ isActive }) =>
+                      `flex items-center gap-3 px-3 py-2.5 rounded-lg font-normal text-sm transition-colors ${
+                        isActive
+                          ? "bg-primary/10 text-primary font-medium"
+                          : "text-gray-600 hover:bg-gray-50"
+                      } ${
+                        item.requiresLevel && !user?.level
+                          ? "opacity-60 cursor-not-allowed"
+                          : ""
+                      }`
+                    }
+                    {...(item.requiresLevel && !user?.level
+                      ? { onClick: (e) => e.preventDefault() }
+                      : {})}
+                  >
+                    <span className="flex items-center justify-center text-lg">
+                      {item.icon}
+                    </span>
+                    <span>{item.label}</span>
+                  </NavLink>
+                </li>
+              ))}
             </ul>
-          ) : (
-            <Link to="/login" onClick={closeSidebar}>
-              <Button className="w-full bg-primary text-white font-semibold py-3 rounded-xl shadow-lg hover:shadow-xl transition hover:scale-105">
-                Login
-              </Button>
-            </Link>
-          )}
+          </nav>
+
+          {/* User Profile & Logout Section */}
+          <div className="mt-auto border-t border-gray-200 p-4">
+            {/* User Profile */}
+            <div className="flex items-center gap-3 mb-3 px-2 py-2">
+              <img
+                src={profile?.image || "/default-avatar.png"}
+                alt="Profile"
+                className="w-10 h-10 rounded-full object-cover"
+              />
+              <div className="flex-1 min-w-0">
+                <h3 className="font-medium text-gray-900 text-sm truncate">
+                  {firstName}
+                </h3>
+                <p className="text-xs text-gray-500 capitalize">{role}</p>
+              </div>
+            </div>
+
+            {/* Logout Button */}
+            <button
+              onClick={handleLogout}
+              className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors"
+            >
+              <LogOut size={16} />
+              <span>Log out</span>
+            </button>
+          </div>
         </div>
       </aside>
+
+      {/* Logout Confirmation Dialog */}
+      <Dialog open={showLogoutDialog} onOpenChange={setShowLogoutDialog}>
+        <DialogContent className="max-w-md bg-white">
+          <DialogHeader>
+            <DialogTitle>Confirm Logout</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to logout? You will need to sign in again to
+              access your account.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="flex gap-3 mt-4">
+            <Button
+              onClick={() => setShowLogoutDialog(false)}
+              variant="outline"
+              className="flex-1 border-gray-300 text-gray-700 hover:bg-gray-50"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={confirmLogout}
+              className="flex-1 bg-red-600 hover:bg-red-700 text-white"
+            >
+              Logout
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }

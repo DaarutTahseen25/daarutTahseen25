@@ -124,7 +124,10 @@ const ClassCompo = () => {
 
   return (
     <div className="w-full">
-      <div className="bg-white rounded-2xl p-4 sm:p-6 lg:p-8 shadow-sm">
+      <div className="mb-4 pb-4 border-b border-gray-200">
+        <h1 className="text-[25px] font-clash font-medium">Upcoming Classes</h1>
+      </div>
+      <div className="bg-white rounded-[15px] p-4 sm:p-6 lg:p-8 shadow-sm">
         <div className="space-y-4">
           {paginatedData.map((item) => (
             <div
@@ -203,7 +206,7 @@ const ClassCompo = () => {
         </div>
 
         {/* Pagination */}
-        <div className="mt-6">
+        <div className="mt-6 flex justify-end">
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}
