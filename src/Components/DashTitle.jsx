@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+/* eslint-to-disable no-unused-vars */
 import React from "react";
 
 const DashTitle = ({ title, subtitle, as: Heading = "h1", className = "" }) => {

@@ -1,4 +1,4 @@
-  import { create } from "zustand";
+import { create } from "zustand";
 
 const useUIStore = create((set) => ({
   // ====== UI STATES ======
@@ -27,7 +27,7 @@ const useUIStore = create((set) => ({
   searchTerm: "",
   filterProgress: "",
   filterStatus: "",
-  activeTab: "Total Courses",
+  activeTab: "Total Students",
 
   setExpandedCourse: (id) =>
     set((state) => ({
