@@ -1,7 +1,8 @@
 import { useState } from "react";
-import AssignmentCardcomponent from "./Assignmentcard";
-import CreateAssignmentModal from "./createassignmentover";
-import ViewAssignmentModal from "./viewassignment";
+import ExamCardComponent from "./ExamsCard";
+
+import CreateExamQuiz from "./CreateExamquiz";
+import ViewExamModal from "./ViewExamModal";
 
 const levels = [
   { id: "B1", name: "Beginner Class 1", studentsCount: 1 },
@@ -15,26 +16,32 @@ const assignmentsByLevel = {
     {
       id: "a1",
       title: "Introduction to Tajwid",
-      deadline: "2025-06-15",
+      deadline: "20th December 2025; 10.00pm",
+      duration: "45 mins",
+      questions: 10,
       image: "/Islamic Aqeedah.png",
       students: ["/her2.png"],
       totalSubmitted: 3,
     },
     {
-      id: "a2",
+      id: "a22",
       title: "Introduction to Tajwid",
-      deadline: "2025-06-15",
+      deadline: "20th December 2025; 10.00pm",
+      duration: "45 mins",
+      questions: 10,
       image: "/Islamic Aqeedah.png",
       students: ["/her2.png"],
-      totalSubmitted: 1,
+      totalSubmitted: 3,
     },
     {
       id: "a3",
       title: "Introduction to Tajwid",
-      deadline: "2025-06-15",
+      deadline: "20th December 2025; 10.00pm",
+      duration: "45 mins",
+      questions: 10,
       image: "/Islamic Aqeedah.png",
       students: ["/her2.png"],
-      totalSubmitted: 1,
+      totalSubmitted: 3,
     },
   ],
   B2: [],
@@ -65,7 +72,7 @@ const levelStyles = {
   },
 };
 
-export default function AssignmentPage() {
+export default function ExamPage() {
   const [selectedLevel, setSelectedLevel] = useState(null);
   const [openCreate, setOpenCreate] = useState(false);
   const [activeAssignment, setActiveAssignment] = useState(null);
@@ -149,14 +156,15 @@ export default function AssignmentPage() {
                 {assignments.length > 0 ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {assignments.map((assignment) => (
-                      <AssignmentCardcomponent
+                      <ExamCardComponent
                         key={assignment.id}
                         title={assignment.title}
                         deadline={assignment.deadline}
+                        duration={assignment.duration}
+                        questions={assignment.questions}
                         image={assignment.image}
                         students={assignment.students}
                         totalSubmitted={assignment.totalSubmitted}
-                        onCreate={() => handleOpenCreate(level.id, assignment)}
                         onView={() => handleOpenView(level.id, assignment)}
                         onSeeAll={() =>
                           console.log(`See all for ${assignment.title}`)
@@ -173,7 +181,7 @@ export default function AssignmentPage() {
         );
       })}
       {openView && (
-        <ViewAssignmentModal
+        <ViewExamModal
           isOpen={openView}
           levelId={viewLevel}
           assignment={viewAssignment}
@@ -182,7 +190,7 @@ export default function AssignmentPage() {
       )}
 
       {openCreate && (
-        <CreateAssignmentModal
+        <CreateExamQuiz
           isOpen={openCreate}
           levelId={activeLevel}
           assignment={activeAssignment}

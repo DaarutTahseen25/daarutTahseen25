@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useCallback } from "react";
 import DashTitle from "../../Components/DashTitle";
 import { usePageTitle } from "../../hooks/usePageTitle";
 
 import Tabs from "./CoursesTab";
 import StudentTable from "../../Components/TotalStudents";
-import AssignmentCard from "../../Components/Assignment";
+import Assignmentcard from "../../Components/Assignment";
+
 import QuizCard from "./QuizCard";
+
+// added
+import ClassCompo from "./ClassCompo";
+
+// added
+import useUIStore from "../../store/useUIStore";
+import FiltersAndTabs from "../../Components/TeacherBar";
+import AssignmentPage from "../../Components/Assignment";
+import ExamPage from "../../Components/Exams";
 
 const assignments = [
   {
@@ -81,6 +91,7 @@ const quizList = [
 
 export default function Classes() {
   usePageTitle("My Courses");
+
   const {
     searchTerm,
     filterProgress,
@@ -102,14 +113,14 @@ export default function Classes() {
 
   return (
     <section className="">
-      <div className="max-w-7xl  mb-8 md:mb-12">
+      <div className="max-w-7xl mb-8 md:mb-12">
         <DashTitle
           title="My Classes"
           subtitle="View schedules, manage students, and monitor class activities"
         />
+        <FiltersAndTabs />
       </div>
 
-      {/* Tab Content */}
       {activeTab === "Total Students" && <StudentTable />}
 
       {activeTab === "Quiz" && quizList.length > 0 && (
@@ -122,33 +133,10 @@ export default function Classes() {
         </div>
       )}
 
-      {/* Classes Tab */}
-
       {activeTab === "Classes" && <ClassCompo />}
 
-      {/* Assignment Tab */}
-
-      {activeTab === "Assignment" && quizList.length > 0 && (
-        <div className="w-full overflow-x-hidden">
-          <div className="grid grid-cols-1 md:grid-cols-2 [@media(min-width:1201px)]:grid-cols-3 gap-3 w-full">
-            {assignments.map((assignment) => (
-              <AssignmentCard
-                key={assignment.id}
-                title={assignment.title}
-                subtitle={assignment.subtitle}
-                deadline={assignment.deadline}
-                image={assignment.image}
-                students={assignment.students}
-                totalSubmitted={assignment.totalSubmitted}
-                onView={() => console.log(`View ${assignment.title}`)}
-                onCreate={() => console.log(`Create for ${assignment.title}`)}
-                onSeeAll={() => console.log(`See all for ${assignment.title}`)}
-                disableSeeAll={false}
-              />
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
+      {activeTab === "Assignment" && <AssignmentPage />}
+      {activeTab === "Exam" && <ExamPage />}
+    </section>
   );
 }
