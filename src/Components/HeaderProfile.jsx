@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from "react";
+import React, { useMemo, useCallback, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { ChevronDown, LayoutDashboard, Home, User, LogOut } from "lucide-react";
 import Skeleton from "react-loading-skeleton";
@@ -8,6 +8,14 @@ import useUIStore from "../store/useUIStore";
 import { useClickOutside } from "../hooks/useClickOutside";
 import { useAuth } from "../contexts/AuthContext";
 import { truncateEmail } from "../utils/helper";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "./ui/dialog";
+import Button from "./Button";
 
 const HeaderProfile = React.memo(() => {
   const { user, logout } = useAuth();
@@ -15,6 +23,7 @@ const HeaderProfile = React.memo(() => {
   const location = useLocation();
   const { isDropdownOpen, toggleDropdown, closeDropdown } = useUIStore();
   const ref = useClickOutside(closeDropdown);
+  const [showLogoutDialog, setShowLogoutDialog] = useState(false);
 
   const profile = user?.user || user || null;
   const isLoading = !user;
@@ -40,10 +49,14 @@ const HeaderProfile = React.memo(() => {
 
   const handleLogout = useCallback(() => {
     closeDropdown();
-    // navigate first, then log out
+    setShowLogoutDialog(true);
+  }, [closeDropdown]);
+
+  const confirmLogout = useCallback(() => {
+    setShowLogoutDialog(false);
     navigate("/login", { replace: true });
     setTimeout(() => logout(), 100);
-  }, [closeDropdown, navigate, logout]);
+  }, [navigate, logout]);
 
   return (
     <div
@@ -134,6 +147,35 @@ const HeaderProfile = React.memo(() => {
           />
         </div>
       )}
+
+      {/* Logout Confirmation Dialog */}
+      <Dialog open={showLogoutDialog} onOpenChange={setShowLogoutDialog}>
+        <DialogContent className="max-w-md bg-white">
+          <DialogHeader>
+            <DialogTitle>Confirm Logout</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to logout? You will need to sign in again to
+              access your account.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="flex gap-3 mt-4">
+            <Button
+              onClick={() => setShowLogoutDialog(false)}
+              variant="outline"
+              className="flex-1 border-gray-300 text-gray-700 hover:bg-gray-50"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={confirmLogout}
+              className="flex-1 bg-red-600 hover:bg-red-700 text-white"
+            >
+              Logout
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 });

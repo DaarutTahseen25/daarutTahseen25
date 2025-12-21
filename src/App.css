@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+/*---break---*/
 
 @theme {
   --font-poppins: "Poppins", sans-serif;
@@ -75,4 +77,3 @@ body {
     transform: rotate(360deg);
   }
 }
-

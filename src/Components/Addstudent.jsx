@@ -1,7 +1,13 @@
 import { useState } from "react";
-import { AiOutlineClose } from "react-icons/ai";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "./ui/dialog";
 
-function AddOverlay({ onClose, onAdd }) {
+function AddOverlay({ open, onOpenChange, onAdd }) {
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -33,83 +39,157 @@ function AddOverlay({ onClose, onAdd }) {
       avatar: "https://randomuser.me/api/portraits/lego/1.jpg",
       date: new Date().toLocaleDateString(),
     });
-    onClose();
+    onOpenChange(false);
   };
 
   return (
-    <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-lg shadow max-w-md w-full">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="font-semibold text-xl font-clash">Add New Student</h2>
-          <button onClick={onClose} className="text-xl text-textmain">
-            <AiOutlineClose />
-          </button>
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-md bg-white">
+        <DialogHeader>
+          <DialogTitle className="font-semibold text-xl font-clash text-gray-900">
+            Add New Student
+          </DialogTitle>
+        </DialogHeader>
+
+        {/* Form Content */}
+        <div className="space-y-4 py-4">
+          {/* Name Field */}
+          <div>
+            <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
+              Full Name *
+            </label>
+            <input
+              name="name"
+              type="text"
+              placeholder="Enter student's full name"
+              value={form.name}
+              onChange={handleChange}
+              className={`w-full bg-gray-50 border rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all ${
+                errors.name ? "border-red-300 bg-red-50" : "border-gray-200"
+              }`}
+            />
+            {errors.name && (
+              <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+            )}
+          </div>
+
+          {/* Email Field */}
+          <div>
+            <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
+              Email Address *
+            </label>
+            <input
+              name="email"
+              type="email"
+              placeholder="Enter email address"
+              value={form.email}
+              onChange={handleChange}
+              className={`w-full bg-gray-50 border rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all ${
+                errors.email ? "border-red-300 bg-red-50" : "border-gray-200"
+              }`}
+            />
+            {errors.email && (
+              <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+            )}
+          </div>
+
+          {/* Level and Status Row */}
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
+                Level
+              </label>
+              <select
+                name="level"
+                value={form.level}
+                onChange={handleChange}
+                className="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+              >
+                <option value="Beginner">Beginner</option>
+                <option value="Intermediate">Intermediate</option>
+                <option value="Advanced">Advanced</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
+                Status
+              </label>
+              <select
+                name="status"
+                value={form.status}
+                onChange={handleChange}
+                className="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+              >
+                <option value="Active">Active</option>
+                <option value="Pending">Pending</option>
+                <option value="Suspended">Suspended</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Initial Progress */}
+          <div>
+            <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
+              Initial Progress ({form.progress}%)
+            </label>
+            <div className="space-y-2">
+              <input
+                type="range"
+                name="progress"
+                min="0"
+                max="100"
+                value={form.progress}
+                onChange={handleChange}
+                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+              />
+              <div className="flex justify-between text-xs text-gray-400">
+                <span>0%</span>
+                <span>50%</span>
+                <span>100%</span>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <label className="block text-sm font-medium mb-1">Full Name*</label>
-        <input
-          name="name"
-          placeholder="Enter student's full name"
-          value={form.name}
-          onChange={handleChange}
-          className="w-full border border-textmuted px-3 py-2 rounded mb-1 focus:outline-none focus:border-primary"
-        />
-        {errors.name && (
-          <p className="text-red-500 text-sm mb-2">{errors.name}</p>
-        )}
-
-        <label className="block text-sm font-medium mb-1">Email*</label>
-        <input
-          name="email"
-          placeholder="Enter email"
-          value={form.email}
-          onChange={handleChange}
-          className="w-full border border-textmuted px-3 py-2 rounded mb-1 focus:outline-none focus:border-primary"
-        />
-        {errors.email && (
-          <p className="text-red-500 text-sm mb-2">{errors.email}</p>
-        )}
-
-        <label className="block text-sm font-medium mb-1">Level</label>
-        <select
-          name="level"
-          value={form.level}
-          onChange={handleChange}
-          className="w-full border border-textmuted px-3 py-2 rounded mb-3 focus:outline-none focus:border-primary"
-        >
-          <option>Beginner</option>
-          <option>Intermediate</option>
-          <option>Advance</option>
-        </select>
-
-        <label className="block text-sm font-medium mb-1">Status</label>
-        <select
-          name="status"
-          value={form.status}
-          onChange={handleChange}
-          className="w-full border border-textmuted px-3 py-2 rounded mb-3 focus:outline-none focus:border-primary"
-        >
-          <option>Active</option>
-          <option>Pending</option>
-          <option>Suspended</option>
-        </select>
-
-        <div className="flex justify-between mt-6 px-4">
+        <DialogFooter className="flex space-x-3 sm:justify-between">
           <button
-            onClick={onClose}
-            className="px-8 py-2 bg-white text-textmain border border-textmuted rounded"
+            onClick={() => onOpenChange(false)}
+            className="flex-1 px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg font-medium transition-colors duration-200"
           >
             Cancel
           </button>
           <button
             onClick={handleSave}
-            className="px-8 py-2 bg-primary text-white rounded"
+            className="flex-1 px-4 py-3 bg-primary hover:bg-buttonhover text-white rounded-lg font-medium font-clash transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
           >
             Add Student
           </button>
-        </div>
-      </div>
-    </div>
+        </DialogFooter>
+      </DialogContent>
+      <style jsx>{`
+        .slider::-webkit-slider-thumb {
+          appearance: none;
+          height: 20px;
+          width: 20px;
+          border-radius: 50%;
+          background: rgba(0, 150, 136, 0.8);
+          cursor: pointer;
+          border: 2px solid #ffffff;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .slider::-moz-range-thumb {
+          height: 20px;
+          width: 20px;
+          border-radius: 50%;
+          background: #3b82f6;
+          cursor: pointer;
+          border: 2px solid #ffffff;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+      `}</style>
+    </Dialog>
   );
 }
 

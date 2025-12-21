@@ -1,70 +1,85 @@
-export const quizList = [
+export const examList = [
   {
     id: 1,
-    title: "Basic Islamic Manners",
-    quizes: 10,
-    duration: "15mins",
+    title: "Qur’an Recitation & Tajwid",
+    questions: 33,
+    duration: "20 mins",
     date: "15th July, 2025",
     time: "4:00PM",
     status: "start",
-    dueDate: "20th June 2025, 12:00PM",
-    image: "/islamic1.png",
+    dueDate: "18th July, 2025 ; 4:00PM",
+    image: "/quran-recitation.png",
+    class: "Beginner Class 1",
+    courseName: "Qur'an Recitation & Tajwid",
+    instructions: [
+      "Ensure your environment is quiet and your microphone works properly (for oral recitation questions)",
+      "You must not leave the exam page once started. Doing so may auto-submit your answers",
+      "Before starting, ensure your internet connection is stable.",
+      'By clicking Start Exam, you agree to the DaarutTahseen exam honor code "I will complete this test truthfully and without assistance."',
+    ],
   },
   {
     id: 2,
     title: "Arabic Alphabet Phonetic",
-    quizes: 10,
-    duration: "15mins",
+    questions: 10,
+    duration: "15 mins",
     date: "15th July, 2025",
     time: "4:00PM",
     status: "submitted",
-    image: "/arabic.png",
+    image: "/arabic-alphabet.png",
+    class: "Beginner Class 1",
+    courseName: "Arabic Alphabet Phonetic",
+    score: 80,
+    dateMarked: "9th July, 2025",
+    remark: "Excellent recitation and clear pronunciation. Keep it up!",
+    instructions: [
+      "Ensure your environment is quiet and your microphone works properly (for oral recitation questions)",
+      "You must not leave the exam page once started. Doing so may auto-submit your answers",
+    ],
   },
   {
     id: 3,
-    title: "Short Surah Memorization",
-    quizes: 10,
-    duration: "15mins",
+    title: "Basic Islamic Manners",
+    questions: 10,
+    duration: "15 mins",
     date: "15th July, 2025",
     time: "4:00PM",
     status: "submitted",
-    image: "/surah.png",
+    image: "/basic-islamic.png",
+    class: "Beginner Class 1",
+    courseName: "Basic Islamic Manners",
+    score: 75,
+    dateMarked: "10th July, 2025",
+    remark: "Good understanding of the concepts.",
+    instructions: [
+      "Ensure your environment is quiet and your microphone works properly (for oral recitation questions)",
+      "You must not leave the exam page once started. Doing so may auto-submit your answers",
+    ],
   },
   {
     id: 4,
     title: "Stories of the Prophet",
-    quizes: 10,
-    duration: "15mins",
+    questions: 10,
+    duration: "15 mins",
     date: "15th July, 2025",
     time: "4:00PM",
     status: "submitted",
-    image: "/prophet.png",
-  },
-  {
-    id: 5,
-    title: "Short Surah Memorization",
-    quizes: 10,
-    duration: "15mins",
-    date: "15th July, 2025",
-    time: "4:00PM",
-    status: "submitted",
-    image: "/surah.png",
-  },
-  {
-    id: 6,
-    title: "Basic Islamic Manners",
-    quizes: 10,
-    duration: "15mins",
-    date: "15th July, 2025",
-    time: "4:00PM",
-    status: "missed",
-    image: "/islamic1.png",
+    image: "/prophets-stories.png",
+    class: "Beginner Class 1",
+    courseName: "Stories of the Prophet",
+    score: 90,
+    dateMarked: "11th July, 2025",
+    remark: "Outstanding performance!",
+    instructions: [
+      "Ensure your environment is quiet and your microphone works properly (for oral recitation questions)",
+      "You must not leave the exam page once started. Doing so may auto-submit your answers",
+    ],
   },
 ];
 export const courses = [
   {
     id: 1,
-    name: "Qur’an Recitation & Tajwid",
+    name: "Qur'an Recitation & Tajwid",
     chapters: [
       "Introduction to Tajwid",
       "Makharij (Articulation Points)",
@@ -76,8 +91,9 @@ export const courses = [
     score: 80,
     status: "In progress",
     numberofchapters: 5,
-    lectures: 25,
-    image: "/arabic Language.png",
+    lectures: 30,
+    image: "/quran-recitation.png",
+    class: "Beginner Class 1",
   },
   {
     id: 2,
@@ -94,7 +110,8 @@ export const courses = [
     status: "In progress",
     numberofchapters: 5,
     lectures: 30,
-    image: "/arabic Language.png",
+    image: "/arabic-alphabet.png",
+    class: "Beginner Class 1",
   },
   {
     id: 3,
@@ -108,9 +125,10 @@ export const courses = [
     progress: 70,
     score: 80,
     status: "In progress",
-    numberofchapters: 4,
-    lectures: 27,
-    image: "/arabic Language.png",
+    numberofchapters: 5,
+    lectures: 30,
+    image: "/basic-islamic.png",
+    class: "Beginner Class 1",
   },
   {
     id: 4,
@@ -127,7 +145,8 @@ export const courses = [
     status: "In progress",
     numberofchapters: 5,
     lectures: 30,
-    image: "/arabic Language.png",
+    image: "/short-surah.png",
+    class: "Beginner Class 1",
   },
   {
     id: 5,
@@ -140,10 +159,11 @@ export const courses = [
     ],
     progress: 100,
     score: 90,
-    status: "Completed",
-    numberofchapters: 4,
-    lectures: 37,
-    image: "/arabic-alphabet.png",
+    status: "In progress",
+    numberofchapters: 5,
+    lectures: 30,
+    image: "/prophets-stories.png",
+    class: "Beginner Class 1",
   },
 ];
 
@@ -226,7 +246,7 @@ export const classesData = [
     Date: "15th July, 2025 : 2:00PM",
     time: "2 mins left",
     button: {
-      label: "Join",
+      label: "Start",
     },
   },
   {
@@ -238,7 +258,7 @@ export const classesData = [
     Date: "15th July, 2025 : 4:00PM",
     time: "2 hrs left",
     button: {
-      label: "Join",
+      label: "Start",
     },
   },
   {
@@ -250,7 +270,7 @@ export const classesData = [
     Date: "16th July, 2025 : 8:00AM",
     time: "18 hrs left",
     button: {
-      label: "Join",
+      label: "Start",
     },
   },
   {
@@ -262,7 +282,7 @@ export const classesData = [
     Date: "16th July, 2025 : 12:00PM",
     time: "22 hrs left",
     button: {
-      label: "Join",
+      label: "Start",
     },
   },
   {
@@ -274,7 +294,7 @@ export const classesData = [
     Date: "17th July, 2025 : 10:00AM",
     time: "1day 20hrs left",
     button: {
-      label: "Join",
+      label: "Start",
     },
   },
   {
@@ -327,35 +347,187 @@ export const classesData = [
   },
 ];
 
+export const courseClasses = [
+  {
+    name: "Beginner Class 1",
+    code: "B1",
+    bgColor: "bg-[#E8F5F1]",
+    iconBg: "bg-[#B2DFDB]",
+    iconColor: "text-[#009688]",
+    borderColor: "border-[#E0E0E0]",
+  },
+  {
+    name: "Beginner Class 2",
+    code: "B2",
+    bgColor: "bg-[#EFEBE9]", // Light brown/grey
+    iconBg: "bg-[#D7CCC8]",
+    iconColor: "text-[#5D4037]",
+    borderColor: "border-[#D7CCC8]",
+  },
+  {
+    name: "Beginner Class 3",
+    code: "B3",
+    bgColor: "bg-[#FFEBEE]", // Light pink
+    iconBg: "bg-[#FFCDD2]",
+    iconColor: "text-[#C62828]",
+    borderColor: "border-[#FFCDD2]",
+  },
+  {
+    name: "Beginner Class 4",
+    code: "B4",
+    bgColor: "bg-[#F3E5F5]", // Light purple
+    iconBg: "bg-[#E1BEE7]",
+    iconColor: "text-[#8E24AA]",
+    borderColor: "border-[#E1BEE7]",
+  },
+];
+
 export const students = [
   {
-    name: "Abdulkabir Aishat",
-    avatar: "/test5.png",
+    id: 1,
+    name: "Abdullahi Yusuf",
     progress: 70,
     score: 80,
+    status: "In progress",
+    image: "/test4.png",
+
+    exams: [
+      { topic: "Makharij Test", date: "2024-09-10", score: 75 },
+      { topic: "Tajwid Basics Exam", date: "2024-10-02", score: 82 },
+    ],
+
+    assignments: [
+      {
+        topic: "Noon & Meem Rules Practice",
+        date: "2024-09-05",
+        score: 78,
+        fileName: "file.pdf",
+      },
+      {
+        topic: "Tajwid Recitation Recording",
+        date: "2024-10-04",
+        score: 85,
+        audioFile: "tajwid-recording.mp3",
+      },
+    ],
+    class: "Beginner Class 3",
   },
+
   {
-    name: "Adams Ibrahim",
-    avatar: "/test1.png",
+    id: 2,
+    name: "Muhammad Jum'ah",
     progress: 70,
     score: 80,
+    status: "In progress",
+    image: "/test4.png",
+
+    exams: [
+      { topic: "Alphabet Recognition", date: "2024-08-18", score: 72 },
+      { topic: "Makharij Basics", date: "2024-09-29", score: 80 },
+    ],
+
+    assignments: [
+      {
+        topic: "Letter Pronunciation Practice",
+        date: "2024-08-20",
+        score: 70,
+        fileName: "letter-pronunciation.pdf",
+      },
+      {
+        topic: "Makharij Worksheet",
+        date: "2024-09-10",
+        score: 78,
+        fileName: "makharij-work.pdf",
+      },
+    ],
+    class: "Beginner Class 1",
   },
+
   {
-    name: "Jafar Ibrahim",
-    avatar: "/test2.png",
+    id: 3,
+    name: "Maryam Isiaq",
     progress: 70,
     score: 80,
+    status: "In progress",
+    image: "/test5.png",
+
+    exams: [{ topic: "Manners Test", date: "2024-09-03", score: 90 }],
+
+    assignments: [
+      {
+        topic: "Islamic Etiquettes Notes",
+        date: "2024-08-15",
+        score: 95,
+        fileName: "manners-notes.pdf",
+      },
+    ],
+    class: "Beginner Class 2",
   },
+
   {
-    name: "Jimoh Jamiu",
-    avatar: "/test3.png",
-    progress: 70,
-    score: 80,
-  },
-  {
-    name: "Muhammad Rafiu",
-    avatar: "/test4.png",
+    id: 4,
+    name: "Ridwanulloh Fawwaz",
     progress: 100,
     score: 80,
+    status: "In progress",
+    image: "/test3.png",
+
+    exams: [
+      { topic: "Surah Memorization Test", date: "2024-10-01", score: 88 },
+    ],
+
+    assignments: [
+      {
+        topic: "Surah Al-Falaq Recitation",
+        date: "2024-09-15",
+        score: 92,
+        audioFile: "falaq-recitation.mp3",
+      },
+    ],
+    class: "Beginner Class 3",
+  },
+
+  {
+    id: 5,
+    name: "Bello AbdulQuddus",
+    progress: 100,
+    score: 90,
+    status: "In progress",
+    image: "/test2.png",
+
+    exams: [
+      { topic: "Surah Memorization Test", date: "2024-10-01", score: 88 },
+    ],
+
+    assignments: [
+      {
+        topic: "Surah Al-Falaq Recitation",
+        date: "2024-09-15",
+        score: 92,
+        audioFile: "falaq-recitation.mp3",
+      },
+    ],
+    class: "Beginner Class 1",
+  },
+
+  {
+    id: 6,
+    name: "Abdullahi AbdulAzeez",
+    progress: 100,
+    score: 90,
+    status: "In progress",
+    image: "/test1.png",
+
+    exams: [{ topic: "Seerah Test", date: "2024-09-22", score: 94 }],
+
+    assignments: [
+      {
+        topic: "Stories Summary",
+        date: "2024-09-01",
+        score: 96,
+        fileName: "prophet-stories-summary.pdf",
+      },
+    ],
+    class: "Beginner Class 4",
   },
 ];

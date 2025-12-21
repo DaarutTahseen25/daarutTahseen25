@@ -1,7 +1,7 @@
 import React from "react";
 
 const Tabs = React.memo(({ activeTab, setActiveTab }) => {
-  const tabs = ["Classes", "Total Students", "Assignment", "Quiz"];
+  const tabs = ["Classes", "Total Students", "Assignment", "Exam"];
 
   return (
     <div className='w-full mt-6 overflow-hidden'>

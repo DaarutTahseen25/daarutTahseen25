@@ -1,18 +1,15 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-// Helper function to get token from cookies
 const getToken = () => Cookies.get("token");
 
-// Create Axios instance
 const api = axios.create({
-  baseURL: "https://dt-backend-qxza.onrender.com/api/v1", // Replace with your actual backend URL
+  baseURL: "https://dt-backend-qxza.onrender.com/api/v1",
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-// Request Interceptor: Add Authorization header if token exists
 api.interceptors.request.use(
   (config) => {
     const token = getToken();
