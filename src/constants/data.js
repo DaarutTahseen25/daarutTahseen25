@@ -404,6 +404,97 @@ export const CLASSES_DATA = [
   },
 ];
 
+// Static test management data
+export const TEST_TABS = ["Create Test", "View Test"];
+
+export const QUESTION_TYPES = [
+  { id: "multiple", label: "Multiple Choice", icon: "CheckSquare" },
+  { id: "truefalse", label: "True/False", icon: "CheckSquare" },
+  { id: "short", label: "Short Answer", icon: "Type" },
+  { id: "essay", label: "Essay", icon: "FileEdit" },
+];
+
+export const QUESTION_TYPE_LABELS = {
+  multiple: "Multiple Choice",
+  truefalse: "True/False",
+  short: "Short Answer",
+  essay: "Essay",
+};
+
+export const QUESTION_TYPE_BADGE_COLORS = {
+  multiple: "bg-blue-100 text-blue-700",
+  truefalse: "bg-red-100 text-red-700",
+  short: "bg-purple-100 text-purple-700",
+  essay: "bg-green-100 text-green-700",
+};
+
+export const TEST_SUBJECTS = [
+  "Arabic Language",
+  "English Language",
+  "Mathematics",
+  "Islamic Studies",
+];
+
+export const TEST_LEVELS = [
+  "Arabic Language",
+  "Beginner",
+  "Intermediate",
+  "Advanced",
+];
+
+export const SAMPLE_TESTS = [
+  {
+    id: 1,
+    title: "Arabic Language Proficiency Test",
+    tags: [
+      { label: "Intermediate", className: "bg-teal-100 text-teal-700" },
+      { label: "Arabic", className: "bg-blue-100 text-blue-700" },
+      { label: "Active", className: "bg-green-100 text-green-700" },
+    ],
+    stats: { questions: 25, duration: "45 minutes", attempts: 156, avg: "75%" },
+  },
+  {
+    id: 2,
+    title: "Quran Recitation Assessment",
+    tags: [
+      { label: "Advanced", className: "bg-blue-100 text-blue-700" },
+      { label: "Quran", className: "bg-purple-100 text-purple-700" },
+      { label: "Active", className: "bg-green-100 text-green-700" },
+    ],
+    stats: { questions: 15, duration: "55 minutes", attempts: 150, avg: "92%" },
+  },
+  {
+    id: 3,
+    title: "Islamic Studies Foundation",
+    tags: [
+      { label: "Beginner", className: "bg-teal-100 text-teal-700" },
+      { label: "Islamic Studies", className: "bg-orange-100 text-orange-700" },
+      { label: "Draft", className: "bg-pink-100 text-pink-700" },
+    ],
+    stats: { questions: 20, duration: "35 minutes", attempts: 256, avg: "88%" },
+  },
+  {
+    id: 4,
+    title: "Arabic Language Proficiency Test",
+    tags: [
+      { label: "Intermediate", className: "bg-teal-100 text-teal-700" },
+      { label: "Arabic", className: "bg-blue-100 text-blue-700" },
+      { label: "Active", className: "bg-green-100 text-green-700" },
+    ],
+    stats: { questions: 25, duration: "45 minutes", attempts: 156, avg: "75%" },
+  },
+  {
+    id: 5,
+    title: "Quran Recitation Assessment",
+    tags: [
+      { label: "Advanced", className: "bg-blue-100 text-blue-700" },
+      { label: "Quran", className: "bg-purple-100 text-purple-700" },
+      { label: "Active", className: "bg-green-100 text-green-700" },
+    ],
+    stats: { questions: 15, duration: "55 minutes", attempts: 150, avg: "92%" },
+  },
+];
+
 export const trustedItems = [
   {
     image: "/Verified courses.png",
