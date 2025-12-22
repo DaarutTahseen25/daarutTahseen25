@@ -5,7 +5,6 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogFooter,
 } from "../../Components/ui/dialog";
 import TabsBar from "../../Components/tests/TabsBar";
 import TestInfoForm from "../../Components/tests/TestInfoForm";
