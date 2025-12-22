@@ -146,6 +146,14 @@ export const dashboardLinks = [
 
   // --- Admin only ---
   {
+    key: "profile",
+    icon: <Users size={20} />,
+    label: "Profile",
+    to: { admin: "/admin/profile" },
+    roles: ["admin"],
+    requiresLevel: false,
+  },
+  {
     key: "students",
     icon: <Users size={20} />,
     label: "Students Management",
@@ -166,6 +174,14 @@ export const dashboardLinks = [
     icon: <BookOpen size={20} />,
     label: "Courses Management",
     to: { admin: "/admin/courses" },
+    roles: ["admin"],
+    requiresLevel: false,
+  },
+  {
+    key: "time-table",
+    icon: <FileText size={20} />,
+    label: "Timetable Management",
+    to: { admin: "/admin/time-table" },
     roles: ["admin"],
     requiresLevel: false,
   },
