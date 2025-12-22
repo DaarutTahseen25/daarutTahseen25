@@ -12,7 +12,6 @@ const Library = lazy(() => import("../pages/teacher/Library"));
 const Messages = lazy(() => import("../pages/teacher/Messages"));
 const Payments = lazy(() => import("../pages/teacher/Payments"));
 const Classes = lazy(() => import("../pages/teacher/Classes"));
-const TeacherCourses = lazy(() => import("../pages/teacher/TeacherCourses"));
 const Profile = lazy(() => import("../pages/student/Profile")); // shared
 
 const LoaderFallback = () => (
@@ -33,7 +32,6 @@ export default function TeacherRoutes() {
           <Route path="library" element={<Library />} />
           <Route path="payments" element={<Payments />} />
           <Route path="messages" element={<Messages />} />
-          <Route path="my-courses" element={<TeacherCourses />} />
           <Route path="my-classes" element={<Classes />} />
           <Route path="profile" element={<Profile />} />
 
