@@ -13,8 +13,8 @@ import TotalStudents from "./TotalStudents";
 import UploadResources from "./UploadResources";
 import Assignments from "./Assignments";
 
-export default function MyCourses() {
-  usePageTitle("My Courses");
+export default function MyClasses() {
+  usePageTitle("My Classes");
   // Local tab state
   const [activeTab, setActiveTab] = useState("Classes");
   // Local filter states

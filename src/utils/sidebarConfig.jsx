@@ -101,16 +101,7 @@ export const dashboardLinks = [
     roles: ["student"],
     requiresLevel: true,
   },
-
   // --- Teacher only ---
-  {
-    key: "courses",
-    icon: <Users size={20} />,
-    label: "My Courses",
-    to: { teacher: "/teacher/my-courses" },
-    roles: ["teacher"],
-    requiresLevel: false,
-  },
   {
     key: "myclasses",
     icon: <BookOpen size={20} />,
@@ -145,14 +136,6 @@ export const dashboardLinks = [
   },
 
   // --- Admin only ---
-  {
-    key: "profile",
-    icon: <Users size={20} />,
-    label: "Profile",
-    to: { admin: "/admin/profile" },
-    roles: ["admin"],
-    requiresLevel: false,
-  },
   {
     key: "students",
     icon: <Users size={20} />,

@@ -11,6 +11,7 @@ export const examList = [
     image: "/quran-recitation.png",
     class: "Beginner Class 1",
     courseName: "Qur'an Recitation & Tajwid",
+    isClosed: false,
     instructions: [
       "Ensure your environment is quiet and your microphone works properly (for oral recitation questions)",
       "You must not leave the exam page once started. Doing so may auto-submit your answers",
@@ -29,6 +30,7 @@ export const examList = [
     image: "/arabic-alphabet.png",
     class: "Beginner Class 1",
     courseName: "Arabic Alphabet Phonetic",
+    isClosed: false,
     score: 80,
     dateMarked: "9th July, 2025",
     remark: "Excellent recitation and clear pronunciation. Keep it up!",
@@ -67,12 +69,80 @@ export const examList = [
     image: "/prophets-stories.png",
     class: "Beginner Class 1",
     courseName: "Stories of the Prophet",
+    isClosed: false,
     score: 90,
     dateMarked: "11th July, 2025",
     remark: "Outstanding performance!",
     instructions: [
       "Ensure your environment is quiet and your microphone works properly (for oral recitation questions)",
       "You must not leave the exam page once started. Doing so may auto-submit your answers",
+    ],
+  },
+  {
+    id: 5,
+    title: "Short Surahs Memorization",
+    questions: 5,
+    duration: "10 mins",
+    date: "20th July, 2025",
+    time: "2:00PM",
+    status: "start",
+    dueDate: "22nd July, 2025 ; 2:00PM",
+    image: "/quran-recitation.png",
+    class: "Beginner Class 1",
+    courseName: "Short Surahs Memorization",
+    isClosed: false,
+    instructions: [
+      "Recite the assigned surahs clearly",
+      "Ensure audio quality is clear",
+    ],
+  },
+  {
+    id: 6,
+    title: "Makharij Practice",
+    questions: 20,
+    duration: "15 mins",
+    date: "10th July, 2025",
+    time: "3:00PM",
+    status: "missed",
+    image: "/arabic-alphabet.png",
+    class: "Beginner Class 2",
+    courseName: "Qur'an Recitation & Tajwid",
+    isClosed: true,
+    instructions: ["Practice articulation points", "Record your recitation"],
+  },
+  {
+    id: 7,
+    title: "Grammar Rules Quiz",
+    questions: 15,
+    duration: "12 mins",
+    date: "5th July, 2025",
+    time: "1:00PM",
+    status: "start",
+    image: "/basic-islamic.png",
+    class: "Beginner Class 2",
+    courseName: "Introduction to Nahw (Grammar)",
+    isClosed: true,
+    instructions: [
+      "Answer questions about Arabic grammar",
+      "No references allowed",
+    ],
+  },
+  {
+    id: 8,
+    title: "Islamic Etiquette Assignment",
+    questions: 8,
+    duration: "20 mins",
+    date: "28th July, 2025",
+    time: "5:00PM",
+    status: "start",
+    dueDate: "30th July, 2025 ; 5:00PM",
+    image: "/prophets-stories.png",
+    class: "Beginner Class 2",
+    courseName: "Basic Islamic Manners",
+    isClosed: false,
+    instructions: [
+      "Write about Islamic etiquette in daily life",
+      "Provide real-life examples",
     ],
   },
 ];
@@ -401,6 +471,97 @@ export const CLASSES_DATA = [
     time: "4:00PM",
     timeLeft: "2 hrs",
     color: "#009688",
+  },
+];
+
+// Static test management data
+export const TEST_TABS = ["Create Test", "View Test"];
+
+export const QUESTION_TYPES = [
+  { id: "multiple", label: "Multiple Choice", icon: "CheckSquare" },
+  { id: "truefalse", label: "True/False", icon: "CheckSquare" },
+  { id: "short", label: "Short Answer", icon: "Type" },
+  { id: "essay", label: "Essay", icon: "FileEdit" },
+];
+
+export const QUESTION_TYPE_LABELS = {
+  multiple: "Multiple Choice",
+  truefalse: "True/False",
+  short: "Short Answer",
+  essay: "Essay",
+};
+
+export const QUESTION_TYPE_BADGE_COLORS = {
+  multiple: "bg-blue-100 text-blue-700",
+  truefalse: "bg-red-100 text-red-700",
+  short: "bg-purple-100 text-purple-700",
+  essay: "bg-green-100 text-green-700",
+};
+
+export const TEST_SUBJECTS = [
+  "Arabic Language",
+  "English Language",
+  "Mathematics",
+  "Islamic Studies",
+];
+
+export const TEST_LEVELS = [
+  "Arabic Language",
+  "Beginner",
+  "Intermediate",
+  "Advanced",
+];
+
+export const SAMPLE_TESTS = [
+  {
+    id: 1,
+    title: "Arabic Language Proficiency Test",
+    tags: [
+      { label: "Intermediate", className: "bg-teal-100 text-teal-700" },
+      { label: "Arabic", className: "bg-blue-100 text-blue-700" },
+      { label: "Active", className: "bg-green-100 text-green-700" },
+    ],
+    stats: { questions: 25, duration: "45 minutes", attempts: 156, avg: "75%" },
+  },
+  {
+    id: 2,
+    title: "Quran Recitation Assessment",
+    tags: [
+      { label: "Advanced", className: "bg-blue-100 text-blue-700" },
+      { label: "Quran", className: "bg-purple-100 text-purple-700" },
+      { label: "Active", className: "bg-green-100 text-green-700" },
+    ],
+    stats: { questions: 15, duration: "55 minutes", attempts: 150, avg: "92%" },
+  },
+  {
+    id: 3,
+    title: "Islamic Studies Foundation",
+    tags: [
+      { label: "Beginner", className: "bg-teal-100 text-teal-700" },
+      { label: "Islamic Studies", className: "bg-orange-100 text-orange-700" },
+      { label: "Draft", className: "bg-pink-100 text-pink-700" },
+    ],
+    stats: { questions: 20, duration: "35 minutes", attempts: 256, avg: "88%" },
+  },
+  {
+    id: 4,
+    title: "Arabic Language Proficiency Test",
+    tags: [
+      { label: "Intermediate", className: "bg-teal-100 text-teal-700" },
+      { label: "Arabic", className: "bg-blue-100 text-blue-700" },
+      { label: "Active", className: "bg-green-100 text-green-700" },
+    ],
+    stats: { questions: 25, duration: "45 minutes", attempts: 156, avg: "75%" },
+  },
+  {
+    id: 5,
+    title: "Quran Recitation Assessment",
+    tags: [
+      { label: "Advanced", className: "bg-blue-100 text-blue-700" },
+      { label: "Quran", className: "bg-purple-100 text-purple-700" },
+      { label: "Active", className: "bg-green-100 text-green-700" },
+    ],
+    stats: { questions: 15, duration: "55 minutes", attempts: 150, avg: "92%" },
   },
 ];
 
