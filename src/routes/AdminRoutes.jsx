@@ -16,7 +16,6 @@ const Profile = lazy(() => import("../pages/Admin/Profile"));
 const Tests = lazy(() => import("../pages/Admin/Tests"));
 const ViewTests = lazy(() => import("../pages/Admin/ViewTests"));
 const Messages = lazy(() => import("../pages/Admin/Messages"));
-const Courses = lazy(() => import("../pages/Admin/Courses"));
 
 const LoaderFallback = () => (
   <div className="w-full h-screen flex justify-center items-center text-lg font-medium">
