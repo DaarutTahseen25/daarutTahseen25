@@ -1,16 +1,17 @@
 import { useMemo, useCallback, useState } from "react";
 import { Filter, RefreshCcw } from "lucide-react";
 
-import StudentAssignments from "../../Components/StudentAssignments";
+// import StudentAssignments from "../../Components/StudentAssignments";
 import StudentExams from "../../Components/StudentExams";
 import DashTitle from "../../Components/DashTitle";
 import { usePageTitle } from "../../hooks/usePageTitle";
 
-import { examList, students } from "../../constants/data";
+import { courses, examList, students } from "../../constants/data";
 import ReusableTabs from "../../Components/ReusableTabs";
 import ClassCompo from "./ClassCompo";
 import TotalStudents from "./TotalStudents";
 import UploadResources from "./UploadResources";
+import Assignments from "./Assignments";
 
 export default function MyCourses() {
   usePageTitle("My Courses");
@@ -147,9 +148,9 @@ export default function MyCourses() {
       )}
 
       {/* Assignment Tab */}
-      {activeTab === "Assignment" && examList.length > 0 && (
+      {activeTab === "Assignment" && courses.length > 0 && (
         <div className="w-full overflow-x-hidden mt-6">
-          <StudentAssignments assignments={examList} />
+          <Assignments />
         </div>
       )}
 
