@@ -3,6 +3,7 @@ import { usePageTitle } from "../hooks/usePageTitle";
 import OurMission from "../Components/OurMission";
 import OurApproach from "../Components/OurApproach";
 import OurFounder from "../Components/OurFounder";
+import Leaders from "../Components/Leaders";
 
 const AboutUs = () => {
   usePageTitle("About Us");
@@ -39,6 +40,7 @@ const AboutUs = () => {
       <OurMission />
       <OurApproach />
       <OurFounder />
+      <Leaders />
     </main>
   );
 };

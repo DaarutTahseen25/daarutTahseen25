@@ -28,7 +28,7 @@ export default function OurMission() {
           {dataVisionMission.map(({ title, description, icon: Icon }, i) => (
             <div
               key={title}
-              className="relative bg-white rounded-xl border-l-8 border-[#009688] shadow-sm hover:shadow-md transition-shadow duration-200 px-7 py-8 flex flex-col items-start h-full"
+              className="relative bg-white rounded-xl border-l-8 border-[#009688]  px-7 py-8 flex flex-col items-start h-full"
             >
               <div className="absolute hidden md:flex -left-7 top-7  items-center justify-center w-12 h-12 rounded-full bg-[#009688]/90 shadow-md">
                 <Icon className="w-7 h-7 text-white" />

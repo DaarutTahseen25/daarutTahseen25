@@ -59,7 +59,7 @@ export default function OurApproach() {
           {approach.map(({ title, description, icon }, i) => (
             <div
               key={title}
-              className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-200 p-7 flex flex-col items-center text-center h-full border border-[#e0e0e0]"
+              className=" rounded-2xl border border-[#e0e0e0] flex flex-col items-center px-5 py-8 text-center"
             >
               <div className="flex items-center justify-center w-16 h-16 rounded-full bg-[#009688]/10 mb-5">
                 {icon &&
@@ -80,5 +80,3 @@ export default function OurApproach() {
     </section>
   );
 }
-
-// Approach component removed: now inlined in the map above
