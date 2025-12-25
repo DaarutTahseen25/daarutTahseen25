@@ -12,7 +12,7 @@ const Library = lazy(() => import("../pages/teacher/Library"));
 const Messages = lazy(() => import("../pages/teacher/Messages"));
 const Payments = lazy(() => import("../pages/teacher/Payments"));
 const Classes = lazy(() => import("../pages/teacher/Classes"));
-const Profile = lazy(() => import("../pages/student/Profile")); // shared
+const Profile = lazy(() => import("../pages/student/Profile")); 
 
 const LoaderFallback = () => (
   <div className="w-full h-screen flex justify-center items-center text-lg font-medium">
