@@ -4,6 +4,7 @@ import OurMission from "../Components/OurMission";
 import OurApproach from "../Components/OurApproach";
 import OurFounder from "../Components/OurFounder";
 import Leaders from "../Components/Leaders";
+import Donate from "../Components/Donate";
 
 const AboutUs = () => {
   usePageTitle("About Us");
@@ -41,6 +42,7 @@ const AboutUs = () => {
       <OurApproach />
       <OurFounder />
       <Leaders />
+      <Donate />
     </main>
   );
 };
