@@ -10,8 +10,9 @@ import AssignmentCard from "./AssigmentCard";
 import CreateAssignmentDialog from "../../Components/CreateAssignmentDialog";
 import { courseClasses, courses } from "../../constants/data";
 import { PlusCircleIcon, PlusIcon } from "lucide-react";
+import TeacherExamCard from "../../Components/TeacherExamCard";
 
-const Assignments = () => {
+const ExamPanel = () => {
   const [expandedClasses, setExpandedClasses] = useState([]);
   const [showDialog, setShowDialog] = useState(false);
 
@@ -32,7 +33,7 @@ const Assignments = () => {
       id: course.id,
       class: course.class,
       courseName: course.name,
-      assignments: course.assignments || [],
+      exams: course.exams || [],
       classCode: classDetails?.code,
       classBgColor: classDetails?.bgColor,
       classIconBg: classDetails?.iconBg,
@@ -51,7 +52,7 @@ const Assignments = () => {
           className="px-4 py-2 rounded-lg bg-dark-cyan text-white font-medium text-sm hover:opacity-90 transition-colors flex items-center gap-2"
         >
           <PlusIcon />
-          Create Assignment
+          Create Exam
         </button>
         <CreateAssignmentDialog
           open={showDialog}
@@ -105,20 +106,17 @@ const Assignments = () => {
               <AccordionContent className="p-0">
                 <div className="p-4 bg-white space-y-4">
                   <div>
-                    {classItem.assignments.length > 0 ? (
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {Object.values(classItem.assignments)
+                    {classItem.exams.length > 0 ? (
+                      <div className="">
+                        {Object.values(classItem.exams)
                           .flat()
-                          .map((assignment) => (
-                            <AssignmentCard
-                              key={assignment.id}
-                              {...assignment}
-                            />
+                          .map((exam) => (
+                            <TeacherExamCard key={exam.id} {...exam} />
                           ))}
                       </div>
                     ) : (
                       <div className="text-center text-gray-500 py-6">
-                        No assignments available for this class.
+                        No exams available for this class.
                       </div>
                     )}
                   </div>
@@ -132,4 +130,4 @@ const Assignments = () => {
   );
 };
 
-export default Assignments;
+export default ExamPanel;
