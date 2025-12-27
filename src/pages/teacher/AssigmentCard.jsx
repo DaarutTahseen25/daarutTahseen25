@@ -1,8 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { MoreVertical, Eye, Edit2, Lock, LockOpen } from "lucide-react";
 import ViewCreateModal from "./ViewCreateModal";
 
 const AssignmentCard = ({
+  id,
   title,
   date,
   time,
@@ -14,6 +16,12 @@ const AssignmentCard = ({
   submittedBy,
   isClosed,
 }) => {
+  console.log("dueDate type:", typeof dueDate, "value:", dueDate);
+  console.log("date type:", typeof date, "value:", date);
+  console.log("time type:", typeof time, "value:", time);
+  
+  
+  const navigate = useNavigate();
   const [isUploadOpen, setIsUploadOpen] = useState(false);
   const [closed, setClosed] = useState(isClosed || false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -43,7 +51,7 @@ const AssignmentCard = ({
 
   const handleToggleStatus = () => {
     setClosed(!closed);
-    // TODO: API call to update assignment status
+
     console.log(`Assignment ${closed ? "reopened" : "closed"}`);
   };
 
@@ -98,8 +106,8 @@ const AssignmentCard = ({
             <div className="absolute right-0 top-12 bg-white border border-gray-200 rounded-lg shadow-xl z-50 min-w-max">
               <button
                 onClick={() => {
-                  console.log("View assignment");
                   setMenuOpen(false);
+                  if (id) navigate(`/teacher/view-assignment/${id}`);
                 }}
                 className="flex items-center gap-2 w-full text-left px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors border-b border-gray-100"
               >

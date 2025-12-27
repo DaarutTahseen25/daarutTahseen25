@@ -8,7 +8,9 @@ const ResourcesPage = () => {
   usePageTitle("Resources");
   return (
     <main className="grid grid-rows-[auto_1fr_1fr_1fr_1fr_auto] h-screen">
-      <h1>Resources</h1>
+      <div className="w-[95%] sm:w-[90%] md:w-[85%] mx-auto py-10">
+        <h1>Resources</h1>
+      </div>
     </main>
   );
 };
