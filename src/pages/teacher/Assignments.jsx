@@ -7,17 +7,23 @@ import {
 } from "../../Components/ui/accordion";
 
 import AssignmentCard from "./AssigmentCard";
+import CreateAssignmentDialog from "../../Components/CreateAssignmentDialog";
 import { courseClasses, courses } from "../../constants/data";
+import { PlusCircleIcon, PlusIcon } from "lucide-react";
 
 const Assignments = () => {
   const [expandedClasses, setExpandedClasses] = useState([]);
+  const [showDialog, setShowDialog] = useState(false);
+
+  const handleCreateAssignment = () => {
+    // TODO: Add logic to create assignment (API call or state update)
+    // console.log("Assignment Created:", assignmentData);
+  };
 
   const classMap = new Map();
   courseClasses.forEach((cls) => {
     classMap.set(cls.name, cls);
   });
-
-  console.log(classMap);
 
   const classCourseArray = courses.map((course) => {
     const classDetails = classMap.get(course.class);
@@ -41,25 +47,17 @@ const Assignments = () => {
       {/* Create Assignment Button */}
       <div className="flex justify-end">
         <button
-          onClick={() => console.log("Create new assignment")}
+          onClick={() => setShowDialog(true)}
           className="px-4 py-2 rounded-lg bg-dark-cyan text-white font-medium text-sm hover:opacity-90 transition-colors flex items-center gap-2"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <line x1="12" y1="5" x2="12" y2="19"></line>
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-          </svg>
+          <PlusIcon />
           Create Assignment
         </button>
+        <CreateAssignmentDialog
+          open={showDialog}
+          onClose={() => setShowDialog(false)}
+          onCreate={handleCreateAssignment}
+        />
       </div>
 
       <Accordion
