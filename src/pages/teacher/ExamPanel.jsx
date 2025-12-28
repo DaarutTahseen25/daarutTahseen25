@@ -11,6 +11,7 @@ import CreateAssignmentDialog from "../../Components/CreateAssignmentDialog";
 import { courseClasses, courses } from "../../constants/data";
 import { PlusCircleIcon, PlusIcon } from "lucide-react";
 import TeacherExamCard from "../../Components/TeacherExamCard";
+import CreateExamDialog from "../../Components/CreateExamDialog";
 
 const ExamPanel = () => {
   const [expandedClasses, setExpandedClasses] = useState([]);
@@ -54,7 +55,7 @@ const ExamPanel = () => {
           <PlusIcon />
           Create Exam
         </button>
-        <CreateAssignmentDialog
+        <CreateExamDialog
           open={showDialog}
           onClose={() => setShowDialog(false)}
           onCreate={handleCreateAssignment}

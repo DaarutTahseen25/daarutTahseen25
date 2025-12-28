@@ -23,77 +23,84 @@ import {
   TableCell,
 } from "../../Components/ui/table";
 import Button from "../../Components/Button";
-
-const assignment = {
-  description:
-    "Submit your recitation and written responses for this week’s assignment. Follow the instructions below carefully before uploading",
-  courseTitle: "Qur'an Recitation & Tajwid",
-  topic: "Introduction to Tajwid",
-  deadline: "2024-07-15",
-  totalSubmissions: 5,
-  totalStudents: 20,
-  totalMarked: 4,
-  questions: [
-    "Recite Suratul Fātiḥah (from memory) and upload your audio.",
-    "Explain the rule of Idghām with Ghunnah and give two examples from the Qur’an.",
-    "What are the five major points of articulation (Makharij al-Ḥurūf)?",
-    "Define Ikhfāʼ and describe when it occurs.",
-  ],
-  instructions:
-    "Complete the following recitation and theory tasks. Record your audio where required and submit all answers before the due date.Accepted submission format: Audio (MP3, M4A and WAV), Written (PDF and DOCX). Submission Deadline: 18 July, 2024 ; 4:00 PM",
-  submissionType: "Audio and Written",
-  imageUrl: "/Islamic Aqeedah.png",
-};
-
+import CreateExamDialog from "../../Components/CreateExamDialog";
+import AddExamQuestionDialog from "../../Components/AddExamQuestionDialog";
 const questions = [
   {
     id: 1,
-    question: "Recite Suratul Fātiḥah (from memory) and upload your audio.",
-    options: [
-      {
-        id: 1,
-        text: "Option A",
-      },
-      {
-        id: 2,
-        text: "Option B",
-      },
-      {
-        id: 3,
-        text: "Option C",
-      },
-      {
-        id: 4,
-        text: "Option D",
-      },
-    ],
+    question: "Which of the following is NOT a rule of Tajwid?",
+    options: {
+      A: { id: 1, text: "Idghām" },
+      B: { id: 2, text: "Ikhfāʼ" },
+      C: { id: 3, text: "Iqlāb" },
+      D: { id: 4, text: "Isti'ādhah" },
+    },
   },
   {
     id: 2,
+    question: "What is the meaning of 'Makharij al-Ḥurūf'?",
+    options: {
+      A: { id: 1, text: "Rules of stopping" },
+      B: { id: 2, text: "Points of articulation of letters" },
+      C: { id: 3, text: "Rules of noon sākinah" },
+      D: { id: 4, text: "Types of elongation" },
+    },
+  },
+  {
+    id: 3,
+    question: "Which surah is recited in every unit of Salah?",
+    options: {
+      A: { id: 1, text: "Surah Al-Baqarah" },
+      B: { id: 2, text: "Surah Al-Fātiḥah" },
+      C: { id: 3, text: "Surah Al-Ikhlās" },
+      D: { id: 4, text: "Surah Al-Kawthar" },
+    },
+  },
+  {
+    id: 4,
     question:
-      "Explain the rule of Idghām with Ghunnah and give two examples from the Qur’an.",
-    options: [
-      {
-        id: 1,
-        text: "Option A",
-      },
-      {
-        id: 2,
-        text: "Option B",
-      },
-      {
-        id: 3,
-        text: "Option C",
-      },
-      {
-        id: 4,
-        text: "Option D",
-      },
-    ],
+      "Idghām with Ghunnah occurs when Noon Sakinah is followed by which letters?",
+    options: {
+      A: { id: 1, text: "ي، ن، م، و (Ya, Nun, Meem, Waw)" },
+      B: { id: 2, text: "ر، ل (Ra, Lam)" },
+      C: { id: 3, text: "ب (Ba)" },
+      D: { id: 4, text: "All letters" },
+    },
+  },
+  {
+    id: 5,
+    question: "What is the minimum number of verses in a surah?",
+    options: {
+      A: { id: 1, text: "1" },
+      B: { id: 2, text: "2" },
+      C: { id: 3, text: "3" },
+      D: { id: 4, text: "7" },
+    },
   },
 ];
 export default function ViewExam() {
   const [showDialog, setShowDialog] = useState(false);
+  const [editExamDialogOpen, setEditExamDialogOpen] = useState(false);
+  const [assignment, setAssignment] = useState({
+    description:
+      "Submit your recitation and written responses for this week’s assignment. Follow the instructions below carefully before uploading",
+    courseTitle: "Qur'an Recitation & Tajwid",
+    topic: "Introduction to Tajwid",
+    deadline: "2024-07-15",
+    totalSubmissions: 5,
+    totalStudents: 20,
+    totalMarked: 4,
+    instructions:
+      "Complete the following recitation and theory tasks. Record your audio where required and submit all answers before the due date.Accepted submission format: Audio (MP3, M4A and WAV), Written (PDF and DOCX). Submission Deadline: 18 July, 2024 ; 4:00 PM",
+    submissionType: "Audio and Written",
+    imageUrl: "/Islamic Aqeedah.png",
+    questions: [
+      "Recite Suratul Fātiḥah (from memory) and upload your audio.",
+      "Explain the rule of Idghām with Ghunnah and give two examples from the Qur’an.",
+      "What are the five major points of articulation (Makharij al-Ḥurūf)?",
+      "Define Ikhfāʼ and describe when it occurs.",
+    ],
+  });
   const [submissions, setSubmissions] = useState([
     {
       id: 1,
@@ -133,8 +140,6 @@ export default function ViewExam() {
     },
   ]);
 
-  //   let totalMarked = 0;
-  const marked = `${assignment.totalMarked}/${assignment.totalSubmissions}`;
   const submission = `${assignment.totalSubmissions}/${assignment.totalStudents}`;
   return (
     <main>
@@ -177,7 +182,25 @@ export default function ViewExam() {
         <h2 className="font-clash text-lg sm:text-xl font-medium mb-4 pb-5 border-b border-gray-200">
           Exam Overview
         </h2>
-        <ExamOverview assignment={assignment} />
+        <ExamOverview
+          assignment={assignment}
+          onEditClick={() => setEditExamDialogOpen(true)}
+        />
+        <CreateExamDialog
+          open={editExamDialogOpen}
+          onClose={() => setEditExamDialogOpen(false)}
+          onEdit={(data) => {
+            setAssignment((prev) => ({ ...prev, ...data }));
+            setEditExamDialogOpen(false);
+          }}
+          initialData={{
+            ...assignment,
+            numQuestions: assignment.questions?.length || 1,
+            questions: assignment.questions || [""],
+            deadline: assignment.deadline || "",
+          }}
+          isEdit={true}
+        />
       </div>
       <div className="mt-8">
         <h2 className="font-clash text-lg sm:text-xl font-medium mb-4 pb-5 border-b border-gray-200">
@@ -226,7 +249,7 @@ function StatCard({
   );
 }
 
-function ExamOverview({ assignment }) {
+function ExamOverview({ assignment, onEditClick }) {
   return (
     <div className="bg-white rounded-[15px] w-full p-3 sm:p-4 md:p-6 border border-gray-200">
       <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4 mb-4 border border-gray-200 rounded-[15px] p-3 sm:p-4">
@@ -306,7 +329,10 @@ function ExamOverview({ assignment }) {
             ))}
         </ul>
       </div>
-      <Button className="mt-4 w-full text-xs sm:text-sm md:text-base">
+      <Button
+        className="mt-4 w-full text-xs sm:text-sm md:text-base"
+        onClick={onEditClick}
+      >
         Edit Exam Overview
       </Button>
     </div>
@@ -314,40 +340,137 @@ function ExamOverview({ assignment }) {
 }
 
 function Questions() {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editData, setEditData] = useState(null);
+  const [isEdit, setIsEdit] = useState(false);
+  const [localQuestions, setLocalQuestions] = useState(
+    questions.map((q) => ({ ...q, correct: q.correct || null }))
+  );
+
+  const handleDelete = (id) => {
+    setLocalQuestions((prev) => prev.filter((q) => q.id !== id));
+  };
+
+  const handleEdit = (question) => {
+    const optionTexts = Object.fromEntries(
+      Object.entries(question.options).map(([k, v]) => [k, v.text])
+    );
+    setEditData({
+      ...question,
+      options: optionTexts,
+    });
+    setIsEdit(true);
+    setModalOpen(true);
+  };
+
+  const handleSave = (data) => {
+    // data.correct is the key (A/B/C/D)
+    const newOptions = {
+      A: { id: 1, text: data.options.A },
+      B: { id: 2, text: data.options.B },
+      C: { id: 3, text: data.options.C },
+      D: { id: 4, text: data.options.D },
+    };
+    if (isEdit && editData) {
+      setLocalQuestions((prev) =>
+        prev.map((q) =>
+          q.id === editData.id
+            ? {
+                ...q,
+                question: data.question,
+                options: newOptions,
+                correct: data.correct,
+              }
+            : q
+        )
+      );
+    } else {
+      setLocalQuestions((prev) => [
+        ...prev,
+        {
+          id: prev.length ? prev[prev.length - 1].id + 1 : 1,
+          question: data.question,
+          options: newOptions,
+          correct: data.correct,
+        },
+      ]);
+    }
+    setIsEdit(false);
+    setEditData(null);
+  };
+
   return (
     <div className="bg-white rounded-[15px] w-full p-4 sm:p-6 border border-gray-200">
-      {questions.map((question) => (
+      {localQuestions.map((question) => (
         <div key={question.id} className="mb-6">
           <div className="flex items-center justify-between pb-3 border-b border-gray-200 mb-4">
-            <h2 className="font-montserrat text-[20px] font-bold ">
+            <h2 className="font-clash font-medium text-base sm:text-lg md:text-xl lg:text-2xl text-accent break-words">
               Question {question.id}
             </h2>
             <div className="flex items-center gap-4">
-              <Edit size={18} className="cursor-pointer text-primary" />
-              <Trash size={18} className="cursor-pointer text-red-600" />
+              <Edit
+                size={18}
+                className="cursor-pointer text-primary"
+                onClick={() => handleEdit(question)}
+              />
+              <Trash
+                size={18}
+                className="cursor-pointer text-red-600"
+                onClick={() => handleDelete(question.id)}
+              />
             </div>
           </div>
-          <p className="mb-4 font-montserrat text-[20px] font-normal">
+          <p className="mb-4 font-montserrat font-normal text-sm sm:text-base md:text-lg lg:text-xl break-words">
             {question.question}
           </p>
-          {question?.options?.map((opt) => (
-            <label
-              key={opt.id}
-              className="flex items-center gap-2 cursor-pointer"
-            >
-              <input
-                type="radio"
-                name={`question-${question.id}`}
-                value={opt.id}
-                className="accent-black cursor-pointer disabled:cursor-not-allowed"
-              />
-              <span className="font-montserrat font-normal text-sm sm:text-base md:text-lg">
-                {opt.text}
-              </span>
-            </label>
-          ))}
+          {question?.options &&
+            Object.entries(question.options).map(([key, opt]) => (
+              <label
+                key={opt.id}
+                className={`flex items-center gap-2 cursor-pointer w-full ${
+                  question.correct === key ? "font-bold text-green-700" : ""
+                }`}
+              >
+                <input
+                  type="radio"
+                  name={`question-${question.id}`}
+                  value={opt.id}
+                  className="accent-black cursor-pointer disabled:cursor-not-allowed"
+                  checked={question.correct === key}
+                  readOnly
+                  disabled
+                />
+                <span className="font-montserrat font-normal text-xs sm:text-sm md:text-base lg:text-lg break-words">
+                  {key}. {opt.text}
+                  {question.correct === key && (
+                    <span className="ml-2 text-green-700">✔</span>
+                  )}
+                </span>
+              </label>
+            ))}
         </div>
       ))}
+      <Button
+        className="mt-4 text-xs sm:text-sm md:text-base lg:text-lg"
+        onClick={() => {
+          setEditData(null);
+          setIsEdit(false);
+          setModalOpen(true);
+        }}
+      >
+        Add Question
+      </Button>
+      <AddExamQuestionDialog
+        modalOpen={modalOpen}
+        onClose={() => {
+          setModalOpen(false);
+          setEditData(null);
+          setIsEdit(false);
+        }}
+        initialData={editData}
+        isEdit={isEdit}
+        onSave={handleSave}
+      />
     </div>
   );
 }
