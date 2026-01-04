@@ -24,8 +24,6 @@ const StudentExamCard = ({
   const [isInstructionsOpen, setIsInstructionsOpen] = useState(false);
   const [isResultOpen, setIsResultOpen] = useState(false);
 
-  const isDisabled = status !== "start";
-
   const statusText = {
     submitted: "Submitted",
     missed: "Missed",
