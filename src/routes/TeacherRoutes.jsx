@@ -14,6 +14,7 @@ const Payments = lazy(() => import("../pages/teacher/Payments"));
 const Classes = lazy(() => import("../pages/teacher/Classes"));
 const Profile = lazy(() => import("../pages/student/Profile"));
 const ViewAssignment = lazy(() => import("../pages/teacher/ViewAssignment"));
+const ViewExam = lazy(() => import("../pages/teacher/ViewExam"));
 
 const LoaderFallback = () => (
   <div className="w-full h-screen flex justify-center items-center text-lg font-medium">
@@ -35,7 +36,8 @@ export default function TeacherRoutes() {
           <Route path="messages" element={<Messages />} />
           <Route path="my-classes" element={<Classes />} />
           <Route path="profile" element={<Profile />} />
-          <Route path="view-assignment/:id" element={<ViewAssignment />} />
+          <Route path="assignment/:id" element={<ViewAssignment />} />
+          <Route path="exam/:id" element={<ViewExam />} />
 
           <Route path="*" element={<Navigate to="/teacher" replace />} />
         </Route>
