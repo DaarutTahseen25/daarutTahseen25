@@ -2,7 +2,7 @@ import { useMemo, useCallback, useState } from "react";
 import { Filter, RefreshCcw } from "lucide-react";
 
 // import StudentAssignments from "../../Components/StudentAssignments";
-import StudentExams from "../../Components/StudentExams";
+import TeacherExams from "../../Components/TeacherExams";
 import DashTitle from "../../Components/DashTitle";
 import { usePageTitle } from "../../hooks/usePageTitle";
 
@@ -12,6 +12,7 @@ import ClassCompo from "./ClassCompo";
 import TotalStudents from "./TotalStudents";
 import UploadResources from "./UploadResources";
 import Assignments from "./Assignments";
+import ExamPanel from "./ExamPanel";
 
 export default function MyClasses() {
   usePageTitle("My Classes");
@@ -157,7 +158,7 @@ export default function MyClasses() {
       {/* Exam Tab */}
       {activeTab === "Exam" && examList.length > 0 && (
         <div className="w-full overflow-x-hidden mt-6">
-          <StudentExams exams={examList} />
+          <ExamPanel />
         </div>
       )}
     </div>

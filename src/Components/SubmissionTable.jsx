@@ -11,7 +11,12 @@ import { UserRound, FileAudio, FileText } from "lucide-react";
 import ScoreDialog from "./ScoreDialog";
 import { useState } from "react";
 
-export default function SubmissionTable({ submissions, setSubmissions }) {
+// forType: 'assignment' | 'exam'
+export default function SubmissionTable({
+  submissions,
+  setSubmissions,
+  forType = "assignment",
+}) {
   const [showDialog, setShowDialog] = useState(false);
   const [selectedSubmission, setSelectedSubmission] = useState(null);
   // Pagination state
@@ -27,76 +32,138 @@ export default function SubmissionTable({ submissions, setSubmissions }) {
       <Table>
         <TableHeader>
           <TableRow className="bg-gray-50">
-            <TableHead className="hidden sm:table-cell">
-              <p className="font-montserrat font-bold text-[15px]">S/N</p>
+            <TableHead className="hidden md:table-cell">
+              <p className="font-clash font-bold text-[15px]">S/N</p>
             </TableHead>
             <TableHead className="w-full md:w-auto">
-              <p className="font-montserrat font-bold text-[15px]">
-                Student Name
-              </p>
+              <p className="font-clash font-bold text-[15px]">Student Name</p>
             </TableHead>
-            <TableHead className="hidden md:table-cell">
-              <p className="font-montserrat font-bold text-[15px]">Date</p>
-            </TableHead>
-            <TableHead className="hidden md:table-cell">
-              <p className="font-montserrat font-bold text-[15px]">
-                Submitted Files
-              </p>
-            </TableHead>
-            <TableHead className="hidden md:table-cell">
-              <p className="font-montserrat font-bold text-[15px]">Score</p>
-            </TableHead>
-            <TableHead className="">
-              <p className="font-montserrat font-bold text-[15px]">Action</p>
-            </TableHead>
+            {forType === "exam" && (
+              <TableHead className="hidden sm:table-cell">
+                <p className="font-clash font-bold text-[15px]">
+                  Assignment Avg.
+                </p>
+              </TableHead>
+            )}
+            {forType === "exam" && (
+              <TableHead className="">
+                <p className="font-clash font-bold text-[15px]">Exam Score</p>
+              </TableHead>
+            )}
+            {forType === "exam" && (
+              <TableHead className="hidden sm:table-cell">
+                <p className="font-clash font-bold text-[15px]">
+                  Overall Score
+                </p>
+              </TableHead>
+            )}
+            {forType === "exam" && (
+              <TableHead className="hidden sm:table-cell">
+                <p className="font-clash font-bold text-[15px]">Grade</p>
+              </TableHead>
+            )}
+            {forType === "assignment" && (
+              <>
+                <TableHead className="hidden md:table-cell">
+                  <p className="font-clash font-bold text-[15px]">Date</p>
+                </TableHead>
+                <TableHead className="hidden md:table-cell">
+                  <p className="font-clash font-bold text-[15px]">
+                    Submitted Files
+                  </p>
+                </TableHead>
+                <TableHead className="hidden md:table-cell">
+                  <p className="font-clash font-bold text-[15px]">Score</p>
+                </TableHead>
+              </>
+            )}
+            {forType === "assignment" && (
+              <TableHead className="">
+                <p className="font-clash font-bold text-[15px]">Action</p>
+              </TableHead>
+            )}
           </TableRow>
         </TableHeader>
         <TableBody>
           {paginatedSubmissions.map((s, idx) => (
             <TableRow key={s.id}>
-              <TableCell className="hidden sm:table-cell">
+              <TableCell className="hidden md:table-cell">
                 {skip + idx + 1}
               </TableCell>
               <TableCell>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 font-montserrat">
                   <img
                     src={s.avatar}
                     alt={s.name}
-                    className="w-8 h-8 rounded-full object-cover border"
+                    className="w-8 h-8 rounded-full object-cover border hidden sm:block"
                   />
                   <span>{s.name}</span>
                 </div>
               </TableCell>
-              <TableCell className="hidden md:table-cell">{s.date}</TableCell>
-              <TableCell className="hidden md:table-cell">
-                <div className="flex flex-wrap gap-2 items-center">
-                  {s.files.map((file, i) => (
-                    <span
-                      key={i}
-                      className="flex items-center gap-1 bg-gray-100 px-2 py-1 rounded text-xs"
+              {forType === "exam" && (
+                <>
+                  <TableCell className="hidden sm:table-cell">
+                    {s.assignmentAvg ?? "-"}
+                  </TableCell>
+                  <TableCell className="text-center md:text-left">
+                    {s.examScore ?? "-"}
+                  </TableCell>
+                  <TableCell className="hidden sm:table-cell">
+                    <div
+                      className={` flex items-center justify-center font-bold text-center w-14 h-7 rounded-md ${
+                        s.overallScore <= 44
+                          ? "bg-red-500/24 text-red-500"
+                          : "bg-primary/24 text-primary "
+                      }`}
                     >
-                      {file.type === "audio" ? (
-                        <FileAudio className="w-4 h-4 text-blue-500" />
-                      ) : (
-                        <FileText className="w-4 h-4 text-red-500" />
-                      )}
-                      {file.name}
-                    </span>
-                  ))}
-                </div>
-              </TableCell>
-              <TableCell className="hidden md:table-cell">{s.score}</TableCell>
-              <TableCell className="">
-                <button
-                  className="px-4 py-2 bg-primary cursor-pointer text-white rounded hover:bg-accent-dark transition"
-                  onClick={() => {
-                    setSelectedSubmission(s);
-                    setShowDialog(true);
-                  }}
-                >
-                  Score
-                </button>
-              </TableCell>
+                      {s.overallScore ?? "-"}
+                    </div>
+                  </TableCell>
+                  <TableCell className="hidden sm:table-cell">
+                    {s.grade ?? "-"}
+                  </TableCell>
+                </>
+              )}
+              {forType === "assignment" && (
+                <>
+                  <TableCell className="hidden md:table-cell">
+                    {s.date}
+                  </TableCell>
+                  <TableCell className="hidden md:table-cell">
+                    <div className="flex flex-wrap gap-2 items-center">
+                      {s.files.map((file, i) => (
+                        <span
+                          key={i}
+                          className="flex items-center gap-1 bg-gray-100 px-2 py-1 rounded text-xs"
+                        >
+                          {file.type === "audio" ? (
+                            <FileAudio className="w-4 h-4 text-blue-500" />
+                          ) : (
+                            <FileText className="w-4 h-4 text-red-500" />
+                          )}
+                          {file.name}
+                        </span>
+                      ))}
+                    </div>
+                  </TableCell>
+                  <TableCell className="hidden md:table-cell">
+                    {s.score}
+                  </TableCell>
+                </>
+              )}
+              {forType === "assignment" && (
+                <TableCell className="">
+                  <button
+                    className="px-4 py-2 bg-primary cursor-pointer text-white rounded hover:bg-accent-dark transition"
+                    onClick={() => {
+                      setSelectedSubmission(s);
+                      setShowDialog(true);
+                    }}
+                  >
+                    Score
+                  </button>
+                </TableCell>
+              )}
             </TableRow>
           ))}
         </TableBody>
@@ -118,6 +185,3 @@ export default function SubmissionTable({ submissions, setSubmissions }) {
     </div>
   );
 }
-
-// To use the mock data for testing, you can render:
-// <SubmissionTable submissions={mockSubmissions} setSubmissions={() => {}} />
