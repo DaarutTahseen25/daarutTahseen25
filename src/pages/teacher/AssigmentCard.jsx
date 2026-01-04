@@ -16,11 +16,6 @@ const AssignmentCard = ({
   submittedBy,
   isClosed,
 }) => {
-  console.log("dueDate type:", typeof dueDate, "value:", dueDate);
-  console.log("date type:", typeof date, "value:", date);
-  console.log("time type:", typeof time, "value:", time);
-  
-  
   const navigate = useNavigate();
   const [isUploadOpen, setIsUploadOpen] = useState(false);
   const [closed, setClosed] = useState(isClosed || false);
@@ -107,7 +102,7 @@ const AssignmentCard = ({
               <button
                 onClick={() => {
                   setMenuOpen(false);
-                  if (id) navigate(`/teacher/view-assignment/${id}`);
+                  if (id) navigate(`/teacher/assignment/${id}`);
                 }}
                 className="flex items-center gap-2 w-full text-left px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors border-b border-gray-100"
               >

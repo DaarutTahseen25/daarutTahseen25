@@ -85,7 +85,7 @@ const Assignments = () => {
                       {classItem.classCode}
                     </div>
                     <div>
-                      <h2 className="font-semibold text-lg text-textmain truncate">
+                      <h2 className="font-semibold text-lg text-textmain truncate max-w-[60vw] sm:max-w-xs">
                         {classItem.class}: {classItem.courseName}
                       </h2>
                       <p className="text-sm text-left text-textmuted">
